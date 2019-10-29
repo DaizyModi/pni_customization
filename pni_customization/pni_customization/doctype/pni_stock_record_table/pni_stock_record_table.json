@@ -1,0 +1,42 @@
+{
+ "creation": "2019-10-29 15:36:10.565847",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "length",
+  "uom",
+  "qty"
+ ],
+ "fields": [
+  {
+   "fieldname": "length",
+   "fieldtype": "Data",
+   "label": "Length"
+  },
+  {
+   "default": "Meter",
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM"
+  },
+  {
+   "default": "1",
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "label": "Qty"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-10-29 15:36:10.565847",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "PNI Stock Record Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

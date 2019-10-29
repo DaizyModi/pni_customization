@@ -1,0 +1,53 @@
+{
+ "creation": "2019-10-29 15:31:30.710626",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item",
+  "section_break_2",
+  "stock_record"
+ ],
+ "fields": [
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "stock_record",
+   "fieldtype": "Table",
+   "label": "Stock Record",
+   "options": "PNI Stock Record Table"
+  }
+ ],
+ "modified": "2019-10-29 15:36:44.611727",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Partial Inventory Tracking",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "item",
+ "track_changes": 1
+}
