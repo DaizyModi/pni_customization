@@ -12,12 +12,14 @@
   {
    "fieldname": "length",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Length"
   },
   {
    "default": "Meter",
    "fieldname": "uom",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "UOM",
    "options": "UOM"
   },
@@ -25,11 +27,12 @@
    "default": "1",
    "fieldname": "qty",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Qty"
   }
  ],
  "istable": 1,
- "modified": "2019-10-29 15:36:10.565847",
+ "modified": "2019-10-29 15:41:26.695385",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Stock Record Table",
