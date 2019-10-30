@@ -31,6 +31,8 @@ app_license = "MIT"
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
+doctype_js = {"Sales Order" : "public/js/item_add.js"}
+
 # Home Pages
 # ----------
 
@@ -73,6 +75,10 @@ app_license = "MIT"
 #
 # has_permission = {
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",
+# }
+
+# permission_query_conditions = {
+# 	"Opportunity": "pni_customization.utils.get_permission_query_conditions_for_opportunity",
 # }
 
 # Document Events
