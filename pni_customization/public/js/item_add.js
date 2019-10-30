@@ -22,7 +22,7 @@ cur_frm.cscript.add_item_dialog = function(frm) {
 				frappe.call({
 					method: "pni_customization.utils.get_item_data",
 					args: { 
-						item: values.item
+						item: values.item_varient
 					},
 					callback: (response) => {
 						var data;
