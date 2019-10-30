@@ -32,7 +32,6 @@ cur_frm.cscript.add_item_dialog = function(frm) {
 							debugger;
 							data.push({'fieldname': response.message.attribute[attr].attribute, 'fieldtype': 'Data', 'label': response.message.attribute[attr].attribute})
 						}
-						debugger;
 						frappe.prompt(
 							data,
 							function(values){

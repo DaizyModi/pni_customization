@@ -19,5 +19,6 @@ def get_permission_query_conditions_for_opportunity(user):
 
 @frappe.whitelist()
 def get_item_data(item):
+	#return item data
 	item_doc = frappe.get_doc("Item", item)
 	return {"message":"hello world", "item":item, "attribute":item_doc.attributes}
