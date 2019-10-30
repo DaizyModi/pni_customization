@@ -1,0 +1,54 @@
+{
+ "creation": "2019-10-30 16:37:12.693807",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_group",
+  "item",
+  "reel_tracking_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "reel_tracking_details",
+   "fieldtype": "Table",
+   "label": "Reel Tracking Details",
+   "options": "Reel Tracking Details"
+  }
+ ],
+ "modified": "2019-10-30 16:43:32.744659",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Reel Tracking",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

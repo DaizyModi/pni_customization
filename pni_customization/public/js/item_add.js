@@ -8,7 +8,21 @@ cur_frm.cscript.add_item_dialog = function(frm) {
 	cur_frm.add_custom_button(__("Add Item by Attribute"), function() {
 		frappe.prompt(
 			[
-				{'fieldname': 'item', 'fieldtype': 'Link', 'options': 'Item', 'label': 'Item'},
+				{'fieldname': 'item_varient', 'fieldtype': 'Link', 'options': 'Item', 'label': 'Item',
+					get_query: () => {
+						const filter_workstation = frm.doc.operations.filter(d => {
+							if (d.status != "Completed") {
+								return d;
+							}
+						});
+		
+						return {
+							filters: {
+								name: ["in", (filter_workstation || []).map(d => d.operation)]
+							}
+						};
+					},
+				},
 			],
 			function(values){
 				frappe.call({
@@ -17,10 +31,8 @@ cur_frm.cscript.add_item_dialog = function(frm) {
 						item: values.item
 					},
 					callback: (response) => {
-						console.log(response.message);
 						var data;
 						data = [{'fieldname': 'item', 'fieldtype': 'Link', 'options': 'Item', 'label': 'Item', 'default': response.message.item , 'read_only':1 }]
-						debugger;
 						var attr;
 						for( attr in response.message.attribute ){
 							debugger;

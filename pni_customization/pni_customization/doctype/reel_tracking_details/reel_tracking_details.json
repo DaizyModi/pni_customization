@@ -1,0 +1,39 @@
+{
+ "creation": "2019-10-30 16:39:43.470482",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "serial_number",
+  "net_weight_kg",
+  "gross_weight_kg"
+ ],
+ "fields": [
+  {
+   "fieldname": "serial_number",
+   "fieldtype": "Data",
+   "label": "Serial Number"
+  },
+  {
+   "fieldname": "net_weight_kg",
+   "fieldtype": "Float",
+   "label": "Net Weight (Kg)"
+  },
+  {
+   "fieldname": "gross_weight_kg",
+   "fieldtype": "Data",
+   "label": "Gross Weight (Kg)"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-10-30 16:39:43.470482",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Reel Tracking Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
