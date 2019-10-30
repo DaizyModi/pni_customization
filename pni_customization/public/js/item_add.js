@@ -9,16 +9,10 @@ cur_frm.cscript.add_item_dialog = function(frm) {
 		frappe.prompt(
 			[
 				{'fieldname': 'item_varient', 'fieldtype': 'Link', 'options': 'Item', 'label': 'Item',
-					get_query: () => {
-						const filter_workstation = frm.doc.operations.filter(d => {
-							if (d.status != "Completed") {
-								return d;
-							}
-						});
-		
+					get_query: () => {		
 						return {
 							filters: {
-								name: ["in", (filter_workstation || []).map(d => d.operation)]
+								has_variants: true
 							}
 						};
 					},
