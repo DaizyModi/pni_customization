@@ -22,3 +22,9 @@ def get_item_data(item):
 	#return item data
 	item_doc = frappe.get_doc("Item", item)
 	return {"message":"hello world", "item":item, "attribute":item_doc.attributes}
+
+@frappe.whitelist()
+def get_item(values):
+	for value in values:
+		print(value)
+	return "Hello"

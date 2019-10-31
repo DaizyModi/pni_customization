@@ -8,7 +8,11 @@ cur_frm.cscript.add_item_dialog = function(frm) {
 	cur_frm.add_custom_button(__("Add Item by Attribute"), function() {
 		frappe.prompt(
 			[
-				{'fieldname': 'item_varient', 'fieldtype': 'Link', 'options': 'Item', 'label': 'Item',
+				{
+					'fieldname': 'item_varient', 
+					'fieldtype': 'Link', 
+					'options': 'Item', 
+					'label': 'Item',
 					get_query: () => {		
 						return {
 							filters: {
@@ -26,16 +30,37 @@ cur_frm.cscript.add_item_dialog = function(frm) {
 					},
 					callback: (response) => {
 						var data;
-						data = [{'fieldname': 'item', 'fieldtype': 'Link', 'options': 'Item', 'label': 'Item', 'default': response.message.item , 'read_only':1 }]
+						data = [
+							{
+								'fieldname': 'item', 
+								'fieldtype': 'Link', 
+								'options': 'Item', 
+								'label': 'Item', 
+								'default': response.message.item , 
+								'read_only':1 
+							}
+						]
 						var attr;
 						for( attr in response.message.attribute ){
-							debugger;
-							data.push({'fieldname': response.message.attribute[attr].attribute, 'fieldtype': 'Data', 'label': response.message.attribute[attr].attribute})
+							data.push(
+								{
+									'fieldname': response.message.attribute[attr].attribute, 
+									'fieldtype': 'Data', 
+									'label': response.message.attribute[attr].attribute
+								}
+							)
 						}
 						frappe.prompt(
 							data,
 							function(values){
-								show_alert(values.color, 5);
+								frappe.call({
+									method: "pni_customization.utils.get_item",
+									args: { 
+										values: values
+									},
+									callback: (response) => {
+									}
+								})
 							},
 							'Item Varient Selection',
 							'Add Item'
