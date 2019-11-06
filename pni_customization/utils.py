@@ -40,12 +40,9 @@ def get_item_data(item):
 	}
 
 @frappe.whitelist()
-def get_item(values):
+def get_item(item, values):
 	attributes = json.loads(values)
-	for attribute in attributes:
-		print(attribute)
-		print(attributes[attribute])
-	items = frappe.get_all("Item",{"variant_of":"Test A"})
+	items = frappe.get_all("Item",{"variant_of":item})
 	for item in items:
 		is_varient = True
 		item_doc = frappe.get_doc("Item", item)
