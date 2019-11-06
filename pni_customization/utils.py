@@ -1,14 +1,14 @@
 import frappe, json
 
 def get_permission_query_conditions_for_opportunity(user):
-    	if "System Manager" in frappe.get_roles(user):
-    		return None
-    	elif "Sales User" in frappe.get_roles(user):
-    		return """
-			(tabOpportunity.owner = '{user}' ) 
-			or 
-			(tabOpportunity._assign like '%{user}%')
-			""".format(user=user)
+	if "System Manager" in frappe.get_roles(user):
+		return None
+	elif "Sales User" in frappe.get_roles(user):
+		return """
+		(tabOpportunity.owner = '{user}' ) 
+		or 
+		(tabOpportunity._assign like '%{user}%')
+		""".format(user=user)
 
 @frappe.whitelist()
 def get_item_data(item):
