@@ -1,28 +1,46 @@
 frappe.ui.form.on('Sales Order', {
 	refresh: function(frm) {
-		cur_frm.cscript.add_item_dialog("Sales Order Item")	
+		cur_frm.cscript.add_item_dialog("Sales Order Item", "items")	
 	}
 });
 
 frappe.ui.form.on('Sales Invoice', {
 	refresh: function(frm) {
-		cur_frm.cscript.add_item_dialog("Sales Invoice Item")	
+		cur_frm.cscript.add_item_dialog("Sales Invoice Item", "items")	
 	}
 });
 
 frappe.ui.form.on('Purchase Order', {
 	refresh: function(frm) {
-		cur_frm.cscript.add_item_dialog("Purchase Order Item")	
+		cur_frm.cscript.add_item_dialog("Purchase Order Item", "items")	
 	}
 });
 
 frappe.ui.form.on('Purchase Invoice', {
 	refresh: function(frm) {
-		cur_frm.cscript.add_item_dialog("Purchase Invoice Item")	
+		cur_frm.cscript.add_item_dialog("Purchase Invoice Item", "items")	
 	}
 });
 
-cur_frm.cscript.add_item_dialog = function(item_table) {
+frappe.ui.form.on('Work Order', {
+	refresh: function(frm) {
+		cur_frm.cscript.add_item_dialog("Work Order Item", "required_items")	
+	}
+});
+
+frappe.ui.form.on('BOM', {
+	refresh: function(frm) {
+		cur_frm.cscript.add_item_dialog("BOM Item", "items")	
+	}
+});
+
+frappe.ui.form.on('Process Order', {
+	refresh: function(frm) {
+		cur_frm.cscript.add_item_dialog("Process Order Item", "materials")	
+	}
+});
+
+cur_frm.cscript.add_item_dialog = function(item_table_doctype, item_table_fieldname) {
 	cur_frm.add_custom_button(__("Add Item by Attribute"), function() {
 		prompt_for_item_template("items", "Item Varient Selection", true, function (values) {
 			get_attribute_values("items", "Add Attribute Values", values, function(values, item){
@@ -35,7 +53,7 @@ cur_frm.cscript.add_item_dialog = function(item_table) {
 						},
 						callback: (response) => {
 							show_alert('This Item Found ' + response.message.name, 5);
-							var d = frappe.model.add_child(cur_frm.doc, item_table, "items");
+							var d = frappe.model.add_child(cur_frm.doc, item_table_doctype, item_table_fieldname);
 							d.item_code = response.message.name;
 							d.qty = 1;
 							d.delivery_date = cur_frm.doc.delivery_date;
@@ -43,7 +61,7 @@ cur_frm.cscript.add_item_dialog = function(item_table) {
 							d.description = response.message.description;
 							d.uom = response.message.stock_uom;
 							debugger;
-							refresh_field("items");
+							refresh_field(item_table_fieldname);
 						}
 					})
 				})

@@ -35,7 +35,10 @@ doctype_js = {
 	"Sales Order" : "public/js/item_add.js",
 	"Sales Invoice" : "public/js/item_add.js",
 	"Purchase Order" : "public/js/item_add.js",
-	"Purchase Invoice" : "public/js/item_add.js"
+	"Purchase Invoice" : "public/js/item_add.js",
+	"Work Order" : "public/js/item_add.js",
+	"BOM" : "public/js/item_add.js",
+	"Process Order" : "public/js/item_add.js"
 }
 
 # Home Pages
