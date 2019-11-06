@@ -47,7 +47,7 @@ def get_item(item, values):
 		is_varient = True
 		item_doc = frappe.get_doc("Item", item)
 		for varient_attribute in item_doc.attributes:
-			if unicode(varient_attribute.attribute_value) != unicode(attributes[varient_attribute.attribute]):
+			if str(varient_attribute.attribute_value) != str(attributes[varient_attribute.attribute]):
 				is_varient = False
 		if is_varient == True:
 			return item_doc
