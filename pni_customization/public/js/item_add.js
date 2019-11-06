@@ -16,11 +16,15 @@ cur_frm.cscript.add_item_dialog = function(frm) {
 							item: item
 						},
 						callback: (response) => {
-							show_alert('This Item Found ' + response.message, 5);
+							show_alert('This Item Found ' + response.message.name, 5);
 							var d = frappe.model.add_child(cur_frm.doc, "Sales Order Item", "items");
-							d.item_code = response.message;
+							d.item_code = response.message.name;
 							d.qty = 1;
-							frappe.model.set_value(d.doctype, d.idx, "item_code", response.message);
+							d.delivery_date = cur_frm.doc.delivery_date;
+							d.item_name = response.message.item_name;
+							d.description = response.message.description;
+							d.uom = response.message.stock_uom;
+							debugger;
 							refresh_field("items");
 						}
 					})

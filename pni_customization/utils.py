@@ -53,5 +53,5 @@ def get_item(values):
 			if unicode(varient_attribute.attribute_value) != unicode(attributes[varient_attribute.attribute]):
 				is_varient = False
 		if is_varient == True:
-			return item_doc.name
+			return item_doc
 	return frappe.throw("Item Not Found")
