@@ -7,15 +7,8 @@ def get_permission_query_conditions_for_opportunity(user):
     		return """
 			(tabOpportunity.owner = '{user}' ) 
 			or 
-			(
-				tabOpportunity.name in 
-					(
-						select tabOpportunity.name 
-							from tabOpportunity 
-								where 			
-									tabOpportunity._assign = '["{user}"]'
-					)
-			)""".format(user=frappe.db.escape(user))
+			(tabOpportunity._assign like '%{user}%')
+			""".format(user=user)
 
 @frappe.whitelist()
 def get_item_data(item):

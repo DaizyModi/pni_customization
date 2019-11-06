@@ -85,9 +85,9 @@ doctype_js = {
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",
 # }
 
-# permission_query_conditions = {
-# 	"Opportunity": "pni_customization.utils.get_permission_query_conditions_for_opportunity",
-# }
+permission_query_conditions = {
+	"Opportunity": "pni_customization.utils.get_permission_query_conditions_for_opportunity",
+}
 
 # Document Events
 # ---------------
