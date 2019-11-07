@@ -1,6 +1,47 @@
 frappe.ui.form.on('Sales Order', {
 	refresh: function(frm) {
-		cur_frm.cscript.add_item_dialog("Sales Order Item", "items")	
+		cur_frm.cscript.add_item_dialog("Sales Order Item", "items");
+		// var df1 = frappe.meta.get_docfield("Sales Order Item","qty_in_carton", cur_frm.doc.name);
+		// df1.read_only = 1;	
+		// refresh_field("items");
+	}
+});
+
+frappe.ui.form.on('Sales Order Item', {
+	item_code: function(frm, cdt, cdn) {
+		// var row = locals[cdt][cdn]
+		// var df1 = frappe.meta.get_docfield("Sales Order Item","qty_in_carton", cdn);
+		// if(row.item_group == "Paper Cups"){
+		// 	df1.read_only = 0;
+		// }else {
+		// 	df1.read_only = 1;
+		// }
+		// debugger;
+		// refresh_field("items");
+		// debugger;
+		// grid_row = frm.get_field("qty_in_carton").grid.get_row(cdn); 
+		// grid_row.toggle_editable("qty_in_carton", false);
+	},
+	qty_in_carton: function(frm, cdt, cdn) {
+		var row = locals[cdt][cdn]
+		frappe.call({
+			method: 'frappe.client.get_value',
+			args: {
+				'doctype': 'UOM Conversion Detail',
+				'fieldname': ["conversion_factor"],
+				'parent': 'Item',
+			filters: {
+				parent: row.item_code,
+				uom: 'Carton'
+				}
+			},
+			async: false,
+			callback: function(r) {
+				if(r.message.conversion_factor > 0){
+					frappe.model.set_value(cdt, cdn, "qty", parseFloat(r.message.conversion_factor) * parseFloat(row.qty_in_carton))
+				}
+			}
+		});
 	}
 });
 
