@@ -37,7 +37,7 @@ frappe.ui.form.on('Sales Order Item', {
 			},
 			async: false,
 			callback: function(r) {
-				if(r.message.conversion_factor > 0){
+				if(r.message && r.message.conversion_factor > 0){
 					frappe.model.set_value(cdt, cdn, "qty", parseFloat(r.message.conversion_factor) * parseFloat(row.qty_in_carton))
 				}
 			}
