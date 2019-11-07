@@ -13,7 +13,7 @@ app_license = "MIT"
 
 # Includes in <head>
 # ------------------
-
+fixtures = [{"dt":"Custom Field", "filters": [["fieldname", "in", ("qty_in_carton")]]}]
 # include js, css files in header of desk.html
 # app_include_css = "/assets/pni_customization/css/pni_customization.css"
 # app_include_js = "/assets/pni_customization/js/pni_customization.js"
