@@ -81,6 +81,12 @@ frappe.ui.form.on('Process Order', {
 	}
 });
 
+frappe.ui.form.on('Quotation', {
+	refresh: function(frm) {
+		cur_frm.cscript.add_item_dialog("Quotation Item", "items")	
+	}
+});
+
 cur_frm.cscript.add_item_dialog = function(item_table_doctype, item_table_fieldname) {
 	cur_frm.add_custom_button(__("Add Item by Attribute"), function() {
 		prompt_for_item_template("items", "Item Varient Selection", true, function (values) {
