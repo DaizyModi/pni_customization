@@ -16,8 +16,16 @@ app_license = "MIT"
 fixtures = [{"dt":"Custom Field", "filters": [["fieldname", "in", (
 	"qty_in_carton",
 	"pni_sales_order",
-	"pni_material_request"
+	"pni_material_request",
+	"pni_shift_order"
 )]]}]
+
+doc_events = {
+ 	"Stock Entry": {
+        "on_submit": "pni_customization.pni_customization.doctype.shift_order.shift_order.manage_se_changes",
+        "on_cancel": "pni_customization.pni_customization.doctype.shift_order.shift_order.manage_se_changes"
+    }
+}
 # include js, css files in header of desk.html
 # app_include_css = "/assets/pni_customization/css/pni_customization.css"
 # app_include_js = "/assets/pni_customization/js/pni_customization.js"
