@@ -30,9 +30,9 @@
   "sb_scrap",
   "scrap",
   "time",
+  "employee_track",
   "start_dt",
   "employee",
-  "column_break_24",
   "end_dt",
   "company",
   "operation_hours",
@@ -178,6 +178,7 @@
   {
    "fieldname": "process_order",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Process Order",
    "options": "Process Order"
   },
@@ -202,12 +203,9 @@
   {
    "fieldname": "employee",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Employee",
    "options": "Employee"
-  },
-  {
-   "fieldname": "column_break_24",
-   "fieldtype": "Column Break"
   },
   {
    "allow_on_submit": 1,
@@ -239,10 +237,16 @@
    "options": "Shift Order",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "employee_track",
+   "fieldtype": "Table",
+   "label": "Employee Track",
+   "options": "Shift Order Employee"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-11-12 13:36:26.357375",
+ "modified": "2019-11-29 13:02:03.353186",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Shift Order",

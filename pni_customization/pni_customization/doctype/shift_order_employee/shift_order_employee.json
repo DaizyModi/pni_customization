@@ -1,0 +1,50 @@
+{
+ "creation": "2019-11-29 12:41:44.820989",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "start_date_time",
+  "end_date_time",
+  "hours_of_operation"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "start_date_time",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Start Date Time"
+  },
+  {
+   "fieldname": "end_date_time",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "End Date Time"
+  },
+  {
+   "fieldname": "hours_of_operation",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Hours of Operation"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-11-29 12:42:17.287306",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Shift Order Employee",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
