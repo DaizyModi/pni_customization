@@ -31,20 +31,10 @@ frappe.ui.form.on('PNI Sales Order', {
 				}
 			};
 		});
-		// if(!frm.doc.sales_person){
-		// 	frappe.call({
-		// 		"method": "frappe.client.get",
-		// 		args: {
-		// 			doctype: "Sales Person",
-		// 			filters: {"pni_user":frm.doc.user}
-		// 		},
-		// 		callback: function (data) {
-		// 			if(data.message.name){
-		// 				frm.set_value("sales_person",data.message.name);
-		// 			}
-		// 		}
-		// 	})
-		// }
+		
+		frappe.db.get_value('Sales Person', {'pni_user':frappe.session.user} , ['name'],(r) => {
+			frm.set_value("sales_person",r.name);
+		})
 		
 	}
 });
