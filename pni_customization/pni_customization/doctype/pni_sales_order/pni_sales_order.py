@@ -48,6 +48,7 @@ def _make_sales_order(source_name, target_doc=None, ignore_permissions=False):
 				"field_map": {
 					"date" : "transaction_date",
 					"delivery_date" : "delivery_date",
+					"sales_person" : "pni_sales_person"
 				}
 			},
 			"PNI Sales Order Item": {
