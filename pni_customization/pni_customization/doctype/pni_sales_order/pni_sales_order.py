@@ -33,12 +33,21 @@ def _make_sales_order(source_name, target_doc=None, ignore_permissions=False):
 
 	def update_item(obj, target, source_parent):
 		target.stock_qty = flt(obj.qty) * 1 #flt(obj.conversion_factor)
+		target.delivery_date = source_parent.delivery_date
 
+	def update_sales(obj, target, source_parent):
+		target.sales_person = source_parent.sales_person
+		target.allocated_percentage = 100
+	
 	doclist = get_mapped_doc("PNI Sales Order", source_name, {
 			"PNI Sales Order": {
 				"doctype": "Sales Order",
 				"validation": {
 					"docstatus": ["=", 1]
+				},
+				"field_map": {
+					"date" : "transaction_date",
+					"delivery_date" : "delivery_date",
 				}
 			},
 			"PNI Sales Order Item": {
@@ -52,6 +61,9 @@ def _make_sales_order(source_name, target_doc=None, ignore_permissions=False):
 
 				},
 				"postprocess": update_item
+			},
+			"Sales Team": {
+				"postprocess": update_sales
 			},
 			"Sales Taxes and Charges": {
 				"doctype": "Sales Taxes and Charges",
