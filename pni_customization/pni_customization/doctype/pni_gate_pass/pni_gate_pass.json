@@ -16,7 +16,7 @@
   "gate_pass_details_section",
   "from_date",
   "nature_of_work",
-  "reasone",
+  "reason",
   "column_break_13",
   "to_date",
   "proceeding_on_duty",
@@ -83,11 +83,6 @@
    "options": "Private\nOfficial"
   },
   {
-   "fieldname": "reasone",
-   "fieldtype": "Small Text",
-   "label": "Reasone"
-  },
-  {
    "fieldname": "column_break_13",
    "fieldtype": "Column Break"
   },
@@ -110,10 +105,15 @@
    "options": "PNI Gate Pass",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-02 13:31:16.649790",
+ "modified": "2019-12-02 14:02:31.594647",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Pass",
