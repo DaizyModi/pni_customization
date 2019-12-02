@@ -2,9 +2,15 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('PNI Sales Order', {
-	// refresh: function(frm) {
-	//	datetime.now()
-	// }
+	refresh: function(frm) {
+		cur_frm.add_custom_button(__('Sales Order'),
+			cur_frm.cscript['Make Sales Order'], __('Create'));
+	},
+	setup: function(frm) {
+		frm.custom_make_buttons = {
+			'Sales Order': 'Make Sales Order'
+		}
+	},
 	onload: function(frm) {
 		if(!frm.doc.date){
 			frm.set_value("date", moment(frappe.datetime.now_datetime()));
@@ -38,3 +44,10 @@ frappe.ui.form.on('PNI Sales Order', {
 		
 	}
 });
+
+cur_frm.cscript['Make Sales Order'] = function() {
+	frappe.model.open_mapped_doc({
+		method: "pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order.make_sales_order",
+		frm: cur_frm
+	})
+}
