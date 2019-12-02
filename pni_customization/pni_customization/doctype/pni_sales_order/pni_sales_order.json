@@ -7,11 +7,21 @@
  "field_order": [
   "naming_series",
   "customer",
+  "gstin",
   "column_break_3",
   "date",
   "delivery_date",
+  "price_list_details_section",
+  "price_list",
   "section_break_6",
   "items",
+  "payment_terms_section",
+  "payment_terms_template",
+  "payment_schedule",
+  "sales_details_section",
+  "user",
+  "column_break_11",
+  "sales_person",
   "amended_from"
  ],
  "fields": [
@@ -23,8 +33,10 @@
   {
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_3",
@@ -32,13 +44,15 @@
   },
   {
    "fieldname": "date",
-   "fieldtype": "Date",
-   "label": "Date"
+   "fieldtype": "Datetime",
+   "label": "Date",
+   "reqd": 1
   },
   {
    "fieldname": "delivery_date",
    "fieldtype": "Date",
-   "label": "Delivery Date"
+   "label": "Delivery Date",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_6",
@@ -51,6 +65,7 @@
    "options": "PNI Sales Order Item"
   },
   {
+   "default": "frappe.session.user",
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -58,10 +73,68 @@
    "options": "PNI Sales Order",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "customer.tax_id",
+   "fieldname": "gstin",
+   "fieldtype": "Data",
+   "label": "GSTIN"
+  },
+  {
+   "fieldname": "sales_details_section",
+   "fieldtype": "Section Break",
+   "label": "Sales Details"
+  },
+  {
+   "fieldname": "sales_person",
+   "fieldtype": "Link",
+   "label": "Sales Person",
+   "options": "Sales Person"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payment_terms_section",
+   "fieldtype": "Section Break",
+   "label": "Payment Terms"
+  },
+  {
+   "fieldname": "payment_terms_template",
+   "fieldtype": "Link",
+   "label": "Payment Terms Template",
+   "options": "Payment Terms Template"
+  },
+  {
+   "fieldname": "payment_schedule",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Payment Schedule",
+   "options": "PNI Payment Schedule"
+  },
+  {
+   "fieldname": "price_list_details_section",
+   "fieldtype": "Section Break",
+   "label": "Price List Details"
+  },
+  {
+   "fieldname": "price_list",
+   "fieldtype": "Link",
+   "label": "Price List",
+   "options": "Price List",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2019-11-27 13:11:31.790870",
+ "modified": "2019-12-02 12:33:44.931933",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Sales Order",
@@ -96,7 +169,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1
