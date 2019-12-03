@@ -12,6 +12,7 @@
   "time",
   "section_break_3",
   "gate_entry_type",
+  "local_slip",
   "column_break_4",
   "reference_doc_type",
   "reference",
@@ -39,7 +40,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Gate Entry Type",
-   "options": "Material Receipt\nMaterial Issue",
+   "options": "\nMaterial Receipt\nMaterial Issue",
    "reqd": 1
   },
   {
@@ -107,7 +108,7 @@
    "fieldname": "reference_doc_type",
    "fieldtype": "Select",
    "label": "Reference Doc Type",
-   "options": "Sales Order\nSales Invoice\nDelivery Note\nPurchase Order"
+   "options": "\nSales Order\nSales Invoice\nDelivery Note\nPurchase Order"
   },
   {
    "fieldname": "reference",
@@ -142,10 +143,15 @@
    "fieldname": "visitor_name",
    "fieldtype": "Data",
    "label": "Visitor Name"
+  },
+  {
+   "fieldname": "local_slip",
+   "fieldtype": "Data",
+   "label": "Local Slip"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-03 19:36:26.423138",
+ "modified": "2019-12-03 19:53:04.511862",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Entry",
