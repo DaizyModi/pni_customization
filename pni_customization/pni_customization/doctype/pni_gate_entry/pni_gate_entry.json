@@ -1,0 +1,149 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2019-12-03 11:20:11.074739",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "person_name",
+  "gate_entry_type",
+  "column_break_4",
+  "reference_doc_type",
+  "reference",
+  "date",
+  "item_details_section",
+  "items",
+  "visiter_detail_section",
+  "in_time",
+  "out_time",
+  "created_by",
+  "column_break_12",
+  "purpose",
+  "approver",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series"
+  },
+  {
+   "fieldname": "person_name",
+   "fieldtype": "Data",
+   "label": "Person Name"
+  },
+  {
+   "fieldname": "gate_entry_type",
+   "fieldtype": "Link",
+   "label": "Gate Entry Type",
+   "options": "Gate Entry Type"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Datetime",
+   "label": "Date Time"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "PNI Gate Entry",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "item_details_section",
+   "fieldtype": "Section Break",
+   "label": "Item Details"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "PNI Gate Entry Item"
+  },
+  {
+   "fieldname": "visiter_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Visiter Detail"
+  },
+  {
+   "fieldname": "in_time",
+   "fieldtype": "Datetime",
+   "label": "In Time"
+  },
+  {
+   "fieldname": "out_time",
+   "fieldtype": "Datetime",
+   "label": "Out Time"
+  },
+  {
+   "fieldname": "purpose",
+   "fieldtype": "Small Text",
+   "label": "Purpose"
+  },
+  {
+   "fieldname": "approver",
+   "fieldtype": "Link",
+   "label": "Approver",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reference_doc_type",
+   "fieldtype": "Link",
+   "label": "Reference Doc Type",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "reference",
+   "fieldtype": "Dynamic Link",
+   "label": "Reference",
+   "options": "reference_doc_type"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created by",
+   "options": "User",
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2019-12-03 16:37:52.941566",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "PNI Gate Entry",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
