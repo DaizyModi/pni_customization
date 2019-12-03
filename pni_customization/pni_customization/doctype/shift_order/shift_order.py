@@ -43,6 +43,7 @@ class ShiftOrder(Document):
 		if status == "In Process":
 			if not self.end_dt:
 				self.end_dt = get_datetime()
+		self.status = "In Process"
 		self.flags.ignore_validate_update_after_submit = True
 		self.save()
 		return self.make_stock_entry(status)
@@ -67,7 +68,8 @@ class ShiftOrder(Document):
 		se.from_warehouse = self.wip_warehouse
 		se.to_warehouse = self.fg_warehouse
 
-		se_materials = frappe.get_doc("Stock Entry",{"pni_shift_order": self.name, "docstatus": '1'})
+		#se_materials = frappe.get_doc("Stock Entry",{"pni_shift_order": self.name, "docstatus": '1'})
+		se_materials = ""
 		#get items to consume from previous stock entry or append to items
 		#TODO allow multiple raw material transfer
 		raw_material_cost = 0
