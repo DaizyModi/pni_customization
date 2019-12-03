@@ -4,13 +4,23 @@ from frappe import _
 def get_data():
 	return [
 		{
-			"label": _("Production"),
+			"label": _("Work Flow"),
 			"items": [
                 {
 					"type": "doctype",
-					"name": "Process Order",
-					"description": _("Process Manufacturing Order."),
+					"name": "PNI Sales Order",
+					"description": _("Initial Order From Customer"),
 				},
+				{
+					"type": "doctype",
+					"name": "Sales Order",
+					"description": _("ERPNext Sales Order"),
+				}
+			]
+		},
+		{
+			"label": _("Production"),
+			"items": [
 				{
 					"type": "doctype",
 					"name": "Shift Order",
@@ -23,9 +33,29 @@ def get_data():
 				},
 				{
 					"type": "doctype",
-					"name": "Material Request",
+					"name": "PNI Material Request",
 					"description": _("Requests for items."),
 				},
+				{
+					"type": "doctype",
+					"name": "Reel Tracking",
+					"description": _("Reel Tracking Module."),
+				},
+			]
+		},
+		{
+			"label": _("Office Use"),
+			"items": [
+                {
+					"type": "doctype",
+					"name": "PNI Gate Entry",
+					"description": _("Initial Order From Customer"),
+				},
+				{
+					"type": "doctype",
+					"name": "PNI Gate Pass",
+					"description": _("Initial Order From Customer"),
+				}
 			]
 		},
         {
