@@ -12,6 +12,7 @@
   "time",
   "section_break_3",
   "gate_entry_type",
+  "is_local_slip",
   "local_slip",
   "column_break_4",
   "reference_doc_type",
@@ -105,12 +106,14 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval: !doc.is_local_slip",
    "fieldname": "reference_doc_type",
    "fieldtype": "Select",
    "label": "Reference Doc Type",
    "options": "\nSales Order\nSales Invoice\nDelivery Note\nPurchase Order"
   },
   {
+   "depends_on": "eval: !doc.is_local_slip",
    "fieldname": "reference",
    "fieldtype": "Dynamic Link",
    "label": "Reference",
@@ -145,13 +148,20 @@
    "label": "Visitor Name"
   },
   {
+   "depends_on": "eval: doc.is_local_slip",
    "fieldname": "local_slip",
    "fieldtype": "Data",
    "label": "Local Slip"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_local_slip",
+   "fieldtype": "Check",
+   "label": "Is local slip"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-03 19:53:04.511862",
+ "modified": "2019-12-03 19:57:26.045717",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Entry",
