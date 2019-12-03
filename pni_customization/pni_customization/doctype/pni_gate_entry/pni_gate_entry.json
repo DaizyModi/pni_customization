@@ -6,18 +6,21 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "person_name",
+  "created_by",
+  "column_break_3",
+  "date",
+  "time",
+  "section_break_3",
   "gate_entry_type",
   "column_break_4",
   "reference_doc_type",
   "reference",
-  "date",
   "item_details_section",
   "items",
   "visiter_detail_section",
+  "visitor_name",
   "in_time",
   "out_time",
-  "created_by",
   "column_break_12",
   "purpose",
   "approver",
@@ -32,18 +35,11 @@
    "reqd": 1
   },
   {
-   "fieldname": "person_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Person Name",
-   "reqd": 1
-  },
-  {
    "fieldname": "gate_entry_type",
-   "fieldtype": "Link",
+   "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Gate Entry Type",
-   "options": "Gate Entry Type",
+   "options": "Material Receipt\nMaterial Issue",
    "reqd": 1
   },
   {
@@ -53,8 +49,9 @@
   {
    "default": "Today",
    "fieldname": "date",
-   "fieldtype": "Datetime",
-   "label": "Date Time"
+   "fieldtype": "Date",
+   "label": "Date",
+   "read_only": 1
   },
   {
    "fieldname": "amended_from",
@@ -83,12 +80,12 @@
   },
   {
    "fieldname": "in_time",
-   "fieldtype": "Datetime",
+   "fieldtype": "Time",
    "label": "In Time"
   },
   {
    "fieldname": "out_time",
-   "fieldtype": "Datetime",
+   "fieldtype": "Time",
    "label": "Out Time"
   },
   {
@@ -108,9 +105,9 @@
   },
   {
    "fieldname": "reference_doc_type",
-   "fieldtype": "Link",
+   "fieldtype": "Select",
    "label": "Reference Doc Type",
-   "options": "DocType"
+   "options": "Sales Order\nSales Invoice\nDelivery Note\nPurchase Order"
   },
   {
    "fieldname": "reference",
@@ -126,10 +123,29 @@
    "options": "User",
    "read_only": 1,
    "reqd": 1
+  },
+  {
+   "fieldname": "section_break_3",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "visitor_name",
+   "fieldtype": "Data",
+   "label": "Visitor Name"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-03 16:51:54.017435",
+ "modified": "2019-12-03 19:36:26.423138",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Entry",
@@ -150,7 +166,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1
