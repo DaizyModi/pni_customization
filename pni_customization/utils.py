@@ -45,3 +45,11 @@ def get_item(item, values):
 		if is_varient == True:
 			return item_doc
 	return frappe.throw("Item Not Found")
+
+@frappe.whitelist()
+def update_item(doc, method):
+	if doc.item_group == "Paper Cup" and doc.variant_of:
+		for atr in doc.attributes:
+			if atr.attribute == "PC-Packing":
+				frappe.db.set_value("Item", doc.name, "stack_size", str(atr.attribute_value))
+				frappe.db.commit()

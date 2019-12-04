@@ -1,0 +1,128 @@
+{
+ "creation": "2019-12-04 17:16:24.196280",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item",
+  "stock_status",
+  "stack_size",
+  "packing_details_section",
+  "items",
+  "loose_stock_details_section",
+  "loose_stock",
+  "total_stock",
+  "column_break_9",
+  "total",
+  "carton_details_section",
+  "carton_data",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "stock_status",
+   "fieldtype": "Select",
+   "label": "Stock Status",
+   "options": "\nIn\nOut",
+   "read_only": 1
+  },
+  {
+   "default": "1",
+   "fetch_from": "item.stack_size",
+   "fieldname": "stack_size",
+   "fieldtype": "Int",
+   "label": "Stack SIze",
+   "read_only": 1
+  },
+  {
+   "fieldname": "packing_details_section",
+   "fieldtype": "Section Break",
+   "label": "Packing Details"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Packing",
+   "options": "PNI Packing Item"
+  },
+  {
+   "fieldname": "loose_stock_details_section",
+   "fieldtype": "Section Break",
+   "label": "Loose Stock Details"
+  },
+  {
+   "fieldname": "loose_stock",
+   "fieldtype": "Int",
+   "label": "Loose Stock"
+  },
+  {
+   "fieldname": "total_stock",
+   "fieldtype": "Data",
+   "label": "Total Stock",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Data",
+   "label": "Total Loose",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "PNI Packing",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "carton_details_section",
+   "fieldtype": "Section Break",
+   "label": "Carton Details"
+  },
+  {
+   "fieldname": "carton_data",
+   "fieldtype": "Table",
+   "label": "Carton Data",
+   "options": "PNI Packing Carton"
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2019-12-04 19:06:50.304892",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "PNI Packing",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "item",
+ "track_changes": 1
+}

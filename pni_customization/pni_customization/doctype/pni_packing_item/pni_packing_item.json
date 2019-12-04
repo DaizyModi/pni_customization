@@ -1,0 +1,52 @@
+{
+ "creation": "2019-12-04 17:17:57.285316",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "packing",
+  "packing_size",
+  "nos",
+  "total"
+ ],
+ "fields": [
+  {
+   "fieldname": "packing",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Packing",
+   "options": "PNI Packing Type"
+  },
+  {
+   "fieldname": "nos",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Nos"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Total",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "packing.number",
+   "fieldname": "packing_size",
+   "fieldtype": "Int",
+   "label": "Packing Size",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-12-04 18:29:03.658713",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "PNI Packing Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

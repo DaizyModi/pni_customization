@@ -18,14 +18,18 @@ fixtures = [{"dt":"Custom Field", "filters": [["fieldname", "in", (
 	"pni_sales_order",
 	"pni_material_request",
 	"pni_shift_order",
-	"pni_user"
+	"pni_user",
+	"stack_size"
 )]]}]
 
 doc_events = {
  	"Stock Entry": {
         "on_submit": "pni_customization.pni_customization.doctype.shift_order.shift_order.manage_se_changes",
         "on_cancel": "pni_customization.pni_customization.doctype.shift_order.shift_order.manage_se_changes"
-    }
+    },
+	"Item": {
+		"on_update": "pni_customization.utils.update_item"
+	}
 }
 # include js, css files in header of desk.html
 # app_include_css = "/assets/pni_customization/css/pni_customization.css"

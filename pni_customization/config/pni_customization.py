@@ -15,7 +15,13 @@ def get_data():
 					"type": "doctype",
 					"name": "Sales Order",
 					"description": _("ERPNext Sales Order"),
-				}
+				},
+				{
+					"type": "doctype",
+					"name": "PNI Packing",
+					"description": _("PNI Packing"),
+				},
+				
 			]
 		},
 		{
