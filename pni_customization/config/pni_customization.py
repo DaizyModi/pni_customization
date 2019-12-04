@@ -21,7 +21,11 @@ def get_data():
 					"name": "PNI Packing",
 					"description": _("PNI Packing"),
 				},
-				
+				{
+					"type": "doctype",
+					"name": "Carton PNI",
+					"description": _("Carton Entry"),
+				},				
 			]
 		},
 		{
