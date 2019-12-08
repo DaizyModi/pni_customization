@@ -1,4 +1,5 @@
 import frappe, json
+from frappe.model.mapper import get_mapped_doc
 
 def get_permission_query_conditions_for_lead(user):
 	if "System Manager" in frappe.get_roles(user):
@@ -75,7 +76,7 @@ def make_pni_quotation(source_name, target_doc=None, ignore_permissions = False)
 	
 	doclist = get_mapped_doc("Lead", source_name, {
 			"Lead": {
-				"doctype": "PNI Sales Order",
+				"doctype": "PNI Quotation",
 				"field_map": {
 					"name" : "lead",
 				}
