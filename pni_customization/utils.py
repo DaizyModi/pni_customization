@@ -5,9 +5,9 @@ def get_permission_query_conditions_for_opportunity(user):
 		return None
 	elif "Sales User" in frappe.get_roles(user):
 		return """
-		(tabOpportunity.owner = '{user}' ) 
+		(tabLead.owner = '{user}' ) 
 		or 
-		(tabOpportunity._assign like '%{user}%')
+		(tabLead._assign like '%{user}%')
 		""".format(user=user)
 
 @frappe.whitelist()
