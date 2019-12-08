@@ -13,14 +13,58 @@ app_license = "MIT"
 
 # Includes in <head>
 # ------------------
-fixtures = [{"dt":"Custom Field", "filters": [["fieldname", "in", (
-	"qty_in_carton",
-	"pni_sales_order",
-	"pni_material_request",
-	"pni_shift_order",
-	"pni_user",
-	"stack_size"
-)]]}]
+fixtures = [
+	{
+		"dt":"Custom Field", 
+		"filters": [
+			[
+				"fieldname", "in", (
+					"qty_in_carton",
+					"pni_sales_order",
+					"pni_material_request",
+					"pni_shift_order",
+					"pni_user",
+					"stack_size"
+				)
+			]
+		]
+	},
+	{
+		"dt":"Workflow State",
+		"filters": [
+			[
+				"name", "in", (
+					"Cancel",
+					"Account Approved",
+					"Sales Approved",
+					"Customer Approved"
+				)
+			]
+		]
+	},
+	{
+		"dt":"Workflow Action Master",
+		"filters": [
+			[
+				"name", "in", (
+					"Account Approve",
+					"Sales Approve",
+					"Customer Approved",
+				)
+			]
+		]
+	},
+	{
+		"dt":"Workflow",
+		"filters": [
+			[
+				"name", "in", (
+					"PNI Sales Order",
+				)
+			]
+		]
+	}
+]
 
 doc_events = {
  	"Stock Entry": {

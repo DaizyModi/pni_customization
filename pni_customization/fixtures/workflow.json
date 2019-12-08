@@ -1,0 +1,187 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Workflow",
+  "document_type": "PNI Sales Order",
+  "is_active": 1,
+  "modified": "2019-12-08 14:05:25.119268",
+  "name": "PNI Sales Order",
+  "override_status": 0,
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "send_email_alert": 1,
+  "states": [
+   {
+    "allow_edit": "Sales User",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "PNI Sales Order",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Pending",
+    "update_field": null,
+    "update_value": null
+   },
+   {
+    "allow_edit": "Sales User",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "PNI Sales Order",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Rejected",
+    "update_field": null,
+    "update_value": null
+   },
+   {
+    "allow_edit": "Sales Manager",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "PNI Sales Order",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Customer Approved",
+    "update_field": null,
+    "update_value": null
+   },
+   {
+    "allow_edit": "Accounts Manager",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "PNI Sales Order",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Sales Approved",
+    "update_field": null,
+    "update_value": null
+   },
+   {
+    "allow_edit": "System Manager",
+    "doc_status": "1",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "PNI Sales Order",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Account Approved",
+    "update_field": null,
+    "update_value": null
+   },
+   {
+    "allow_edit": "System Manager",
+    "doc_status": "2",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "PNI Sales Order",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Cancel",
+    "update_field": null,
+    "update_value": null
+   }
+  ],
+  "transitions": [
+   {
+    "action": "Customer Approved",
+    "allow_self_approval": 1,
+    "allowed": "Sales User",
+    "condition": null,
+    "next_state": "Customer Approved",
+    "parent": "PNI Sales Order",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Pending"
+   },
+   {
+    "action": "Reject",
+    "allow_self_approval": 1,
+    "allowed": "Sales User",
+    "condition": null,
+    "next_state": "Rejected",
+    "parent": "PNI Sales Order",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Pending"
+   },
+   {
+    "action": "Review",
+    "allow_self_approval": 1,
+    "allowed": "Sales User",
+    "condition": null,
+    "next_state": "Pending",
+    "parent": "PNI Sales Order",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Rejected"
+   },
+   {
+    "action": "Sales Approve",
+    "allow_self_approval": 1,
+    "allowed": "Sales Manager",
+    "condition": null,
+    "next_state": "Sales Approved",
+    "parent": "PNI Sales Order",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Customer Approved"
+   },
+   {
+    "action": "Reject",
+    "allow_self_approval": 1,
+    "allowed": "Sales Manager",
+    "condition": null,
+    "next_state": "Rejected",
+    "parent": "PNI Sales Order",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Customer Approved"
+   },
+   {
+    "action": "Account Approve",
+    "allow_self_approval": 1,
+    "allowed": "Accounts Manager",
+    "condition": null,
+    "next_state": "Account Approved",
+    "parent": "PNI Sales Order",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Sales Approved"
+   },
+   {
+    "action": "Reject",
+    "allow_self_approval": 1,
+    "allowed": "Accounts Manager",
+    "condition": null,
+    "next_state": "Rejected",
+    "parent": "PNI Sales Order",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Sales Approved"
+   },
+   {
+    "action": "Reject",
+    "allow_self_approval": 1,
+    "allowed": "Accounts Manager",
+    "condition": null,
+    "next_state": "Cancel",
+    "parent": "PNI Sales Order",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Account Approved"
+   }
+  ],
+  "workflow_name": "PNI Sales Order",
+  "workflow_state_field": "workflow_state"
+ }
+]
