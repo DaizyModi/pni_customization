@@ -4,8 +4,10 @@ frappe.ui.form.on('Lead', {
 			cur_frm.add_custom_button(__('PNI Sales Order'),
 				cur_frm.cscript['Make PNI Sales Order'], __('Create'));
 		}
-		cur_frm.add_custom_button(__('PNI Quotation'),
-			cur_frm.cscript['Make PNI Quotation'], __('Create'));
+		if(frm.doc.__onload.is_customer){
+			cur_frm.add_custom_button(__('PNI Quotation'),
+				cur_frm.cscript['Make PNI Quotation'], __('Create'));
+		}
 	}
 })
 cur_frm.cscript['Make PNI Sales Order'] = function() {
