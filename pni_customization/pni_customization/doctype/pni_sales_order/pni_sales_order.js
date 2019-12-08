@@ -39,7 +39,13 @@ frappe.ui.form.on('PNI Sales Order', {
 		});
 		
 		frappe.db.get_value('Sales Person', {'pni_user':frappe.session.user} , ['name'],(r) => {
-			frm.set_value("sales_person",r.name);
+			console.log(r);
+			debugger;
+			if(typeof r !== 'undefined' && typeof r.name !== 'undefined'){
+				frm.set_value("sales_person",r.name);
+			}else{
+				frappe.msgprint("Sales Person is not created for Employee with user " + frappe.session.user)
+			}
 		})
 		
 	}

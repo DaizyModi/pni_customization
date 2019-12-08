@@ -83,3 +83,23 @@ def _make_sales_order(source_name, target_doc=None, ignore_permissions=False):
 	# postprocess: fetch shipping address, set missing values
 
 	return doclist
+
+@frappe.whitelist()
+def make_pni_sales_order(source_name, target_doc=None, ignore_permissions = False):
+	lead = frappe.get_doc("Lead", source_name)
+	customer = frappe.db.get_value("Customer", {"lead_name": lead.name})
+
+	def set_missing_values(source, target):
+		if customer:
+			target.customer = customer
+	
+	doclist = get_mapped_doc("Lead", source_name, {
+			"Lead": {
+				"doctype": "PNI Sales Order",
+				"field_map": {
+					"name" : "lead",
+				}
+			}
+		}, target_doc, set_missing_values, ignore_permissions=ignore_permissions)
+	
+	return doclist

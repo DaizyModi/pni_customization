@@ -56,7 +56,8 @@ doctype_js = {
 	"Quotation" : "public/js/item_add.js",
 	"Work Order" : "public/js/item_add.js",
 	"BOM" : "public/js/item_add.js",
-	"Process Order" : "public/js/item_add.js"
+	"Process Order" : "public/js/item_add.js",
+	"Lead": "public/js/lead_customization.js",
 }
 
 # Home Pages
@@ -104,7 +105,8 @@ doctype_js = {
 # }
 
 permission_query_conditions = {
-	"Lead": "pni_customization.utils.get_permission_query_conditions_for_opportunity",
+	"Lead": "pni_customization.utils.get_permission_query_conditions_for_lead",
+	"Opportunity": "pni_customization.utils.get_permission_query_conditions_for_opportunity",
 }
 
 # Document Events
