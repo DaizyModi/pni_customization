@@ -24,7 +24,7 @@ fixtures = [
 					"pni_material_request",
 					"pni_shift_order",
 					"pni_user",
-					"stack_size"
+					"stack_size",
 				)
 			]
 		]

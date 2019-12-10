@@ -1,0 +1,37 @@
+{
+ "creation": "2019-12-08 13:11:43.710215",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "lead_category",
+  "lead_sub_category"
+ ],
+ "fields": [
+  {
+   "fieldname": "lead_category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Lead Category",
+   "options": "Lead Category"
+  },
+  {
+   "fieldname": "lead_sub_category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Lead Sub Category",
+   "options": "Lead Sub Category"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-12-08 13:13:44.484044",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Lead Category Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
