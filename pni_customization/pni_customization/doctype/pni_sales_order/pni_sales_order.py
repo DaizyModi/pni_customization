@@ -7,7 +7,7 @@ import frappe
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import flt, nowdate, getdate
-from erpnext.selling.doctype.customer.customer import check_credit_limit
+from erpnext.selling.doctype.customer.customer import check_credit_limit,get_credit_limit
 
 class PNISalesOrder(Document):
 	def validate(self):
@@ -15,10 +15,11 @@ class PNISalesOrder(Document):
 	
 	def on_update(self):
 		if self.workflow_state == "Sales Approved":
-			check_credit_limit(self.customer, self.company)
-			self.workflow_state = "Account Approved"
-			self.save()
-			self.submit()
+			if get_credit_limit(self.customer,self.company) != 0:
+				check_credit_limit(self.customer, self.company)
+				self.workflow_state = "Account Approved"
+				self.save()
+				self.submit()
 
 # @frappe.whitelist()
 # def make_sales_order(source_name, target_doc=None):
