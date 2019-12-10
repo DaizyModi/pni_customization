@@ -24,7 +24,15 @@ fixtures = [
 					"pni_material_request",
 					"pni_shift_order",
 					"pni_user",
-					"stack_size"
+					"stack_size",
+					"get_items_from",
+					"pni_sales_order_details",
+					"get_pni_so",
+					"pni_sales_order",
+					"pni_delivery_note",
+					"pni_packing_table",
+					"add_item_pni",
+					"item_",
 				)
 			]
 		]
@@ -73,6 +81,9 @@ doc_events = {
     },
 	"Item": {
 		"on_update": "pni_customization.utils.update_item"
+	},
+	"Delivery Note": {
+		"on_update": "pni_customization.utils.update_delivery_item"
 	}
 }
 # include js, css files in header of desk.html
@@ -102,6 +113,7 @@ doctype_js = {
 	"BOM" : "public/js/item_add.js",
 	"Process Order" : "public/js/item_add.js",
 	"Lead": "public/js/lead_customization.js",
+	"Delivery Note": "public/js/delivery_note.js",
 }
 
 # Home Pages

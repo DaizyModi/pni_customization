@@ -6,6 +6,7 @@
  "field_order": [
   "item",
   "stock_status",
+  "carton_weight",
   "stack_size",
   "packing_details_section",
   "items",
@@ -15,6 +16,8 @@
   "column_break_9",
   "total",
   "carton_details_section",
+  "refresh_carton_data",
+  "enter_carton_weight",
   "carton_data",
   "amended_from"
  ],
@@ -96,10 +99,25 @@
    "fieldtype": "Table",
    "label": "Carton Data",
    "options": "PNI Packing Carton"
+  },
+  {
+   "fieldname": "refresh_carton_data",
+   "fieldtype": "Button",
+   "label": "Refresh Carton Data"
+  },
+  {
+   "fieldname": "carton_weight",
+   "fieldtype": "Float",
+   "label": "Carton Weight"
+  },
+  {
+   "fieldname": "enter_carton_weight",
+   "fieldtype": "Button",
+   "label": "Enter Carton Weight"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-04 19:06:50.304892",
+ "modified": "2019-12-10 10:57:51.841374",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

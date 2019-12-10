@@ -84,3 +84,16 @@ def make_pni_quotation(source_name, target_doc=None, ignore_permissions = False)
 		}, target_doc, set_missing_values, ignore_permissions=ignore_permissions)
 	
 	return doclist
+
+@frappe.whitelist()
+def update_delivery_item(doc, method):
+	pass
+	# if doc.pni_sales_order:
+	# 	rate_card = {}
+	# 	list_item = {}
+	# 	for data in doc.pni_delivery_note:
+	# 		rate_card[data.item] = data.rate
+	# 	for data in doc.pni_packing_table:
+	# 		if not list_item[data.item]:
+	# 			list_item[data.item] = 0
+	# 		list_item[data.item] += data.total_qty

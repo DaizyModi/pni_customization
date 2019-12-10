@@ -5,14 +5,14 @@ def get_data():
 	return {
 		'fieldname': 'pni_sales_order',
 		'non_standard_fieldnames': {
-			
 		},
 		'internal_links': {
+			
 		},
 		'transactions': [
 			{
 				'label': _('Accounts'),
-				'items': ['Sales Order', 'Sales Invoice', 'Delivery Note']
+				'items': ['Payment Entry', 'Delivery Note']
 			}
 		]
 	}

@@ -4,25 +4,49 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "carton_pni",
-  "weight"
+  "pni_packing_type",
+  "packing_size",
+  "carton_id",
+  "weight",
+  "net_weight"
  ],
  "fields": [
   {
-   "fieldname": "carton_pni",
-   "fieldtype": "Data",
+   "fieldname": "weight",
+   "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Carton PNI"
+   "label": "Gross Weight"
   },
   {
-   "fieldname": "weight",
-   "fieldtype": "Data",
+   "fieldname": "pni_packing_type",
+   "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Weight"
+   "label": " PNI Packing Type",
+   "options": "PNI Packing Type"
+  },
+  {
+   "fieldname": "carton_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Carton ID",
+   "options": "PNI Carton"
+  },
+  {
+   "fetch_from": "pni_packing_type.number",
+   "fieldname": "packing_size",
+   "fieldtype": "Int",
+   "label": "Packing Size"
+  },
+  {
+   "fieldname": "net_weight",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Net Weight",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2019-12-05 15:23:17.726430",
+ "modified": "2019-12-09 19:18:01.645789",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing Carton",

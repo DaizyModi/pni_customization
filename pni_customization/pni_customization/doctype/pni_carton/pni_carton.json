@@ -1,0 +1,102 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2019-12-09 17:56:58.560898",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "item",
+  "item_name",
+  "item_description",
+  "size",
+  "no_of_stack",
+  "total",
+  "net_weight",
+  "gross_weight",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "label": "Naming Series"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "size",
+   "fieldtype": "Float",
+   "label": " Size"
+  },
+  {
+   "fieldname": "no_of_stack",
+   "fieldtype": "Float",
+   "label": "No of Stack"
+  },
+  {
+   "fieldname": "net_weight",
+   "fieldtype": "Float",
+   "label": "Net Weight"
+  },
+  {
+   "fieldname": "gross_weight",
+   "fieldtype": "Float",
+   "label": "Gross Weight"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "PNI Carton",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "label": "Total"
+  },
+  {
+   "fetch_from": "item.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name"
+  },
+  {
+   "fetch_from": "item.description",
+   "fieldname": "item_description",
+   "fieldtype": "Data",
+   "label": "Item Description"
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2019-12-10 12:12:27.393425",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "PNI Carton",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

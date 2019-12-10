@@ -1,0 +1,40 @@
+{
+ "creation": "2019-12-10 00:11:52.880397",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "paper_cup_carton_weight"
+ ],
+ "fields": [
+  {
+   "default": "0.5",
+   "description": "Paper Cup Carton Weight in Kg",
+   "fieldname": "paper_cup_carton_weight",
+   "fieldtype": "Float",
+   "label": "Paper Cup Carton Weight"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2019-12-10 00:11:52.880397",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "PNI Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

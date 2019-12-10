@@ -3,12 +3,15 @@
 
 frappe.ui.form.on('PNI Sales Order', {
 	refresh: function(frm) {
-		cur_frm.add_custom_button(__('Sales Order'),
-			cur_frm.cscript['Make Sales Order'], __('Create'));
+		cur_frm.add_custom_button(__('Payment Entry'),
+			cur_frm.cscript['Make Payment Entry'], __('Create'));
+		cur_frm.add_custom_button(__('Delivery Note'),
+			cur_frm.cscript['Make Delivery Note'], __('Create'));
 	},
 	setup: function(frm) {
 		frm.custom_make_buttons = {
-			'Sales Order': 'Make Sales Order'
+			'Payment Entry': 'Make Payment Entry',
+			'Delivery Note': 'Make Delivery Note'
 		}
 	},
 	onload: function(frm) {
@@ -51,9 +54,23 @@ frappe.ui.form.on('PNI Sales Order', {
 	}
 });
 
-cur_frm.cscript['Make Sales Order'] = function() {
+cur_frm.cscript['Make Payment Entry'] = function() {
 	frappe.model.open_mapped_doc({
-		method: "pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order.make_sales_order",
+		method: "pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order.make_payment_entry",
 		frm: cur_frm
 	})
 }
+
+cur_frm.cscript['Make Delivery Note'] = function() {
+	frappe.model.open_mapped_doc({
+		method: "pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order.make_delivery_note",
+		frm: cur_frm
+	})
+}
+
+// cur_frm.cscript['Make Sales Order'] = function() {
+// 	frappe.model.open_mapped_doc({
+// 		method: "pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order.make_sales_order",
+// 		frm: cur_frm
+// 	})
+// }
