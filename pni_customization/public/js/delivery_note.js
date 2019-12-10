@@ -24,6 +24,7 @@ frappe.ui.form.on('Delivery Note', {
 			child.item_code = value.item
 			child.item_name = item_name[value.item]
 			child.description = item_detail[value.item]
+			child.stock_uom = "Nos"
 			child.qty = list_item[value.item]
 			child.uom = "Nos"
 			child.rate = value.rate
