@@ -84,6 +84,10 @@ doc_events = {
 	},
 	"Delivery Note": {
 		"on_update": "pni_customization.utils.update_delivery_item"
+	},
+	"Work Order": {
+		"on_submit": "pni_customization.utils.submit_work_order_item",
+		"validate": "pni_customization.utils.validate_work_order_item"
 	}
 }
 # include js, css files in header of desk.html

@@ -97,3 +97,25 @@ def update_delivery_item(doc, method):
 	# 		if not list_item[data.item]:
 	# 			list_item[data.item] = 0
 	# 		list_item[data.item] += data.total_qty
+
+@frappe.whitelist()
+def submit_work_order_item(doc, method):
+	if doc.required_items:
+		for row in doc.required_items:
+			if row.required_qty > row.available_qty_at_source_warehouse:
+				frappe.throw("Work Order Can't be submit as qty is not avaialble at source warehouse")
+
+@frappe.whitelist()
+def validate_work_order_item(doc, method):
+	print("1")
+	if doc.required_items:
+		print("2")
+		bom = frappe.get_doc("BOM",doc.bom_no)
+		for row in doc.required_items:
+			print("4")
+			for bom_item in bom.items:
+				print("5")
+				if bom_item.item_code == row.item_code:
+					print("6")
+					row.pni_qty_per_piece = bom_item.pni_qty_per_piece
+					# row.save()
