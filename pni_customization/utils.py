@@ -125,9 +125,9 @@ def update_delivery_item(doc, method):
 
 @frappe.whitelist()
 def submit_work_order_item(doc, method):
+	return
 	if doc.required_items:
 		for row in doc.required_items:
-
 			if type(row.available_qty_at_source_warehouse) == "NoneType" or float(row.required_qty) > float(row.available_qty_at_source_warehouse):
 				frappe.throw("Work Order Can't be submit as qty is not avaialble at source warehouse")
 
