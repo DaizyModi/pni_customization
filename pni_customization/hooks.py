@@ -118,6 +118,7 @@ doctype_js = {
 	"Process Order" : "public/js/item_add.js",
 	"Lead": "public/js/lead_customization.js",
 	"Delivery Note": "public/js/delivery_note.js",
+	"Opportunity": "public/js/opportunity.js"
 }
 
 # Home Pages
