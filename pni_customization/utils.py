@@ -152,11 +152,12 @@ def validate_stock_entry_item(doc, method):
 	if doc.items:
 		print("2")
 		bom = frappe.get_doc("BOM",doc.bom_no)
-		for row in doc.items:
-			print("4")
-			for bom_item in bom.items:
-				print("5")
-				if bom_item.item_code == row.item_code:
-					print("6")
-					row.pni_qty_per_piece = bom_item.pni_qty_per_piece
-					# row.save()
+		if bom:
+			for row in doc.items:
+				print("4")
+				for bom_item in bom.items:
+					print("5")
+					if bom_item.item_code == row.item_code:
+						print("6")
+						row.pni_qty_per_piece = bom_item.pni_qty_per_piece
+						# row.save()
