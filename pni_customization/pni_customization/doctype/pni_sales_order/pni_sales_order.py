@@ -115,6 +115,30 @@ def make_pni_sales_order(source_name, target_doc=None, ignore_permissions = Fals
 	return doclist
 
 @frappe.whitelist()
+def make_pni_sales_order_from_opportunity(source_name, target_doc=None, ignore_permissions = False):
+	opportunity = frappe.get_doc("Opportunity", source_name)
+	lead = frappe.get_doc("Lead", opportunity.party_name)
+	customer = frappe.db.get_value("Customer", {"lead_name": lead.name})
+	if not customer:
+		frappe.throw("Please Create Customer first from Lead")
+
+	def set_missing_values(source, target):
+		if customer:
+			target.customer = customer
+	
+	doclist = get_mapped_doc("Opportunity", source_name, {
+			"Opportunity": {
+				"doctype": "PNI Sales Order",
+				"field_map": {
+					"party_name" : "lead",
+					"name" : "opportunity"
+				}
+			}
+		}, target_doc, set_missing_values, ignore_permissions=ignore_permissions)
+	
+	return doclist
+
+@frappe.whitelist()
 def make_payment_entry(source_name, target_doc=None, ignore_permissions = False):
 	pni_so = frappe.get_doc("PNI Sales Order", source_name)
 

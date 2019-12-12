@@ -87,6 +87,30 @@ def make_pni_quotation(source_name, target_doc=None, ignore_permissions = False)
 	return doclist
 
 @frappe.whitelist()
+def make_pni_quotation_from_opportunity(source_name, target_doc=None, ignore_permissions = False):
+	opportunity = frappe.get_doc("Opportunity", source_name)
+	lead = frappe.get_doc("Lead", opportunity.party_name)
+	customer = frappe.db.get_value("Customer", {"lead_name": lead.name})
+	if not customer:
+		frappe.throw("Please Create Customer first from Lead")
+	def set_missing_values(source, target):
+		if customer:
+			target.customer = customer
+	
+	doclist = get_mapped_doc("Opportunity", source_name, {
+			"Opportunity": {
+				"doctype": "PNI Quotation",
+				"field_map": {
+					"party_name" : "lead",
+					"name": "opportunity"
+				}
+			}
+		}, target_doc, set_missing_values, ignore_permissions=ignore_permissions)
+	
+	return doclist
+
+
+@frappe.whitelist()
 def update_delivery_item(doc, method):
 	pass
 	# if doc.pni_sales_order:

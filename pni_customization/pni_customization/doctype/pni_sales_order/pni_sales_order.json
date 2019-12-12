@@ -8,6 +8,7 @@
   "naming_series",
   "customer",
   "lead",
+  "opportunity",
   "gstin",
   "column_break_3",
   "date",
@@ -167,11 +168,18 @@
    "fieldname": "terms",
    "fieldtype": "Text Editor",
    "label": "Terms"
+  },
+  {
+   "fieldname": "opportunity",
+   "fieldtype": "Link",
+   "label": "Opportunity",
+   "options": "Opportunity",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-11 10:14:39.864710",
- "modified_by": "Administrator",
+ "modified": "2019-12-12 11:28:20.382558",
+ "modified_by": "jigartarpara68@gmail.com",
  "module": "PNI Customization",
  "name": "PNI Sales Order",
  "owner": "Administrator",
