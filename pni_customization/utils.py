@@ -59,11 +59,12 @@ def get_item(item, values):
 
 @frappe.whitelist()
 def update_item(doc, method):
-	if doc.item_group == "Paper Cup" and doc.variant_of:
-		for atr in doc.attributes:
-			if atr.attribute == "PC-Packing":
-				frappe.db.set_value("Item", doc.name, "stack_size", str(atr.attribute_value))
-				frappe.db.commit()
+	pass
+	# if doc.item_group == "Paper Cup" and doc.variant_of:
+	# 	for atr in doc.attributes:
+	# 		if atr.attribute == "PC-Packing":
+	# 			frappe.db.set_value("Item", doc.name, "stack_size", str(atr.attribute_value))
+	# 			frappe.db.commit()
 
 @frappe.whitelist()
 def make_pni_quotation(source_name, target_doc=None, ignore_permissions = False):
