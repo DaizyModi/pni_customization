@@ -33,6 +33,7 @@ fixtures = [
 					"pni_packing_table",
 					"add_item_pni",
 					"item_",
+					"pni_material_type",
 				)
 			]
 		]
@@ -77,7 +78,8 @@ fixtures = [
 doc_events = {
  	"Stock Entry": {
         "on_submit": "pni_customization.pni_customization.doctype.shift_order.shift_order.manage_se_changes",
-        "on_cancel": "pni_customization.pni_customization.doctype.shift_order.shift_order.manage_se_changes"
+        "on_cancel": "pni_customization.pni_customization.doctype.shift_order.shift_order.manage_se_changes",
+		"validate": "pni_customization.utils.validate_stock_entry_item"
     },
 	"Item": {
 		"on_update": "pni_customization.utils.update_item"

@@ -139,6 +139,32 @@ def make_pni_sales_order_from_opportunity(source_name, target_doc=None, ignore_p
 	return doclist
 
 @frappe.whitelist()
+def make_pni_sales_order_from_quotation(source_name, target_doc=None, ignore_permissions = False):
+	
+	doclist = get_mapped_doc("PNI Quotation", source_name, {
+			"PNI Quotation": {
+				"doctype": "PNI Sales Order",
+				"field_map": {
+					"lead" : "lead",
+					"opportunity" : "opportunity",
+					"name": "pni_quotation"
+				}
+			},
+			"PNI Quotation Item": {
+				"doctype": "PNI Sales Order Item",
+				"field_map": {
+					"Item" : "Item",
+					"stack_size" : "stack_size",
+					"qty": "qty",
+					"uom": "uom",
+					"rate": "rate"
+				}
+			}
+		}, target_doc, ignore_permissions=ignore_permissions)
+	
+	return doclist
+
+@frappe.whitelist()
 def make_payment_entry(source_name, target_doc=None, ignore_permissions = False):
 	pni_so = frappe.get_doc("PNI Sales Order", source_name)
 

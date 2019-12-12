@@ -9,6 +9,7 @@
   "customer",
   "lead",
   "opportunity",
+  "pni_quotation",
   "gstin",
   "column_break_3",
   "date",
@@ -175,10 +176,17 @@
    "label": "Opportunity",
    "options": "Opportunity",
    "read_only": 1
+  },
+  {
+   "fieldname": "pni_quotation",
+   "fieldtype": "Link",
+   "label": "PNI Quotation",
+   "options": "PNI Quotation",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-12 11:28:20.382558",
+ "modified": "2019-12-12 13:10:34.266268",
  "modified_by": "jigartarpara68@gmail.com",
  "module": "PNI Customization",
  "name": "PNI Sales Order",

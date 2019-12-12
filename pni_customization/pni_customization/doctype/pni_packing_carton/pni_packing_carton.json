@@ -6,9 +6,9 @@
  "field_order": [
   "pni_packing_type",
   "packing_size",
-  "carton_id",
   "weight",
-  "net_weight"
+  "net_weight",
+  "carton_id"
  ],
  "fields": [
   {
@@ -46,8 +46,8 @@
   }
  ],
  "istable": 1,
- "modified": "2019-12-09 19:18:01.645789",
- "modified_by": "Administrator",
+ "modified": "2019-12-12 13:28:05.111785",
+ "modified_by": "jigartarpara68@gmail.com",
  "module": "PNI Customization",
  "name": "PNI Packing Carton",
  "owner": "Administrator",

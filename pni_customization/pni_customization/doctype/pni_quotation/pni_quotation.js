@@ -2,6 +2,12 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('PNI Quotation', {
+	refresh: function(frm) {
+		if(frm.doc.docstatus == 1){
+		cur_frm.add_custom_button(__('PNI Sales Order'),
+			cur_frm.cscript['Make PNI Sales Order'], __('Create'));
+		}
+	},
 	onload: function(frm) {
 		if(!frm.doc.date){
 			frm.set_value("date", moment(frappe.datetime.now_datetime()));
@@ -24,3 +30,10 @@ frappe.ui.form.on('PNI Quotation', {
 		} )
 	},
 });
+
+cur_frm.cscript['Make PNI Sales Order'] = function() {
+	frappe.model.open_mapped_doc({
+		method: "pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order.make_pni_sales_order_from_quotation",
+		frm: cur_frm
+	})
+}

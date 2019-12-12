@@ -6,7 +6,5 @@ from __future__ import unicode_literals
 # import frappe
 from frappe.model.document import Document
 
-class PNICarton(Document):
-	def on_submit(self):
-		self.status = "Available"
-		self.save()
+class ProcessOrderPacking(Document):
+	pass

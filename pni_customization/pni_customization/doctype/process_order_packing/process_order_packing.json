@@ -1,0 +1,66 @@
+{
+ "creation": "2019-12-12 13:58:49.182757",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "pni_packing",
+  "item",
+  "gross_weight",
+  "net_weight",
+  "total"
+ ],
+ "fields": [
+  {
+   "fieldname": "pni_packing",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "PNI Packing",
+   "options": "PNI Packing"
+  },
+  {
+   "fetch_from": "pni_packing.item",
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pni_packing.total_gross_weight",
+   "fieldname": "gross_weight",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Gross Weight",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pni_packing.total_net_weight",
+   "fieldname": "net_weight",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Net Weight",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "pni_packing.total_stock",
+   "fieldname": "total",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-12-12 14:06:35.306195",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Process Order Packing",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

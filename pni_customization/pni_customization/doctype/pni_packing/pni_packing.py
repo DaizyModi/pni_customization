@@ -6,6 +6,8 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 
+setting = frappe.get_doc("PNI Settings","PNI Settings")
+
 class PNIPacking(Document):
 	def validate(self):
 		total = 0
@@ -16,13 +18,25 @@ class PNIPacking(Document):
 		self.total_stock = total
 
 		self.create_carton()
+
+		self.update_weight()
+	
+	def update_weight(self):
+		gross_weight = 0
+		net_weight = 0
+		for row in self.carton_data:
+			gross_weight += row.weight
+			net_weight += row.net_weight
+		self.total_gross_weight = gross_weight
+		self.total_net_weight = net_weight
 	
 	def onload(self):
-		setting = frappe.get_doc("PNI Settings","PNI Settings")
 		if not self.carton_weight:
 			self.carton_weight = setting.paper_cup_carton_weight
 	
 	def create_carton(self):
+		if not self.carton_weight:
+			self.carton_weight = setting.paper_cup_carton_weight
 		for data in self.carton_data:
 			if data.weight:
 				data.net_weight = data.weight - self.carton_weight
@@ -46,6 +60,8 @@ class PNIPacking(Document):
 			
 	
 	def on_submit(self):
+		if not self.items:
+			frappe.throw("Packing Detail Can't be blank")
 		for data in self.carton_data:
 			if not data.weight:
 				frappe.throw("Weight Can't be empty")

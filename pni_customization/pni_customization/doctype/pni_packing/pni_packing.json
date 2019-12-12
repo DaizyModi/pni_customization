@@ -8,6 +8,14 @@
   "stock_status",
   "carton_weight",
   "stack_size",
+  "carton_details_section",
+  "refresh_carton_data",
+  "enter_carton_weight",
+  "carton_data",
+  "section_break_9",
+  "total_gross_weight",
+  "column_break_11",
+  "total_net_weight",
   "packing_details_section",
   "items",
   "loose_stock_details_section",
@@ -15,10 +23,6 @@
   "total_stock",
   "column_break_9",
   "total",
-  "carton_details_section",
-  "refresh_carton_data",
-  "enter_carton_weight",
-  "carton_data",
   "amended_from"
  ],
  "fields": [
@@ -26,7 +30,8 @@
    "fieldname": "item",
    "fieldtype": "Link",
    "label": "Item",
-   "options": "Item"
+   "options": "Item",
+   "reqd": 1
   },
   {
    "fieldname": "stock_status",
@@ -36,12 +41,11 @@
    "read_only": 1
   },
   {
-   "default": "1",
-   "fetch_from": "item.stack_size",
    "fieldname": "stack_size",
    "fieldtype": "Int",
+   "in_list_view": 1,
    "label": "Stack SIze",
-   "read_only": 1
+   "reqd": 1
   },
   {
    "fieldname": "packing_details_section",
@@ -103,7 +107,9 @@
   {
    "fieldname": "refresh_carton_data",
    "fieldtype": "Button",
-   "label": "Refresh Carton Data"
+   "hidden": 1,
+   "label": "Refresh Carton Data",
+   "read_only": 1
   },
   {
    "fieldname": "carton_weight",
@@ -113,11 +119,33 @@
   {
    "fieldname": "enter_carton_weight",
    "fieldtype": "Button",
-   "label": "Enter Carton Weight"
+   "hidden": 1,
+   "label": "Enter Carton Weight",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_gross_weight",
+   "fieldtype": "Float",
+   "label": "Total Gross Weight",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_net_weight",
+   "fieldtype": "Float",
+   "label": "Total Net Weight",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-10 10:57:51.841374",
+ "modified": "2019-12-12 13:52:52.684067",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
@@ -138,7 +166,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "title_field": "item",

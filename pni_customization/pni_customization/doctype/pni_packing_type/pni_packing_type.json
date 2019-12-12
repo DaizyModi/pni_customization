@@ -12,17 +12,21 @@
   {
    "fieldname": "number",
    "fieldtype": "Int",
-   "label": "Number"
+   "in_list_view": 1,
+   "label": "Number",
+   "reqd": 1
   },
   {
    "fieldname": "paking_type",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Paking Type",
+   "reqd": 1,
    "unique": 1
   }
  ],
- "modified": "2019-12-04 17:30:06.280311",
- "modified_by": "Administrator",
+ "modified": "2019-12-12 13:25:28.552968",
+ "modified_by": "jigartarpara68@gmail.com",
  "module": "PNI Customization",
  "name": "PNI Packing Type",
  "owner": "Administrator",
