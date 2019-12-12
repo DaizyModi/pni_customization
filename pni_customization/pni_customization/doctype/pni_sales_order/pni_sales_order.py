@@ -159,6 +159,7 @@ def make_delivery_note(source_name, target_doc=None, ignore_permissions = False)
 				"doctype": "PNI Delivery Note Item",
 				"field_map": {
 					"item": "item",
+					"stack_size": "stack_size",
 					"qty": "qty",
 					"uom": "uom",
 					"rate": "rate"

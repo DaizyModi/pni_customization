@@ -1,0 +1,98 @@
+{
+ "creation": "2019-12-11 09:52:54.827347",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sales_order",
+  "item",
+  "order_carton",
+  "reserve_carton",
+  "is_deliver",
+  "manufacture_carton",
+  "customer",
+  "delivery_date",
+  "date",
+  "pni_sales_order_item"
+ ],
+ "fields": [
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sales Order",
+   "options": "PNI Sales Order"
+  },
+  {
+   "fetch_from": "sales_order.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_order.delivery_date",
+   "fieldname": "delivery_date",
+   "fieldtype": "Data",
+   "label": "Delivery Date",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "sales_order.date",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date ",
+   "read_only": 1
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "order_carton",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Order Carton",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reserve_carton",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Reserve Carton"
+  },
+  {
+   "fieldname": "manufacture_carton",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Manufacture Carton"
+  },
+  {
+   "fieldname": "pni_sales_order_item",
+   "fieldtype": "Data",
+   "label": "PNI Sales Order Item",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_deliver",
+   "fieldtype": "Check",
+   "label": "Is Deliver"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-12-11 16:47:23.743663",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Production SO Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

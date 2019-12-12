@@ -20,15 +20,17 @@ frappe.ui.form.on('Delivery Note', {
 		refresh_field("items")
 
 		frm.doc.pni_delivery_note.forEach(function(value){
-			var child = frappe.model.add_child(frm.doc, "Delivery Note Item", "items");
-			child.item_code = value.item
-			child.item_name = item_name[value.item]
-			child.description = item_detail[value.item]
-			child.stock_uom = "Nos"
-			child.qty = list_item[value.item]
-			child.uom = "Nos"
-			child.rate = value.rate
-			refresh_field("items")
+			if(list_item[value.item] != undefined){
+				var child = frappe.model.add_child(frm.doc, "Delivery Note Item", "items");
+				child.item_code = value.item
+				child.item_name = item_name[value.item]
+				child.description = item_detail[value.item]
+				child.stock_uom = "Nos"
+				child.qty = list_item[value.item]
+				child.uom = "Nos"
+				child.rate = value.rate
+				refresh_field("items")
+			}
 		})
 	}
 })

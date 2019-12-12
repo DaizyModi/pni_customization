@@ -1,0 +1,36 @@
+{
+ "creation": "2019-12-11 17:03:20.778329",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item",
+  "carton"
+ ],
+ "fields": [
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "carton",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Carton"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-12-11 17:03:29.742499",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Paper Cup Job Order Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

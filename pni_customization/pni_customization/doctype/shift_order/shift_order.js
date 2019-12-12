@@ -18,35 +18,16 @@ frappe.ui.form.on('Shift Order', {
 		cur_frm.add_custom_button(__('Sales Order'),
 			cur_frm.cscript['Make Sales Order'], __('Create'));
 		
-		// if(!frm.doc.__islocal && frm.doc.status == 'Submitted'){
-		// 	var start_btn = frm.add_custom_button(__('Start'), function(){
-		// 		prompt_for_qty(frm, "materials", "Enter Raw Material Quantity", true, function () {
-		// 			process_production(frm, "Submitted");
-		// 		});
-		// 	});
-		// 	start_btn.addClass('btn-primary');
-		// }
-		// if(!frm.doc.__islocal && frm.doc.status == 'In Process'){
-		// 	var finish_btn = frm.add_custom_button(__('Complete'), function(){
-		// 		prompt_for_qty(frm, "finished_products", "Enter Produced Quantity", true, function () {
-		// 			if(frm.doc.scrap){
-		// 					prompt_for_qty(frm, "scrap", "Enter Scrap Quantity", false, function() {
-		// 						prompt_for_hours(frm, function() {
-		// 							process_production(frm, "In Process");
-		// 						});
-		// 					});
-		// 				}else {
-		// 					prompt_for_hours(frm, function() {
-		// 						process_production(frm, "In Process");
-		// 					});
-		// 				}
-		// 				});
-		// 	});
-		// 	finish_btn.addClass('btn-primary')
-		// }
-
 		if(!frm.doc.__islocal && frm.doc.status == 'Submitted'){
-			var finish_btn = frm.add_custom_button(__('Make Manufecturing Entry'), function(){
+			var start_btn = frm.add_custom_button(__('Start'), function(){
+				prompt_for_qty(frm, "materials", "Enter Raw Material Quantity", true, function () {
+					process_production(frm, "Submitted");
+				});
+			});
+			start_btn.addClass('btn-primary');
+		}
+		if(!frm.doc.__islocal && frm.doc.status == 'In Process'){
+			var finish_btn = frm.add_custom_button(__('Complete'), function(){
 				prompt_for_qty(frm, "finished_products", "Enter Produced Quantity", true, function () {
 					if(frm.doc.scrap){
 							prompt_for_qty(frm, "scrap", "Enter Scrap Quantity", false, function() {
@@ -63,6 +44,25 @@ frappe.ui.form.on('Shift Order', {
 			});
 			finish_btn.addClass('btn-primary')
 		}
+
+		// if(!frm.doc.__islocal && frm.doc.status == 'Submitted'){
+		// 	var finish_btn = frm.add_custom_button(__('Make Manufecturing Entry'), function(){
+		// 		prompt_for_qty(frm, "finished_products", "Enter Produced Quantity", true, function () {
+		// 			if(frm.doc.scrap){
+		// 					prompt_for_qty(frm, "scrap", "Enter Scrap Quantity", false, function() {
+		// 						prompt_for_hours(frm, function() {
+		// 							process_production(frm, "In Process");
+		// 						});
+		// 					});
+		// 				}else {
+		// 					prompt_for_hours(frm, function() {
+		// 						process_production(frm, "In Process");
+		// 					});
+		// 				}
+		// 				});
+		// 	});
+		// 	finish_btn.addClass('btn-primary')
+		// }
 	},
 	department: function(frm){
 		if(frm.doc.department){

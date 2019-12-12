@@ -1,14 +1,12 @@
 {
- "creation": "2019-12-10 00:45:54.388114",
+ "creation": "2019-12-11 15:50:27.941610",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "item",
-  "stack_size",
-  "qty",
-  "uom",
-  "rate"
+  "available_carton",
+  "reserve_carton"
  ],
  "fields": [
   {
@@ -20,40 +18,24 @@
    "read_only": 1
   },
   {
-   "fieldname": "qty",
+   "fieldname": "available_carton",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Qty",
+   "label": "Available Carton",
    "read_only": 1
   },
   {
-   "default": "Carton",
-   "fieldname": "uom",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "UOM",
-   "options": "UOM",
-   "read_only": 1
-  },
-  {
-   "fieldname": "rate",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Rate",
-   "read_only": 1
-  },
-  {
-   "fieldname": "stack_size",
+   "fieldname": "reserve_carton",
    "fieldtype": "Float",
-   "in_list_view": 1,
-   "label": "Stack Size"
+   "hidden": 1,
+   "label": "Reserve Carton"
   }
  ],
  "istable": 1,
- "modified": "2019-12-12 09:50:38.528843",
+ "modified": "2019-12-11 16:47:55.333088",
  "modified_by": "Administrator",
  "module": "PNI Customization",
- "name": "PNI Delivery Note Item",
+ "name": "Production Plan Stock",
  "owner": "Administrator",
  "permissions": [],
  "quick_entry": 1,

@@ -19,6 +19,9 @@
   "payment_terms_section",
   "payment_terms_template",
   "payment_schedule",
+  "terms_section",
+  "terms_and_condition",
+  "terms",
   "sales_details_section",
   "user",
   "company",
@@ -147,10 +150,27 @@
    "label": "Company",
    "options": "Company",
    "reqd": 1
+  },
+  {
+   "fieldname": "terms_section",
+   "fieldtype": "Section Break",
+   "label": "Terms"
+  },
+  {
+   "fieldname": "terms_and_condition",
+   "fieldtype": "Link",
+   "label": "Terms and Condition",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fetch_from": "terms_and_condition.terms",
+   "fieldname": "terms",
+   "fieldtype": "Text Editor",
+   "label": "Terms"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-09 15:28:16.679501",
+ "modified": "2019-12-11 10:14:39.864710",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Sales Order",

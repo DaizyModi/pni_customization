@@ -1,0 +1,161 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2019-12-11 09:52:06.509816",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "created_by",
+  "column_break_3",
+  "date",
+  "time",
+  "filters_section",
+  "customer",
+  "item",
+  "from_posting_date",
+  "to_posting_date",
+  "column_break_10",
+  "from_delivery_date",
+  "to_delivery_date",
+  "pni_so_section",
+  "get_pni_so",
+  "production_so",
+  "carton_stock_section",
+  "production_plan_stock",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "label": "Naming Series"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "filters_section",
+   "fieldtype": "Section Break",
+   "label": "Filters"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "from_posting_date",
+   "fieldtype": "Date",
+   "label": "From Posting Date"
+  },
+  {
+   "fieldname": "to_posting_date",
+   "fieldtype": "Date",
+   "label": "To Posting Date"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "from_delivery_date",
+   "fieldtype": "Date",
+   "label": "From Delivery Date"
+  },
+  {
+   "fieldname": "to_delivery_date",
+   "fieldtype": "Date",
+   "label": "To Delivery Date"
+  },
+  {
+   "fieldname": "pni_so_section",
+   "fieldtype": "Section Break",
+   "label": "PNI SO"
+  },
+  {
+   "fieldname": "production_so",
+   "fieldtype": "Table",
+   "label": "Production SO",
+   "options": "Production SO Table"
+  },
+  {
+   "fieldname": "get_pni_so",
+   "fieldtype": "Button",
+   "label": "Get PNI SO"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "carton_stock_section",
+   "fieldtype": "Section Break",
+   "label": "Carton Stock"
+  },
+  {
+   "fieldname": "production_plan_stock",
+   "fieldtype": "Table",
+   "label": "Production Plan Stock",
+   "options": "Production Plan Stock",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "PNI Production Plan",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2019-12-11 16:58:59.502716",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "PNI Production Plan",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

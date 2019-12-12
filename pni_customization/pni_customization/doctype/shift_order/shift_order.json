@@ -9,9 +9,7 @@
  "field_order": [
   "section_break_1",
   "naming_series",
-  "process_order",
   "department",
-  "process_type",
   "process_name",
   "column_break_5",
   "status",
@@ -61,14 +59,6 @@
    "reqd": 1
   },
   {
-   "fetch_from": "process_order.process_type",
-   "fieldname": "process_type",
-   "fieldtype": "Link",
-   "in_global_search": 1,
-   "label": "Process Type",
-   "options": "Process Type"
-  },
-  {
    "fetch_from": "process_order.process_name",
    "fieldname": "process_name",
    "fieldtype": "Link",
@@ -101,17 +91,18 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Workstation",
-   "options": "Workstation"
+   "options": "Workstation",
+   "reqd": 1
   },
   {
    "fetch_from": "process_order.costing_method",
    "fieldname": "costing_method",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Costing Method",
    "options": "\nPhysical measurement\nRelative Sales Value"
   },
   {
-   "collapsible": 1,
    "fieldname": "warehouses",
    "fieldtype": "Section Break",
    "label": "Warehouses"
@@ -176,13 +167,6 @@
    "label": "Scrap"
   },
   {
-   "fieldname": "process_order",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Process Order",
-   "options": "Process Order"
-  },
-  {
    "fieldname": "scrap",
    "fieldtype": "Table",
    "label": "Scrap",
@@ -217,7 +201,6 @@
   {
    "fieldname": "company",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Company",
    "options": "Company",
    "print_hide": 1
@@ -246,7 +229,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2019-11-29 13:02:03.353186",
+ "modified": "2019-12-11 17:51:08.898414",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Shift Order",
@@ -299,10 +282,8 @@
   }
  ],
  "restrict_to_domain": "Manufacturing",
- "search_fields": "process_name, process_type, status, costing_method",
  "sort_field": "modified",
  "sort_order": "DESC",
- "title_field": "process_name",
  "track_changes": 1,
  "track_seen": 1
 }

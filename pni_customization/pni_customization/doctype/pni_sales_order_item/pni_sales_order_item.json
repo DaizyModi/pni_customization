@@ -5,9 +5,11 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
+  "stack_size",
   "qty",
   "uom",
-  "rate"
+  "rate",
+  "pni_production_plan"
  ],
  "fields": [
   {
@@ -36,10 +38,24 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Rate"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "pni_production_plan",
+   "fieldtype": "Link",
+   "label": "PNI Production Plan",
+   "options": "PNI Production Plan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "stack_size",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Stack Size"
   }
  ],
  "istable": 1,
- "modified": "2019-12-08 12:34:16.099429",
+ "modified": "2019-12-12 09:49:56.246482",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Sales Order Item",

@@ -1,0 +1,85 @@
+{
+ "autoname": "hash",
+ "creation": "2019-12-11 10:04:27.423651",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code",
+  "needed_qty",
+  "avalable_carton",
+  "for_manufacture",
+  "reference_section",
+  "pni_sales_order",
+  "pni_sales_order_item"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Code",
+   "oldfieldname": "item_code",
+   "oldfieldtype": "Link",
+   "options": "Item",
+   "print_width": "150px",
+   "reqd": 1,
+   "width": "150px"
+  },
+  {
+   "fieldname": "reference_section",
+   "fieldtype": "Section Break",
+   "label": "Reference"
+  },
+  {
+   "fieldname": "pni_sales_order",
+   "fieldtype": "Link",
+   "label": "PNI Sales Order",
+   "oldfieldname": "source_docname",
+   "oldfieldtype": "Data",
+   "options": "PNI Sales Order",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pni_sales_order_item",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "PNI Sales Order Item",
+   "no_copy": 1,
+   "print_hide": 1
+  },
+  {
+   "fieldname": "needed_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Needed Carton",
+   "oldfieldname": "planned_qty",
+   "oldfieldtype": "Currency",
+   "print_width": "100px",
+   "reqd": 1,
+   "width": "100px"
+  },
+  {
+   "fieldname": "avalable_carton",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Avalable Carton"
+  },
+  {
+   "fieldname": "for_manufacture",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "For Manufacture"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-12-11 12:03:00.763468",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "PNI Production Plan Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "ASC"
+}
