@@ -25,8 +25,8 @@ class PNIPacking(Document):
 		gross_weight = 0
 		net_weight = 0
 		for row in self.carton_data:
-			gross_weight += row.weight
-			net_weight += row.net_weight
+			gross_weight += row.weight if row.weight else 0
+			net_weight += row.net_weight if row.net_weight else 0
 		self.total_gross_weight = gross_weight
 		self.total_net_weight = net_weight
 	
