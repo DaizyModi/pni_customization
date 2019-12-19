@@ -163,3 +163,19 @@ def validate_stock_entry_item(doc, method):
 							print("6")
 							row.pni_qty_per_piece = bom_item.pni_qty_per_piece
 							# row.save()
+
+@frappe.whitelist()
+def job_card_submit(doc, method):
+	if doc.pni_quality_inspection:
+		total_qty = 0
+		for item in doc.time_logs:
+			total_qty += item.completed_qty
+		pni_qi = frappe.get_all("PNI Quality Inspection",{"reference_name":doc.name, "docstatus": 1})
+		inspect_qty = 0
+		for qi in pni_qi:
+			pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi)
+			for result in pni_qi_doc.inspection:
+				if result.status == "Accept":
+					inspect_qty += result.qty
+		if inspect_qty < total_qty:
+			frappe.throw(" Please do PNI QUality Inspection for {0} Items".format(str( total_qty- inspect_qty )))

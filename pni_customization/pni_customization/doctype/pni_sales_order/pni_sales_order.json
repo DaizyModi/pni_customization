@@ -2,6 +2,7 @@
  "autoname": "naming_series:",
  "creation": "2019-11-27 13:08:11.180220",
  "doctype": "DocType",
+ "document_type": "Document",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
@@ -41,6 +42,7 @@
    "fieldname": "customer",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_preview": 1,
    "label": "Customer",
    "options": "Customer",
    "reqd": 1
@@ -186,8 +188,8 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-12 13:10:34.266268",
- "modified_by": "jigartarpara68@gmail.com",
+ "modified": "2019-12-16 10:57:44.816472",
+ "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Sales Order",
  "owner": "Administrator",
@@ -221,6 +223,7 @@
    "write": 1
   }
  ],
+ "show_preview_popup": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1

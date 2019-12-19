@@ -34,6 +34,8 @@ fixtures = [
 					"add_item_pni",
 					"item_",
 					"pni_material_type",
+					"pni_qty_per_piece",
+					"pni_quality_inspection"
 				)
 			]
 		]
@@ -90,6 +92,9 @@ doc_events = {
 	"Work Order": {
 		"on_submit": "pni_customization.utils.submit_work_order_item",
 		"validate": "pni_customization.utils.validate_work_order_item"
+	},
+	"Job Card": {
+		"on_submit": "pni_customization.utils.job_card_submit",
 	}
 }
 # include js, css files in header of desk.html
