@@ -173,7 +173,7 @@ def job_card_submit(doc, method):
 		pni_qi = frappe.get_all("PNI Quality Inspection",{"reference_name":doc.name, "docstatus": 1})
 		inspect_qty = 0
 		for qi in pni_qi:
-			pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi)
+			pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
 			for result in pni_qi_doc.inspection:
 				if result.status == "Accept":
 					inspect_qty += int(result.qty)
