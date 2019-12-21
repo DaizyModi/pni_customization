@@ -175,7 +175,7 @@ def job_card_submit(doc, method):
 		for qi in pni_qi:
 			pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
 			for result in pni_qi_doc.inspection:
-				if result.status == "Accept":
+				if result.status == "Accept" and result.qty:
 					inspect_qty += int(result.qty)
 		if inspect_qty < total_qty:
 			frappe.throw(" Please do PNI QUality Inspection for {0} Items".format(str( total_qty- inspect_qty )))
