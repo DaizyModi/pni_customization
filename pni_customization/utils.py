@@ -109,6 +109,19 @@ def make_pni_quotation_from_opportunity(source_name, target_doc=None, ignore_per
 	
 	return doclist
 
+@frappe.whitelist()
+def submit_delivery_item(doc, method):
+	for row in doc.pni_packing_table:
+		carton = frappe.get_doc("PNI Carton", row.pni_carton)
+		carton.status = "Delivered"
+		carton.save()
+
+@frappe.whitelist()
+def cancel_delivery_item(doc, method):
+	for row in doc.pni_packing_table:
+		carton = frappe.get_doc("PNI Carton", row.pni_carton)
+		carton.status = "Available"
+		carton.save()
 
 @frappe.whitelist()
 def update_delivery_item(doc, method):

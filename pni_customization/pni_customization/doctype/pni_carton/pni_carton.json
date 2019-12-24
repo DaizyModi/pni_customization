@@ -81,12 +81,11 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Pending\nAvailable\nDelivered",
-   "read_only": 1
+   "options": "Pending\nAvailable\nDelivered"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-23 16:00:33.862893",
+ "modified": "2019-12-24 13:33:30.099333",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Carton",
