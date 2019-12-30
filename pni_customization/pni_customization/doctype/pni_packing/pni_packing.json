@@ -9,6 +9,7 @@
   "carton_weight",
   "shift",
   "stack_size",
+  "workstation",
   "carton_details_section",
   "refresh_carton_data",
   "enter_carton_weight",
@@ -149,10 +150,17 @@
    "fieldtype": "Select",
    "label": "Shift",
    "options": "1\n2\n3\n4"
+  },
+  {
+   "fieldname": "workstation",
+   "fieldtype": "Link",
+   "label": "Workstation",
+   "options": "Workstation",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-24 13:53:01.565586",
+ "modified": "2019-12-30 11:31:19.877015",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
