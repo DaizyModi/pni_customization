@@ -6,9 +6,10 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 
-setting = frappe.get_doc("PNI Settings","PNI Settings")
+
 
 class PNIPacking(Document):
+	setting = frappe.get_doc("PNI Settings","PNI Settings")
 	def validate(self):
 		total = 0
 		for row in self.items:
