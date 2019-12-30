@@ -10,13 +10,6 @@ from frappe.model.document import Document
 
 class PNIPacking(Document):
 	def validate(self):
-		total = 0
-		for row in self.items:
-			total += int(row.total)
-		if self.total:
-			total += int(self.total)
-		self.total_stock = total
-
 		self.create_carton()
 
 		self.update_weight()
@@ -30,11 +23,23 @@ class PNIPacking(Document):
 				count[data.pni_packing_type] = 1 + count[data.pni_packing_type]
 			else:
 				count[data.pni_packing_type] = 1
+		self.items = {}
 		for row in count:
 			self.append("items",{
 				"packing": row,
-				"nos": count[row]
+				"packing_size": float(row) ,
+				"nos": count[row],
+				"total": float(row) * float(count[row]) * float(self.stack_size)
 			})
+		
+		total = 0
+		
+		for row in self.items:
+			total += int(row.total)
+		if self.total:
+			total += int(self.total)
+		self.total_stock = total
+	
 	def update_weight(self):
 		gross_weight = 0
 		net_weight = 0
