@@ -100,7 +100,7 @@ doc_events = {
 	}
 }
 # include js, css files in header of desk.html
-app_include_css = "public/css/custom.css"
+app_include_css = "/assets/pni_customization/css/custom.css"
 # app_include_js = "/assets/pni_customization/js/pni_customization.js"
 
 # include js, css files in header of web template
