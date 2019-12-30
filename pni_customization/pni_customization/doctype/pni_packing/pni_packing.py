@@ -20,7 +20,21 @@ class PNIPacking(Document):
 		self.create_carton()
 
 		self.update_weight()
+
+		self.update_packing()
 	
+	def update_packing(self):
+		count = {}
+		for data in self.carton_data:
+			if data.pni_packing_type in count:
+				count[data.pni_packing_type] = 1 + count[data.pni_packing_type]
+			else:
+				count[data.pni_packing_type] = 1
+		for row in count:
+			self.append("items",{
+				"packing": row,
+				"nos": count[row]
+			})
 	def update_weight(self):
 		gross_weight = 0
 		net_weight = 0
