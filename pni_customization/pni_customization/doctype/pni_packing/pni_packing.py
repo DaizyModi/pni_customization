@@ -9,7 +9,6 @@ from frappe.model.document import Document
 
 
 class PNIPacking(Document):
-	setting = frappe.get_doc("PNI Settings","PNI Settings")
 	def validate(self):
 		total = 0
 		for row in self.items:
@@ -32,10 +31,12 @@ class PNIPacking(Document):
 		self.total_net_weight = net_weight
 	
 	def onload(self):
+		setting = frappe.get_doc("PNI Settings","PNI Settings")
 		if not self.carton_weight:
 			self.carton_weight = setting.paper_cup_carton_weight
 	
 	def create_carton(self):
+		setting = frappe.get_doc("PNI Settings","PNI Settings")
 		if not self.carton_weight:
 			self.carton_weight = setting.paper_cup_carton_weight
 		for data in self.carton_data:
