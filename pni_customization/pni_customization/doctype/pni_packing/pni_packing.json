@@ -26,9 +26,7 @@
   "column_break_9",
   "total",
   "employee_details_section",
-  "machine_operator",
-  "machine_helper",
-  "supervisor",
+  "employee",
   "amended_from"
  ],
  "fields": [
@@ -168,26 +166,14 @@
    "label": "Employee Details"
   },
   {
-   "fieldname": "machine_operator",
-   "fieldtype": "Link",
-   "label": "Machine Operator",
-   "options": "Employee"
-  },
-  {
-   "fieldname": "machine_helper",
-   "fieldtype": "Link",
-   "label": "Machine Helper",
-   "options": "Employee"
-  },
-  {
-   "fieldname": "supervisor",
-   "fieldtype": "Link",
-   "label": "Supervisor",
-   "options": "Employee"
+   "fieldname": "employee",
+   "fieldtype": "Table",
+   "label": "Employee",
+   "options": "Employee Team Table"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-30 12:23:46.410473",
+ "modified": "2019-12-30 13:36:57.282905",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
