@@ -4,26 +4,54 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "qty",
-  "status"
+  "parameter",
+  "tolerance",
+  "drawing_dimension",
+  "actual_dimension",
+  "status",
+  "remark"
  ],
  "fields": [
-  {
-   "fieldname": "qty",
-   "fieldtype": "Int",
-   "in_list_view": 1,
-   "label": "Qty"
-  },
   {
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Status",
    "options": "Accept\nReject\nRework"
+  },
+  {
+   "fieldname": "parameter",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Parameter"
+  },
+  {
+   "fieldname": "tolerance",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tolerance"
+  },
+  {
+   "fieldname": "drawing_dimension",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Drawing Dimension"
+  },
+  {
+   "fieldname": "actual_dimension",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Actual Dimension"
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Remark"
   }
  ],
  "istable": 1,
- "modified": "2019-12-23 14:07:59.291000",
+ "modified": "2020-01-07 13:30:06.254911",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Quality Table",

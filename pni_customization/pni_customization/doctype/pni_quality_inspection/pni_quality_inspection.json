@@ -15,12 +15,20 @@
   "reference_name",
   "section_break_14",
   "inspected_by",
-  "verified_by",
+  "received_by",
+  "handover_to",
   "bom_no",
   "column_break_17",
   "remarks",
   "specification_details",
+  "accepted_qty",
   "inspection",
+  "rejected_detail",
+  "rejected_qty",
+  "rejected_table",
+  "rework_section",
+  "rework_qty",
+  "rework_table",
   "amended_from"
  ],
  "fields": [
@@ -49,6 +57,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "Incoming",
    "fieldname": "inspection_type",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -60,10 +69,12 @@
    "reqd": 1
   },
   {
+   "default": "Work Order",
    "fieldname": "reference_type",
    "fieldtype": "Select",
    "label": "Reference Type",
-   "options": "\nJob Card\nWork Order\nPurchase Receipt\nPurchase Invoice\nDelivery Note\nSales Invoice\nStock Entry"
+   "options": "Job Card\nWork Order",
+   "reqd": 1
   },
   {
    "fieldname": "reference_name",
@@ -74,28 +85,21 @@
    "label": "Reference Name",
    "oldfieldname": "purchase_receipt_no",
    "oldfieldtype": "Link",
-   "options": "reference_type"
+   "options": "reference_type",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_14",
    "fieldtype": "Section Break"
   },
   {
-   "default": "user",
    "fieldname": "inspected_by",
    "fieldtype": "Link",
    "label": "Inspected By",
    "oldfieldname": "inspected_by",
    "oldfieldtype": "Data",
-   "options": "User",
+   "options": "Employee",
    "reqd": 1
-  },
-  {
-   "fieldname": "verified_by",
-   "fieldtype": "Data",
-   "label": "Verified By",
-   "oldfieldname": "verified_by",
-   "oldfieldtype": "Data"
   },
   {
    "fieldname": "bom_no",
@@ -119,6 +123,7 @@
   {
    "fieldname": "specification_details",
    "fieldtype": "Section Break",
+   "label": "Accepted Qty",
    "oldfieldtype": "Section Break",
    "options": "Simple"
   },
@@ -142,11 +147,61 @@
    "fieldtype": "Link",
    "label": "Item Created By",
    "options": "Employee"
+  },
+  {
+   "fieldname": "accepted_qty",
+   "fieldtype": "Float",
+   "label": "Accepted Qty",
+   "reqd": 1
+  },
+  {
+   "fieldname": "rejected_detail",
+   "fieldtype": "Section Break",
+   "label": "Rejected Detail"
+  },
+  {
+   "fieldname": "rejected_qty",
+   "fieldtype": "Float",
+   "label": "Rejected Qty"
+  },
+  {
+   "fieldname": "rejected_table",
+   "fieldtype": "Table",
+   "label": "Rejected Table",
+   "options": "PNI Quality Table"
+  },
+  {
+   "fieldname": "rework_section",
+   "fieldtype": "Section Break",
+   "label": "Rework"
+  },
+  {
+   "fieldname": "rework_qty",
+   "fieldtype": "Float",
+   "label": "Rework Qty"
+  },
+  {
+   "fieldname": "rework_table",
+   "fieldtype": "Table",
+   "label": "Rework Table",
+   "options": "PNI Quality Table"
+  },
+  {
+   "fieldname": "received_by",
+   "fieldtype": "Link",
+   "label": "Received By",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "handover_to",
+   "fieldtype": "Link",
+   "label": "Handover To",
+   "options": "Employee"
   }
  ],
  "icon": "fa fa-search",
  "is_submittable": 1,
- "modified": "2019-12-23 10:52:55.671268",
+ "modified": "2020-01-07 13:53:29.504016",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Quality Inspection",

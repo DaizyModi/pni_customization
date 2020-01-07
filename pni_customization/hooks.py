@@ -35,7 +35,8 @@ fixtures = [
 					"item_",
 					"pni_material_type",
 					"pni_qty_per_piece",
-					"pni_quality_inspection"
+					"pni_quality_inspection",
+					"pni_inspection"
 				)
 			]
 		]
@@ -79,8 +80,7 @@ fixtures = [
 
 doc_events = {
  	"Stock Entry": {
-        "on_submit": "pni_customization.pni_customization.doctype.shift_order.shift_order.manage_se_changes",
-        "on_cancel": "pni_customization.pni_customization.doctype.shift_order.shift_order.manage_se_changes",
+        "on_submit": "pni_customization.utils.validate_inspection_for_work_order",
 		"validate": "pni_customization.utils.validate_stock_entry_item"
     },
 	"Item": {
@@ -93,7 +93,7 @@ doc_events = {
 	},
 	"Work Order": {
 		"on_submit": "pni_customization.utils.submit_work_order_item",
-		"validate": "pni_customization.utils.validate_work_order_item"
+		"validate": "pni_customization.utils.validate_work_order_item",
 	},
 	"Job Card": {
 		"on_submit": "pni_customization.utils.job_card_submit",

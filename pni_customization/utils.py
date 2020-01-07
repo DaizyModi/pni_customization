@@ -138,11 +138,25 @@ def update_delivery_item(doc, method):
 
 @frappe.whitelist()
 def submit_work_order_item(doc, method):
+	# validate_inspection_for_work_order(doc, method)
 	return
 	if doc.required_items:
 		for row in doc.required_items:
 			if type(row.available_qty_at_source_warehouse) == "NoneType" or float(row.required_qty) > float(row.available_qty_at_source_warehouse):
 				frappe.throw("Work Order Can't be submit as qty is not avaialble at source warehouse")
+
+def validate_inspection_for_work_order(doc, method):
+	if doc.work_order and doc.stock_entry_type == "Manufacture":
+		wo = frappe.get_doc("Work Order", doc.work_order)
+	if wo.status == "Completed" and wo.pni_quality_inspection:
+		total_qty = wo.qty
+		pni_qi = frappe.get_all("PNI Quality Inspection",{"reference_name":wo.name, "docstatus": 1})
+		inspect_qty = 0
+		for qi in pni_qi:
+			pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
+			inspect_qty += int(pni_qi_doc.accepted_qty)
+		if inspect_qty < total_qty:
+			frappe.throw(" Please do PNI Quality Inspection for {0} Items".format(str( total_qty- inspect_qty )))
 
 @frappe.whitelist()
 def validate_work_order_item(doc, method):
@@ -187,8 +201,6 @@ def job_card_submit(doc, method):
 		inspect_qty = 0
 		for qi in pni_qi:
 			pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
-			for result in pni_qi_doc.inspection:
-				if result.status == "Accept" and result.qty:
-					inspect_qty += int(result.qty)
+			inspect_qty += int(pni_qi_doc.accepted_qty)
 		if inspect_qty < total_qty:
 			frappe.throw(" Please do PNI QUality Inspection for {0} Items".format(str( total_qty- inspect_qty )))
