@@ -36,7 +36,8 @@ fixtures = [
 					"pni_material_type",
 					"pni_qty_per_piece",
 					"pni_quality_inspection",
-					"pni_inspection"
+					"pni_inspection",
+					"receiver_person"
 				)
 			]
 		]

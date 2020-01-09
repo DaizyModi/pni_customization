@@ -4,8 +4,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "item_group",
   "item",
+  "item_group",
   "reel_tracking_details"
  ],
  "fields": [
@@ -18,8 +18,10 @@
   {
    "fieldname": "item",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Item",
-   "options": "Item"
+   "options": "Item",
+   "reqd": 1
   },
   {
    "fieldname": "reel_tracking_details",
@@ -28,7 +30,7 @@
    "options": "Reel Tracking Details"
   }
  ],
- "modified": "2019-10-30 16:43:32.744659",
+ "modified": "2020-01-09 17:12:46.698043",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel Tracking",
