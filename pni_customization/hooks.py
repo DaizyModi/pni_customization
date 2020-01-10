@@ -194,7 +194,11 @@ permission_query_conditions = {
 
 # Scheduled Tasks
 # ---------------
-
+scheduler_events = {
+	"all": [
+		"erpnext.stock.reorder_item.reorder_item"
+	]
+}
 # scheduler_events = {
 # 	"all": [
 # 		"pni_customization.tasks.all"
