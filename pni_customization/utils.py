@@ -193,14 +193,13 @@ def validate_stock_entry_item(doc, method):
 
 @frappe.whitelist()
 def job_card_submit(doc, method):
-	if doc.pni_quality_inspection:
-		total_qty = 0
-		for item in doc.time_logs:
-			total_qty += item.completed_qty
-		pni_qi = frappe.get_all("PNI Quality Inspection",{"reference_name":doc.name, "docstatus": 1})
-		inspect_qty = 0
-		for qi in pni_qi:
-			pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
-			inspect_qty += int(pni_qi_doc.accepted_qty)
-		if inspect_qty < total_qty:
-			frappe.throw(" Please do PNI QUality Inspection for {0} Items".format(str( total_qty- inspect_qty )))
+	total_qty = 0
+	for item in doc.time_logs:
+		total_qty += item.completed_qty
+	pni_qi = frappe.get_all("PNI Quality Inspection",{"reference_name":doc.name, "docstatus": 1})
+	inspect_qty = 0
+	for qi in pni_qi:
+		pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
+		inspect_qty += int(pni_qi_doc.accepted_qty)
+	if inspect_qty < total_qty:
+		frappe.throw(" Please do PNI QUality Inspection for {0} Items".format(str( total_qty- inspect_qty )))
