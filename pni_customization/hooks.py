@@ -81,7 +81,7 @@ fixtures = [
 
 doc_events = {
  	"Stock Entry": {
-        "on_submit": "pni_customization.utils.validate_inspection_for_work_order",
+        # "on_submit": "pni_customization.utils.validate_inspection_for_work_order",
 		"validate": "pni_customization.utils.validate_stock_entry_item"
     },
 	"Item": {
