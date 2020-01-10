@@ -23,13 +23,9 @@
   "remarks",
   "specification_details",
   "accepted_qty",
-  "inspection",
-  "rejected_detail",
   "rejected_qty",
-  "rejected_table",
-  "rework_section",
   "rework_qty",
-  "rework_table",
+  "inspection",
   "amended_from"
  ],
  "fields": [
@@ -156,36 +152,14 @@
    "reqd": 1
   },
   {
-   "fieldname": "rejected_detail",
-   "fieldtype": "Section Break",
-   "label": "Rejected Detail"
-  },
-  {
    "fieldname": "rejected_qty",
    "fieldtype": "Float",
    "label": "Rejected Qty"
   },
   {
-   "fieldname": "rejected_table",
-   "fieldtype": "Table",
-   "label": "Rejected Table",
-   "options": "PNI Quality Table"
-  },
-  {
-   "fieldname": "rework_section",
-   "fieldtype": "Section Break",
-   "label": "Rework"
-  },
-  {
    "fieldname": "rework_qty",
    "fieldtype": "Float",
    "label": "Rework Qty"
-  },
-  {
-   "fieldname": "rework_table",
-   "fieldtype": "Table",
-   "label": "Rework Table",
-   "options": "PNI Quality Table"
   },
   {
    "fieldname": "received_by",
@@ -208,7 +182,7 @@
  ],
  "icon": "fa fa-search",
  "is_submittable": 1,
- "modified": "2020-01-10 17:34:59.803879",
+ "modified": "2020-01-10 20:06:24.608884",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Quality Inspection",
