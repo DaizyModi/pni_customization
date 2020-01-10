@@ -9,6 +9,7 @@
   "naming_series",
   "report_date",
   "created_by",
+  "pre_pni_inspection",
   "column_break_4",
   "inspection_type",
   "reference_type",
@@ -197,11 +198,17 @@
    "fieldtype": "Link",
    "label": "Handover To",
    "options": "Employee"
+  },
+  {
+   "default": "0",
+   "fieldname": "pre_pni_inspection",
+   "fieldtype": "Check",
+   "label": "Pre PNI Inspection"
   }
  ],
  "icon": "fa fa-search",
  "is_submittable": 1,
- "modified": "2020-01-07 13:53:29.504016",
+ "modified": "2020-01-10 17:34:59.803879",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Quality Inspection",

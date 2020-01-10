@@ -138,68 +138,72 @@ def update_delivery_item(doc, method):
 
 @frappe.whitelist()
 def submit_work_order_item(doc, method):
-	# validate_inspection_for_work_order(doc, method)
-	return
-	if doc.required_items:
-		for row in doc.required_items:
-			if type(row.available_qty_at_source_warehouse) == "NoneType" or float(row.required_qty) > float(row.available_qty_at_source_warehouse):
-				frappe.throw("Work Order Can't be submit as qty is not avaialble at source warehouse")
+	pass
 
+@frappe.whitelist()
 def validate_inspection_for_work_order(doc, method):
+	print("hello")
 	if doc.work_order and doc.stock_entry_type == "Manufacture":
 		wo = frappe.get_doc("Work Order", doc.work_order)
-		if wo.status == "Completed" and wo.pni_quality_inspection:
-			total_qty = wo.qty
-			pni_qi = frappe.get_all("PNI Quality Inspection",{"reference_name":wo.name, "docstatus": 1})
-			inspect_qty = 0
-			for qi in pni_qi:
-				pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
-				inspect_qty += int(pni_qi_doc.accepted_qty)
-			if inspect_qty < total_qty:
-				frappe.throw(" Please do PNI Quality Inspection for {0} Items".format(str( total_qty- inspect_qty )))
+		total_qty = wo.qty
+		pni_qi = frappe.get_all("PNI Quality Inspection",{"reference_name":wo.name, "docstatus": 1})
+		inspect_qty = 0
+		for qi in pni_qi:
+			pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
+			inspect_qty += int(pni_qi_doc.accepted_qty)
+		if inspect_qty < total_qty:
+			frappe.throw(" Please do PNI Quality Inspection for {0} Items".format(str( total_qty- inspect_qty )))
 
 @frappe.whitelist()
 def validate_work_order_item(doc, method):
-	print("1")
 	if doc.required_items:
-		print("2")
 		if doc.bom_no:
 			bom = frappe.get_doc("BOM",doc.bom_no)
 			for row in doc.required_items:
-				print("4")
 				for bom_item in bom.items:
-					print("5")
 					if bom_item.item_code == row.item_code:
-						print("6")
 						row.pni_qty_per_piece = bom_item.pni_qty_per_piece
-						# row.save()
 
 @frappe.whitelist()
 def validate_stock_entry_item(doc, method):
-	print("1")
+	print("Hello World")
+	validate_inspection_for_work_order(doc, method)
 	if doc.items:
-		print("2")
 		if doc.bom_no:
 			bom = frappe.get_doc("BOM",doc.bom_no)
 			if bom:
 				for row in doc.items:
-					print("4")
 					for bom_item in bom.items:
-						print("5")
 						if bom_item.item_code == row.item_code:
-							print("6")
 							row.pni_qty_per_piece = bom_item.pni_qty_per_piece
-							# row.save()
 
 @frappe.whitelist()
 def job_card_submit(doc, method):
 	total_qty = 0
 	for item in doc.time_logs:
 		total_qty += item.completed_qty
-	pni_qi = frappe.get_all("PNI Quality Inspection",{"reference_name":doc.name, "docstatus": 1})
+	pni_qi = frappe.get_all("PNI Quality Inspection",{"reference_name":doc.name, "pre_pni_inspection": False, "docstatus": 1})
 	inspect_qty = 0
 	for qi in pni_qi:
 		pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
 		inspect_qty += int(pni_qi_doc.accepted_qty)
 	if inspect_qty < total_qty:
 		frappe.throw(" Please do PNI QUality Inspection for {0} Items".format(str( total_qty- inspect_qty )))
+
+@frappe.whitelist()
+def job_card_update(doc, method):
+	operation = frappe.get_doc("Operation", doc.operation)
+	if operation and operation.pre_pni_inspection and doc.job_started:
+		total_qty = 0
+		for item in doc.time_logs:
+			total_qty += item.completed_qty
+		pni_qi = frappe.get_all("PNI Quality Inspection",{"reference_name":doc.name, "pre_pni_inspection": True, "docstatus": 1})
+		print(total_qty)
+		inspect_qty = 0
+		for qi in pni_qi:
+			pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
+			inspect_qty += int(pni_qi_doc.accepted_qty)
+		if inspect_qty == 0:
+			frappe.throw(" Pre PNI Quality Inpection Needed")
+		if inspect_qty < total_qty:
+			frappe.throw(" Please do Pre PNI QUality Inspection for {0} Items".format(str( total_qty- inspect_qty )))

@@ -36,7 +36,8 @@ fixtures = [
 					"pni_material_type",
 					"pni_qty_per_piece",
 					"pni_inspection",
-					"receiver_person"
+					"receiver_person",
+					"pre_pni_inspection"
 				)
 			]
 		]
@@ -97,6 +98,7 @@ doc_events = {
 	},
 	"Job Card": {
 		"on_submit": "pni_customization.utils.job_card_submit",
+		"on_update": "pni_customization.utils.job_card_update"
 	}
 }
 # include js, css files in header of desk.html
