@@ -8,6 +8,7 @@
  "field_order": [
   "naming_series",
   "customer",
+  "customer_name",
   "lead",
   "opportunity",
   "pni_quotation",
@@ -185,10 +186,16 @@
    "label": "PNI Quotation",
    "options": "PNI Quotation",
    "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-16 10:57:44.816472",
+ "modified": "2020-01-11 12:38:32.481085",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Sales Order",
