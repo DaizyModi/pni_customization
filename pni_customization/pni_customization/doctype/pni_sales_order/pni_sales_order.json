@@ -61,6 +61,7 @@
   {
    "fieldname": "delivery_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Delivery Date",
    "reqd": 1
   },
@@ -191,11 +192,12 @@
    "fetch_from": "customer.customer_name",
    "fieldname": "customer_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Customer Name"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-01-11 12:38:32.481085",
+ "modified": "2020-01-11 12:42:00.518156",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Sales Order",
