@@ -25,7 +25,7 @@ frappe.ui.form.on('PNI Sales Order', {
 			frm.set_value("user",frappe.session.user);
 		}
 		if(!frm.doc.customer_name){
-			frm.set_value("customer_name",frappe.db.get_value("Customer", frm.doc.customer, "customer_name").responseJSON.message.customer_name);
+			// frm.set_value("customer_name",frappe.db.get_value("Customer", frm.doc.customer, "customer_name").responseJSON.message.customer_name);
 		}
 		cur_frm.set_query("price_list", function() {
 			return { filters: { selling: 1 } };
