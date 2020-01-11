@@ -14,31 +14,40 @@ class PNIPacking(Document):
 
 		self.update_weight()
 
-		self.update_packing()
+		# self.update_packing()
+
+		self.calculate_total_stock()
 	
-	def update_packing(self):
-		count = {}
-		for data in self.carton_data:
-			if data.pni_packing_type in count:
-				count[data.pni_packing_type] = 1 + count[data.pni_packing_type]
-			else:
-				count[data.pni_packing_type] = 1
-		self.items = {}
-		for row in count:
-			self.append("items",{
-				"packing": row,
-				"packing_size": float(row) ,
-				"nos": count[row],
-				"total": float(row) * float(count[row]) * float(self.stack_size)
-			})
-		
+	def calculate_total_stock(self):
 		total = 0
-		
-		for row in self.items:
-			total += int(row.total)
-		if self.total:
-			total += int(self.total)
+		for row in self.carton_data:
+			total += float(row.stack_size) * float(row.packing_size)
+		for row in self.pni_loose_stock:
+			total +=  float(row.nos) * float(row.stack_size)
 		self.total_stock = total
+	# def update_packing(self):
+	# 	count = {}
+	# 	for data in self.carton_data:
+	# 		if data.pni_packing_type in count:
+	# 			count[data.pni_packing_type] = 1 + count[data.pni_packing_type]
+	# 		else:
+	# 			count[data.pni_packing_type] = 1
+	# 	self.items = {}
+	# 	for row in count:
+	# 		self.append("items",{
+	# 			"packing": row,
+	# 			"packing_size": float(row) ,
+	# 			"nos": count[row],
+	# 			"total": float(row) * float(count[row]) * float(self.stack_size)
+	# 		})
+		
+	# 	total = 0
+		
+	# 	for row in self.items:
+	# 		total += int(row.total)
+	# 	if self.total:
+	# 		total += int(self.total)
+	# 	self.total_stock = total
 	
 	def update_weight(self):
 		gross_weight = 0
@@ -46,8 +55,9 @@ class PNIPacking(Document):
 		for row in self.carton_data:
 			gross_weight += row.weight if row.weight else 0
 			net_weight += row.net_weight if row.net_weight else 0
-		self.total_gross_weight = gross_weight
-		self.total_net_weight = net_weight
+		loose_weight = float(self.loose_weight) if self.loose_weight else 0
+		self.total_gross_weight = gross_weight + loose_weight
+		self.total_net_weight = net_weight + loose_weight
 	
 	def onload(self):
 		setting = frappe.get_doc("PNI Settings","PNI Settings")
@@ -67,9 +77,9 @@ class PNIPacking(Document):
 					"item": self.item,
 					"item_name": frappe.get_value("Item", self.item, "item_name"),
 					"item_description": frappe.get_value("Item", self.item, "description"),
-					"size": self.stack_size,
+					"size": data.stack_size,
 					"no_of_stack": data.packing_size,
-					"total": float(self.stack_size) * float(data.packing_size),
+					"total": float(data.stack_size) * float(data.packing_size),
 				})
 				doc.insert()
 				data.carton_id = doc.name

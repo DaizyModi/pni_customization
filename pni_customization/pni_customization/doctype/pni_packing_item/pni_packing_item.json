@@ -5,6 +5,7 @@
  "engine": "InnoDB",
  "field_order": [
   "packing",
+  "stack_size",
   "packing_size",
   "nos",
   "total"
@@ -36,10 +37,16 @@
    "fieldtype": "Int",
    "label": "Packing Size",
    "read_only": 1
+  },
+  {
+   "fieldname": "stack_size",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Stack SIze"
   }
  ],
  "istable": 1,
- "modified": "2019-12-04 18:29:03.658713",
+ "modified": "2020-01-10 21:14:41.448863",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing Item",

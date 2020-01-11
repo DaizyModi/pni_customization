@@ -5,6 +5,7 @@
  "engine": "InnoDB",
  "field_order": [
   "pni_packing_type",
+  "stack_size",
   "packing_size",
   "weight",
   "net_weight",
@@ -43,11 +44,17 @@
    "in_list_view": 1,
    "label": "Net Weight",
    "read_only": 1
+  },
+  {
+   "fieldname": "stack_size",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Stack SIze"
   }
  ],
  "istable": 1,
- "modified": "2019-12-12 13:28:05.111785",
- "modified_by": "jigartarpara68@gmail.com",
+ "modified": "2020-01-11 07:45:35.786756",
+ "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing Carton",
  "owner": "Administrator",

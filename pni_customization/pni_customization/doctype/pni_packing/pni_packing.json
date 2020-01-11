@@ -5,62 +5,33 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
-  "stock_status",
   "carton_weight",
   "shift",
-  "stack_size",
+  "column_break_4",
   "workstation",
-  "carton_details_section",
-  "refresh_carton_data",
-  "enter_carton_weight",
-  "carton_data",
-  "section_break_9",
-  "total_gross_weight",
-  "column_break_11",
-  "total_net_weight",
-  "packing_details_section",
-  "items",
-  "loose_stock_details_section",
-  "loose_stock",
-  "total_stock",
-  "column_break_9",
-  "total",
+  "date",
   "employee_details_section",
   "employee",
+  "carton_details_section",
+  "carton_data",
+  "loose_stock_details_section",
+  "pni_loose_stock",
+  "loose_weight",
+  "stock_section",
+  "total_gross_weight",
+  "total_net_weight",
+  "column_break_11",
+  "total_stock",
   "amended_from"
  ],
  "fields": [
   {
    "fieldname": "item",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Item",
    "options": "Item",
    "reqd": 1
-  },
-  {
-   "fieldname": "stock_status",
-   "fieldtype": "Select",
-   "label": "Stock Status",
-   "options": "\nIn\nOut",
-   "read_only": 1
-  },
-  {
-   "fieldname": "stack_size",
-   "fieldtype": "Int",
-   "in_list_view": 1,
-   "label": "Stack SIze",
-   "reqd": 1
-  },
-  {
-   "fieldname": "packing_details_section",
-   "fieldtype": "Section Break",
-   "label": "Packing Details"
-  },
-  {
-   "fieldname": "items",
-   "fieldtype": "Table",
-   "label": "Packing",
-   "options": "PNI Packing Item"
   },
   {
    "fieldname": "loose_stock_details_section",
@@ -68,24 +39,9 @@
    "label": "Loose Stock Details"
   },
   {
-   "fieldname": "loose_stock",
-   "fieldtype": "Int",
-   "label": "Loose Stock"
-  },
-  {
    "fieldname": "total_stock",
    "fieldtype": "Data",
    "label": "Total Stock",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_9",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "total",
-   "fieldtype": "Data",
-   "label": "Total Loose",
    "read_only": 1
   },
   {
@@ -109,27 +65,10 @@
    "options": "PNI Packing Carton"
   },
   {
-   "fieldname": "refresh_carton_data",
-   "fieldtype": "Button",
-   "hidden": 1,
-   "label": "Refresh Carton Data",
-   "read_only": 1
-  },
-  {
    "fieldname": "carton_weight",
    "fieldtype": "Float",
-   "label": "Carton Weight"
-  },
-  {
-   "fieldname": "enter_carton_weight",
-   "fieldtype": "Button",
-   "hidden": 1,
-   "label": "Enter Carton Weight",
+   "label": "Carton Weight",
    "read_only": 1
-  },
-  {
-   "fieldname": "section_break_9",
-   "fieldtype": "Section Break"
   },
   {
    "fieldname": "total_gross_weight",
@@ -156,6 +95,7 @@
   {
    "fieldname": "workstation",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Workstation",
    "options": "Workstation",
    "reqd": 1
@@ -170,10 +110,36 @@
    "fieldtype": "Table",
    "label": "Employee",
    "options": "Employee Team Table"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "stock_section",
+   "fieldtype": "Section Break",
+   "label": "Stock"
+  },
+  {
+   "fieldname": "pni_loose_stock",
+   "fieldtype": "Table",
+   "label": "PNI Loose Stock",
+   "options": "PNI Loose Stock"
+  },
+  {
+   "fieldname": "loose_weight",
+   "fieldtype": "Float",
+   "label": "Loose Weight"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-30 13:36:57.282905",
+ "modified": "2020-01-11 08:27:32.378415",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
