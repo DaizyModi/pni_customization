@@ -7,7 +7,7 @@
  "doctype": "Report",
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2019-12-30 00:16:09.041594",
+ "modified": "2020-01-12 15:59:23.051840",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Carton Stock",
@@ -20,6 +20,9 @@
  "roles": [
   {
    "role": "System Manager"
+  },
+  {
+   "role": "Manufacturing Manager"
   }
  ]
 }

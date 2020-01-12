@@ -4,37 +4,32 @@ from frappe import _
 def get_data():
 	return [
 		{
-			"label": _("Work Flow"),
-			"items": [
-                {
-					"type": "doctype",
-					"name": "PNI Sales Order",
-					"description": _("Initial Order From Customer"),
-				},
-				{
-					"type": "doctype",
-					"name": "Sales Order",
-					"description": _("ERPNext Sales Order"),
-				},
-				{
-					"type": "doctype",
-					"name": "PNI Packing",
-					"description": _("PNI Packing"),
-				},
-				{
-					"type": "doctype",
-					"name": "Carton PNI",
-					"description": _("Carton Entry"),
-				},				
-			]
-		},
-		{
-			"label": _("Production"),
+			"label": _("Engineering"),
 			"items": [
 				{
 					"type": "doctype",
-					"name": "Shift Order",
-					"description": _("Employee Shift Order."),
+					"name": "BOM",
+					"description": _("BOM")
+				},
+				{
+					"type": "doctype",
+					"name": "Work Order",
+					"description": _("Work Order")
+				},
+				{
+					"type": "doctype",
+					"name": "Job Card",
+					"description": _("Job Card")
+				},
+				{
+					"type": "doctype",
+					"name": "Workstation",
+					"description": _("Workstation")
+				},
+				{
+					"type": "doctype",
+					"name": "Operation",
+					"description": _("Operation"),
 				},
 				{
 					"type": "doctype",
@@ -43,34 +38,29 @@ def get_data():
 				},
 				{
 					"type": "doctype",
-					"name": "PNI Material Request",
-					"description": _("Requests for items."),
-				},
-				{
-					"type": "doctype",
-					"name": "Reel Tracking",
-					"description": _("Reel Tracking Module."),
+					"name": "Item",
+					"description": _("Items"),
 				},
 			]
 		},
 		{
-			"label": _("Office Use"),
+			"label": _("Paper Cup Making"),
 			"items": [
-                {
+				{
 					"type": "doctype",
-					"name": "PNI Gate Entry",
-					"description": _("Initial Order From Customer"),
+					"name": "PNI Packing",
+					"description": _("Detail of Paper Cup Carton"),
 				},
 				{
 					"type": "doctype",
-					"name": "PNI Gate Pass",
-					"description": _("Initial Order From Customer"),
-				}
-			]
-		},
-        {
-			"label": _("Process Manufacturing"),
-			"items": [
+					"name": "Process Order",
+					"description": _(" Record Production Detail")
+				},
+				{
+					"type": "doctype",
+					"name": "PNI Carton",
+					"description": _("Carton Details"),
+				},
 				{
 					"type": "doctype",
 					"name": "Process Definition",
@@ -91,11 +81,94 @@ def get_data():
 					"name": "Item",
 					"description": _("All Products or Services."),
 				},
-                {
+				{
 					"type": "doctype",
-					"name": "Batch",
-					"description": _("Batch (lot) of an Item."),
-				},
+					"name": "Stock Entry",
+					"description": _("Record item movement."),
+				}
 			]
 		},
+		{
+			"label": _("Paper Cup Reports"),
+			"items": [
+                {
+					"type": "report",
+					"name": "PNI Carton Stock",
+					"is_query_report": True,
+					"description": _("Initial Order From Customer"),
+					"reference_doctype": "PNI Carton",
+				}
+			]
+		},
+		{
+			"label": _("Paper Blank Processing"),
+			"items": [
+				{
+					"type": "doctype",
+					"name": "Reel Tracking",
+					"description": _("Reel Tracking Module."),
+				},
+				{
+					"type": "doctype",
+					"name": "Stock Entry",
+					"description": _("Record item movement."),
+				},
+				{
+					"type": "doctype",
+					"name": "",
+					"description": _("")
+				}
+			]
+		},
+		{
+			"label": _("Sales"),
+			"items": [
+				{
+					"type": "doctype",
+					"name": "Lead",
+					"description": _("Description")
+				},
+				{
+					"type": "doctype",
+					"name": "Opportunity",
+					"description": _("Opportunity")
+				},
+				{
+					"type": "doctype",
+					"name": "PNI Quotation",
+					"description": _("PNI Quotation")
+				},
+				{
+					"type": "doctype",
+					"name": "PNI Sales Order",
+					"description": _("Initial Order From Customer"),
+				},
+				{
+					"type": "doctype",
+					"name": "Sales Order",
+					"description": _("ERPNext Sales Order"),
+				},
+				{
+					"type": "doctype",
+					"name": "",
+					"description": _("")
+				}
+			]
+		},
+		
+		{
+			"label": _("Office Use"),
+			"items": [
+                {
+					"type": "doctype",
+					"name": "PNI Gate Entry",
+					"description": _("Initial Order From Customer"),
+				},
+				{
+					"type": "doctype",
+					"name": "PNI Gate Pass",
+					"description": _("Initial Order From Customer"),
+				}
+			]
+		}
 	]
