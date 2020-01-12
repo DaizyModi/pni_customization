@@ -37,7 +37,8 @@ fixtures = [
 					"pni_qty_per_piece",
 					"pni_inspection",
 					"receiver_person",
-					"pre_pni_inspection"
+					"pre_pni_inspection",
+					"pni_programme_cycle_time"
 				)
 			]
 		]
