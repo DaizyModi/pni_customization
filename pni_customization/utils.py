@@ -208,3 +208,13 @@ def job_card_update(doc, method):
 			frappe.throw(" Pre PNI Quality Inpection Needed")
 		if inspect_qty < total_qty:
 			frappe.throw(" Please do Pre PNI QUality Inspection for {0} Items".format(str( total_qty- inspect_qty )))
+
+@frappe.whitelist()
+def job_card_onload(doc, method):
+	data = frappe.db.sql("""select sum(jctl.completed_qty) from `tabJob Card Time Log` jctl
+			INNER JOIN
+				`tabJob Card` jc
+			on jc.name = jctl.parent
+			where jc.work_order = %s and jc.operation = %s and jc.docstatus <> 2""", (doc.work_order, doc.operation))
+	if data and data[0] and data[0][0]:
+		doc.pni_balance_qty = int(data[0]0[0])
