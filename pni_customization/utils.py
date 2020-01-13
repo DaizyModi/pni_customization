@@ -219,4 +219,4 @@ def job_card_onload(doc, method):
 	if data and data[0] and data[0][0]:
 		wo = frappe.get_doc("Work Order",doc.work_order)
 		doc.pni_balance_qty = int(wo.qty) - int(data[0][0])
-	doc.save()
+	# doc.save()
