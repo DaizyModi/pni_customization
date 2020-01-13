@@ -101,7 +101,7 @@ doc_events = {
 	"Job Card": {
 		"on_submit": "pni_customization.utils.job_card_submit",
 		"on_update": "pni_customization.utils.job_card_update",
-		"validate": "pni_customization.utils.job_card_onload"
+		# "validate": "pni_customization.utils.job_card_onload"
 	}
 }
 # include js, css files in header of desk.html
