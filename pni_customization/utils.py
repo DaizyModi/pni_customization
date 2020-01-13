@@ -218,3 +218,5 @@ def job_card_onload(doc, method):
 			where jc.work_order = %s and jc.operation = %s and jc.docstatus <> 2""", (doc.work_order, doc.operation))
 	if data and data[0] and data[0][0]:
 		doc.pni_balance_qty = int(data[0][0][0])
+	
+	doc.save()
