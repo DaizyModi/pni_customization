@@ -116,32 +116,32 @@ def get_data():
 				{
 					"type": "doctype",
 					"name": "Printing Cylinder",
-					"description": _("Printing Cylinder Master")
+					"description": _("Printing Cylinder Master"),
 				},
 				{
 					"type": "doctype",
 					"name": "Punching",
-					"description": _("Punching Master")
+					"description": _("Punching Master"),
 				},
 				{
 					"type": "doctype",
 					"name": "Punch Table",
-					"description": _("Punched Table Master")
+					"description": _("Punched Table Master"),
 				},
 				{
 					"type": "doctype",
 					"name": "Punching Die",
-					"description": _("Punching Die Master")
+					"description": _("Punching Die Master"),
 				},
 				{
 					"type": "doctype",
 					"name": "Reel",
-					"description": _("Reel Master")
+					"description": _("Reel Master"),
 				},
 				{
 					"type": "doctype",
 					"name": "Reel Tracking",
-					"description": _("Reel History Tracking")
+					"description": _("Reel History Tracking"),
 				}
 			]
 		},
