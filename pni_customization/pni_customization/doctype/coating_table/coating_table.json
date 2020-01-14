@@ -1,0 +1,95 @@
+{
+ "creation": "2020-01-13 14:22:35.821441",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "reel_in",
+  "brand",
+  "size",
+  "gsm",
+  "weight",
+  "reel_out",
+  "weight_out"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "reel_in",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Reel In",
+   "options": "Reel"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "reel_in.brand",
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Brand",
+   "options": "Brand"
+  },
+  {
+   "columns": 1,
+   "fetch_from": "reel_in.size",
+   "fieldname": "size",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Size"
+  },
+  {
+   "columns": 1,
+   "fetch_from": "reel_in.gsm",
+   "fieldname": "gsm",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "GSM"
+  },
+  {
+   "columns": 1,
+   "fetch_from": "reel_in.weight",
+   "fieldname": "weight",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Weight"
+  },
+  {
+   "columns": 2,
+   "fieldname": "reel_out",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Reel Out",
+   "options": "Reel"
+  },
+  {
+   "columns": 1,
+   "fieldname": "weight_out",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Weight Out"
+  }
+ ],
+ "modified": "2020-01-13 14:34:26.373468",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Coating Table",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

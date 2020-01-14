@@ -1,0 +1,125 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-01-13 12:47:27.045095",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "work_station",
+  "operator",
+  "column_break_4",
+  "date",
+  "time",
+  "shift_time",
+  "costing_details_section",
+  "ldpe_bag",
+  "coating_table",
+  "coating_scrap",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Naming Series",
+   "options": "PNI-COAT-.########",
+   "reqd": 1
+  },
+  {
+   "fieldname": "work_station",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Work Station",
+   "options": "Workstation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "operator",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Operator",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "shift_time",
+   "fieldtype": "Select",
+   "label": "Shift Time",
+   "options": "1\n2\n3\n4",
+   "reqd": 1
+  },
+  {
+   "fieldname": "costing_details_section",
+   "fieldtype": "Section Break",
+   "label": "Coating Details"
+  },
+  {
+   "fieldname": "coating_table",
+   "fieldtype": "Table",
+   "label": "Coating Table",
+   "options": "Coating Table"
+  },
+  {
+   "fieldname": "ldpe_bag",
+   "fieldtype": "Int",
+   "label": "LDPE Bag"
+  },
+  {
+   "fieldname": "coating_scrap",
+   "fieldtype": "Table",
+   "label": "Coating Scrap",
+   "options": "Coating Scrap"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Coating",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2020-01-13 14:43:59.150515",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Coating",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

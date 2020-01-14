@@ -6,40 +6,100 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "status",
+  "item",
+  "type",
+  "column_break_5",
   "brand",
   "size",
+  "coated_reel",
+  "printed_reel",
+  "section_break_9",
   "gsm",
+  "column_break_11",
   "weight"
  ],
  "fields": [
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "label": "Naming Series"
+   "label": "Naming Series",
+   "options": "RL-.######"
   },
   {
    "fieldname": "brand",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Brand",
-   "options": "Brand"
+   "options": "Brand",
+   "reqd": 1
   },
   {
    "fieldname": "size",
    "fieldtype": "Float",
-   "label": "Size"
+   "in_list_view": 1,
+   "label": "Size",
+   "reqd": 1
   },
   {
    "fieldname": "gsm",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "GSM"
   },
   {
    "fieldname": "weight",
    "fieldtype": "Float",
    "label": "Weight"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "Plain Reel\nBottom Reel",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "coated_reel",
+   "fieldtype": "Check",
+   "label": "Coated Reel"
+  },
+  {
+   "default": "0",
+   "fieldname": "printed_reel",
+   "fieldtype": "Check",
+   "label": "Printed Reel"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nIn Stock\nConsume\nSold"
   }
  ],
- "modified": "2020-01-13 10:57:53.835894",
+ "modified": "2020-01-13 13:42:40.810563",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel",
@@ -58,7 +118,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1

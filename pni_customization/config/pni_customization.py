@@ -105,8 +105,18 @@ def get_data():
 			"items": [
 				{
 					"type": "doctype",
+					"name": "Coating",
+					"description": _("Coating Details"),
+				},
+				{
+					"type": "doctype",
+					"name": "Reel",
+					"description": _("Reel Master")
+				},
+				{
+					"type": "doctype",
 					"name": "Reel Tracking",
-					"description": _("Reel Tracking Module."),
+					"description": _("Reel History Tracking")
 				},
 				{
 					"type": "doctype",

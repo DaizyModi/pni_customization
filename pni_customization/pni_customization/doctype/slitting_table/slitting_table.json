@@ -1,0 +1,90 @@
+{
+ "creation": "2020-01-14 15:36:09.430162",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "reel_in",
+  "brand",
+  "gsm",
+  "size",
+  "weight",
+  "reel_out",
+  "size_out",
+  "weight_out"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "reel_in",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Reel IN",
+   "options": "Reel"
+  },
+  {
+   "fetch_from": "reel_in.brand",
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Brand",
+   "options": "Brand"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "reel_in.gsm",
+   "fieldname": "gsm",
+   "fieldtype": "Float",
+   "label": "GSM"
+  },
+  {
+   "columns": 1,
+   "fetch_from": "reel_in.size",
+   "fieldname": "size",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Size"
+  },
+  {
+   "columns": 1,
+   "fetch_from": "reel_in.weight",
+   "fieldname": "weight",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Weight"
+  },
+  {
+   "columns": 2,
+   "fieldname": "reel_out",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Reel Out",
+   "options": "Reel"
+  },
+  {
+   "columns": 1,
+   "fieldname": "size_out",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Size out"
+  },
+  {
+   "columns": 1,
+   "fieldname": "weight_out",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": " Weight Out"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-01-14 15:51:59.502620",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Slitting Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

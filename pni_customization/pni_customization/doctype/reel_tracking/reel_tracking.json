@@ -1,36 +1,67 @@
 {
+ "autoname": "field:reel",
  "creation": "2019-10-30 16:37:12.693807",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "item",
-  "item_group",
-  "reel_tracking_details"
+  "reel",
+  "processing_section",
+  "reel_process",
+  "column_break_4",
+  "date",
+  "time",
+  "output_section",
+  "out_reel"
  ],
  "fields": [
   {
-   "fieldname": "item_group",
-   "fieldtype": "Link",
-   "label": "Item Group",
-   "options": "Item Group"
-  },
-  {
-   "fieldname": "item",
+   "fieldname": "reel",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Item",
-   "options": "Item",
-   "reqd": 1
+   "label": "In Reel",
+   "options": "Reel",
+   "reqd": 1,
+   "unique": 1
   },
   {
-   "fieldname": "reel_tracking_details",
-   "fieldtype": "Table",
-   "label": "Reel Tracking Details",
-   "options": "Reel Tracking Details"
+   "fieldname": "processing_section",
+   "fieldtype": "Section Break",
+   "label": "Processing"
+  },
+  {
+   "fieldname": "reel_process",
+   "fieldtype": "Select",
+   "label": "Reel Process",
+   "options": "Coating\nPrinting\nSlitting"
+  },
+  {
+   "fieldname": "output_section",
+   "fieldtype": "Section Break",
+   "label": "Output"
+  },
+  {
+   "fieldname": "out_reel",
+   "fieldtype": "Link",
+   "label": "Out Reel",
+   "options": "Reel"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-01-09 17:12:46.698043",
+ "modified": "2020-01-13 12:04:22.087592",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel Tracking",
@@ -49,7 +80,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1

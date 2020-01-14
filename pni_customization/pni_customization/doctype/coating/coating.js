@@ -1,7 +1,7 @@
-// Copyright (c) 2019, Jigar Tarpara and contributors
+// Copyright (c) 2020, Jigar Tarpara and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('PNI Reel', {
+frappe.ui.form.on('Coating', {
 	// refresh: function(frm) {
 
 	// }
