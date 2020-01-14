@@ -133,7 +133,6 @@ def get_data():
 					"name": "Punch Table",
 					"description": _("Punched Table Master")
 				},
-
 				{
 					"type": "doctype",
 					"name": "Punching Die",
