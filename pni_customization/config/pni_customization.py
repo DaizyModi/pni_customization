@@ -80,11 +80,6 @@ def get_data():
 					"type": "doctype",
 					"name": "Item",
 					"description": _("All Products or Services."),
-				},
-				{
-					"type": "doctype",
-					"name": "Stock Entry",
-					"description": _("Record item movement."),
 				}
 			]
 		},
@@ -147,11 +142,6 @@ def get_data():
 					"type": "doctype",
 					"name": "Reel Tracking",
 					"description": _("Reel History Tracking")
-				},
-				{
-					"type": "doctype",
-					"name": "Stock Entry",
-					"description": _("Record item movement."),
 				}
 			]
 		},
