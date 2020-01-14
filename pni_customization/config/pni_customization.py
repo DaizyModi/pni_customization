@@ -120,6 +120,27 @@ def get_data():
 				},
 				{
 					"type": "doctype",
+					"name": "Printing Cylinder",
+					"description": _("Printing Cylinder Master")
+				},
+				{
+					"type": "doctype",
+					"name": "Punching",
+					"description": _("Punching Master")
+				},
+				{
+					"type": "doctype",
+					"name": "Punch Table",
+					"description": _("Punched Table Master")
+				},
+
+				{
+					"type": "doctype",
+					"name": "Punching Die",
+					"description": _("Punching Die Master")
+				},
+				{
+					"type": "doctype",
 					"name": "Reel",
 					"description": _("Reel Master")
 				},
@@ -132,11 +153,6 @@ def get_data():
 					"type": "doctype",
 					"name": "Stock Entry",
 					"description": _("Record item movement."),
-				},
-				{
-					"type": "doctype",
-					"name": "",
-					"description": _("")
 				}
 			]
 		},
