@@ -110,6 +110,16 @@ def get_data():
 				},
 				{
 					"type": "doctype",
+					"name": "Slitting",
+					"description": _("Slitting Details"),
+				},
+				{
+					"type": "doctype",
+					"name": "Printing",
+					"description": _("Printing Details"),
+				},
+				{
+					"type": "doctype",
 					"name": "Reel",
 					"description": _("Reel Master")
 				},

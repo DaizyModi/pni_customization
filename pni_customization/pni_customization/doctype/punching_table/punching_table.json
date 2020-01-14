@@ -1,0 +1,103 @@
+{
+ "creation": "2020-01-14 19:54:40.099308",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "reel_in",
+  "brand",
+  "gsm",
+  "size",
+  "weight",
+  "punching_die",
+  "die_serial_number",
+  "punch_table",
+  "weight_out"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "reel_in",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Reel IN",
+   "options": "Reel"
+  },
+  {
+   "columns": 1,
+   "fetch_from": "reel_in.brand",
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Brand",
+   "options": "Brand"
+  },
+  {
+   "columns": 1,
+   "fetch_from": "reel_in.gsm",
+   "fieldname": "gsm",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "GSM"
+  },
+  {
+   "columns": 1,
+   "fetch_from": "reel_in.size",
+   "fieldname": "size",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Size"
+  },
+  {
+   "columns": 1,
+   "fetch_from": "reel_in.weight",
+   "fieldname": "weight",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Weight"
+  },
+  {
+   "columns": 1,
+   "fieldname": "weight_out",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": " Weight Out"
+  },
+  {
+   "columns": 1,
+   "fieldname": "punching_die",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Punching Die",
+   "options": "Punching Die"
+  },
+  {
+   "columns": 1,
+   "fetch_from": "punching_die.die_serial_number",
+   "fieldname": "die_serial_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Die Serial Number",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "punch_table",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Punch Table",
+   "options": "Punch Table"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-01-14 20:24:10.985839",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Punching Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

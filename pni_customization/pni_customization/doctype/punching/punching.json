@@ -1,0 +1,128 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-01-14 16:43:04.617147",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "workstation",
+  "operator_name",
+  "column_break_4",
+  "date",
+  "time",
+  "printing_table_section",
+  "punching_table",
+  "scrap_section",
+  "punching_scrap",
+  "note_section",
+  "punching_note",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "PNI-SLT-.#######"
+  },
+  {
+   "fieldname": "workstation",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Workstation",
+   "options": "Workstation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "operator_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Operator Name",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "printing_table_section",
+   "fieldtype": "Section Break",
+   "label": "Punching Table"
+  },
+  {
+   "fieldname": "scrap_section",
+   "fieldtype": "Section Break",
+   "label": "Scrap"
+  },
+  {
+   "fieldname": "note_section",
+   "fieldtype": "Section Break",
+   "label": "Note"
+  },
+  {
+   "fieldname": "punching_note",
+   "fieldtype": "Text",
+   "label": "Punching Note"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Punching",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "punching_scrap",
+   "fieldtype": "Table",
+   "label": "Punching Scrap",
+   "options": "Punching Scrap"
+  },
+  {
+   "fieldname": "punching_table",
+   "fieldtype": "Table",
+   "label": "Punching Table",
+   "options": "Punching Table"
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2020-01-14 19:54:53.753331",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Punching",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

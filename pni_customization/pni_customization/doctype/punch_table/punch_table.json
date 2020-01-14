@@ -1,0 +1,64 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-01-14 20:20:51.417874",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "punching_die",
+  "weight",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "TBL-.#######"
+  },
+  {
+   "fieldname": "punching_die",
+   "fieldtype": "Link",
+   "label": " Punching Die",
+   "options": "Punching Die"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Punch Table",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "weight",
+   "fieldtype": "Data",
+   "label": "Weight"
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2020-01-14 20:22:00.604889",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Punch Table",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
