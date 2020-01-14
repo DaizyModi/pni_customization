@@ -57,7 +57,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Type",
-   "options": "Plain Reel\nBottom Reel",
+   "options": "Blank Reel\nBottom Reel",
    "reqd": 1
   },
   {
@@ -99,7 +99,7 @@
    "options": "Draft\nIn Stock\nConsume\nSold"
   }
  ],
- "modified": "2020-01-13 13:42:40.810563",
+ "modified": "2020-01-14 16:01:15.433766",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel",
