@@ -161,9 +161,10 @@ def validate_work_order_item(doc, method):
 		if doc.bom_no:
 			bom = frappe.get_doc("BOM",doc.bom_no)
 			for row in doc.required_items:
-				for bom_item in bom.items:
-					if bom_item.item_code == row.item_code:
-						row.pni_qty_per_piece = bom_item.pni_qty_per_piece
+				if not row.pni_qty_per_piece:
+					for bom_item in bom.items:
+						if bom_item.item_code == row.item_code:
+							row.pni_qty_per_piece = bom_item.pni_qty_per_piece
 
 @frappe.whitelist()
 def validate_stock_entry_item(doc, method):
@@ -174,9 +175,10 @@ def validate_stock_entry_item(doc, method):
 			bom = frappe.get_doc("BOM",doc.bom_no)
 			if bom:
 				for row in doc.items:
-					for bom_item in bom.items:
-						if bom_item.item_code == row.item_code:
-							row.pni_qty_per_piece = bom_item.pni_qty_per_piece
+					if not row.pni_qty_per_piece:
+						for bom_item in bom.items:
+							if bom_item.item_code == row.item_code:
+								row.pni_qty_per_piece = bom_item.pni_qty_per_piece
 
 @frappe.whitelist()
 def job_card_submit(doc, method):
