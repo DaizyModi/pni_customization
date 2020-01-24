@@ -98,3 +98,9 @@ class PNIPacking(Document):
 				frappe.throw("Weight Can't be empty")
 			doc = frappe.get_doc("PNI Carton",data.carton_id)
 			doc.submit()
+	
+	def get_employee_list(self):
+		if self.select_employee_group:
+			doc = frappe.get_doc("Duty Employee Group", self.select_employee_group)
+			if doc:
+				return doc.employee_team_table

@@ -13,6 +13,7 @@
   "workstation",
   "date",
   "employee_details_section",
+  "select_employee_group",
   "employee",
   "carton_details_section",
   "carton_data",
@@ -144,10 +145,16 @@
    "fieldtype": "Select",
    "label": "Naming Series",
    "options": "PNI-PCK-.#########"
+  },
+  {
+   "fieldname": "select_employee_group",
+   "fieldtype": "Link",
+   "label": "Select Employee Group",
+   "options": "Duty Employee Group"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-01-11 08:46:27.741519",
+ "modified": "2020-01-24 14:59:47.596756",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

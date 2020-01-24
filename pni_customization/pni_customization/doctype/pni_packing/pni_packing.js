@@ -8,6 +8,23 @@ frappe.ui.form.on('PNI Packing', {
 		// 	refresh_field("total");
 		// }
 	},
+	select_employee_group: function(frm) {
+		frappe.call({
+			"method": "get_employee_list",
+			doc: cur_frm.doc,
+			callback: function (r) {
+				if(r.message){
+
+					r.message.forEach(function(element) {
+						var c = frm.add_child("employee");
+						c.duty = element.duty;
+						c.employee = element.employee;
+					});
+					refresh_field("employee");
+				}	
+			}
+		})
+	},
 	refresh_carton_data: function(frm) {
 		// if( frm.doc.carton_data.length == 0 ) {
 		// 	frm.doc.items.forEach(function(value){
