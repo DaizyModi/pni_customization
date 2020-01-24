@@ -7,7 +7,6 @@
  "field_order": [
   "naming_series",
   "item",
-  "carton_weight",
   "shift",
   "column_break_4",
   "workstation",
@@ -66,12 +65,6 @@
    "fieldtype": "Table",
    "label": "Carton Data",
    "options": "PNI Packing Carton"
-  },
-  {
-   "fieldname": "carton_weight",
-   "fieldtype": "Float",
-   "label": "Carton Weight",
-   "read_only": 1
   },
   {
    "fieldname": "total_gross_weight",
@@ -154,7 +147,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-01-24 14:59:47.596756",
+ "modified": "2020-01-24 15:23:18.195583",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
