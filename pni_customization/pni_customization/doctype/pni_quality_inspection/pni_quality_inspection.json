@@ -183,7 +183,7 @@
  ],
  "icon": "fa fa-search",
  "is_submittable": 1,
- "modified": "2020-01-12 13:50:00.456646",
+ "modified": "2020-01-27 08:44:40.838844",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Quality Inspection",
@@ -206,5 +206,8 @@
  ],
  "show_name_in_global_search": 1,
  "sort_field": "modified",
- "sort_order": "ASC"
+ "sort_order": "ASC",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
 }
