@@ -8,6 +8,7 @@
   "naming_series",
   "item",
   "status",
+  "barcode",
   "item_name",
   "item_description",
   "size",
@@ -82,10 +83,17 @@
    "fieldtype": "Select",
    "label": "Status",
    "options": "Pending\nAvailable\nDelivered"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "barcode",
+   "fieldtype": "Barcode",
+   "ignore_xss_filter": 1,
+   "label": "Barcode"
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-24 13:33:30.099333",
+ "modified": "2020-01-29 15:59:06.166368",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Carton",

@@ -8,11 +8,6 @@ def get_data():
 			"items": [
 				{
 					"type": "doctype",
-					"name": "BOM",
-					"description": _("BOM")
-				},
-				{
-					"type": "doctype",
 					"name": "Work Order",
 					"description": _("Work Order")
 				},
@@ -23,11 +18,6 @@ def get_data():
 				},
 				{
 					"type": "doctype",
-					"name": "Workstation",
-					"description": _("Workstation")
-				},
-				{
-					"type": "doctype",
 					"name": "Operation",
 					"description": _("Operation"),
 				},
@@ -35,12 +25,7 @@ def get_data():
 					"type": "doctype",
 					"name": "Stock Entry",
 					"description": _("Record item movement."),
-				},
-				{
-					"type": "doctype",
-					"name": "Item",
-					"description": _("Items"),
-				},
+				}
 			]
 		},
 		{
@@ -75,11 +60,6 @@ def get_data():
 					"type": "doctype",
 					"name": "Manufacturing Department",
 					"description": _("Manufacturing Department"),
-				},
-                {
-					"type": "doctype",
-					"name": "Item",
-					"description": _("All Products or Services."),
 				}
 			]
 		},
