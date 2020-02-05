@@ -32,7 +32,67 @@ frappe.ui.form.on('Delivery Note', {
 				refresh_field("items")
 			}
 		})
-	}
+	},
+	scan_carton: function(frm) {
+		let scan_barcode_field = frm.fields_dict["scan_carton"];
+		console.log(frm);
+		debugger;
+		let show_description = function(idx, exist = null) {
+			if (exist) {
+				scan_barcode_field.set_new_description(__('Row #{0}: Qty increased by 1', [idx]));
+			} else {
+				scan_barcode_field.set_new_description(__('Row #{0}: Item added', [idx]));
+			}
+		}
+
+		if(frm.doc.scan_carton) {
+			frappe.call({
+				method: "pni_customization.utils.get_carton",
+				args: { carton: frm.doc.scan_carton }
+			}).then(r => {
+				const data = r && r.message;
+				if (!data || Object.keys(data).length === 0) {
+					scan_barcode_field.set_new_description(__('Cannot find Item with this barcode'));
+					return;
+				}
+
+				let cur_grid = frm.fields_dict.pni_packing_table.grid;
+
+				let row_to_modify = null;
+				const existing_item_row = frm.doc.pni_packing_table.find(d => d.pni_carton === data);
+				const blank_item_row = frm.doc.pni_packing_table.find(d => !d.pni_carton);
+
+				if (existing_item_row) {
+					row_to_modify = existing_item_row;
+				} else if (blank_item_row) {
+					row_to_modify = blank_item_row;
+				}
+
+				if (!row_to_modify) {
+					// add new row
+					row_to_modify = frappe.model.add_child(frm.doc, cur_grid.doctype, 'pni_packing_table');
+				}
+
+				show_description(row_to_modify.idx, row_to_modify.pni_carton);
+
+				frm.from_barcode = true;
+				frappe.model.set_value(row_to_modify.doctype, row_to_modify.name, {
+					pni_carton: data,
+				});
+
+				['serial_no', 'batch_no', 'barcode'].forEach(field => {
+					if (data[field] && frappe.meta.has_field(row_to_modify.doctype, field)) {
+						frappe.model.set_value(row_to_modify.doctype,
+							row_to_modify.name, field, data[field]);
+					}
+				});
+
+				scan_barcode_field.set_value('');
+				refresh_field('pni_packing_table')
+			});
+		}
+		return false;
+	},
 })
 frappe.ui.form.on('PNI Packing Table', {
 	pni_carton: function(frm, cdt, cdn) {

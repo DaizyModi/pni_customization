@@ -39,7 +39,8 @@ fixtures = [
 					"receiver_person",
 					"pre_pni_inspection",
 					"pni_programme_cycle_time",
-					"pni_balance_qty"
+					"pni_balance_qty",
+					"scan_carton"
 				)
 			]
 		]

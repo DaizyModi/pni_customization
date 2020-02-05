@@ -84,11 +84,13 @@ class PNIPacking(Document):
 				})
 				doc.insert()
 				data.carton_id = doc.name
+				data.print_carton = doc.name
 			else:
 				doc = frappe.get_doc("PNI Carton",data.carton_id)
 				doc.gross_weight = data.weight
 				doc.net_weight = data.net_weight
 				doc.save()
+				data.print_carton = data.carton_id
 			
 	
 	def on_submit(self):

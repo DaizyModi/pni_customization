@@ -11,6 +11,7 @@
   "carton_weight",
   "net_weight",
   "packing_size",
+  "print_carton",
   "carton_id"
  ],
  "fields": [
@@ -72,10 +73,19 @@
    "fieldtype": "Float",
    "label": "carton_weight",
    "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fetch_from": "carton_id",
+   "fieldname": "print_carton",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Print",
+   "options": "PNI Carton"
   }
  ],
  "istable": 1,
- "modified": "2020-01-27 08:37:52.504089",
+ "modified": "2020-01-31 13:34:44.330097",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing Carton",
