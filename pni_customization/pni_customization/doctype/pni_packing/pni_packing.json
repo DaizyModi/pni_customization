@@ -14,6 +14,8 @@
   "employee_details_section",
   "select_employee_group",
   "employee",
+  "supervisor",
+  "supervisor_name",
   "carton_details_section",
   "carton_data",
   "loose_stock_details_section",
@@ -86,7 +88,7 @@
    "fieldname": "shift",
    "fieldtype": "Select",
    "label": "Shift",
-   "options": "1\n2\n3\n4"
+   "options": "Day\nNight\n1\n2\n3\n4"
   },
   {
    "fieldname": "workstation",
@@ -144,10 +146,22 @@
    "fieldtype": "Link",
    "label": "Select Employee Group",
    "options": "Duty Employee Group"
+  },
+  {
+   "fieldname": "supervisor",
+   "fieldtype": "Link",
+   "label": "Supervisor",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "supervisor.employee_name",
+   "fieldname": "supervisor_name",
+   "fieldtype": "Data",
+   "label": "Supervisor Name"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-01-24 15:23:18.195583",
+ "modified": "2020-02-07 14:30:55.427106",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

@@ -10,6 +10,7 @@ from frappe.model.document import Document
 
 class PNIPacking(Document):
 	def validate(self):
+		self.update_employee()
 		self.create_carton()
 
 		self.update_weight()
@@ -18,6 +19,11 @@ class PNIPacking(Document):
 
 		self.calculate_total_stock()
 	
+	def update_employee(self):
+		for row in self.employee:
+			if row.duty == "Supervisor":
+				self.supervisor = row.employee
+
 	def calculate_total_stock(self):
 		total = 0
 		for row in self.carton_data:
@@ -76,6 +82,9 @@ class PNIPacking(Document):
 				doc = frappe.get_doc({
 					"doctype": "PNI Carton",
 					"item": self.item,
+					"supervisor": self.supervisor,
+					"supervisor_name": self.supervisor_name,
+					"shift": self.shift,
 					"item_name": frappe.get_value("Item", self.item, "item_name"),
 					"item_description": frappe.get_value("Item", self.item, "description"),
 					"size": data.stack_size,
@@ -89,6 +98,9 @@ class PNIPacking(Document):
 				doc = frappe.get_doc("PNI Carton",data.carton_id)
 				doc.gross_weight = data.weight
 				doc.net_weight = data.net_weight
+				doc.shift = self.shift
+				doc.supervisor = self.supervisor
+				doc.supervisor_name =  self.supervisor_name
 				doc.save()
 				data.print_carton = data.carton_id
 			
