@@ -1,5 +1,5 @@
 frappe.ui.form.on('Delivery Note', {
-	"add_item_pni": function(frm) {
+	add_item_pni: function(frm) {
 
 		var list_item = {} 
 		var item_name = {}
@@ -93,9 +93,24 @@ frappe.ui.form.on('Delivery Note', {
 		}
 		return false;
 	},
+	// pni_delivery_note: function (frm) {
+	// 	let temp = []
+	// 	if(cur_frm.doc.pni_delivery_note){
+	// 		debugger;
+	// 		for(intem in cur_frm.doc.pni_delivery_note){
+	// 			temp.push(cur_frm.doc.pni_delivery_note[intem].item);
+	// 		}
+	// 	}
+	// 	debugger;
+	// 	frm.set_query("pni_carton", function () {
+	// 		return {
+	// 			filters: [
+	// 				["PNI Carton","item","in",temp]
+	// 			]
+	// 		}
+	// 	});
+	// }
 })
 frappe.ui.form.on('PNI Packing Table', {
-	pni_carton: function(frm, cdt, cdn) {
-		var row = locals[cdt][cdn];
-	}
+	
 })
