@@ -40,7 +40,8 @@ fixtures = [
 					"pre_pni_inspection",
 					"pni_programme_cycle_time",
 					"pni_balance_qty",
-					"scan_carton"
+					"scan_carton",
+					"pni_attachment"
 				)
 			]
 		]
@@ -103,6 +104,9 @@ doc_events = {
 		"on_submit": "pni_customization.utils.job_card_submit",
 		"on_update": "pni_customization.utils.job_card_update",
 		# "validate": "pni_customization.utils.job_card_onload"
+	},
+	"Opportunity": {
+		"validate": "pni_customization.utils.validate_opportunity"
 	}
 }
 # include js, css files in header of desk.html

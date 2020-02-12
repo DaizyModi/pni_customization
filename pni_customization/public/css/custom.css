@@ -1,3 +1,11 @@
 .attachment-row>.close {
 	display: none!important;
 }
+
+[data-action="reload_attachment"] {
+	display: none!important;
+}
+
+[data-action="clear_attachment"] {
+	display: none!important;
+}

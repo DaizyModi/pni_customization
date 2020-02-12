@@ -230,3 +230,8 @@ def job_card_onload(doc, method):
 		wo = frappe.get_doc("Work Order",doc.work_order)
 		doc.pni_balance_qty = int(wo.qty) - int(data[0][0])
 	# doc.save()
+
+def validate_opportunity(doc, method):
+	if doc.status == "Closed" or doc.status == "Lost":
+		if not doc.pni_attachment:
+			frappe.throw("Close or Lost Opportunity  must have PNI Attachments!")
