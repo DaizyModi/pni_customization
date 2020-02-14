@@ -10,6 +10,11 @@ frappe.ui.form.on('PNI Packing', {
 	loose_stock: function(frm) {
 	
 	},
+	onload: function(frm) {
+		cur_frm.set_query("workstation", function() {
+			return { filters: { papercup_forming_machine: 1 } };
+		});
+	},
 	select_employee_group: function(frm) {
 		frappe.call({
 			"method": "get_employee_list",

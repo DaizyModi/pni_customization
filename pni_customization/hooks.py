@@ -41,7 +41,8 @@ fixtures = [
 					"pni_programme_cycle_time",
 					"pni_balance_qty",
 					"scan_carton",
-					"pni_attachment"
+					"pni_attachment",
+					"papercup_forming_machine"
 				)
 			]
 		]
