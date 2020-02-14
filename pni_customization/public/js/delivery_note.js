@@ -51,6 +51,7 @@ frappe.ui.form.on('Delivery Note', {
 			}).then(r => {
 				const data = r && r.message;
 				console.log(data);
+				debugger;
 				if (!data || Object.keys(data).length === 0) {
 					scan_barcode_field.set_new_description(__('Cannot find Item with this barcode'));
 					return;
@@ -59,28 +60,18 @@ frappe.ui.form.on('Delivery Note', {
 				let cur_grid = frm.fields_dict.pni_packing_table.grid;
 
 				let row_to_modify = null;
-				const existing_item_row = frm.doc.pni_packing_table.find(d => d.pni_carton === data);
-				const blank_item_row = frm.doc.pni_packing_table.find(d => !d.pni_carton);
-
-				if (existing_item_row) {
-					row_to_modify = existing_item_row;
-				} else if (blank_item_row) {
-					row_to_modify = blank_item_row;
-				}
-
-				if (!row_to_modify) {
-					// add new row
-					row_to_modify = frappe.model.add_child(frm.doc, cur_grid.doctype, 'pni_packing_table');
-				}
+								
+				row_to_modify = frappe.model.add_child(frm.doc, cur_grid.doctype, 'pni_packing_table');
+				
 
 				show_description(row_to_modify.idx, row_to_modify.pni_carton);
 
 				frm.from_barcode = true;
 				frappe.model.set_value(row_to_modify.doctype, row_to_modify.name, {
-					pni_carton: data,
+					pni_carton: data.name,
 				});
-
-				['serial_no', 'batch_no', 'barcode'].forEach(field => {
+				frappe.model.set_value(row_to_modify.doctype,row_to_modify.name, "total_qty", data['total']);
+				['item', 'item_name', 'item_description', ''].forEach(field => {
 					if (data[field] && frappe.meta.has_field(row_to_modify.doctype, field)) {
 						frappe.model.set_value(row_to_modify.doctype,
 							row_to_modify.name, field, data[field]);
@@ -88,7 +79,41 @@ frappe.ui.form.on('Delivery Note', {
 				});
 
 				scan_barcode_field.set_value('');
+				refresh_field('scan_carton')
 				refresh_field('pni_packing_table')
+				
+				// add item to table
+				var list_item = {} 
+				var item_name = {}
+				var item_detail = {}
+
+				
+				
+				frm.doc.pni_packing_table.forEach(function(value){
+					if(list_item[value.item] == undefined){
+						list_item[value.item] = 0;
+					}
+					list_item[value.item] += value.total_qty;
+					item_name[value.item] = value.item_name
+					item_detail[value.item] = value.item_description
+				})
+				
+				cur_frm.clear_table("items");
+				refresh_field("items")
+
+				frm.doc.pni_delivery_note.forEach(function(value){
+					if(list_item[value.item] != undefined){
+						var child = frappe.model.add_child(frm.doc, "Delivery Note Item", "items");
+						child.item_code = value.item
+						child.item_name = item_name[value.item]
+						child.description = item_detail[value.item]
+						child.stock_uom = "Nos"
+						child.qty = list_item[value.item]
+						child.uom = "Nos"
+						child.rate = value.rate
+						refresh_field("items")
+					}
+				})
 			});
 		}
 		return false;

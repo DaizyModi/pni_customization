@@ -25,7 +25,7 @@ def get_permission_query_conditions_for_opportunity(user):
 def get_carton(carton):
 	carton = frappe.get_doc("PNI Carton",carton)
 	if carton and carton.status == "Available":
-		return carton.name
+		return carton
 	else:
 		frappe.throw("Carton Not Available with "+carton.name)
 
