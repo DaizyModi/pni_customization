@@ -35,8 +35,7 @@ frappe.ui.form.on('Delivery Note', {
 	},
 	scan_carton: function(frm) {
 		let scan_barcode_field = frm.fields_dict["scan_carton"];
-		console.log(frm);
-		debugger;
+
 		let show_description = function(idx, exist = null) {
 			if (exist) {
 				scan_barcode_field.set_new_description(__('Row #{0}: Qty increased by 1', [idx]));
@@ -51,6 +50,7 @@ frappe.ui.form.on('Delivery Note', {
 				args: { carton: frm.doc.scan_carton }
 			}).then(r => {
 				const data = r && r.message;
+				console.log(data);
 				if (!data || Object.keys(data).length === 0) {
 					scan_barcode_field.set_new_description(__('Cannot find Item with this barcode'));
 					return;
