@@ -22,8 +22,13 @@ def get_permission_query_conditions_for_opportunity(user):
 		""".format(user=user)
 
 @frappe.whitelist()
-def get_carton(carton):
+def get_carton(carton, items):
+	print(items.split(","))
+	for item in items.split(","):
+		print(item)
 	carton = frappe.get_doc("PNI Carton",carton)
+	if carton.item not in items.split(","):
+		frappe.throw("Carton Item not match with PNI Delivery Note Item")
 	if carton and carton.status == "Available":
 		return carton
 	else:

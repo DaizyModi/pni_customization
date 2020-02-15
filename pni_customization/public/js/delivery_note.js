@@ -45,9 +45,13 @@ frappe.ui.form.on('Delivery Note', {
 		}
 
 		if(frm.doc.scan_carton) {
+			let items_det = "";
+			frm.doc.pni_delivery_note.forEach(function(data){
+				items_det += data.item + ",";
+			})
 			frappe.call({
 				method: "pni_customization.utils.get_carton",
-				args: { carton: frm.doc.scan_carton }
+				args: { carton: frm.doc.scan_carton, items: items_det }
 			}).then(r => {
 				const data = r && r.message;
 				console.log(data);
