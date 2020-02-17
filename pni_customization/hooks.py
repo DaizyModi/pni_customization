@@ -42,7 +42,12 @@ fixtures = [
 					"pni_balance_qty",
 					"scan_carton",
 					"pni_attachment",
-					"papercup_forming_machine"
+					"papercup_forming_machine",
+					"warehouses_freshboxx",
+					"src_warehouse",
+					"fg_warehouse",
+					"scrap_warehouse",
+					"freshboxx_cb"
 				)
 			]
 		]
