@@ -1,0 +1,77 @@
+{
+ "creation": "2020-02-21 13:14:52.906441",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_group_section",
+  "coating_scrap",
+  "slitting_scrap",
+  "column_break_4",
+  "printing_scrap",
+  "punching_scrap",
+  "packing_scrap"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_group_section",
+   "fieldtype": "Section Break",
+   "label": "Item Group"
+  },
+  {
+   "fieldname": "coating_scrap",
+   "fieldtype": "Link",
+   "label": "Coating Scrap",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "slitting_scrap",
+   "fieldtype": "Link",
+   "label": "Slitting Scrap",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "printing_scrap",
+   "fieldtype": "Link",
+   "label": "Printing Scrap",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "punching_scrap",
+   "fieldtype": "Link",
+   "label": "Punching Scrap",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "packing_scrap",
+   "fieldtype": "Link",
+   "label": "Packing Scrap",
+   "options": "Item Group"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2020-02-21 13:14:52.906441",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Paper Blank Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -47,7 +47,10 @@ fixtures = [
 					"src_warehouse",
 					"fg_warehouse",
 					"scrap_warehouse",
-					"freshboxx_cb"
+					"freshboxx_cb",
+					"pni_paper_blank",
+					"pni_reference_type",
+					"pni_reference"
 				)
 			]
 		]

@@ -8,6 +8,7 @@
   "naming_series",
   "work_station",
   "operator",
+  "status",
   "column_break_4",
   "date",
   "time",
@@ -97,10 +98,21 @@
    "options": "Coating",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nPending For Stock Entry\nCompleted\nCancelled",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-01-13 14:43:59.150515",
+ "modified": "2020-02-21 13:24:28.948076",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Coating",
