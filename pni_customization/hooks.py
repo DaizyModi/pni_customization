@@ -50,7 +50,9 @@ fixtures = [
 					"freshboxx_cb",
 					"pni_paper_blank",
 					"pni_reference_type",
-					"pni_reference"
+					"pni_reference",
+					"paper_blank_machine_type",
+					"is_reel_item"
 				)
 			]
 		]
@@ -95,7 +97,9 @@ fixtures = [
 doc_events = {
  	"Stock Entry": {
         # "on_submit": "pni_customization.utils.validate_inspection_for_work_order",
-		"validate": "pni_customization.utils.validate_stock_entry_item"
+		"validate": "pni_customization.utils.validate_stock_entry_item",
+		"on_submit": "pni_customization.utils.manage_se_changes",
+        "on_cancel": "pni_customization.utils.manage_se_changes"
     },
 	"Item": {
 		"on_update": "pni_customization.utils.update_item"

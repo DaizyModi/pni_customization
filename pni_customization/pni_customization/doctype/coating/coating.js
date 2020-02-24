@@ -9,7 +9,43 @@ frappe.ui.form.on('Coating', {
 			});
 			finish_btn.addClass('btn-primary')
 		}
-	}
+		
+		if(!cur_frm.doc.__islocal){
+			frm.set_query("item", "coating_scrap", function () {
+				return {
+					filters: {"item_group": frm.doc.__onload.scrapitemgroup}
+				}
+			});
+		}
+	},
+	setup: function (frm) {
+		frm.set_query("work_station", function () {
+			return {
+				filters: {"paper_blank_machine_type": "Coating"}
+			}
+		});
+		frm.set_query("reel_in", "coating_table", function () {
+			return {
+				filters: {"docstatus": 1, "status": "In Stock", "coated_reel": 0}
+			}
+		});
+	},
+	work_station: function(frm){
+		if(frm.doc.work_station){
+			frappe.call({
+				"method": "frappe.client.get",
+				args: {
+					doctype: "Workstation",
+					name: frm.doc.work_station
+				},
+				callback: function (data) {
+					frappe.model.set_value(frm.doctype,frm.docname, "fg_warehouse", data.message.fg_warehouse);
+					frappe.model.set_value(frm.doctype,frm.docname, "scrap_warehouse", data.message.scrap_warehouse);
+					frappe.model.set_value(frm.doctype,frm.docname, "src_warehouse", data.message.src_warehouse);
+				}
+			});
+		}
+	},
 });
 
 var process_production = function (frm) {

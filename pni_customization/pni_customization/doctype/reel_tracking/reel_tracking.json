@@ -12,15 +12,17 @@
   "date",
   "time",
   "output_section",
-  "out_reel"
+  "out_reel",
+  "reference_details_section",
+  "status",
+  "process_reference"
  ],
  "fields": [
   {
    "fieldname": "reel",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "In Reel",
-   "options": "Reel",
    "reqd": 1,
    "unique": 1
   },
@@ -42,9 +44,8 @@
   },
   {
    "fieldname": "out_reel",
-   "fieldtype": "Link",
-   "label": "Out Reel",
-   "options": "Reel"
+   "fieldtype": "Data",
+   "label": "Out Reel"
   },
   {
    "fieldname": "date",
@@ -59,9 +60,24 @@
   {
    "fieldname": "column_break_4",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reference_details_section",
+   "fieldtype": "Section Break",
+   "label": "Reference Details"
+  },
+  {
+   "fieldname": "process_reference",
+   "fieldtype": "Data",
+   "label": "Process Reference"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
   }
  ],
- "modified": "2020-01-13 12:04:22.087592",
+ "modified": "2020-02-22 11:45:35.494529",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel Tracking",

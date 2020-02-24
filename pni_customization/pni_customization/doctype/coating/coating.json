@@ -9,21 +9,29 @@
   "work_station",
   "operator",
   "status",
+  "company",
   "column_break_4",
   "date",
   "time",
   "shift_time",
-  "costing_details_section",
+  "warehousess_section",
+  "src_warehouse",
+  "fg_warehouse",
+  "scrap_warehouse",
+  "coating_details_section",
   "ldpe_bag",
   "coating_table",
   "coating_scrap",
+  "costing_details_section",
+  "start_dt",
+  "end_dt",
+  "operation_hours",
   "amended_from"
  ],
  "fields": [
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "in_list_view": 1,
    "label": "Naming Series",
    "options": "PNI-COAT-.########",
    "reqd": 1
@@ -31,7 +39,6 @@
   {
    "fieldname": "work_station",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Work Station",
    "options": "Workstation",
    "reqd": 1
@@ -46,7 +53,6 @@
   {
    "fieldname": "operator",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Operator",
    "options": "Employee",
    "reqd": 1
@@ -71,7 +77,7 @@
   {
    "fieldname": "costing_details_section",
    "fieldtype": "Section Break",
-   "label": "Coating Details"
+   "label": "Costing Details"
   },
   {
    "fieldname": "coating_table",
@@ -104,15 +110,67 @@
    "default": "Draft",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_filter": 1,
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
    "options": "Draft\nPending For Stock Entry\nCompleted\nCancelled",
    "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "warehousess_section",
+   "fieldtype": "Section Break",
+   "label": "Warehousess"
+  },
+  {
+   "fieldname": "fg_warehouse",
+   "fieldtype": "Link",
+   "label": "Finish Good Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "scrap_warehouse",
+   "fieldtype": "Link",
+   "label": "Scrap Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "src_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "coating_details_section",
+   "fieldtype": "Section Break",
+   "label": "Coating Details"
+  },
+  {
+   "fieldname": "start_dt",
+   "fieldtype": "Datetime",
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "end_dt",
+   "fieldtype": "Datetime",
+   "label": "End Time"
+  },
+  {
+   "fieldname": "operation_hours",
+   "fieldtype": "Float",
+   "label": "Hours of Operation"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-21 13:24:28.948076",
+ "modified": "2020-02-21 18:58:08.727672",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Coating",

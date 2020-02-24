@@ -1,5 +1,6 @@
 import frappe, json
 from frappe.model.mapper import get_mapped_doc
+from frappe import _
 
 def get_permission_query_conditions_for_lead(user):
 	if "System Manager" in frappe.get_roles(user):
@@ -240,3 +241,96 @@ def validate_opportunity(doc, method):
 	if doc.status == "Closed" or doc.status == "Lost":
 		if not doc.pni_attachment:
 			frappe.throw("Close or Lost Opportunity  must have PNI Attachments!")
+
+def validate_coating_items(se_items, co_items):
+	#validate for items not in coating item
+	for se_item in se_items:
+		if not filter(lambda x: x == se_item.item_code, co_items):
+			frappe.throw(_("Item {0} - {1} cannot be part of this Stock Entry").format(se_item.item_code, se_item.item_name))
+
+def validate_se_qty_coating(se, co):
+	validate_material_qty_coating(se.items, co.coating_table)
+	validate_ldpe_qty_coating(se.items, co.ldpe_bag)
+	validate_scrap_qty_coating(se.items, co.coating_scrap)
+
+def validate_ldpe_qty_coating(se_items, co_items):
+	#TODO allow multiple raw material transfer?
+	for material in co_items:
+		qty = 0
+		for item in se_items:
+			if(material.reel_in == item.item_code):
+				qty += item.qty
+		if(qty != material.weight):
+			frappe.throw(_("Total quantity of Item {0} - {1} should be {2}"\
+			).format(material.item, material.item, material.quantity))
+
+def validate_material_qty_coating(se_items, co_items):
+	#TODO allow multiple raw material transfer?
+	for material in co_items:
+		qty = 0
+		for item in se_items:
+			if(material.item == item.item_code):
+				qty += item.qty
+		if(qty != material.quantity):
+			frappe.throw(_("Total quantity of Item {0} - {1} should be {2}"\
+			).format(material.item, material.item, material.quantity))
+
+def validate_scrap_qty_coating(se_items, co_items):
+	#TODO allow multiple raw material transfer?
+	for material in co_items:
+		qty = 0
+		for item in se_items:
+			if(material.item == item.item_code):
+				qty += item.qty
+		if(qty != material.quantity):
+			frappe.throw(_("Total quantity of Item {0} - {1} should be {2}"\
+			).format(material.item, material.item, material.quantity))
+
+def manage_se_submit(se, co):
+	if co.docstatus == 0:
+		frappe.throw(_("Submit the  Process Order {0} to make Stock Entries").format(co.name))
+	
+	
+	if co.status in ["Completed", "Cancelled"]:
+		frappe.throw("You cannot make entries against Completed/Cancelled Process Orders")
+	co.status = "Completed"
+	co.flags.ignore_validate_update_after_submit = True
+	co.save()
+
+def manage_se_cancel(se, co):
+	if(co.status == "Completed"):
+		try:
+			# validate_material_qty_coating(se.items, co.coating_table)
+			co.status = "Pending For Stock Entry"
+		except:
+			frappe.throw("Please cancel the production stock entry first.")
+	else:
+		frappe.throw("Process order status must be Completed")
+	co.flags.ignore_validate_update_after_submit = True
+	co.save()
+
+@frappe.whitelist()
+def manage_se_changes(doc, method):
+	if doc.pni_reference and doc.pni_reference_type == "Coating":
+		co = frappe.get_doc("Coating", doc.pni_reference)
+		if(method=="on_submit"):
+			
+			co_items = []
+			for item in co.coating_table:
+				reel_in = frappe.get_doc("Reel",item.reel_in)
+				reel_out = frappe.get_doc("Reel",item.reel_out)
+				co_items.append(reel_in.item)
+				co_items.append(reel_out.item)
+			for item in co.coating_scrap:
+				co_items.append(item.item)
+			if co.ldpe_bag >0:
+				paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
+				co_items.append(paper_blank_setting.ldpe_bag)
+
+			validate_coating_items(doc.items, co_items)
+			
+			# validate_se_qty_coating(doc, co)
+			# frappe.throw("Success")
+			manage_se_submit(doc, co)
+		elif(method=="on_cancel"):
+			manage_se_cancel(doc, co)
