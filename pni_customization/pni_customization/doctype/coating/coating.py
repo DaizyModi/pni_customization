@@ -31,9 +31,9 @@ class Coating(Document):
 		ldap = 0
 		for data in self.coating_table:
 			if float(data.gsm) >170:
-				ldap += float(data.weight) * 0.09
+				ldap += float(data.weight) * 0.08
 			else:
-				ldap += float(data.weight) * 0.07
+				ldap += float(data.weight) * 0.08
 		self.ldpe_bag = ldap
 	def manage_reel(self):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
