@@ -8,6 +8,8 @@
   "naming_series",
   "workstation",
   "operator_name",
+  "status",
+  "company",
   "column_break_4",
   "date",
   "time",
@@ -17,6 +19,10 @@
   "slitting_scrap",
   "note_section",
   "slitting_note",
+  "slitting_details_section",
+  "start_dt",
+  "end_dt",
+  "operation_hours",
   "amended_from"
  ],
  "fields": [
@@ -100,10 +106,42 @@
    "fieldname": "slitting_note",
    "fieldtype": "Text",
    "label": "Slitting Note"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPending For Stock Entry\nCompleted\nCancelled"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "slitting_details_section",
+   "fieldtype": "Section Break",
+   "label": "Slitting Details"
+  },
+  {
+   "fieldname": "start_dt",
+   "fieldtype": "Datetime",
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "end_dt",
+   "fieldtype": "Datetime",
+   "label": "End Time"
+  },
+  {
+   "fieldname": "operation_hours",
+   "fieldtype": "Float",
+   "label": "Hours of Operation"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-01-14 15:53:52.087187",
+ "modified": "2020-02-24 12:15:52.339010",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Slitting",

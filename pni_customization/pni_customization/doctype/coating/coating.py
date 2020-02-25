@@ -15,6 +15,7 @@ class Coating(Document):
 			hours = time_diff_in_hours(self.end_dt, self.start_dt)
 			frappe.db.set(self, 'operation_hours', hours)
 		self.validate_reel_relation()
+		self.calculate_ldap()
 
 	def validate_reel_relation(self):
 		for data in self.coating_table:
@@ -26,6 +27,14 @@ class Coating(Document):
 		paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
 		self.set_onload("scrapitemgroup", paper_blank_setting.coating_scrap)
 
+	def calculate_ldap(self):
+		ldap = 0
+		for data in self.coating_table:
+			if float(data.gsm) >170:
+				ldap += float(data.weight) * 0.09
+			else:
+				ldap += float(data.weight) * 0.07
+		self.ldpe_bag = ldap
 	def manage_reel(self):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
 		for data in self.coating_table:
@@ -35,6 +44,7 @@ class Coating(Document):
 				doc = frappe.get_doc({
 					"doctype": "Reel",
 					"status": "Draft",
+					"reel_id": data.reel_id,
 					"item": out_reel_relation,
 					"type": reel_in.type,
 					"brand": reel_in.brand,
@@ -48,6 +58,7 @@ class Coating(Document):
 				data.reel_out = doc.name
 			else:
 				doc = frappe.get_doc("Reel",data.reel_out)
+				doc.reel_id = data.reel_id,
 				doc.weight = data.weight_out
 				doc.save()
 	
