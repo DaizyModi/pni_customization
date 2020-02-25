@@ -4,6 +4,7 @@
 
 from __future__ import unicode_literals
 import frappe
+from frappe import _
 from frappe.model.document import Document
 from frappe.utils import get_datetime, time_diff_in_hours
 
@@ -13,32 +14,28 @@ class Slitting(Document):
 		if self.end_dt and self.start_dt:
 			hours = time_diff_in_hours(self.end_dt, self.start_dt)
 			frappe.db.set(self, 'operation_hours', hours)
-		self.validate_reel_relation()
 
-	def validate_reel_relation(self):
-		for data in self.coating_table:
-			reel_in = frappe.get_doc("Reel",data.reel_in)
-			reel_relation = frappe.get_value("Reel Item Relation",{"in_item": reel_in.item, "process": "Coating"}, "name")
-			if not reel_relation:
-				frappe.throw("Coating Reel Relation not found for "+data.reel_in)
 	def onload(self):
 		paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
-		self.set_onload("scrapitemgroup", paper_blank_setting.coating_scrap)
+		self.set_onload("scrapitemgroup", paper_blank_setting.slitting_scrap)
 
 	def manage_reel(self):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
-		for data in self.coating_table:
+		for data in self.slitting_table:
 			reel_in = frappe.get_doc("Reel",data.reel_in)
-			out_reel_relation = frappe.get_value("Reel Item Relation",{"in_item": reel_in.item, "process": "Coating"}, "out_item")
+			out_reel_relation = frappe.get_value("Reel Item Relation",{"in_item": reel_in.item, "process": "Slitting"}, "out_item")
+			if not out_reel_relation:
+				frappe.throw("Reel Item Relation Missing for Item "+reel_in.item)
 			if not data.reel_out:
 				doc = frappe.get_doc({
 					"doctype": "Reel",
 					"status": "Draft",
+					"reel_id": data.reel_out_id,
 					"item": out_reel_relation,
-					"type": reel_in.type,
+					"type": data.type if data.type else reel_in.type,
 					"brand": reel_in.brand,
-					"size": reel_in.size,
-					"coated_reel": True,
+					"size": data.size_out,
+					"coated_reel": reel_in.coated_reel,
 					"printed_reel": reel_in.printed_reel,
 					"gsm": reel_in.gsm,
 					"weight": data.weight_out
@@ -48,38 +45,36 @@ class Slitting(Document):
 			else:
 				doc = frappe.get_doc("Reel",data.reel_out)
 				doc.weight = data.weight_out
+				doc.type = data.type if data.type else reel_in.type
+				doc.size = data.size_out
 				doc.save()
 	
 	def manage_reel_tracking(self):
-		# setting = frappe.get_doc("PNI Settings","PNI Settings")
-		
-		for data in self.coating_table:
+		for data in self.slitting_table:
 			doc = frappe.get_doc({
 				"doctype": "Reel Tracking",
 				"status": "Draft",
 				"reel": data.reel_in,
-				"reel_process": "Coating",
+				"reel_process": "Slitting",
 				"date": frappe.utils.nowdate(),
 				"time": frappe.utils.nowtime(),
 				"out_reel": data.reel_out,
-				"status": "Coating Submit",
+				"status": "Slitting Submit",
 				"process_reference": self.name
 			})
 			doc.insert(ignore_permissions=True)
 	
 	def cancel_reel_tracking(self):
-		# setting = frappe.get_doc("PNI Settings","PNI Settings")
-		
-		for data in self.coating_table:
+		for data in self.slitting_table:
 			doc = frappe.get_doc({
 				"doctype": "Reel Tracking",
 				"status": "Draft",
 				"reel": data.reel_in,
-				"reel_process": "Coating",
+				"reel_process": "Slitting",
 				"date": frappe.utils.nowdate(),
 				"time": frappe.utils.nowtime(),
 				"out_reel": data.reel_out,
-				"status": "Coating Cancel",
+				"status": "Slitting Cancel",
 				"process_reference": self.name
 			})
 			doc.insert(ignore_permissions=True)
@@ -87,10 +82,10 @@ class Slitting(Document):
 	def on_submit(self):
 		if (not self.end_dt) or (not self.end_dt):
 			frappe.throw("Please Select Operation Start and End Time")
-		for item in self.coating_table:
+		for item in self.slitting_table:
 			if (not item.reel_in) or (not item.reel_out) :
 				frappe.throw("Reel is Compulsory")
-		for data in self.coating_table:
+		for data in self.slitting_table:
 			if not data.weight_out:
 				frappe.throw("Weight Can't be empty")
 			reel_in = frappe.get_doc("Reel",data.reel_in)
@@ -110,7 +105,7 @@ class Slitting(Document):
 			frappe.throw(_("Cannot cancel because submitted Stock Entry \
 			{0} exists").format(stock_entry[0][0]))
 		frappe.db.set(self, 'status', 'Cancelled')
-		for data in self.coating_table:
+		for data in self.slitting_table:
 			reel_in = frappe.get_doc("Reel",data.reel_in)
 			reel_in.status = "In Stock"
 			reel_in.save()
@@ -118,14 +113,13 @@ class Slitting(Document):
 			reel_out.cancel()
 		self.cancel_reel_tracking()
 	
-	def manufacture_entry(self, status):
-		return self.make_stock_entry(status)
+	def manufacture_entry(self):
+		return self.make_stock_entry()
 	
-	def make_stock_entry(self, status):
+	def make_stock_entry(self):
 		stock_entry = frappe.new_doc("Stock Entry")
-		stock_entry.pni_reference_type = "Coating"
+		stock_entry.pni_reference_type = "Slitting"
 		stock_entry.pni_reference = self.name
-
 		
 		stock_entry.stock_entry_type = "Manufacture"
 		stock_entry = self.set_se_items_finish(stock_entry)
@@ -142,11 +136,9 @@ class Slitting(Document):
 		raw_material_cost = 0
 		operating_cost = 0
 
-		for item in self.coating_table:
+		for item in self.slitting_table:
 			se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
-		if self.ldpe_bag>0:
-			paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
-			se = self.set_se_items(se, paper_blank_setting.ldpe_bag, se.from_warehouse, None, False, ldpe=True)
+
 		#TODO calc raw_material_cost
 
 		#no timesheet entries, calculate operating cost based on workstation hourly rate and process start, end
@@ -163,7 +155,7 @@ class Slitting(Document):
 		#calc total_qty and total_sale_value
 		qty_of_total_production = 0
 		total_sale_value = 0
-		for item in self.coating_table:
+		for item in self.slitting_table:
 			if item.weight_out > 0:
 				qty_of_total_production = float(qty_of_total_production) + item.weight_out
 		
@@ -178,10 +170,10 @@ class Slitting(Document):
 		# 				frappe.throw(_("Selling price not set for item {0}").format(item.item))
 
 		#add Stock Entry Items for produced goods and scrap
-		for item in self.coating_table:
+		for item in self.slitting_table:
 			se = self.set_se_items(se, item, None, se.to_warehouse, True, qty_of_total_production, total_sale_value, production_cost, reel_out = True)
 
-		for item in self.coating_scrap:
+		for item in self.slitting_scrap:
 			# if value_scrap:
 			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, True, qty_of_total_production, total_sale_value, production_cost)
 			# else:
@@ -190,7 +182,7 @@ class Slitting(Document):
 
 		return se
 	
-	def set_se_items(self, se, item, s_wh, t_wh, calc_basic_rate=False, qty_of_total_production=None, total_sale_value=None, production_cost=None, reel_in = False, reel_out = False, scrap_item = False, ldpe = False):
+	def set_se_items(self, se, item, s_wh, t_wh, calc_basic_rate=False, qty_of_total_production=None, total_sale_value=None, production_cost=None, reel_in = False, reel_out = False, scrap_item = False):
 		# if item.quantity > 0:
 		item_from_reel = {}
 		class Empty:
@@ -203,10 +195,7 @@ class Slitting(Document):
 			item_from_reel = Empty()
 			item_from_reel.item = item.item
 			item_from_reel.weight = item.qty
-		if ldpe:
-			item_from_reel = Empty()
-			item_from_reel.item = item
-			item_from_reel.weight = self.ldpe_bag
+
 		expense_account, cost_center = frappe.db.get_values("Company", self.company, \
 			["default_expense_account", "cost_center"])[0]
 		item_name, stock_uom, description = frappe.db.get_values("Item", item_from_reel.item, \

@@ -21,12 +21,12 @@ frappe.ui.form.on('Slitting', {
 	setup: function (frm) {
 		frm.set_query("workstation", function () {
 			return {
-				filters: {"paper_blank_machine_type": "Coating"}
+				filters: {"paper_blank_machine_type": "Slitting"}
 			}
 		});
 		frm.set_query("reel_in", "slitting_table", function () {
 			return {
-				filters: {"docstatus": 1, "status": "In Stock", "coated_reel": 0}
+				filters: {"docstatus": 1, "status": "In Stock"}
 			}
 		});
 	},
@@ -52,9 +52,9 @@ var process_production = function (frm) {
 	frappe.call({
 		doc: frm.doc,
 		method: "manufacture_entry",
-		args:{
-			"status": status
-		},
+		// args:{
+		// 	"status": status
+		// },
 		callback: function(r) {
 			if (r.message){
 				var doclist = frappe.model.sync(r.message);

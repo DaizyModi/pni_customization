@@ -242,7 +242,7 @@ def validate_opportunity(doc, method):
 		if not doc.pni_attachment:
 			frappe.throw("Close or Lost Opportunity  must have PNI Attachments!")
 
-def validate_coating_items(se_items, co_items):
+def validate_items(se_items, co_items):
 	#validate for items not in coating item
 	for se_item in se_items:
 		if not filter(lambda x: x == se_item.item_code, co_items):
@@ -288,8 +288,7 @@ def validate_scrap_qty_coating(se_items, co_items):
 
 def manage_se_submit(se, co):
 	if co.docstatus == 0:
-		frappe.throw(_("Submit the  Process Order {0} to make Stock Entries").format(co.name))
-	
+		frappe.throw(_("Submit the  {0} {1} to make Stock Entries").format(co.doctype, co.name))
 	
 	if co.status in ["Completed", "Cancelled"]:
 		frappe.throw("You cannot make entries against Completed/Cancelled Process Orders")
@@ -327,10 +326,31 @@ def manage_se_changes(doc, method):
 				paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
 				co_items.append(paper_blank_setting.ldpe_bag)
 
-			validate_coating_items(doc.items, co_items)
+			validate_items(doc.items, co_items)
 			
 			# validate_se_qty_coating(doc, co)
 			# frappe.throw("Success")
 			manage_se_submit(doc, co)
 		elif(method=="on_cancel"):
 			manage_se_cancel(doc, co)
+	
+	if doc.pni_reference and doc.pni_reference_type == "Slitting":
+		slitting = frappe.get_doc("Slitting", doc.pni_reference)
+		if(method=="on_submit"):
+			
+			slitting_items = []
+			for item in slitting.slitting_table:
+				reel_in = frappe.get_doc("Reel",item.reel_in)
+				reel_out = frappe.get_doc("Reel",item.reel_out)
+				slitting_items.append(reel_in.item)
+				slitting_items.append(reel_out.item)
+			for item in slitting.slitting_scrap:
+				slitting_items.append(item.item)
+
+			validate_items(doc.items, slitting_items)
+			
+			# validate_se_qty_coating(doc, co)
+			# frappe.throw("Success")
+			manage_se_submit(doc, slitting)
+		elif(method=="on_cancel"):
+			manage_se_cancel(doc, slitting)

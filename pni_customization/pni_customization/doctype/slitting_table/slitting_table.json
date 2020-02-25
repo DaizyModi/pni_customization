@@ -9,6 +9,7 @@
   "gsm",
   "size",
   "weight",
+  "reel_out_id",
   "reel_out",
   "type",
   "size_out",
@@ -16,7 +17,7 @@
  ],
  "fields": [
   {
-   "columns": 1,
+   "columns": 2,
    "fieldname": "reel_in",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -37,7 +38,6 @@
    "fetch_from": "reel_in.gsm",
    "fieldname": "gsm",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "GSM"
   },
   {
@@ -60,7 +60,6 @@
    "columns": 1,
    "fieldname": "reel_out",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Reel Out",
    "options": "Reel"
   },
@@ -85,10 +84,18 @@
    "in_list_view": 1,
    "label": "Type",
    "options": "Blank Reel\nBottom Reel"
+  },
+  {
+   "columns": 2,
+   "fieldname": "reel_out_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Reel Out ID",
+   "set_only_once": 1
   }
  ],
  "istable": 1,
- "modified": "2020-01-14 16:01:22.048531",
+ "modified": "2020-02-25 16:51:59.208378",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Slitting Table",

@@ -14,15 +14,8 @@ class Coating(Document):
 		if self.end_dt and self.start_dt:
 			hours = time_diff_in_hours(self.end_dt, self.start_dt)
 			frappe.db.set(self, 'operation_hours', hours)
-		self.validate_reel_relation()
 		self.calculate_ldap()
 
-	def validate_reel_relation(self):
-		for data in self.coating_table:
-			reel_in = frappe.get_doc("Reel",data.reel_in)
-			reel_relation = frappe.get_value("Reel Item Relation",{"in_item": reel_in.item, "process": "Coating"}, "name")
-			if not reel_relation:
-				frappe.throw("Coating Reel Relation not found for "+data.reel_in)
 	def onload(self):
 		paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
 		self.set_onload("scrapitemgroup", paper_blank_setting.coating_scrap)
@@ -40,6 +33,8 @@ class Coating(Document):
 		for data in self.coating_table:
 			reel_in = frappe.get_doc("Reel",data.reel_in)
 			out_reel_relation = frappe.get_value("Reel Item Relation",{"in_item": reel_in.item, "process": "Coating"}, "out_item")
+			if not out_reel_relation:
+				frappe.throw("Reel Item Relation Missing for Item "+reel_in.item)
 			if not data.reel_out:
 				doc = frappe.get_doc({
 					"doctype": "Reel",

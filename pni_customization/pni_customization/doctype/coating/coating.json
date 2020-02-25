@@ -71,7 +71,7 @@
    "fieldname": "shift_time",
    "fieldtype": "Select",
    "label": "Shift Time",
-   "options": "1\n2\n3\n4",
+   "options": "Day\nNight",
    "reqd": 1
   },
   {
@@ -88,7 +88,8 @@
   {
    "fieldname": "ldpe_bag",
    "fieldtype": "Int",
-   "label": "LDPE Bag"
+   "label": "LDPE Bag",
+   "read_only": 1
   },
   {
    "fieldname": "coating_scrap",
@@ -170,7 +171,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-21 18:58:08.727672",
+ "modified": "2020-02-25 18:16:26.861678",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Coating",
