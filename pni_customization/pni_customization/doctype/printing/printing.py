@@ -136,7 +136,7 @@ class Printing(Document):
 		operating_cost = 0
 
 		for item in self.printing_inc_table:
-			se = self.set_se_items(se, item, None, se.from_warehouse, False, inc_item =  True)
+			se = self.set_se_items(se, item, se.from_warehouse, None , False, inc_item =  True)
 		
 		for item in self.printing_table:
 			se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)

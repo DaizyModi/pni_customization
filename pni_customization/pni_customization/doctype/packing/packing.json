@@ -6,15 +6,38 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "status",
+  "company",
+  "column_break_4",
   "date",
   "time",
+  "shift_time",
+  "warehouse_section",
+  "pni_employee_group",
+  "src_warehouse",
+  "column_break_11",
+  "fg_warehouse",
+  "scrap_warehouse",
+  "table_details_section",
+  "punch_table",
+  "item",
+  "column_break_7",
+  "punching_die",
+  "brand",
+  "weight",
   "packing_table_section",
   "packing_table",
+  "bag_size",
+  "total_bag",
+  "total_weight",
   "scrap_section",
   "packing_scrap",
   "note_section",
   "packing_note",
-  "amended_from"
+  "amended_from",
+  "start_dt",
+  "end_dt",
+  "operation_hours"
  ],
  "fields": [
   {
@@ -77,10 +100,146 @@
    "fieldname": "packing_note",
    "fieldtype": "Text",
    "label": "Packing Note"
+  },
+  {
+   "fieldname": "table_details_section",
+   "fieldtype": "Section Break",
+   "label": "Table Details"
+  },
+  {
+   "fieldname": "punch_table",
+   "fieldtype": "Link",
+   "label": "Punch Table",
+   "options": "Punch Table"
+  },
+  {
+   "fetch_from": "punch_table.item",
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "punch_table.punching_die",
+   "fieldname": "punching_die",
+   "fieldtype": "Data",
+   "label": "Punching Die",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "punch_table.brand",
+   "fieldname": "brand",
+   "fieldtype": "Data",
+   "label": "Brand",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "punch_table.weight",
+   "fieldname": "weight",
+   "fieldtype": "Float",
+   "label": "Weight",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bag_size",
+   "fieldtype": "Float",
+   "label": "Bag Size"
+  },
+  {
+   "fieldname": "total_bag",
+   "fieldtype": "Int",
+   "label": "Total Bag",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_weight",
+   "fieldtype": "Float",
+   "label": "Total Weight",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pni_employee_group",
+   "fieldtype": "Link",
+   "label": "PNI Employee Group",
+   "options": "PNI Employee Group"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPending For Stock Entry\nCompleted\nCancelled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shift_time",
+   "fieldtype": "Select",
+   "label": "Shift Time",
+   "options": "Day\nNight"
+  },
+  {
+   "fieldname": "warehouse_section",
+   "fieldtype": "Section Break",
+   "label": "Warehouse"
+  },
+  {
+   "fieldname": "src_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "fg_warehouse",
+   "fieldtype": "Link",
+   "label": "Finish Good Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "scrap_warehouse",
+   "fieldtype": "Link",
+   "label": "Scrap Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "start_dt",
+   "fieldtype": "Datetime",
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "end_dt",
+   "fieldtype": "Data",
+   "label": "End Time"
+  },
+  {
+   "fieldname": "operation_hours",
+   "fieldtype": "Float",
+   "label": "Hours of Operation"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-01-21 11:45:10.164262",
+ "modified": "2020-02-27 03:52:10.202426",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Packing",

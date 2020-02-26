@@ -8,16 +8,26 @@
   "naming_series",
   "workstation",
   "operator_name",
+  "status",
+  "company",
   "column_break_4",
   "date",
   "time",
+  "shift_time",
+  "warehouse_section",
+  "src_warehouse",
+  "fg_warehouse",
+  "scrap_warehouse",
   "printing_table_section",
   "punching_table",
   "scrap_section",
   "punching_scrap",
   "note_section",
   "punching_note",
-  "amended_from"
+  "amended_from",
+  "start_dt",
+  "end_dt",
+  "operation_hours"
  ],
  "fields": [
   {
@@ -100,10 +110,66 @@
    "fieldtype": "Table",
    "label": "Punching Table",
    "options": "Punching Table"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPending For Stock Entry\nCompleted\nCancelled"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "shift_time",
+   "fieldtype": "Select",
+   "label": "Shift Time",
+   "options": "Day\nNight"
+  },
+  {
+   "fieldname": "warehouse_section",
+   "fieldtype": "Section Break",
+   "label": "Warehouse"
+  },
+  {
+   "fieldname": "src_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "fg_warehouse",
+   "fieldtype": "Link",
+   "label": "Finish Good Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "scrap_warehouse",
+   "fieldtype": "Link",
+   "label": "Scrap Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "start_dt",
+   "fieldtype": "Datetime",
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "end_dt",
+   "fieldtype": "Datetime",
+   "label": "End Time"
+  },
+  {
+   "fieldname": "operation_hours",
+   "fieldtype": "Float",
+   "label": "Hours of Operation"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-01-14 19:54:53.753331",
+ "modified": "2020-02-27 01:09:20.774161",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Punching",

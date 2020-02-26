@@ -86,11 +86,12 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Punch Table",
-   "options": "Punch Table"
+   "options": "Punch Table",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2020-01-14 20:24:10.985839",
+ "modified": "2020-02-27 01:16:03.279558",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Punching Table",

@@ -1,0 +1,65 @@
+{
+ "creation": "2020-02-27 02:58:45.545132",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "pni_employee_table",
+  "src_warehouse",
+  "fg_warehouse",
+  "scrap_warehouse"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name"
+  },
+  {
+   "fieldname": "pni_employee_table",
+   "fieldtype": "Table",
+   "label": "PNI Employee Table",
+   "options": "PNI Employee Table"
+  },
+  {
+   "fieldname": "src_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "fg_warehouse",
+   "fieldtype": "Link",
+   "label": "Finish Good Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "scrap_warehouse",
+   "fieldtype": "Link",
+   "label": "Scrap Warehouse",
+   "options": "Warehouse"
+  }
+ ],
+ "modified": "2020-02-27 03:39:05.759299",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "PNI Employee Group",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

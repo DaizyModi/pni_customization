@@ -377,3 +377,24 @@ def manage_se_changes(doc, method):
 			manage_se_submit(doc, printing)
 		elif(method=="on_cancel"):
 			manage_se_cancel(doc, printing)
+
+	if doc.pni_reference and doc.pni_reference_type == "Punching":
+		punching = frappe.get_doc("Punching", doc.pni_reference)
+		if(method=="on_submit"):
+			
+			punching_items = []
+			for item in punching.punching_table:
+				reel_in = frappe.get_doc("Reel",item.reel_in)
+				punch_table = frappe.get_doc("Punch Table",item.punch_table)
+				punching_items.append(reel_in.item)
+				punching_items.append(punch_table.item)
+			for item in punching.punching_scrap:
+				punching_items.append(item.item)
+
+			validate_items(doc.items, punching_items)
+			
+			# validate_se_qty_coating(doc, co)
+			# frappe.throw("Success")
+			manage_se_submit(doc, punching)
+		elif(method=="on_cancel"):
+			manage_se_cancel(doc, punching)
