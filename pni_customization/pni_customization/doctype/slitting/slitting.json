@@ -113,10 +113,14 @@
    "label": "Slitting Note"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Status",
-   "options": "Draft\nPending For Stock Entry\nCompleted\nCancelled"
+   "options": "Draft\nPending For Stock Entry\nCompleted\nCancelled",
+   "read_only": 1
   },
   {
    "fieldname": "company",
@@ -176,8 +180,8 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-25 23:27:27.546406",
- "modified_by": "jigartarpara68@gmail.com",
+ "modified": "2020-02-26 16:13:59.342533",
+ "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Slitting",
  "owner": "Administrator",

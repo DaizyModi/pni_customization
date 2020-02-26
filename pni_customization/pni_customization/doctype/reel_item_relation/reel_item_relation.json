@@ -19,7 +19,7 @@
    "fieldname": "process",
    "fieldtype": "Select",
    "label": "Process",
-   "options": "Coating\nSlitting\nPriniting\nPunching\nPacking"
+   "options": "Coating\nSlitting\nPrinting\nPunching\nPacking"
   },
   {
    "fieldname": "out_item",

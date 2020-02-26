@@ -354,3 +354,26 @@ def manage_se_changes(doc, method):
 			manage_se_submit(doc, slitting)
 		elif(method=="on_cancel"):
 			manage_se_cancel(doc, slitting)
+	
+	if doc.pni_reference and doc.pni_reference_type == "Printing":
+		printing = frappe.get_doc("Printing", doc.pni_reference)
+		if(method=="on_submit"):
+			
+			printing_items = []
+			for item in printing.printing_table:
+				reel_in = frappe.get_doc("Reel",item.reel_in)
+				reel_out = frappe.get_doc("Reel",item.reel_out)
+				printing_items.append(reel_in.item)
+				printing_items.append(reel_out.item)
+			for item in printing.printing_scrap:
+				printing_items.append(item.item)
+			for item in printing.printing_inc_table:
+				printing_items.append(item.item)
+
+			validate_items(doc.items, printing_items)
+			
+			# validate_se_qty_coating(doc, co)
+			# frappe.throw("Success")
+			manage_se_submit(doc, printing)
+		elif(method=="on_cancel"):
+			manage_se_cancel(doc, printing)

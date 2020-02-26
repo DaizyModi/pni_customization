@@ -12,7 +12,8 @@
   "punching_scrap",
   "packing_scrap",
   "raw_materials_section",
-  "ldpe_bag"
+  "ldpe_bag",
+  "printing_inc_item_group"
  ],
  "fields": [
   {
@@ -64,10 +65,16 @@
    "fieldtype": "Link",
    "label": "LDPE Bag",
    "options": "Item"
+  },
+  {
+   "fieldname": "printing_inc_item_group",
+   "fieldtype": "Link",
+   "label": "Printing Inc Item Group",
+   "options": "Item Group"
   }
  ],
  "issingle": 1,
- "modified": "2020-02-22 10:48:00.505573",
+ "modified": "2020-02-26 16:15:19.069531",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Paper Blank Settings",
