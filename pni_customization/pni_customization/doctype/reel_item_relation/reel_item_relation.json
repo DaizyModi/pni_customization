@@ -16,9 +16,9 @@
    "options": "Item"
   },
   {
-   "fieldname": "process",
+   "fieldname": "processtype",
    "fieldtype": "Select",
-   "label": "Process",
+   "label": "ProcessType",
    "options": "Coating\nSlitting\nPrinting\nPunching\nPacking"
   },
   {
