@@ -10,6 +10,7 @@ from frappe.utils import get_datetime, time_diff_in_hours
 
 class Slitting(Document):
 	def validate(self):
+		self.validate_reel_size()
 		self.manage_reel()
 		if self.end_dt and self.start_dt:
 			hours = time_diff_in_hours(self.end_dt, self.start_dt)
@@ -18,6 +19,17 @@ class Slitting(Document):
 	def onload(self):
 		paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
 		self.set_onload("scrapitemgroup", paper_blank_setting.slitting_scrap)
+
+	def validate_reel_size(self):
+		calculate = {}
+		calculate_intial = {}
+		for row in self.slitting_table:
+			size = calculate.get(row.reel_in, 0)
+			calculate.update({row.reel_in:(size + row.size_out)})
+			calculate_intial.update({row.reel_in: row.size})
+		for data in calculate_intial:
+			if calculate[data] != calculate_intial[data]:
+				frappe.throw("Reel size didn't match to out put")
 
 	def manage_reel(self):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
@@ -135,14 +147,16 @@ class Slitting(Document):
 		#TODO allow multiple raw material transfer
 		raw_material_cost = 0
 		operating_cost = 0
-
+		reelin = []
 		for item in self.slitting_table:
-			se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
+			if item.reel_in not in reelin:
+				se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
+				reelin.append(item.reel_in)
 
 		#TODO calc raw_material_cost
 
 		#no timesheet entries, calculate operating cost based on workstation hourly rate and process start, end
-		hourly_rate = frappe.db.get_value("Workstation", self.work_station, "hour_rate")
+		hourly_rate = frappe.db.get_value("Workstation", self.workstation, "hour_rate")
 		if hourly_rate:
 			if self.operation_hours > 0:
 				hours = self.operation_hours

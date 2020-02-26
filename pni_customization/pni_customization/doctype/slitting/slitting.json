@@ -13,6 +13,11 @@
   "column_break_4",
   "date",
   "time",
+  "shift_time",
+  "warehouse_section",
+  "src_warehouse",
+  "fg_warehouse",
+  "scrap_warehouse",
   "slitting_table_section",
   "slitting_table",
   "scrap_section",
@@ -138,11 +143,41 @@
    "fieldname": "operation_hours",
    "fieldtype": "Float",
    "label": "Hours of Operation"
+  },
+  {
+   "fieldname": "shift_time",
+   "fieldtype": "Select",
+   "label": "Shift Time",
+   "options": "Day\nNight"
+  },
+  {
+   "fieldname": "warehouse_section",
+   "fieldtype": "Section Break",
+   "label": "Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "src_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "fg_warehouse",
+   "fieldtype": "Link",
+   "label": "Finish Good Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "scrap_warehouse",
+   "fieldtype": "Link",
+   "label": "Scrap Warehouse",
+   "options": "Warehouse"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-24 12:15:52.339010",
- "modified_by": "Administrator",
+ "modified": "2020-02-25 23:27:27.546406",
+ "modified_by": "jigartarpara68@gmail.com",
  "module": "PNI Customization",
  "name": "Slitting",
  "owner": "Administrator",
