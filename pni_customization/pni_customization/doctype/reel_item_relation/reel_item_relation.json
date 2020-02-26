@@ -5,7 +5,7 @@
  "engine": "InnoDB",
  "field_order": [
   "in_item",
-  "process",
+  "processtype",
   "out_item"
  ],
  "fields": [
@@ -28,7 +28,7 @@
    "options": "Item"
   }
  ],
- "modified": "2020-02-24 10:38:42.481473",
+ "modified": "2020-02-26 17:02:20.093878",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel Item Relation",
