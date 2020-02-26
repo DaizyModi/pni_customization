@@ -25,6 +25,7 @@
    "fieldname": "brand",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Brand",
    "options": "Brand",
    "reqd": 1
@@ -32,7 +33,6 @@
   {
    "fieldname": "size",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "Size",
    "reqd": 1
   },
@@ -59,17 +59,21 @@
    "default": "0",
    "fieldname": "coated_reel",
    "fieldtype": "Check",
+   "in_standard_filter": 1,
    "label": "Coated Reel"
   },
   {
    "default": "0",
    "fieldname": "printed_reel",
    "fieldtype": "Check",
+   "in_standard_filter": 1,
    "label": "Printed Reel"
   },
   {
    "fieldname": "item",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Item",
    "options": "Item",
    "reqd": 1
@@ -91,6 +95,8 @@
    "default": "Draft",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Status",
    "options": "Draft\nIn Stock\nConsume\nSold"
   },
@@ -112,7 +118,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-24 15:48:17.621543",
+ "modified": "2020-02-27 00:42:33.527749",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel",
