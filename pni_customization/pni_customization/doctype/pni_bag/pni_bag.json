@@ -13,7 +13,9 @@
   "weight",
   "amended_from",
   "coated_reel",
-  "printed_reel"
+  "printed_reel",
+  "reference",
+  "reference_doc"
  ],
  "fields": [
   {
@@ -25,6 +27,8 @@
   {
    "fieldname": "item",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Item",
    "options": "Item"
   },
@@ -33,8 +37,11 @@
    "default": "Draft",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Status",
-   "options": "Draft\nIn Stock\nConsume\nSold"
+   "options": "Draft\nIn Stock\nConsume\nSold",
+   "read_only": 1
   },
   {
    "fieldname": "amended_from",
@@ -48,12 +55,14 @@
   {
    "fieldname": "punching_die",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": " Punching Die",
    "options": "Punching Die"
   },
   {
    "fieldname": "brand",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": " Brand",
    "options": "Brand"
   },
@@ -66,17 +75,31 @@
    "default": "0",
    "fieldname": "coated_reel",
    "fieldtype": "Check",
+   "in_standard_filter": 1,
    "label": "Coated"
   },
   {
    "default": "0",
    "fieldname": "printed_reel",
    "fieldtype": "Check",
+   "in_standard_filter": 1,
    "label": "Printed"
+  },
+  {
+   "fieldname": "reference",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Reference"
+  },
+  {
+   "fieldname": "reference_doc",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Reference Doc"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-27 04:07:10.813027",
+ "modified": "2020-02-27 11:06:51.726184",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Bag",

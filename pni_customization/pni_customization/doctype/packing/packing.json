@@ -21,12 +21,15 @@
   "table_details_section",
   "punch_table",
   "item",
-  "column_break_7",
   "punching_die",
+  "column_break_7",
   "brand",
   "weight",
+  "coated_reel",
+  "printed_reel",
   "packing_table_section",
   "packing_table",
+  "bag_item",
   "bag_size",
   "total_bag",
   "total_weight",
@@ -225,7 +228,7 @@
   },
   {
    "fieldname": "end_dt",
-   "fieldtype": "Data",
+   "fieldtype": "Datetime",
    "label": "End Time"
   },
   {
@@ -236,10 +239,33 @@
   {
    "fieldname": "column_break_11",
    "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fetch_from": ".punch_table.coated_reel",
+   "fieldname": "coated_reel",
+   "fieldtype": "Check",
+   "label": "Coated",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fetch_from": "punch_table.printed_reel",
+   "fieldname": "printed_reel",
+   "fieldtype": "Check",
+   "label": "Printed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "bag_item",
+   "fieldtype": "Link",
+   "label": "Bag Item",
+   "options": "Item",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-27 03:52:10.202426",
+ "modified": "2020-02-27 11:24:47.748738",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Packing",

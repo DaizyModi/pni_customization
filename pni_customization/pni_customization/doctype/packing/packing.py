@@ -25,36 +25,39 @@ class Packing(Document):
 			bag += int(data.bag)
 		self.total_bag = bag
 		self.total_weight = self.bag_size * self.total_bag
+
+		out_reel_relation = frappe.get_value("Reel Item Relation",{"in_item": punch_table.item, "processtype": "Packing"}, "out_item")
+		if not out_reel_relation:
+			frappe.throw("Reel Item Relation Missing for Item "+punch_table.item)
+		self.bag_item = out_reel_relation
 	
-	def manage_reel_tracking(self):
-		for data in self.punching_table:
-			doc = frappe.get_doc({
-				"doctype": "Reel Tracking",
-				"status": "Draft",
-				"reel": data.reel_in,
-				"reel_process": "Punching",
-				"date": frappe.utils.nowdate(),
-				"time": frappe.utils.nowtime(),
-				"out_reel": data.punch_table,
-				"status": "Punching Submit",
-				"process_reference": self.name
-			})
-			doc.insert(ignore_permissions=True)
+	def manage_reel_tracking(self, bag):
+		doc = frappe.get_doc({
+			"doctype": "Reel Tracking",
+			"status": "Draft",
+			"reel": self.punch_table,
+			"reel_process": "Packing",
+			"date": frappe.utils.nowdate(),
+			"time": frappe.utils.nowtime(),
+			"out_reel": bag,
+			"status": "Packing Submit",
+			"process_reference": self.name
+		})
+		doc.insert(ignore_permissions=True)
 	
-	def cancel_reel_tracking(self):
-		for data in self.punching_table:
-			doc = frappe.get_doc({
-				"doctype": "Reel Tracking",
-				"status": "Draft",
-				"reel": data.reel_in,
-				"reel_process": "Punching",
-				"date": frappe.utils.nowdate(),
-				"time": frappe.utils.nowtime(),
-				"out_reel": data.punch_table,
-				"status": "Punching Cancel",
-				"process_reference": self.name
-			})
-			doc.insert(ignore_permissions=True)
+	def cancel_reel_tracking(self, bag):
+		doc = frappe.get_doc({
+			"doctype": "Reel Tracking",
+			"status": "Draft",
+			"reel": self.punch_table,
+			"reel_process": "Packing",
+			"date": frappe.utils.nowdate(),
+			"time": frappe.utils.nowtime(),
+			"out_reel": bag,
+			"status": "Packing Cancel",
+			"process_reference": self.name
+		})
+		doc.insert(ignore_permissions=True)
 
 	def on_submit(self):
 		if (not self.end_dt) or (not self.end_dt):
@@ -69,18 +72,25 @@ class Packing(Document):
 		punch_table.status = "Consume"
 		punch_table.save()
 		
-		doc = frappe.get_doc({
-			"doctype": "Punch Table",
-			"status": "Draft",
-			"item": out_reel_relation,
-			"punching_die": data.punching_die,
-			"brand": reel_in.brand,
-			"coated_reel": reel_in.coated_reel,
-			"printed_reel": reel_in.printed_reel,
-			"weight": data.weight_out
-		})
-		doc.insert()
-		self.manage_reel_tracking()
+		out_reel_relation = frappe.get_value("Reel Item Relation",{"in_item": punch_table.item, "processtype": "Packing"}, "out_item")
+		if not out_reel_relation:
+			frappe.throw("Reel Item Relation Missing for Item "+punch_table.item)
+		for numb in range(self.total_bag):
+			doc = frappe.get_doc({
+				"doctype": "PNI Bag",
+				"status": "In Stock",
+				"item": out_reel_relation,
+				"punching_die": self.punching_die,
+				"brand": self.brand,
+				"coated_reel": self.coated_reel,
+				"printed_reel": self.printed_reel,
+				"weight": self.bag_size,
+				"reference": self.name,
+				"reference_doc": "Packing"
+			})
+			doc.insert()
+			doc.submit()
+			self.manage_reel_tracking(doc.name)
 		frappe.db.set(self, 'status', 'Pending For Stock Entry')
 	
 	def on_cancel(self):
@@ -90,20 +100,25 @@ class Packing(Document):
 			frappe.throw(_("Cannot cancel because submitted Stock Entry \
 			{0} exists").format(stock_entry[0][0]))
 		frappe.db.set(self, 'status', 'Cancelled')
-		for data in self.punching_table:
-			reel_in = frappe.get_doc("Reel",data.reel_in)
-			reel_in.status = "In Stock"
-			reel_in.save()
-			reel_out = frappe.get_doc("Reel",data.reel_out)
-			reel_out.cancel()
-		self.cancel_reel_tracking()
+		
+		punch_table = frappe.get_doc("Punch Table",self.punch_table)
+		punch_table.status = "In Stock"
+		punch_table.save()
+		
+		bags = frappe.get_all("PNI Bag",{"reference":self.name})
+		for bag in bags:
+			bag_doc = frappe.get_doc("PNI Bag",bag.name)
+			bag_doc.status = "Cancel"
+			bag_doc.save()
+			bag_doc.cancel()	
+			self.cancel_reel_tracking(bag_doc.name)
 	
 	def manufacture_entry(self):
 		return self.make_stock_entry()
 	
 	def make_stock_entry(self):
 		stock_entry = frappe.new_doc("Stock Entry")
-		stock_entry.pni_reference_type = "Punching"
+		stock_entry.pni_reference_type = "Packing"
 		stock_entry.pni_reference = self.name
 		
 		stock_entry.stock_entry_type = "Manufacture"
@@ -121,8 +136,8 @@ class Packing(Document):
 		raw_material_cost = 0
 		operating_cost = 0
 		
-		for item in self.punching_table:
-			se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
+		
+		se = self.set_se_items(se, self.item, se.from_warehouse, None, False, reel_in= True)
 
 		#TODO calc raw_material_cost
 
@@ -155,8 +170,7 @@ class Packing(Document):
 		# 				frappe.throw(_("Selling price not set for item {0}").format(item.item))
 
 		#add Stock Entry Items for produced goods and scrap
-		for item in self.punching_table:
-			se = self.set_se_items(se, item, None, se.to_warehouse, True, qty_of_total_production, total_sale_value, production_cost, table_out = True)
+		se = self.set_se_items(se, self.bag_item, None, se.to_warehouse, True, qty_of_total_production, total_sale_value, production_cost, table_out = True)
 
 		for item in self.punching_scrap:
 			# if value_scrap:
@@ -172,10 +186,14 @@ class Packing(Document):
 		item_from_reel = {}
 		class Empty:
 			pass  
-		if reel_in:
-			item_from_reel = frappe.get_doc("Reel",item.reel_in)
+		if reel_in:			
+			item_from_reel = Empty()
+			item_from_reel.item = item
+			item_from_reel.weight = self.weight
 		if table_out:
-			item_from_reel = frappe.get_doc("Punch Table",item.punch_table)
+			item_from_reel = Empty()
+			item_from_reel.item = item
+			item_from_reel.weight = self.total_weight
 		if scrap_item:
 			item_from_reel = Empty()
 			item_from_reel.item = item.item

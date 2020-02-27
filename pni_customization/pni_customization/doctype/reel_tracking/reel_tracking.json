@@ -33,7 +33,7 @@
    "fieldname": "reel_process",
    "fieldtype": "Select",
    "label": "Reel Process",
-   "options": "Coating\nPrinting\nSlitting\nPunching"
+   "options": "Coating\nPrinting\nSlitting\nPunching\nPacking"
   },
   {
    "fieldname": "output_section",
@@ -76,7 +76,7 @@
    "label": "Status"
   }
  ],
- "modified": "2020-02-27 01:39:47.771564",
+ "modified": "2020-02-27 11:05:24.494575",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel Tracking",
