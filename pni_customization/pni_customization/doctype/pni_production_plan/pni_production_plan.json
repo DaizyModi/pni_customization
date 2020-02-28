@@ -135,13 +135,14 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-11 16:58:59.502716",
- "modified_by": "Administrator",
+ "modified": "2020-02-28 11:34:30.447273",
+ "modified_by": "team@khatavahi.in",
  "module": "PNI Customization",
  "name": "PNI Production Plan",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -151,6 +152,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

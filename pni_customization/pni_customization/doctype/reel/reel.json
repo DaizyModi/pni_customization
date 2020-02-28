@@ -118,13 +118,14 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-27 00:42:33.527749",
- "modified_by": "Administrator",
+ "modified": "2020-02-28 11:32:56.651903",
+ "modified_by": "team@khatavahi.in",
  "module": "PNI Customization",
  "name": "Reel",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -134,6 +135,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

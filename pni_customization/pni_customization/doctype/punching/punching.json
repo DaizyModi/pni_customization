@@ -169,13 +169,14 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-27 01:09:20.774161",
- "modified_by": "Administrator",
+ "modified": "2020-02-28 11:32:44.771764",
+ "modified_by": "team@khatavahi.in",
  "module": "PNI Customization",
  "name": "Punching",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -185,6 +186,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
