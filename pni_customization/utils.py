@@ -398,3 +398,21 @@ def manage_se_changes(doc, method):
 			manage_se_submit(doc, punching)
 		elif(method=="on_cancel"):
 			manage_se_cancel(doc, punching)
+	
+	if doc.pni_reference and doc.pni_reference_type == "Packing":
+		Packing = frappe.get_doc("Packing", doc.pni_reference)
+		if(method=="on_submit"):
+			
+			packing_items = []
+			packing_items.append(Packing.item)
+			packing_items.append(Packing.bag_item)
+			for item in Packing.packing_scrap:
+				packing_items.append(item.item)
+
+			validate_items(doc.items, packing_items)
+			
+			# validate_se_qty_coating(doc, co)
+			# frappe.throw("Success")
+			manage_se_submit(doc, Packing)
+		elif(method=="on_cancel"):
+			manage_se_cancel(doc, Packing)

@@ -26,9 +26,9 @@ class Packing(Document):
 		self.total_bag = bag
 		self.total_weight = self.bag_size * self.total_bag
 
-		out_reel_relation = frappe.get_value("Reel Item Relation",{"in_item": punch_table.item, "processtype": "Packing"}, "out_item")
+		out_reel_relation = frappe.get_value("Reel Item Relation",{"in_item": self.item, "processtype": "Packing"}, "out_item")
 		if not out_reel_relation:
-			frappe.throw("Reel Item Relation Missing for Item "+punch_table.item)
+			frappe.throw("Reel Item Relation Missing for Item "+self.item)
 		self.bag_item = out_reel_relation
 	
 	def manage_reel_tracking(self, bag):
@@ -142,7 +142,8 @@ class Packing(Document):
 		#TODO calc raw_material_cost
 
 		#no timesheet entries, calculate operating cost based on workstation hourly rate and process start, end
-		hourly_rate = frappe.db.get_value("Workstation", self.workstation, "hour_rate")
+		hourly_rate = None
+		# hourly_rate = frappe.db.get_value("Workstation", self.workstation, "hour_rate")
 		if hourly_rate:
 			if self.operation_hours > 0:
 				hours = self.operation_hours
@@ -155,9 +156,8 @@ class Packing(Document):
 		#calc total_qty and total_sale_value
 		qty_of_total_production = 0
 		total_sale_value = 0
-		for item in self.punching_table:
-			if item.weight_out > 0:
-				qty_of_total_production = float(qty_of_total_production) + item.weight_out
+		
+		qty_of_total_production = float(qty_of_total_production) + self.total_weight
 		
 		# for item in self.coating_scrap:
 		# 	if item.quantity > 0:
@@ -172,7 +172,7 @@ class Packing(Document):
 		#add Stock Entry Items for produced goods and scrap
 		se = self.set_se_items(se, self.bag_item, None, se.to_warehouse, True, qty_of_total_production, total_sale_value, production_cost, table_out = True)
 
-		for item in self.punching_scrap:
+		for item in self.packing_scrap:
 			# if value_scrap:
 			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, True, qty_of_total_production, total_sale_value, production_cost)
 			# else:
