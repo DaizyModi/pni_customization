@@ -2,6 +2,30 @@ import frappe, json
 from frappe.model.mapper import get_mapped_doc
 from frappe import _
 
+def create_reel(doc, method):
+	if doc.reel_item:
+		for item in doc.reel_table_purchase:
+			doc = frappe.get_doc({
+				"doctype": "Reel",
+				"status": "In Stock",
+				"reel_id": item.reel_id,
+				"item": item.item,
+				"type": "Blank Reel",
+				"brand": item.brand,
+				"size": item.size,
+				"gsm": item.gsm,
+				"weight": item.weight
+			})
+			doc.insert(ignore_permissions=True)
+			doc.submit()
+
+def cancel_reel(doc, method):
+	if doc.reel_item:
+		for item in doc.reel_table_purchase:
+			reel_out = frappe.get_doc("Reel",item.reel_id)
+			reel_out.cancel()
+			reel_out.delete()
+
 def get_permission_query_conditions_for_lead(user):
 	if "System Manager" in frappe.get_roles(user):
 		return None

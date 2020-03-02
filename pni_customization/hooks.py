@@ -52,7 +52,9 @@ fixtures = [
 					"pni_reference_type",
 					"pni_reference",
 					"paper_blank_machine_type",
-					"is_reel_item"
+					"is_reel_item",
+					"reel_item",
+					"reel_table_purchase"
 				)
 			]
 		]
@@ -120,6 +122,10 @@ doc_events = {
 	},
 	"Opportunity": {
 		"validate": "pni_customization.utils.validate_opportunity"
+	},
+	"Purchase Receipt": {
+		"on_submit": "pni_customization.utils.create_reel",
+		"on_cancel": "pni_customization.utils.cancel_reel"
 	}
 }
 # include js, css files in header of desk.html
