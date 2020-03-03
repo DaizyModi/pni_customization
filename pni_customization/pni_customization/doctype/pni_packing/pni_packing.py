@@ -72,7 +72,7 @@ class PNIPacking(Document):
 		# 	self.carton_weight = setting.paper_cup_carton_weight
 	
 	def create_carton(self):
-		# setting = frappe.get_doc("PNI Settings","PNI Settings")
+		setting = frappe.get_doc("PNI Settings","PNI Settings")
 		# if not self.carton_weight:
 		# 	self.carton_weight = setting.paper_cup_carton_weight
 		for data in self.carton_data:
@@ -81,6 +81,7 @@ class PNIPacking(Document):
 			if not data.carton_id:
 				doc = frappe.get_doc({
 					"doctype": "PNI Carton",
+					"naming_series": setting.paper_plate_carton_series if self.is_paper_plate else setting.paper_cup_carton_series,
 					"item": self.item,
 					"supervisor": self.supervisor,
 					"supervisor_name": self.supervisor_name,
