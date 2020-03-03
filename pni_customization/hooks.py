@@ -54,7 +54,8 @@ fixtures = [
 					"paper_blank_machine_type",
 					"is_reel_item",
 					"reel_item",
-					"reel_table_purchase"
+					"reel_table_purchase",
+					"is_paper_plate"
 				)
 			]
 		]

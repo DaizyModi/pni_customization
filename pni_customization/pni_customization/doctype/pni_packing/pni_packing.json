@@ -7,6 +7,7 @@
  "field_order": [
   "naming_series",
   "item",
+  "is_paper_plate",
   "shift",
   "column_break_4",
   "workstation",
@@ -158,10 +159,18 @@
    "fieldname": "supervisor_name",
    "fieldtype": "Data",
    "label": "Supervisor Name"
+  },
+  {
+   "default": "0",
+   "fetch_from": "item.is_paper_plate",
+   "fieldname": "is_paper_plate",
+   "fieldtype": "Check",
+   "label": "Paper Plate",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-07 14:30:55.427106",
+ "modified": "2020-03-02 19:34:27.221699",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

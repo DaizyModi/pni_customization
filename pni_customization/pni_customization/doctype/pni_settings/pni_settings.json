@@ -4,7 +4,9 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "paper_cup_carton_weight"
+  "paper_cup_carton_weight",
+  "paper_cup_carton_series",
+  "paper_plate_carton_series"
  ],
  "fields": [
   {
@@ -13,10 +15,20 @@
    "fieldname": "paper_cup_carton_weight",
    "fieldtype": "Float",
    "label": "Paper Cup Carton Weight"
+  },
+  {
+   "fieldname": "paper_cup_carton_series",
+   "fieldtype": "Data",
+   "label": "Paper Cup Carton Series"
+  },
+  {
+   "fieldname": "paper_plate_carton_series",
+   "fieldtype": "Data",
+   "label": "Paper Plate Carton Series"
   }
  ],
  "issingle": 1,
- "modified": "2019-12-10 00:11:52.880397",
+ "modified": "2020-03-02 19:36:46.826194",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Settings",
