@@ -8,6 +8,7 @@
  "field_order": [
   "naming_series",
   "item",
+  "is_paper_plate",
   "item_name",
   "column_break_4",
   "item_description",
@@ -118,10 +119,16 @@
    "fieldname": "shift",
    "fieldtype": "Data",
    "label": "Shift"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_paper_plate",
+   "fieldtype": "Check",
+   "label": "Is Paper Plate"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-03-04 15:06:26.457609",
+ "modified": "2020-03-04 18:28:58.638063",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Carton",
