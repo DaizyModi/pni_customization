@@ -124,6 +124,9 @@ doc_events = {
 	"Opportunity": {
 		"validate": "pni_customization.utils.validate_opportunity"
 	},
+	"Purchase Order": {
+		"validate": "pni_customization.utils.validate_po"
+	},
 	"Purchase Receipt": {
 		"on_submit": "pni_customization.utils.create_reel",
 		"on_cancel": "pni_customization.utils.cancel_reel"

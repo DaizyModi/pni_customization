@@ -332,6 +332,9 @@ def manage_se_cancel(se, co):
 	co.flags.ignore_validate_update_after_submit = True
 	co.save()
 
+def validate_po(doc, method):
+	doc.validate_qty()
+
 @frappe.whitelist()
 def manage_se_changes(doc, method):
 	if doc.pni_reference and doc.pni_reference_type == "Coating":
