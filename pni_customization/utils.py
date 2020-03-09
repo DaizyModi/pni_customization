@@ -338,8 +338,8 @@ def validate_po(doc, method):
 			mr = frappe.get_doc("Material Request", item.material_request)
 			for mr_item in mr.items:
 				if mr_item.item_code == item.item_code:
-					if item.qty != mr_item.qty:
-						frappe.throw("Purchase Order Qty is not as Material Request")
+					if item.qty > mr_item.qty:
+						frappe.throw("Purchase Order Qty should not greater then Material Request")
 
 @frappe.whitelist()
 def manage_se_changes(doc, method):
