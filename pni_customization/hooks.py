@@ -55,7 +55,11 @@ fixtures = [
 					"is_reel_item",
 					"reel_item",
 					"reel_table_purchase",
-					"is_paper_plate"
+					"is_paper_plate",
+					"quotation_tables_section",
+					"quotation_table",
+					"supplier_quotation_tables_section",
+					"supplier_quotation_table"
 				)
 			]
 		]
