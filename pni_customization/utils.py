@@ -333,7 +333,13 @@ def manage_se_cancel(se, co):
 	co.save()
 
 def validate_po(doc, method):
-	doc.validate_qty()
+	for item in doc.items:
+		if item.material_request:
+			mr = frappe.get_doc("Material Request", item.material_request)
+			for mr_item in mr.items:
+				if mr_item.item_code == item.item_code:
+					if item.qty != mr_item.qty:
+						frappe.throw("Purchase Order Qty is not as Material Request")
 
 @frappe.whitelist()
 def manage_se_changes(doc, method):
