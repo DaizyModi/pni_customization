@@ -19,7 +19,6 @@ fixtures = [
 		"filters": [
 			[
 				"fieldname", "in", (
-					"qty_in_carton",
 					"pni_sales_order",
 					"pni_material_request",
 					"pni_shift_order",
