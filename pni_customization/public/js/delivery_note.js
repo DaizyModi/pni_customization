@@ -46,16 +46,17 @@ frappe.ui.form.on('Delivery Note', {
 
 		if(frm.doc.scan_carton) {
 			let items_det = "";
-			frm.doc.pni_delivery_note.forEach(function(data){
-				items_det += data.item + ",";
-			})
+			if(frm.doc.pni_delivery_note){
+				frm.doc.pni_delivery_note.forEach(function(data){
+					items_det += data.item + ",";
+				})
+			}
 			frappe.call({
 				method: "pni_customization.utils.get_carton",
 				args: { carton: frm.doc.scan_carton, items: items_det }
 			}).then(r => {
 				const data = r && r.message;
-				console.log(data);
-				debugger;
+
 				if (!data || Object.keys(data).length === 0) {
 					scan_barcode_field.set_new_description(__('Cannot find Item with this barcode'));
 					return;
@@ -102,22 +103,23 @@ frappe.ui.form.on('Delivery Note', {
 					item_detail[value.item] = value.item_description
 				})
 				
-				cur_frm.clear_table("items");
-				refresh_field("items")
-
-				frm.doc.pni_delivery_note.forEach(function(value){
-					if(list_item[value.item] != undefined){
-						var child = frappe.model.add_child(frm.doc, "Delivery Note Item", "items");
-						child.item_code = value.item
-						child.item_name = item_name[value.item]
-						child.description = item_detail[value.item]
-						child.stock_uom = "Nos"
-						child.qty = list_item[value.item]
-						child.uom = "Nos"
-						child.rate = value.rate
-						refresh_field("items")
-					}
-				})
+				if(!frm.doc.paper_plate){
+					cur_frm.clear_table("items");
+					refresh_field("items")
+					frm.doc.pni_delivery_note.forEach(function(value){
+						if(list_item[value.item] != undefined){
+							var child = frappe.model.add_child(frm.doc, "Delivery Note Item", "items");
+							child.item_code = value.item
+							child.item_name = item_name[value.item]
+							child.description = item_detail[value.item]
+							child.stock_uom = "Nos"
+							child.qty = list_item[value.item]
+							child.uom = "Nos"
+							child.rate = value.rate
+							refresh_field("items")
+						}
+					})
+				}
 			});
 		}
 		return false;

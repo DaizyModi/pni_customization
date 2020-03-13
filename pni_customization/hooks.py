@@ -58,7 +58,8 @@ fixtures = [
 					"quotation_tables_section",
 					"quotation_table",
 					"supplier_quotation_tables_section",
-					"supplier_quotation_table"
+					"supplier_quotation_table",
+					"paper_plate"
 				)
 			]
 		]
