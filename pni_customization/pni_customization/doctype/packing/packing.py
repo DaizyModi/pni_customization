@@ -86,6 +86,7 @@ class Packing(Document):
 				"printed_reel": self.printed_reel,
 				"weight": self.bag_size,
 				"reference": self.name,
+				"warehouse": self.fg_warehouse,
 				"reference_doc": "Packing"
 			})
 			doc.insert()

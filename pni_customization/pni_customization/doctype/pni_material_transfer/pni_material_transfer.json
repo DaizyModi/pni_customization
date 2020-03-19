@@ -6,6 +6,8 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "status",
+  "company",
   "column_break_2",
   "posting_date",
   "warehouses_section",
@@ -14,6 +16,11 @@
   "to_warehouse",
   "items_table_section",
   "item",
+  "get_data",
+  "column_break_10",
+  "nos",
+  "total_weight",
+  "section_break_12",
   "material_transfer_table",
   "amended_from"
  ],
@@ -39,8 +46,7 @@
    "fieldname": "material_transfer_table",
    "fieldtype": "Table",
    "label": "Material Transfer Table",
-   "options": "Material Transfer Table",
-   "reqd": 1
+   "options": "Material Transfer Table"
   },
   {
    "default": "Today",
@@ -52,8 +58,7 @@
   },
   {
    "fieldname": "warehouses_section",
-   "fieldtype": "Section Break",
-   "label": "Warehouses"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "items_table_section",
@@ -88,11 +93,50 @@
    "fieldname": "item",
    "fieldtype": "Link",
    "label": "Item",
-   "options": "Item"
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "nos",
+   "fieldtype": "Int",
+   "label": "Nos",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "get_data",
+   "fieldtype": "Button",
+   "label": "Get Data"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPending For Stock Entry\nCompleted\nCancelled"
+  },
+  {
+   "fieldname": "total_weight",
+   "fieldtype": "Float",
+   "label": "Total Weight",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-03-16 14:37:29.354893",
+ "modified": "2020-03-19 08:27:33.813895",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Material Transfer",

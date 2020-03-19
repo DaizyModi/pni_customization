@@ -14,6 +14,7 @@
   "amended_from",
   "coated_reel",
   "printed_reel",
+  "warehouse",
   "reference",
   "reference_doc"
  ],
@@ -96,11 +97,19 @@
    "fieldtype": "Data",
    "in_standard_filter": 1,
    "label": "Reference Doc"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-28 11:31:47.644787",
- "modified_by": "team@khatavahi.in",
+ "modified": "2020-03-19 06:34:33.880774",
+ "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Bag",
  "owner": "Administrator",

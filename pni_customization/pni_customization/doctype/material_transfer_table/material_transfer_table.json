@@ -26,21 +26,25 @@
    "options": "reference_type"
   },
   {
+   "fetch_from": "id.item",
    "fieldname": "item",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Item",
-   "options": "Item"
+   "options": "Item",
+   "read_only": 1
   },
   {
+   "fetch_from": "id.weight",
    "fieldname": "qty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Qty"
+   "label": "Qty",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2020-03-16 13:48:41.622599",
+ "modified": "2020-03-19 06:34:09.371676",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Material Transfer Table",
