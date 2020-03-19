@@ -2,7 +2,20 @@ import frappe, json
 from frappe.model.mapper import get_mapped_doc
 from frappe import _
 
+def validate_reel_qty(doc):
+	for item in doc.items:
+		if item.is_reel_item:
+			if not doc.reel_table_purchase:
+				frappe.throw("Reel Entry needed for Item "+item.item_code)
+			reel_weight = 0
+			for reel in doc.reel_table_purchase:
+				if reel.item == item.item_code:
+					reel_weight += reel.weight
+			if reel_weight < item.qty:
+				frappe.throw("Total Reel Qty for item  {0} is less then {1} ".format(item.item_code, item.qty))
+
 def create_reel(doc, method):
+	validate_reel_qty(doc)
 	if doc.reel_item:
 		for item in doc.reel_table_purchase:
 			doc = frappe.get_doc({
