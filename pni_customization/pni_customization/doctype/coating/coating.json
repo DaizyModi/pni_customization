@@ -87,7 +87,7 @@
   },
   {
    "fieldname": "ldpe_bag",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "LDPE Bag",
    "read_only": 1
   },
@@ -171,8 +171,8 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-28 11:33:31.340544",
- "modified_by": "team@khatavahi.in",
+ "modified": "2020-03-19 11:08:49.329152",
+ "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Coating",
  "owner": "Administrator",
