@@ -110,7 +110,7 @@ frappe.ui.form.on('Purchase Order', {
 						for (var i=0;i<len;i++){  
 							var row = frm.add_child("supplier_quotation_table");
 							row.quotation = r.message[i][0];
-							row.supplier = r.message[i][1];
+							row.supplier_name = r.message[i][1];
 							row.quotation_date = r.message[i][2];
 							row.item_code = r.message[i][3];
 							row.qty = r.message[i][4];
@@ -189,7 +189,7 @@ frappe.ui.form.on("Purchase Order Item",{
 					for (var i=0;i<len;i++){  
 						var row = frm.add_child("supplier_quotation_table");
 						row.quotation = r.message[i][0];
-						row.supplier = r.message[i][1];
+						row.supplier_name = r.message[i][1];
 						row.quotation_date = r.message[i][2];
 						row.item_code = r.message[i][3];
 						row.qty = r.message[i][4];
