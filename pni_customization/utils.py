@@ -9,7 +9,7 @@ def validate_reel_qty(doc):
 				frappe.throw("Reel Entry needed for Item "+item.item_code)
 			reel_weight = 0
 			for reel in doc.reel_table_purchase:
-				if reel.item == item.item_code:
+				if reel.item == item.item_code and item.reel_brand == reel.brand and item.reel_size == reel.size and item.reel_gsm == reel.gsm:
 					reel_weight += reel.weight
 			if reel_weight < item.qty:
 				frappe.throw("Total Reel Qty for item  {0} is less then {1} ".format(item.item_code, item.qty))
