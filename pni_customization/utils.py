@@ -13,6 +13,11 @@ def validate_reel_qty(doc):
 					reel_weight += reel.weight
 			if reel_weight < item.qty:
 				frappe.throw("Total Reel Qty for item  {0} is less then {1} ".format(item.item_code, item.qty))
+def validate_reel(doc, method):
+	total_weight = 0
+	for reel in doc.reel_table_purchase:
+		total_weight += reel.weight
+	doc.total_reel_weight = total_weight
 
 def create_reel(doc, method):
 	validate_reel_qty(doc)

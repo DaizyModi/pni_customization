@@ -63,7 +63,8 @@ fixtures = [
 					"reel_item",
 					"reel_brand",
 					"reel_size",
-					"reel_gsm"
+					"reel_gsm",
+					"total_reel_weight"
 				)
 			]
 		]
@@ -136,6 +137,7 @@ doc_events = {
 		"validate": "pni_customization.utils.validate_po"
 	},
 	"Purchase Receipt": {
+		"validate": "pni_customization.utils.validate_reel",
 		"on_submit": "pni_customization.utils.create_reel",
 		"on_cancel": "pni_customization.utils.cancel_reel"
 	}
