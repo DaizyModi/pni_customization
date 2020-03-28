@@ -7,10 +7,13 @@
  "field_order": [
   "naming_series",
   "item",
+  "status",
+  "company",
   "is_paper_plate",
   "shift",
   "column_break_4",
   "workstation",
+  "to_warehouse",
   "date",
   "employee_details_section",
   "select_employee_group",
@@ -165,12 +168,37 @@
    "fetch_from": "item.is_paper_plate",
    "fieldname": "is_paper_plate",
    "fieldtype": "Check",
-   "label": "Paper Plate",
+   "label": "Is Paper Plate",
    "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nSubmitted\nPending For Stock Entry\nCompleted\nCancelled",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "workstation.fg_warehouse",
+   "fieldname": "to_warehouse",
+   "fieldtype": "Link",
+   "label": "Finish Goods Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-03-02 19:34:27.221699",
+ "modified": "2020-03-28 10:10:20.546149",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

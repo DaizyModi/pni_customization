@@ -358,6 +358,20 @@ def validate_po(doc, method):
 
 @frappe.whitelist()
 def manage_se_changes(doc, method):
+	
+	if doc.pni_reference and doc.pni_reference_type == "PNI Packing":
+		co = frappe.get_doc("PNI Packing", doc.pni_reference)
+		if(method=="on_submit"):
+			
+			co_items = []
+			co_items.append(co.item)
+
+			validate_items(doc.items, co_items)
+			
+			manage_se_submit(doc, co)
+		elif(method=="on_cancel"):
+			manage_se_cancel(doc, co)
+	
 	if doc.pni_reference and doc.pni_reference_type == "Coating":
 		co = frappe.get_doc("Coating", doc.pni_reference)
 		if(method=="on_submit"):
