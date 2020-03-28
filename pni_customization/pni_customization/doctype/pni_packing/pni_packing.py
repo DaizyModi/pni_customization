@@ -115,7 +115,7 @@ class PNIPacking(Document):
 				frappe.throw("Weight Can't be empty")
 			doc = frappe.get_doc("PNI Carton",data.carton_id)
 			doc.submit()
-		frappe.db.set(self, 'status', 'Waiting for Stock Entry')
+		frappe.db.set(self, 'status', 'Pending For Stock Entry')
 	
 	def get_employee_list(self):
 		if self.select_employee_group:
