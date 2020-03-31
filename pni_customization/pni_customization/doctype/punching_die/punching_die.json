@@ -6,6 +6,7 @@
  "engine": "InnoDB",
  "field_order": [
   "punching_die",
+  "item",
   "die_serial_number",
   "status",
   "amended_from"
@@ -39,11 +40,17 @@
    "options": "Punching Die",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-28 11:34:19.340752",
- "modified_by": "team@khatavahi.in",
+ "modified": "2020-03-30 10:04:29.780612",
+ "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Punching Die",
  "owner": "Administrator",

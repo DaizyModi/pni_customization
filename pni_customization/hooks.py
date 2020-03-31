@@ -64,7 +64,8 @@ fixtures = [
 					"reel_brand",
 					"reel_size",
 					"reel_gsm",
-					"total_reel_weight"
+					"total_reel_weight",
+					"scrap_entry"
 				)
 			]
 		]
@@ -170,7 +171,8 @@ doctype_js = {
 	"Process Order" : "public/js/item_add.js",
 	"Lead": "public/js/lead_customization.js",
 	"Delivery Note": "public/js/delivery_note.js",
-	"Opportunity": "public/js/opportunity.js"
+	"Opportunity": "public/js/opportunity.js",
+	"Stock Entry" : "public/js/stock_entry.js",
 }
 
 # Home Pages
