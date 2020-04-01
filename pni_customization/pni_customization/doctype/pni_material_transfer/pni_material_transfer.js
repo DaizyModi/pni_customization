@@ -16,13 +16,17 @@ frappe.ui.form.on('PNI Material Transfer', {
 		}
 	},
 	get_data: function(frm) {
-		frappe.call({
-			doc: frm.doc,
-			method: "get_bag",
-			callback: function(r) {
-				frm.reload_doc()
-			}
-		});
+		if(!frm.doc.__islocal){
+			frappe.call({
+				doc: frm.doc,
+				method: "get_bag",
+				callback: function(r) {
+					frm.reload_doc()
+				}
+			});
+		}else{
+			frappe.msgprint("Please Save Doc First.")
+		}
 	}
 });
 

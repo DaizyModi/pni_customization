@@ -60,6 +60,11 @@ def get_data():
 					"type": "doctype",
 					"name": "Manufacturing Department",
 					"description": _("Manufacturing Department"),
+				},
+                {
+					"type": "doctype",
+					"name": "PNI Material Transfer",
+					"description": _("PNI Material Transfer"),
 				}
 			]
 		},
