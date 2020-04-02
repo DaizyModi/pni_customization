@@ -117,6 +117,18 @@ class PNIPacking(Document):
 			doc.submit()
 		frappe.db.set(self, 'status', 'Pending For Stock Entry')
 	
+	def on_cancel(self):
+		stock_entry = frappe.db.sql("""select name from `tabStock Entry`
+			where pni_reference = %s and docstatus = 1""", self.name)
+		if stock_entry:
+			frappe.throw("Cannot cancel because submitted Stock Entry \
+			{0} exists".format(stock_entry[0][0]))
+		frappe.db.set(self, 'status', 'Cancelled')
+
+		for data in self.carton_data:
+			doc = frappe.get_doc("PNI Carton",data.carton_id)
+			doc.cancel()
+	
 	def get_employee_list(self):
 		if self.select_employee_group:
 			doc = frappe.get_doc("Duty Employee Group", self.select_employee_group)
