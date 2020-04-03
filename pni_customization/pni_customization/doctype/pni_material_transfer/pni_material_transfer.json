@@ -17,6 +17,7 @@
   "is_wip_warehouse",
   "items_table_section",
   "item",
+  "pni_material_type",
   "get_data",
   "column_break_10",
   "nos",
@@ -140,10 +141,17 @@
    "fieldname": "is_wip_warehouse",
    "fieldtype": "Check",
    "label": "Is WIP Warehouse"
+  },
+  {
+   "fetch_from": "item.pni_material_type",
+   "fieldname": "pni_material_type",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "PNI Material Type"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-04-03 12:53:56.071615",
+ "modified": "2020-04-03 16:41:26.565815",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Material Transfer",

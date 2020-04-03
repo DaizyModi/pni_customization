@@ -8,6 +8,13 @@ frappe.ui.form.on('PNI Material Transfer', {
 				filters: {"name": "PNI Bag"}
 			}
 		});
+		frm.set_query("item", function () {
+			return {
+				filters: [
+					["pni_material_type", "in", "Blank,Bottom"]
+				]
+			}
+		});
 		if(!frm.doc.__islocal && frm.doc.status == 'Pending For Stock Entry'){
 			var finish_btn = frm.add_custom_button(__('Create Transfer Entry'), function(){
 				tarnsfer_entry(frm);

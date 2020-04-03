@@ -17,7 +17,7 @@ class PNIMaterialTransfer(Document):
 		count = 0
 		for data in self.material_transfer_table:
 			if data.item != self.item:
-				frappe.throw("Invalid Bag")
+				frappe.throw("Invalid Bag/Reel")
 			count += 1
 
 		if count != self.nos:
@@ -46,15 +46,24 @@ class PNIMaterialTransfer(Document):
 	
 	def get_bag(self):
 		self.material_transfer_table = {}
-		bags = frappe.get_all("PNI Bag", filters={'item': self.item, 'status': "In Stock", 'warehouse': self.from_warehouse}, fields=['name', 'weight'])
-		count = 0
-		for bag in bags:
-			count += 1
-			if count > self.nos:
-				break
-			self.append("material_transfer_table",{"reference_type": "PNI Bag", "id": bag.name, "qty": bag.weight, "item":self.item})
-		self.save()
-	
+		if self.pni_material_type=="Blank":
+			bags = frappe.get_all("PNI Bag", filters={'item': self.item, 'status': "In Stock", 'warehouse': self.from_warehouse}, fields=['name', 'weight'])
+			count = 0
+			for bag in bags:
+				count += 1
+				if count > self.nos:
+					break
+				self.append("material_transfer_table",{"reference_type": "PNI Bag", "id": bag.name, "qty": bag.weight, "item":self.item})
+			self.save()
+		if self.pni_material_type=="Bottom":
+			reels = frappe.get_all("Reel", filters={'item': self.item, 'status': "In Stock", 'warehouse': self.from_warehouse}, fields=['name', 'weight'])
+			count = 0
+			for reel in reels:
+				count += 1
+				if count > self.nos:
+					break
+				self.append("material_transfer_table",{"reference_type": "Reel", "id": reel.name, "qty": reel.weight, "item":self.item})
+			self.save()
 	def transfer_entry(self):
 		stock_entry = frappe.new_doc("Stock Entry")
 		stock_entry.pni_reference_type = "PNI Material Transfer"
