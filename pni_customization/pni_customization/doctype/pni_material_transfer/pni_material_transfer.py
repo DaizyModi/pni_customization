@@ -26,6 +26,8 @@ class PNIMaterialTransfer(Document):
 		for bag in self.material_transfer_table:
 			doc = frappe.get_doc(bag.reference_type, bag.id)
 			doc.warehouse = self.to_warehouse
+			if self.is_wip_warehouse:
+				doc.status = "Consume"
 			doc.save()
 		frappe.db.set(self, 'status', 'Pending For Stock Entry')
 	

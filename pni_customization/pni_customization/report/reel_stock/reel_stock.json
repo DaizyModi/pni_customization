@@ -7,7 +7,7 @@
  "doctype": "Report",
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2020-03-31 18:46:36.738601",
+ "modified": "2020-04-03 12:57:14.772466",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel Stock",
@@ -16,7 +16,7 @@
  "query": "select \n    item as \"Item:Link/Item:150\", \n\tcount(item) as Nos, \n\tsum(weight) as \"Total Weight\",\n    status as \"Status:Data:100\", \n    size as \"Size:Data:100\", \n    gsm as \"GSM:Data:100\", \n    brand as \"Brand:Link/Brand:100\", \n    coated_reel as \"Coated:Data:100\", \n    printed_reel as \"Printed:Data:100\"      \n    from `tabReel` \n        where docstatus = \"1\" and status = %(status)s \n    group by size, gsm, coated_reel, printed_reel;",
  "ref_doctype": "Reel",
  "report_name": "Reel Stock",
- "report_type": "Query Report",
+ "report_type": "Script Report",
  "roles": [
   {
    "role": "System Manager"

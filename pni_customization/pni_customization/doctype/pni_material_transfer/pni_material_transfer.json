@@ -14,6 +14,7 @@
   "from_warehouse",
   "column_break_6",
   "to_warehouse",
+  "is_wip_warehouse",
   "items_table_section",
   "item",
   "get_data",
@@ -133,10 +134,16 @@
    "label": "Company",
    "options": "Company",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_wip_warehouse",
+   "fieldtype": "Check",
+   "label": "Is WIP Warehouse"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-03-19 08:27:33.813895",
+ "modified": "2020-04-03 12:53:56.071615",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Material Transfer",
