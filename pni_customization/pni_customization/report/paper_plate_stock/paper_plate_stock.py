@@ -18,14 +18,14 @@ def get_columns():
             "label": _("Item"),
             "fieldtype": "Link",
             "options": "Item",
-            "width": 300
+            "width": 150
         },
 		{
             "fieldname": "brand",
             "label": _("Brand"),
             "fieldtype": "Link",
             "options": "Brand",
-            "width": 300
+            "width": 150
         },
 		{
             "fieldname": "status",
