@@ -21,6 +21,13 @@ def get_columns():
             "width": 300
         },
 		{
+            "fieldname": "brand",
+            "label": _("Brand"),
+            "fieldtype": "Link",
+            "options": "Brand",
+            "width": 300
+        },
+		{
             "fieldname": "status",
             "label": _("Status"),
             "fieldtype": "Data",
@@ -58,25 +65,28 @@ def get_columns():
     ]
 
 def get_data(filters=None):
-    conditions = ""
-    
-    if filters.status:
-        conditions += " and status = '{0}' ".format(filters.status)
+	conditions = ""
 
-    if filters.item:
-        conditions += " and item = '{0}' ".format(filters.item)
-    
-    return frappe.db.sql("""
+	if filters.status:
+		conditions += " and crt.status = '{0}' ".format(filters.status)
+
+	if filters.item:
+		conditions += " and crt.item = '{0}' ".format(filters.item)
+	
+	if filters.brand:
+		conditions += " and item.brand = '{0}' ".format(filters.brand)
+
+	return frappe.db.sql("""
 		
 		select 
-			item, status, size, no_of_stack, count(item), sum(total), sum(net_weight),
-			sum(gross_weight)
+			crt.item, item.brand, crt.status, crt.size, crt.no_of_stack, count(crt.item), sum(crt.total), sum(crt.net_weight),
+			sum(crt.gross_weight)
 		
 		from 
-			`tabPNI Carton` 
+			`tabPNI Carton` as crt ,`tabItem` as item
 		
 		where 
-			docstatus = "1" and is_paper_plate = "" {0}
+			crt.docstatus = "1" and crt.is_paper_plate = "" {0}
     	
-		group by item,size,no_of_stack, status;
+		group by crt.item,crt.size,crt.no_of_stack, crt.status;
     """.format(conditions))

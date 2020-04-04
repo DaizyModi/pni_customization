@@ -22,14 +22,14 @@ frappe.query_reports["Paper Cup Stock"] = {
 			"reqd": 0,
 			"width": "80",
 		},
-		// {
-		// 	"fieldname":"brand",
-		// 	"label": __("Brand"),
-		// 	"fieldtype": "Link",
-		// 	"options": "Brand",
-		// 	"reqd": 0,
-		// 	"width": "80",
-		// },
+		{
+			"fieldname":"brand",
+			"label": __("Brand"),
+			"fieldtype": "Link",
+			"options": "Brand",
+			"reqd": 0,
+			"width": "80",
+		},
 		// {
 		// 	"fieldname":"gsm",
 		// 	"label": __("GSM"),
