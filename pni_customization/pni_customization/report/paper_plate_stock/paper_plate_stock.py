@@ -85,7 +85,7 @@ def get_data(filters=None):
 			`tabPNI Carton` as crt ,`tabItem` as item
 		
 		where 
-			crt.docstatus = "1" and crt.is_paper_plate = "" {0}
+			crt.docstatus = "1" and crt.is_paper_plate <> "" {0}
     	
 		group by crt.item,crt.size,crt.no_of_stack, crt.status;
     """.format(conditions))

@@ -80,8 +80,8 @@ def get_data():
 				},
 				{
 					"type": "report",
-					"name": "PNI Carton Stock Paper Plate",
-					"description": _("PNI Carton Stock Paper Plate"),
+					"name": "Paper Plate Stock",
+					"description": _("Paper Plate Stock"),
 					"is_query_report": True,
 					"reference_doctype": "PNI Carton",
 				},
