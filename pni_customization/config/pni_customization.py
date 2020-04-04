@@ -79,6 +79,12 @@ def get_data():
 				},
 				{
 					"type": "report",
+					"name": "PNI Carton Stock Paper Plate",
+					"description": _("PNI Carton Stock Paper Plate"),
+					"reference_doctype": "PNI Carton",
+				},
+				{
+					"type": "report",
 					"name": "Reel Stock",
 					"description": _("Reel Stock"),
 					"reference_doctype": "Reel",
@@ -88,7 +94,7 @@ def get_data():
 					"name": "PNI Bag Stock",
 					"description": _("PNI Bag Stock"),
 					"reference_doctype": "PNI Bag",
-				}				
+				}
 			]
 		},
 		{
