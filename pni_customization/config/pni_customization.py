@@ -75,24 +75,28 @@ def get_data():
 					"type": "report",
 					"name": "Paper Cup Stock",
 					"description": _("Paper Cup Stock"),
+					"is_query_report": True,
 					"reference_doctype": "PNI Carton",
 				},
 				{
 					"type": "report",
 					"name": "PNI Carton Stock Paper Plate",
 					"description": _("PNI Carton Stock Paper Plate"),
+					"is_query_report": True,
 					"reference_doctype": "PNI Carton",
 				},
 				{
 					"type": "report",
 					"name": "Reel Stock",
 					"description": _("Reel Stock"),
+					"is_query_report": True,
 					"reference_doctype": "Reel",
 				},
 				{
 					"type": "report",
 					"name": "PNI Bag Stock",
 					"description": _("PNI Bag Stock"),
+					"is_query_report": True,
 					"reference_doctype": "PNI Bag",
 				}
 			]
