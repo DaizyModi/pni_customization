@@ -73,11 +73,22 @@ def get_data():
 			"items": [
                 {
 					"type": "report",
-					"name": "PNI Carton Stock",
-					"is_query_report": True,
-					"description": _("Initial Order From Customer"),
+					"name": "Paper Cup Stock",
+					"description": _("Paper Cup Stock"),
 					"reference_doctype": "PNI Carton",
-				}
+				},
+				{
+					"type": "report",
+					"name": "Reel Stock",
+					"description": _("Reel Stock"),
+					"reference_doctype": "Reel",
+				},
+				{
+					"type": "report",
+					"name": "PNI Bag Stock",
+					"description": _("PNI Bag Stock"),
+					"reference_doctype": "PNI Bag",
+				}				
 			]
 		},
 		{
