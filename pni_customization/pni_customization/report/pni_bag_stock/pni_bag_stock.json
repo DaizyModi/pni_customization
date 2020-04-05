@@ -7,7 +7,7 @@
  "doctype": "Report",
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2020-03-31 18:35:39.168267",
+ "modified": "2020-04-05 10:42:21.301472",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Bag Stock",
@@ -16,7 +16,7 @@
  "query": "select \n    item as \"Item:Link/Item:150\", \n\tcount(item) as Nos, \n\tsum(weight) as \"Total Weight\",\n    status as \"Status:Data:100\", \n    punching_die as \"Punching Die:Link/Punching Die:100\", \n    brand as \"Brand:Link/Brand:100\", \n    coated_reel as \"Coated:Data:100\", \n    printed_reel as \"Printed:Data:100\", \n    warehouse as \"Warehouse:Link/Warehouse:100\"      \n    from `tabPNI Bag` \n        where docstatus = \"1\" and status = %(status)s \n    group by item, coated_reel, printed_reel, warehouse;",
  "ref_doctype": "PNI Bag",
  "report_name": "PNI Bag Stock",
- "report_type": "Query Report",
+ "report_type": "Script Report",
  "roles": [
   {
    "role": "System Manager"

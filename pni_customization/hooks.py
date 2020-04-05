@@ -65,7 +65,11 @@ fixtures = [
 					"reel_size",
 					"reel_gsm",
 					"total_reel_weight",
-					"scrap_entry"
+					"scrap_entry",
+					"paper_cup",
+					"paper_plate",
+					"reel",
+					"bag"
 				)
 			]
 		]
