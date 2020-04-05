@@ -25,6 +25,11 @@ frappe.query_reports["Reel Stock"] = {
 			"options": "Brand",
 			"reqd": 0,
 			"width": "80",
+			"get_query": function(){ 
+				return {
+					'filters': {"reel": true}
+				}
+			}
 		},
 		{
 			"fieldname":"gsm",

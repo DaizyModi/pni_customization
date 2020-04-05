@@ -29,6 +29,11 @@ frappe.query_reports["Paper Cup Stock"] = {
 			"options": "Brand",
 			"reqd": 0,
 			"width": "80",
+			"get_query": function(){ 
+				return {
+					'filters': {"paper_cup": true}
+				}
+			}
 		},
 		// {
 		// 	"fieldname":"gsm",

@@ -25,6 +25,11 @@ frappe.query_reports["PNI Bag Stock"] = {
 			"options": "Brand",
 			"reqd": 0,
 			"width": "80",
+			"get_query": function(){ 
+				return {
+					'filters': {"bag": true}
+				}
+			}
 		}
 	]
 }
