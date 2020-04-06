@@ -88,10 +88,10 @@ def get_data(filters=None):
 		conditions += " and bag.item = '{0}' ".format(filters.item)
 	
 	if filters.brand:
-		conditions += " and bag.brand = '{0}' ".format(filters.brand)
-    
-    if filters.packing_category:
-        conditions += " and bag.packing_category = '{0}' ".format(filters.packing_category)
+	    conditions += " and bag.brand = '{0}' ".format(filters.brand)
+
+	if filters.packing_category:
+		conditions += " and bag.packing_category = '{0}' ".format(filters.packing_category)
 
 	return frappe.db.sql("""
 		select 
