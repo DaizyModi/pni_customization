@@ -21,10 +21,13 @@ class Packing(Document):
 
 	def manage_table(self):
 		bag  = 0
+		total_weight = 0
 		for data in self.packing_table:
-			bag += int(data.bag)
+			if data.bag_size and data.bag:
+				bag += int(data.bag)
+				total_weight += float(data.bag_size) * float(data.bag)
 		self.total_bag = bag
-		self.total_weight = self.bag_size * self.total_bag
+		self.total_weight = total_weight
 
 		out_reel_relation = frappe.get_value("Reel Item Relation",{"in_item": self.item, "processtype": "Packing"}, "out_item")
 		if not out_reel_relation:
@@ -75,23 +78,25 @@ class Packing(Document):
 		out_reel_relation = frappe.get_value("Reel Item Relation",{"in_item": punch_table.item, "processtype": "Packing"}, "out_item")
 		if not out_reel_relation:
 			frappe.throw("Reel Item Relation Missing for Item "+punch_table.item)
-		for numb in range(self.total_bag):
-			doc = frappe.get_doc({
-				"doctype": "PNI Bag",
-				"status": "In Stock",
-				"item": out_reel_relation,
-				"punching_die": self.punching_die,
-				"brand": self.brand,
-				"coated_reel": self.coated_reel,
-				"printed_reel": self.printed_reel,
-				"weight": self.bag_size,
-				"reference": self.name,
-				"warehouse": self.fg_warehouse,
-				"reference_doc": "Packing"
-			})
-			doc.insert()
-			doc.submit()
-			self.manage_reel_tracking(doc.name)
+		for row in self.packing_table:
+			if row.bag and row.bag_size:
+				for numb in range(row.bag):
+					doc = frappe.get_doc({
+						"doctype": "PNI Bag",
+						"status": "In Stock",
+						"item": out_reel_relation,
+						"punching_die": self.punching_die,
+						"brand": self.brand,
+						"coated_reel": self.coated_reel,
+						"printed_reel": self.printed_reel,
+						"weight": row.bag_size,
+						"reference": self.name,
+						"warehouse": self.fg_warehouse,
+						"reference_doc": "Packing"
+					})
+					doc.insert()
+					doc.submit()
+					self.manage_reel_tracking(doc.name)
 		frappe.db.set(self, 'status', 'Pending For Stock Entry')
 	
 	def on_cancel(self):

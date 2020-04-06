@@ -30,7 +30,6 @@
   "packing_table_section",
   "packing_table",
   "bag_item",
-  "bag_size",
   "total_bag",
   "total_weight",
   "scrap_section",
@@ -113,7 +112,8 @@
    "fieldname": "punch_table",
    "fieldtype": "Link",
    "label": "Punch Table",
-   "options": "Punch Table"
+   "options": "Punch Table",
+   "reqd": 1
   },
   {
    "fetch_from": "punch_table.item",
@@ -147,11 +147,6 @@
   {
    "fieldname": "column_break_7",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "bag_size",
-   "fieldtype": "Float",
-   "label": "Bag Size"
   },
   {
    "fieldname": "total_bag",
@@ -265,8 +260,8 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-28 11:32:18.652055",
- "modified_by": "team@khatavahi.in",
+ "modified": "2020-04-06 08:12:39.493458",
+ "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Packing",
  "owner": "Administrator",

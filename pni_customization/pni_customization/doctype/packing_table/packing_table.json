@@ -6,6 +6,7 @@
  "field_order": [
   "employee",
   "emaployee_name",
+  "bag_size",
   "bag"
  ],
  "fields": [
@@ -29,10 +30,16 @@
    "in_list_view": 1,
    "label": "Emaployee Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "bag_size",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Bag Size"
   }
  ],
  "istable": 1,
- "modified": "2020-02-27 02:54:45.204614",
+ "modified": "2020-04-06 08:01:30.119980",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Packing Table",
