@@ -30,6 +30,14 @@ frappe.query_reports["PNI Bag Stock"] = {
 					'filters': {"bag": true}
 				}
 			}
+		},
+		{
+			"fieldname":"packing_category",
+			"label": __("Packing Category"),
+			"fieldtype": "Link",
+			"options": "Packing Category",
+			"reqd": 0,
+			"width": "80"
 		}
 	]
 }

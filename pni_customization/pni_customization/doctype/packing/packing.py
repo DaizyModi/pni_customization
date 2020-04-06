@@ -86,6 +86,7 @@ class Packing(Document):
 						"status": "In Stock",
 						"item": out_reel_relation,
 						"punching_die": self.punching_die,
+						"packing_category": row.packing_category,
 						"brand": self.brand,
 						"coated_reel": self.coated_reel,
 						"printed_reel": self.printed_reel,

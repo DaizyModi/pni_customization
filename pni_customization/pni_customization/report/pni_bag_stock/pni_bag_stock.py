@@ -25,6 +25,12 @@ def get_columns():
             "label": _("Status"),
             "fieldtype": "Data",
         },
+        {
+            "fieldname": "packing_category",
+            "label": _("Packing Category"),
+            "fieldtype": "Link",
+            "options": "Packing Category"
+        },
 		{
             "fieldname": "nos",
             "label": _("No of Bags"),
@@ -83,11 +89,15 @@ def get_data(filters=None):
 	
 	if filters.brand:
 		conditions += " and bag.brand = '{0}' ".format(filters.brand)
+    
+    if filters.packing_category:
+        conditions += " and bag.packing_category = '{0}' ".format(filters.packing_category)
 
 	return frappe.db.sql("""
 		select 
 			bag.item as "Item:Link/Item:150", 
-			bag.status, 
+			bag.status,
+            bag.packing_category, 
 			count(bag.item), 
 			bag.weight,
 			sum(bag.weight),
@@ -104,5 +114,5 @@ def get_data(filters=None):
 			docstatus = "1" {0}
 			
 		group by 
-			bag.item, bag.coated_reel, bag.printed_reel, bag.warehouse, bag.weight;
+			bag.item, bag.coated_reel, bag.printed_reel, bag.warehouse, bag.weight, bag.packing_category;
     """.format(conditions))
