@@ -79,7 +79,7 @@ def get_data(filters=None):
         conditions += " and gsm = '{0}' ".format(filters.gsm)
     
     if filters.size:
-        conditions += " and size = '{0}' ".format(filters.sizes)
+        conditions += " and size = '{0}' ".format(filters.size)
     
     if filters.coated:
         conditions += " and coated_reel = '{0}' ".format(filters.coated)
