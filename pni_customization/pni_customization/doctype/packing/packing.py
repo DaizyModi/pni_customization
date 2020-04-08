@@ -87,6 +87,7 @@ class Packing(Document):
 						"item": out_reel_relation,
 						"punching_die": self.punching_die,
 						"packing_category": row.packing_category,
+						"supplier_reel_id": punch_table.supplier_reel_id,
 						"brand": self.brand,
 						"coated_reel": self.coated_reel,
 						"printed_reel": self.printed_reel,

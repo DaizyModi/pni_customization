@@ -27,6 +27,7 @@ def create_reel(doc, method):
 				"doctype": "Reel",
 				"status": "In Stock",
 				"reel_id": item.reel_id,
+				"supplier_reel_id": item.reel_id,
 				"item": item.item,
 				"type": "Blank Reel",
 				"brand": item.brand,

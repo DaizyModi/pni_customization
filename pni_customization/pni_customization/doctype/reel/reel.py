@@ -7,4 +7,6 @@ from __future__ import unicode_literals
 from frappe.model.document import Document
 
 class Reel(Document):
-	pass
+	def autoname(self):
+		if self.reel_id:
+			self.name = self.reel_id

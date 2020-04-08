@@ -10,7 +10,6 @@
   "size",
   "weight",
   "cylinder",
-  "reel_out_id",
   "reel_out",
   "weight_out"
  ],
@@ -60,8 +59,10 @@
    "columns": 1,
    "fieldname": "reel_out",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Reel Out",
-   "options": "Reel"
+   "options": "Reel",
+   "read_only": 1
   },
   {
    "columns": 1,
@@ -77,18 +78,10 @@
    "in_list_view": 1,
    "label": "Cylinder",
    "options": "Printing Cylinder"
-  },
-  {
-   "columns": 2,
-   "fieldname": "reel_out_id",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Reel Out ID",
-   "set_only_once": 1
   }
  ],
  "istable": 1,
- "modified": "2020-02-26 14:39:54.987897",
+ "modified": "2020-04-08 18:24:22.339283",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Printing Table",

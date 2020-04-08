@@ -28,6 +28,7 @@ class Coating(Document):
 			else:
 				ldap += float(data.weight) * 0.08
 		self.ldpe_bag = ldap
+	
 	def manage_reel(self):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
 		for data in self.coating_table:
@@ -39,7 +40,8 @@ class Coating(Document):
 				doc = frappe.get_doc({
 					"doctype": "Reel",
 					"status": "Draft",
-					"reel_id": data.reel_id,
+					"process_prefix": "CO",
+					"supplier_reel_id": reel_in.supplier_reel_id,
 					"item": out_reel_relation,
 					"type": reel_in.type,
 					"brand": reel_in.brand,

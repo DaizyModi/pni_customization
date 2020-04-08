@@ -1,11 +1,14 @@
 {
- "autoname": "field:reel_id",
+ "autoname": "naming_series:",
  "creation": "2020-01-13 10:57:53.835894",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
+  "process_prefix",
   "reel_id",
+  "supplier_reel_id",
   "status",
   "item",
   "type",
@@ -115,8 +118,7 @@
    "fieldname": "reel_id",
    "fieldtype": "Data",
    "label": "Reel ID",
-   "reqd": 1,
-   "unique": 1
+   "set_only_once": 1
   },
   {
    "allow_on_submit": 1,
@@ -125,10 +127,27 @@
    "label": "Warehouse",
    "options": "Warehouse",
    "read_only": 1
+  },
+  {
+   "fieldname": "process_prefix",
+   "fieldtype": "Data",
+   "label": "Process Prefix",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series"
+  },
+  {
+   "fieldname": "supplier_reel_id",
+   "fieldtype": "Data",
+   "label": "Supplier Reel ID",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-04-03 16:53:51.037941",
+ "modified": "2020-04-08 18:27:47.783709",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel",

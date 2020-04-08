@@ -9,6 +9,7 @@
   "naming_series",
   "status",
   "item",
+  "supplier_reel_id",
   "packing_category",
   "punching_die",
   "brand",
@@ -113,10 +114,16 @@
    "fieldtype": "Link",
    "label": "Packing Category",
    "options": "Packing Category"
+  },
+  {
+   "fieldname": "supplier_reel_id",
+   "fieldtype": "Data",
+   "label": "Supplier Reel ID",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-04-06 16:08:12.503687",
+ "modified": "2020-04-08 18:34:46.926932",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Bag",
