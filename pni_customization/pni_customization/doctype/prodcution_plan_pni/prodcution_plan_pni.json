@@ -1,4 +1,5 @@
 {
+ "allow_import": 1,
  "autoname": "naming_series:",
  "creation": "2019-12-09 17:35:04.622157",
  "doctype": "DocType",
@@ -33,7 +34,7 @@
    "label": "Posting Date"
   }
  ],
- "modified": "2019-12-09 17:35:04.622157",
+ "modified": "2020-04-08 21:23:39.330164",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Prodcution Plan PNI",

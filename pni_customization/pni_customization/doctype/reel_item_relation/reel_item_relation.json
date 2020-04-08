@@ -1,4 +1,5 @@
 {
+ "allow_import": 1,
  "creation": "2020-02-24 10:38:42.481473",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -28,7 +29,7 @@
    "options": "Item"
   }
  ],
- "modified": "2020-02-26 17:02:20.093878",
+ "modified": "2020-04-08 21:24:05.874814",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel Item Relation",

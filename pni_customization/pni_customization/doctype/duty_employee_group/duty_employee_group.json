@@ -1,4 +1,5 @@
 {
+ "allow_import": 1,
  "autoname": "naming_series:",
  "creation": "2020-01-24 14:58:04.742105",
  "doctype": "DocType",
@@ -22,7 +23,7 @@
    "options": "GRP-.######"
   }
  ],
- "modified": "2020-02-07 14:26:29.144311",
+ "modified": "2020-04-08 21:24:03.502140",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Duty Employee Group",

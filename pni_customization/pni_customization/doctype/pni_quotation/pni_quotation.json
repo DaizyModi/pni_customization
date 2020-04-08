@@ -1,4 +1,5 @@
 {
+ "allow_import": 1,
  "autoname": "naming_series:",
  "creation": "2019-12-08 12:18:35.396805",
  "doctype": "DocType",
@@ -156,8 +157,8 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2019-12-12 11:49:01.941022",
- "modified_by": "jigartarpara68@gmail.com",
+ "modified": "2020-04-08 21:23:36.197479",
+ "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Quotation",
  "owner": "Administrator",

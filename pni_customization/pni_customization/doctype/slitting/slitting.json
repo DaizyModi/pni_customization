@@ -1,4 +1,5 @@
 {
+ "allow_import": 1,
  "autoname": "naming_series:",
  "creation": "2020-01-13 14:46:18.972306",
  "doctype": "DocType",
@@ -180,8 +181,8 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-02-28 11:33:20.357035",
- "modified_by": "team@khatavahi.in",
+ "modified": "2020-04-08 21:23:51.706649",
+ "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Slitting",
  "owner": "Administrator",

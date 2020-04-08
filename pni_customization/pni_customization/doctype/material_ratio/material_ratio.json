@@ -1,4 +1,5 @@
 {
+ "allow_import": 1,
  "autoname": "field:ration_name",
  "creation": "2019-12-11 18:17:38.819309",
  "doctype": "DocType",
@@ -27,7 +28,7 @@
    "label": "Bottom"
   }
  ],
- "modified": "2020-01-11 08:56:14.964027",
+ "modified": "2020-04-08 21:23:50.299526",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Material Ratio",

@@ -1,4 +1,5 @@
 {
+ "allow_import": 1,
  "autoname": "field:description",
  "creation": "2020-01-24 15:18:59.101061",
  "doctype": "DocType",
@@ -25,7 +26,7 @@
    "reqd": 1
   }
  ],
- "modified": "2020-01-24 15:19:45.724450",
+ "modified": "2020-04-08 21:24:03.033076",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Carton Type",
