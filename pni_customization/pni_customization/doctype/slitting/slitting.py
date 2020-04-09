@@ -35,7 +35,9 @@ class Slitting(Document):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
 		for data in self.slitting_table:
 			reel_in = frappe.get_doc("Reel",data.reel_in)
-			out_reel_relation = frappe.get_value("Reel Item Relation",{"in_item": reel_in.item, "processtype": "Slitting"}, "out_item")
+			out_reel_relation = frappe.get_value("Reel Item Relation",{
+				"in_item": reel_in.item, 
+				"processtype": "Slitting"}, "out_item")
 			if not out_reel_relation:
 				frappe.throw("Reel Item Relation Missing for Item "+reel_in.item)
 			if not data.reel_out:
@@ -186,18 +188,22 @@ class Slitting(Document):
 
 		#add Stock Entry Items for produced goods and scrap
 		for item in self.slitting_table:
-			se = self.set_se_items(se, item, None, se.to_warehouse, True, qty_of_total_production, total_sale_value, production_cost, reel_out = True)
+			se = self.set_se_items(se, item, None, se.to_warehouse, True, qty_of_total_production,
+			total_sale_value, production_cost, reel_out = True)
 
 		for item in self.slitting_scrap:
 			# if value_scrap:
-			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, True, qty_of_total_production, total_sale_value, production_cost)
+			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, True, 
+			# qty_of_total_production, total_sale_value, production_cost)
 			# else:
 			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, False)
 			se = self.set_se_items(se, item, None, self.scrap_warehouse, False, scrap_item = True)
 
 		return se
 	
-	def set_se_items(self, se, item, s_wh, t_wh, calc_basic_rate=False, qty_of_total_production=None, total_sale_value=None, production_cost=None, reel_in = False, reel_out = False, scrap_item = False):
+	def set_se_items(self, se, item, s_wh, t_wh, calc_basic_rate=False, 
+		qty_of_total_production=None, total_sale_value=None, production_cost=None, 
+		reel_in = False, reel_out = False, scrap_item = False):
 		# if item.quantity > 0:
 		item_from_reel = {}
 		class Empty:
@@ -216,11 +222,14 @@ class Slitting(Document):
 		item_name, stock_uom, description = frappe.db.get_values("Item", item_from_reel.item, \
 			["item_name", "stock_uom", "description"])[0]
 
-		item_expense_account, item_cost_center = frappe.db.get_value("Item Default", {'parent': item_from_reel.item, 'company': self.company},\
+		item_expense_account, item_cost_center = frappe.db.get_value("Item Default", {
+			'parent': item_from_reel.item, 
+			'company': self.company},\
 			["expense_account", "buying_cost_center"])
 
 		if not expense_account and not item_expense_account:
-			frappe.throw(_("Please update default Default Cost of Goods Sold Account for company {0}").format(self.company))
+			frappe.throw(
+				_("Please update default Default Cost of Goods Sold Account for company {0}").format(self.company))
 
 		if not cost_center and not item_cost_center:
 			frappe.throw(_("Please update default Cost Center for company {0}").format(self.company))
@@ -243,7 +252,11 @@ class Slitting(Document):
 		se_item.conversion_factor = 1.00
 
 		item_details = se.run_method( "get_item_details",args = (frappe._dict(
-		{"item_code": item_from_reel.item, "company": self.company, "uom": stock_uom, 's_warehouse': s_wh})), for_update=True)
+			{
+				"item_code": item_from_reel.item, 
+				"company": self.company, 
+				"uom": stock_uom, 
+				's_warehouse': s_wh})), for_update=True)
 
 		for f in ("uom", "stock_uom", "description", "item_name", "expense_account",
 		"cost_center", "conversion_factor"):
@@ -254,7 +267,8 @@ class Slitting(Document):
 			# if self.costing_method == "Physical Measurement":
 			# 	se_item.basic_rate = production_cost/qty_of_total_production
 			# elif self.costing_method == "Relative Sales Value":
-			# 	sale_value_of_pdt = frappe.db.get_value("Item Price", {"item_code":item_from_reel.item}, "price_list_rate")
-			# 	se_item.basic_rate = (float(sale_value_of_pdt) * float(production_cost)) / float(total_sale_value)
+			# 	sale_value_of_pdt = frappe.db.get_value("Item Price", {
+			# 		"item_code":item_from_reel.item}, "price_list_rate")
+			# 	se_item.basic_rate=(float(sale_value_of_pdt)*float(production_cost))/float(total_sale_value)
 		return se
 
