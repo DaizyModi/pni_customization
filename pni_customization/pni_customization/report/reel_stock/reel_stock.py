@@ -82,16 +82,16 @@ def get_data(filters=None):
         conditions += " and size = '{0}' ".format(filters.size)
     
     if filters.coated == "Coated":
-        conditions += " and coated_reel = '{0}' ".format(True)
+        conditions += " and coated_reel <> '' "
     
     if filters.coated == "Uncoated":
-        conditions += " and coated_reel = '{0}' ".format(False)
+        conditions += " and coated_reel = '' "
     
     if filters.printed == "Printed":
-        conditions += " and printed_reel = '{0}' ".format(True)
+        conditions += " and printed_reel <> '' "
     
     if filters.printed == "Non-Printed":
-        conditions += " and printed_reel = '{0}' ".format(False)
+        conditions += " and printed_reel = '' "
     
     return frappe.db.sql("""
             select 
