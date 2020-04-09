@@ -48,14 +48,18 @@ frappe.query_reports["Reel Stock"] = {
 		{
 			"fieldname":"coated",
 			"label": __("Coated"),
-			"fieldtype": "Check",
+			"fieldtype": "Select",
+			"options": "All\nCoated\nUncoated",
+			"default": "All",
 			"reqd": 0,
 			"width": "80",
 		},
 		{
 			"fieldname":"printed",
 			"label": __("Printed"),
-			"fieldtype": "Check",
+			"fieldtype": "Select",
+			"options": "All\nPrinted\nNon-Printed",
+			"default": "All",
 			"reqd": 0,
 			"width": "80",
 		}
