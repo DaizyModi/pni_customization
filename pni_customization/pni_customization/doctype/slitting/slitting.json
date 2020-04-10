@@ -29,6 +29,14 @@
   "start_dt",
   "end_dt",
   "operation_hours",
+  "approval_section",
+  "send_for_approval",
+  "reasone",
+  "column_break_26",
+  "scrap_weight_approved",
+  "approved_by",
+  "all_weight_approved",
+  "all_weight_approved_by",
   "amended_from"
  ],
  "fields": [
@@ -178,10 +186,58 @@
    "fieldtype": "Link",
    "label": "Scrap Warehouse",
    "options": "Warehouse"
+  },
+  {
+   "fieldname": "approval_section",
+   "fieldtype": "Section Break",
+   "label": "Approval"
+  },
+  {
+   "default": "0",
+   "fieldname": "send_for_approval",
+   "fieldtype": "Check",
+   "label": "Send for Approval"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Scrap Weight Approved By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "scrap_weight_approved",
+   "fieldtype": "Check",
+   "label": "Scrap Weight Approved",
+   "permlevel": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "all_weight_approved",
+   "fieldtype": "Check",
+   "label": "All Weight Approved",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "column_break_26",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "all_weight_approved_by",
+   "fieldtype": "Link",
+   "label": "All Weight Approved By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reasone",
+   "fieldtype": "Small Text",
+   "label": "Reasone"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-04-08 21:23:51.706649",
+ "modified": "2020-04-10 19:11:15.992846",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Slitting",

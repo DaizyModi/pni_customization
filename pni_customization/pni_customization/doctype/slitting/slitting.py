@@ -10,7 +10,17 @@ from frappe.utils import get_datetime, time_diff_in_hours
 
 class Slitting(Document):
 	def validate(self):
-		self.validate_reel_size()
+		# self.validate_reel_size()
+		if self.scrap_weight_approved:
+			if not self.approved_by:
+				self.approved_by =  frappe.session.user
+		else:
+			self.approved_by = ""
+		if self.all_weight_approved:
+			if not self.all_weight_approved_by:
+				self.all_weight_approved_by =  frappe.session.user
+		else:
+			self.all_weight_approved_by = ""
 		self.manage_reel()
 		if self.end_dt and self.start_dt:
 			hours = time_diff_in_hours(self.end_dt, self.start_dt)
@@ -20,6 +30,29 @@ class Slitting(Document):
 		paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
 		self.set_onload("scrapitemgroup", paper_blank_setting.slitting_scrap)
 
+	def validate_reel_weight(self):
+		calculate = {}
+		calculate_intial = {}
+		for row in self.slitting_table:
+			weight = calculate.get(row.reel_in, 0)
+			calculate.update({row.reel_in:(weight + row.weight_out)})
+			calculate_intial.update({row.reel_in: row.weight})
+		
+		all_reel_in_weight, all_reel_out_weight, scrap = 0,0,0
+		
+		for data in calculate_intial:
+			all_reel_in_weight += calculate_intial[data]
+			all_reel_out_weight += calculate[data]
+		 
+		for data in self.slitting_scrap:
+			scrap += data.qty
+		threshold = float(float(all_reel_in_weight) *  0.01)
+		if threshold < scrap:
+			if not self.scrap_weight_approved :
+				frappe.throw("Need Approval (Scrap is greater then threshold " + threshold)
+		if all_reel_in_weight > (all_reel_out_weight + scrap):
+			if not self.all_weight_approved:
+				frappe.throw("Need Approval (Scrap is greater then threshold " + threshold)
 	def validate_reel_size(self):
 		calculate = {}
 		calculate_intial = {}
@@ -47,6 +80,7 @@ class Slitting(Document):
 					"process_prefix": "PR",
 					"supplier_reel_id": reel_in.supplier_reel_id,
 					"item": out_reel_relation,
+					"warehouse": self.fg_warehouse,
 					"type": data.type if data.type else reel_in.type,
 					"brand": reel_in.brand,
 					"size": data.size_out,
@@ -95,6 +129,7 @@ class Slitting(Document):
 			doc.insert(ignore_permissions=True)
 
 	def on_submit(self):
+		self.validate_reel_weight()
 		if (not self.end_dt) or (not self.end_dt):
 			frappe.throw("Please Select Operation Start and End Time")
 		for item in self.slitting_table:

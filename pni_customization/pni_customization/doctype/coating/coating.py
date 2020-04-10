@@ -48,6 +48,7 @@ class Coating(Document):
 					"status": "Draft",
 					"process_prefix": "CO",
 					"supplier_reel_id": reel_in.supplier_reel_id,
+					"warehouse": self.fg_warehouse,
 					"item": out_reel_relation,
 					"type": reel_in.type,
 					"brand": reel_in.brand,
