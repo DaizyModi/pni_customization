@@ -23,14 +23,12 @@ class Punching(Document):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
 		for data in self.punching_table:
 			reel_in = frappe.get_doc("Reel",data.reel_in)
-			out_reel_relation = frappe.get_value("Reel Item Relation",{"in_item": reel_in.item, "processtype": "Punching"}, "out_item")
-			if not out_reel_relation:
-				frappe.throw("Reel Item Relation Missing for Item "+reel_in.item)
+			
 			if not data.punch_table:
 				doc = frappe.get_doc({
 					"doctype": "Punch Table",
 					"status": "Draft",
-					"item": out_reel_relation,
+					"item": reel_in.item,
 					"supplier_reel_id": reel_in.supplier_reel_id,
 					"punching_die": data.punching_die,
 					"brand": reel_in.brand,

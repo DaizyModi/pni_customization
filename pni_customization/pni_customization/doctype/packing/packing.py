@@ -29,17 +29,7 @@ class Packing(Document):
 		self.total_bag = bag
 		self.total_weight = total_weight
 
-		out_reel_relation = frappe.get_value(
-			"Reel Item Relation",
-			{
-				"in_item": self.item, 
-				"processtype": "Packing"
-			}, 
-			"out_item"
-		)
-		if not out_reel_relation:
-			frappe.throw("Reel Item Relation Missing for Item "+self.item)
-		self.bag_item = out_reel_relation
+		self.bag_item = self.item
 	
 	def manage_reel_tracking(self, bag):
 		doc = frappe.get_doc({
@@ -82,23 +72,13 @@ class Packing(Document):
 		punch_table.status = "Consume"
 		punch_table.save()
 		
-		out_reel_relation = frappe.get_value(
-			"Reel Item Relation",
-			{
-				"in_item": punch_table.item, 
-				"processtype": "Packing"
-			}, 
-			"out_item"
-		)
-		if not out_reel_relation:
-			frappe.throw("Reel Item Relation Missing for Item "+punch_table.item)
 		for row in self.packing_table:
 			if row.bag and row.bag_size:
 				for numb in range(row.bag):
 					doc = frappe.get_doc({
 						"doctype": "PNI Bag",
 						"status": "In Stock",
-						"item": out_reel_relation,
+						"item": self.item,
 						"punching_die": self.punching_die,
 						"packing_category": row.packing_category,
 						"supplier_reel_id": punch_table.supplier_reel_id,

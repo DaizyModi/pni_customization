@@ -68,18 +68,14 @@ class Slitting(Document):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
 		for data in self.slitting_table:
 			reel_in = frappe.get_doc("Reel",data.reel_in)
-			out_reel_relation = frappe.get_value("Reel Item Relation",{
-				"in_item": reel_in.item, 
-				"processtype": "Slitting"}, "out_item")
-			if not out_reel_relation:
-				frappe.throw("Reel Item Relation Missing for Item "+reel_in.item)
+			
 			if not data.reel_out:
 				doc = frappe.get_doc({
 					"doctype": "Reel",
 					"status": "Draft",
 					"process_prefix": "PR",
 					"supplier_reel_id": reel_in.supplier_reel_id,
-					"item": out_reel_relation,
+					"item": reel_in.item,
 					"warehouse": self.fg_warehouse,
 					"type": data.type if data.type else reel_in.type,
 					"brand": reel_in.brand,
