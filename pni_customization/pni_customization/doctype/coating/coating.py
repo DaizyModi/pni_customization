@@ -14,7 +14,7 @@ class Coating(Document):
 		if self.end_dt and self.start_dt:
 			hours = time_diff_in_hours(self.end_dt, self.start_dt)
 			frappe.db.set(self, 'operation_hours', hours)
-		self.calculate_ldap()
+		# self.calculate_ldap()
 
 	def onload(self):
 		paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
@@ -33,7 +33,13 @@ class Coating(Document):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
 		for data in self.coating_table:
 			reel_in = frappe.get_doc("Reel",data.reel_in)
-			out_reel_relation = frappe.get_value("Reel Item Relation",{"in_item": reel_in.item, "processtype": "Coating"}, "out_item")
+			out_reel_relation = frappe.get_value("Reel Item Relation",
+				{
+					"in_item": reel_in.item, 
+					"processtype": "Coating"
+				}, 
+				"out_item"
+			)
 			if not out_reel_relation:
 				frappe.throw("Reel Item Relation Missing for Item "+reel_in.item)
 			if not data.reel_out:
@@ -154,11 +160,14 @@ class Coating(Document):
 		for item in self.coating_table:
 			se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
 		if self.ldpe_bag>0:
-			paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
-			se = self.set_se_items(se, paper_blank_setting.ldpe_bag, se.from_warehouse, None, False, ldpe=True)
+			pass
+			# paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
+			# se = self.set_se_items(se, paper_blank_setting.ldpe_bag, 
+			# se.from_warehouse, None, False, ldpe=True)
 		#TODO calc raw_material_cost
 
-		#no timesheet entries, calculate operating cost based on workstation hourly rate and process start, end
+		#no timesheet entries, calculate operating cost 
+		# based on workstation hourly rate and process start, end
 		hourly_rate = frappe.db.get_value("Workstation", self.work_station, "hour_rate")
 		if hourly_rate:
 			if self.operation_hours > 0:
@@ -180,7 +189,8 @@ class Coating(Document):
 		# 	if item.quantity > 0:
 		# 		qty_of_total_production = float(qty_of_total_production + item.quantity)
 		# 		if self.costing_method == "Relative Sales Value":
-		# 			sale_value_of_pdt = frappe.db.get_value("Item Price", {"item_code":item.item}, "price_list_rate")
+		# 			sale_value_of_pdt = frappe.db.get_value("Item Price", 
+		# 				{"item_code":item.item}, "price_list_rate")
 		# 			if sale_value_of_pdt:
 		# 				total_sale_value += float(sale_value_of_pdt) * item.quantity
 		# 			else:
@@ -188,18 +198,24 @@ class Coating(Document):
 
 		#add Stock Entry Items for produced goods and scrap
 		for item in self.coating_table:
-			se = self.set_se_items(se, item, None, se.to_warehouse, True, qty_of_total_production, total_sale_value, production_cost, reel_out = True)
+			se = self.set_se_items(se, item, None, se.to_warehouse, True, 
+					qty_of_total_production, total_sale_value, 
+					production_cost, reel_out = True)
 
 		for item in self.coating_scrap:
 			# if value_scrap:
-			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, True, qty_of_total_production, total_sale_value, production_cost)
+			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, True, 
+			# qty_of_total_production, total_sale_value, production_cost)
 			# else:
 			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, False)
-			se = self.set_se_items(se, item, None, self.scrap_warehouse, False, scrap_item = True)
+			se = self.set_se_items(se, item, None, self.scrap_warehouse, 
+					False, scrap_item = True)
 
 		return se
 	
-	def set_se_items(self, se, item, s_wh, t_wh, calc_basic_rate=False, qty_of_total_production=None, total_sale_value=None, production_cost=None, reel_in = False, reel_out = False, scrap_item = False, ldpe = False):
+	def set_se_items(self, se, item, s_wh, t_wh, calc_basic_rate=False, 
+		qty_of_total_production=None, total_sale_value=None, production_cost=None, 
+		reel_in = False, reel_out = False, scrap_item = False, ldpe = False):
 		# if item.quantity > 0:
 		item_from_reel = {}
 		class Empty:
@@ -221,11 +237,16 @@ class Coating(Document):
 		item_name, stock_uom, description = frappe.db.get_values("Item", item_from_reel.item, \
 			["item_name", "stock_uom", "description"])[0]
 
-		item_expense_account, item_cost_center = frappe.db.get_value("Item Default", {'parent': item_from_reel.item, 'company': self.company},\
+		item_expense_account, item_cost_center = frappe.db.get_value("Item Default", 
+			{
+				'parent': item_from_reel.item, 
+				'company': self.company
+			},\
 			["expense_account", "buying_cost_center"])
 
 		if not expense_account and not item_expense_account:
-			frappe.throw(_("Please update default Default Cost of Goods Sold Account for company {0}").format(self.company))
+			frappe.throw(
+				_("Please update default Default Cost of Goods Sold Account for company {0}").format(self.company))
 
 		if not cost_center and not item_cost_center:
 			frappe.throw(_("Please update default Cost Center for company {0}").format(self.company))
@@ -248,7 +269,11 @@ class Coating(Document):
 		se_item.conversion_factor = 1.00
 
 		item_details = se.run_method( "get_item_details",args = (frappe._dict(
-		{"item_code": item_from_reel.item, "company": self.company, "uom": stock_uom, 's_warehouse': s_wh})), for_update=True)
+			{
+				"item_code": item_from_reel.item, 
+				"company": self.company, 
+				"uom": stock_uom, 
+				"s_warehouse": s_wh})), for_update=True)
 
 		for f in ("uom", "stock_uom", "description", "item_name", "expense_account",
 		"cost_center", "conversion_factor"):
@@ -259,6 +284,9 @@ class Coating(Document):
 			# if self.costing_method == "Physical Measurement":
 			# 	se_item.basic_rate = production_cost/qty_of_total_production
 			# elif self.costing_method == "Relative Sales Value":
-			# 	sale_value_of_pdt = frappe.db.get_value("Item Price", {"item_code":item_from_reel.item}, "price_list_rate")
-			# 	se_item.basic_rate = (float(sale_value_of_pdt) * float(production_cost)) / float(total_sale_value)
+			# 	sale_value_of_pdt = frappe.db.get_value("Item Price", 
+			# 		{"item_code":item_from_reel.item}, "price_list_rate")
+			# 	se_item.basic_rate = (
+			# 		float(sale_value_of_pdt) 
+			# 		* float(production_cost)) / float(total_sale_value)
 		return se
