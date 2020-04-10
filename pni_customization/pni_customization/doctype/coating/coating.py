@@ -62,7 +62,6 @@ class Coating(Document):
 				data.reel_out = doc.name
 			else:
 				doc = frappe.get_doc("Reel",data.reel_out)
-				doc.reel_id = data.reel_id,
 				doc.weight = data.weight_out
 				doc.save()
 	
