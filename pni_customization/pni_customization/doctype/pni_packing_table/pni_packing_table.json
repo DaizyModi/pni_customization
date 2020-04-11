@@ -4,6 +4,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "packing_type",
   "pni_carton",
   "item",
   "item_name",
@@ -13,10 +14,10 @@
  "fields": [
   {
    "fieldname": "pni_carton",
-   "fieldtype": "Link",
+   "fieldtype": "Dynamic Link",
    "in_list_view": 1,
-   "label": "PNI Carton",
-   "options": "PNI Carton"
+   "label": "Packing",
+   "options": "packing_type"
   },
   {
    "fetch_from": "pni_carton.item",
@@ -47,10 +48,18 @@
    "fieldname": "item_description",
    "fieldtype": "Data",
    "label": "Item Description"
+  },
+  {
+   "default": "PNI Carton",
+   "fieldname": "packing_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Packing Type",
+   "options": "PNI Carton\nPNI Bag\nReel"
   }
  ],
  "istable": 1,
- "modified": "2020-04-08 21:24:04.426761",
+ "modified": "2020-04-11 06:33:47.131396",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing Table",

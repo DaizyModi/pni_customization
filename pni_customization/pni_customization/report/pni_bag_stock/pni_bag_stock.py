@@ -40,11 +40,13 @@ def get_columns():
             "fieldname": "bag_weight",
             "label": _("Bag Weight"),
             "fieldtype": "Float",
+			"width": 100
         },
         {
             "fieldname": "total_weight",
             "label": _("Total Weight"),
             "fieldtype": "Float",
+			"width": 100
         },
         {
             "fieldname": "punching_die",
@@ -63,6 +65,7 @@ def get_columns():
             "fieldname": "coated",
             "label": _("Coated"),
             "fieldtype": "Check",
+			"width": 80
         },
         {
             "fieldname": "printed",
@@ -74,7 +77,7 @@ def get_columns():
             "label": _("Warehouse"),
             "fieldtype": "Link",
             "options": "Warehouse",
-            "width": 100
+            "width": 120
         },
     ]
 
@@ -92,6 +95,21 @@ def get_data(filters=None):
 
 	if filters.packing_category:
 		conditions += " and bag.packing_category = '{0}' ".format(filters.packing_category)
+    
+	if filters.warehouse:
+		conditions += " and bag.warehouse = '{0}' ".format(filters.warehouse)
+	
+	if filters.coated == "Coated":
+		conditions += " and bag.coated_reel <> '' "
+    
+	if filters.coated == "Uncoated":
+		conditions += " and bag.coated_reel = '' "
+    
+	if filters.printed == "Printed":
+		conditions += " and bag.printed_reel <> '' "
+
+	if filters.printed == "Non-Printed":
+		conditions += " and bag.printed_reel = '' "
 
 	return frappe.db.sql("""
 		select 

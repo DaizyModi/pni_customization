@@ -69,7 +69,8 @@ fixtures = [
 					"paper_cup",
 					"paper_plate",
 					"reel",
-					"bag"
+					"bag",
+					"scan_bagreel"
 				)
 			]
 		]

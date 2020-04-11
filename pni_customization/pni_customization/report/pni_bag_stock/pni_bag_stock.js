@@ -38,6 +38,32 @@ frappe.query_reports["PNI Bag Stock"] = {
 			"options": "Packing Category",
 			"reqd": 0,
 			"width": "80"
+		},
+		{
+			"fieldname":"warehouse",
+			"label": __("Warehouse"),
+			"fieldtype": "Link",
+			"options": "Warehouse",
+			"reqd": 0,
+			"width": "80"
+		},
+		{
+			"fieldname":"coated",
+			"label": __("Coated"),
+			"fieldtype": "Select",
+			"options": "All\nCoated\nUncoated",
+			"default": "All",
+			"reqd": 0,
+			"width": "80",
+		},
+		{
+			"fieldname":"printed",
+			"label": __("Printed"),
+			"fieldtype": "Select",
+			"options": "All\nPrinted\nNon-Printed",
+			"default": "All",
+			"reqd": 0,
+			"width": "80",
 		}
 	]
 }
