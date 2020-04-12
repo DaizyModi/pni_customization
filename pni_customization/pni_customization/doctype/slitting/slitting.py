@@ -73,7 +73,7 @@ class Slitting(Document):
 				doc = frappe.get_doc({
 					"doctype": "Reel",
 					"status": "Draft",
-					"process_prefix": "PR",
+					"process_prefix": "SL",
 					"supplier_reel_id": reel_in.supplier_reel_id,
 					"item": reel_in.item,
 					"warehouse": self.fg_warehouse,

@@ -12,7 +12,8 @@
   "reel_out",
   "type",
   "size_out",
-  "weight_out"
+  "weight_out",
+  "item_out"
  ],
  "fields": [
   {
@@ -85,10 +86,17 @@
    "in_list_view": 1,
    "label": "Type",
    "options": "Blank Reel\nBottom Reel"
+  },
+  {
+   "fieldname": "item_out",
+   "fieldtype": "Link",
+   "label": "Item Out",
+   "options": "Item",
+   "reqd": 1
   }
  ],
  "istable": 1,
- "modified": "2020-04-08 21:24:08.649462",
+ "modified": "2020-04-12 21:17:43.353225",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Slitting Table",
