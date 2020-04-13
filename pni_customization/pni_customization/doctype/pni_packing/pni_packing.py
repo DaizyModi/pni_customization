@@ -126,8 +126,11 @@ class PNIPacking(Document):
 		frappe.db.set(self, 'status', 'Cancelled')
 
 		for data in self.carton_data:
-			doc = frappe.get_doc("PNI Carton",data.carton_id)
-			doc.cancel()
+			try:
+				doc = frappe.get_doc("PNI Carton",data.carton_id)
+				doc.cancel()
+			except e:
+				print("Could not able to cancel "+data.carton_id)
 	
 	def get_employee_list(self):
 		if self.select_employee_group:
