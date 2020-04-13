@@ -75,7 +75,7 @@ class Slitting(Document):
 					"status": "Draft",
 					"process_prefix": "SL",
 					"supplier_reel_id": reel_in.supplier_reel_id,
-					"item": reel_in.item,
+					"item": data.item_out,
 					"warehouse": self.fg_warehouse,
 					"type": data.type if data.type else reel_in.type,
 					"brand": reel_in.brand,
@@ -302,4 +302,8 @@ class Slitting(Document):
 			# 		"item_code":item_from_reel.item}, "price_list_rate")
 			# 	se_item.basic_rate=(float(sale_value_of_pdt)*float(production_cost))/float(total_sale_value)
 		return se
+	
+	def get_out_item(self, reel_in):
+		reel =  frappe.get_doc("Reel",reel_in)
+		
 

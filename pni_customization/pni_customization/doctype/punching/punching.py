@@ -28,7 +28,7 @@ class Punching(Document):
 				doc = frappe.get_doc({
 					"doctype": "Punch Table",
 					"status": "Draft",
-					"item": reel_in.item,
+					"item": data.item_out,
 					"supplier_reel_id": reel_in.supplier_reel_id,
 					"punching_die": data.punching_die,
 					"brand": reel_in.brand,
