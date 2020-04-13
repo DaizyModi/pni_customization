@@ -129,7 +129,8 @@ class PNIPacking(Document):
 			try:
 				doc = frappe.get_doc("PNI Carton",data.carton_id)
 				doc.cancel()
-			except e:
+				doc.delete()
+			except:
 				print("Could not able to cancel "+data.carton_id)
 	
 	def get_employee_list(self):
