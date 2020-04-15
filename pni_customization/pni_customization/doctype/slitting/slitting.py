@@ -303,7 +303,10 @@ class Slitting(Document):
 			# 	se_item.basic_rate=(float(sale_value_of_pdt)*float(production_cost))/float(total_sale_value)
 		return se
 	
-	def get_out_item(self, reel_in):
+	def get_out_item(self, reel_in, size):
 		reel =  frappe.get_doc("Reel",reel_in)
+		reel.item
+		# stock_entry = frappe.db.sql("""select name from `tabStock Entry`
+		# 	# where pni_reference = %s and docstatus = 1""", self.name)
 		
 

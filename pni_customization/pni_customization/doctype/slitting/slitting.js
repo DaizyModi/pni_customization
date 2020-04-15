@@ -50,31 +50,22 @@ frappe.ui.form.on('Slitting', {
 frappe.ui.form.on('Slitting Table', {
 	"size_out": function(frm, cdt, cdn){
 		var d = locals[cdt][cdn];
-		// frappe.call({
-		// 	"method": "frappe.client.get",
-		// 	args: {
-		// 		doctype: "Workstation",
-		// 		name: frm.doc.workstation
-		// 	},
-		// 	callback: function (data) {
-		// 		frappe.model.set_value(frm.doctype,frm.docname, "fg_warehouse", data.message.fg_warehouse);
-		// 		frappe.model.set_value(frm.doctype,frm.docname, "scrap_warehouse", data.message.scrap_warehouse);
-		// 		frappe.model.set_value(frm.doctype,frm.docname, "src_warehouse", data.message.src_warehouse);
-		// 	}
-		// });
-		// frappe.call({
-		// 	doc: frm.doc,
-		// 	method: "get_out_item",
-		// 	args:{
-		// 		"reel_in": d.reel_in
-		// 	},
-		// 	callback: function(r) {
-		// 		if (r.message){
-		// 			var doclist = frappe.model.sync(r.message);
-		// 			frappe.set_route("Form", doclist[0].doctype, doclist[0].name);
-		// 		}
-		// 	}
-		// });
+
+		frappe.call({
+			doc: frm.doc,
+			method: "get_out_item",
+			args:{
+				"reel_in": d.reel_in,
+				"size": d.size_out
+			},
+			callback: function(r) {
+				if (r.message){
+					// var doclist = frappe.model.sync(r.message);
+					// frappe.set_route("Form", doclist[0].doctype, doclist[0].name);
+					// frappe.model.set_value(frm.doctype,frm.docname, "fg_warehouse", data.message.fg_warehouse);
+				}
+			}
+		});		
 	}
 })
 var process_production = function (frm) {
