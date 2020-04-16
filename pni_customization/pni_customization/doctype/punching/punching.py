@@ -29,6 +29,7 @@ class Punching(Document):
 					"doctype": "Punch Table",
 					"status": "Draft",
 					"item": data.item_out,
+					"printed_item": reel_in.printed_item,
 					"supplier_reel_id": reel_in.supplier_reel_id,
 					"punching_die": data.punching_die,
 					"brand": reel_in.brand,

@@ -32,6 +32,7 @@ class Printing(Document):
 					"process_prefix": "PR",
 					"supplier_reel_id": reel_in.supplier_reel_id,
 					"item": reel_in.item,
+					"printed_item": data.printing_item,
 					"warehouse": self.fg_warehouse,
 					"type": reel_in.type,
 					"brand": reel_in.brand,

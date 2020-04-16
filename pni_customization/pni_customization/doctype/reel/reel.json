@@ -21,6 +21,7 @@
   "coated_reel",
   "coated_weight",
   "printed_reel",
+  "printed_item",
   "printed_weight",
   "column_break_16",
   "weight",
@@ -149,10 +150,16 @@
    "fieldname": "blank_weight",
    "fieldtype": "Data",
    "label": "Blank Weight"
+  },
+  {
+   "fieldname": "printed_item",
+   "fieldtype": "Link",
+   "label": "Printed Item",
+   "options": "Item"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-04-16 05:14:05.164313",
+ "modified": "2020-04-16 07:15:51.397479",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel",

@@ -42,6 +42,7 @@ class Coating(Document):
 					"supplier_reel_id": reel_in.supplier_reel_id,
 					"warehouse": self.fg_warehouse,
 					"item": reel_in.item,
+					"printed_item": reel_in.printed_item,
 					"type": reel_in.type,
 					"brand": reel_in.brand,
 					"blank_weight": reel_in.blank_weight,

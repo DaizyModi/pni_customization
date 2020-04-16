@@ -32,16 +32,22 @@ frappe.query_reports["Reel Stock"] = {
 			}
 		},
 		{
+            "fieldname": "warehouse",
+			"label": __("Warehouse"),
+			"fieldtype": "Link",
+			"options": "Warehouse"
+        },
+		{
 			"fieldname":"gsm",
 			"label": __("GSM"),
-			"fieldtype": "Float",
+			"fieldtype": "Data",
 			"reqd": 0,
 			"width": "80",
 		},
 		{
 			"fieldname":"size",
 			"label": __("Size"),
-			"fieldtype": "Float",
+			"fieldtype": "Data",
 			"reqd": 0,
 			"width": "80",
 		},

@@ -8,6 +8,7 @@
   "brand",
   "weight",
   "cylinder",
+  "printing_item",
   "reel_out",
   "weight_out"
  ],
@@ -18,7 +19,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Reel IN",
-   "options": "Reel"
+   "options": "Reel",
+   "reqd": 1
   },
   {
    "columns": 1,
@@ -27,7 +29,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Brand",
-   "options": "Brand"
+   "options": "Brand",
+   "read_only": 1
   },
   {
    "columns": 1,
@@ -35,7 +38,8 @@
    "fieldname": "weight",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Weight"
+   "label": "Weight",
+   "read_only": 1
   },
   {
    "columns": 2,
@@ -60,10 +64,19 @@
    "in_list_view": 1,
    "label": "Cylinder",
    "options": "Printing Cylinder"
+  },
+  {
+   "columns": 2,
+   "fieldname": "printing_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Printing Item",
+   "options": "Item",
+   "reqd": 1
   }
  ],
  "istable": 1,
- "modified": "2020-04-16 05:37:44.254285",
+ "modified": "2020-04-16 07:16:28.287481",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Printing Table",

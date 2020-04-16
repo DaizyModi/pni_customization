@@ -498,3 +498,7 @@ def manage_se_changes(doc, method):
 			manage_se_submit(doc, Packing)
 		elif(method=="on_cancel"):
 			manage_se_cancel(doc, Packing)
+
+@frappe.whitelist()
+def get_attributes():
+	return ["abc","def"]

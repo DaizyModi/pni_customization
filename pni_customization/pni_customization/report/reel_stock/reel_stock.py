@@ -36,16 +36,6 @@ def get_columns():
             "fieldtype": "Data",
         },
         {
-            "fieldname": "size",
-            "label": _("Size"),
-            "fieldtype": "Float",
-        },
-        {
-            "fieldname": "gsm",
-            "label": _("GSM"),
-            "fieldtype": "Data",
-        },
-        {
             "fieldname": "brand",
             "label": _("Brand"),
             "fieldtype": "Link",
@@ -65,42 +55,53 @@ def get_columns():
 
 def get_data(filters=None):
     conditions = ""
+    table = ""
+    conditions_for_varient = ""
+
+    if filters.gsm or filters.size:
+        table += " , `tabItem Variant Attribute` as ivt "
+        conditions_for_varient += " and ivt.parent = rl.item"
+    
     
     if filters.status:
-        conditions += " and status = '{0}' ".format(filters.status)
+        conditions += " and rl.status = '{0}' ".format(filters.status)
 
     if filters.item:
-        conditions += " and item = '{0}' ".format(filters.item)
+        conditions += " and rl.item = '{0}' ".format(filters.item)
     
     if filters.brand:
-        conditions += " and brand = '{0}' ".format(filters.brand)
+        conditions += " and rl.brand = '{0}' ".format(filters.brand)
     
     if filters.gsm:
-        conditions += " and gsm = '{0}' ".format(filters.gsm)
+        conditions_for_varient += " and ivt.attribute = 'GSM' and ivt.attribute_value = '{0}' ".format(filters.gsm)
     
     if filters.size:
-        conditions += " and size = '{0}' ".format(filters.size)
+        conditions_for_varient += " and ivt.attribute = 'Reel Size' and ivt.attribute_value = '{0}' ".format(filters.size)
+
+    
+    if filters.warehouse:
+        conditions += " and rl.warehouse = '{0}' ".format(filters.warehouse)
     
     if filters.coated == "Coated":
-        conditions += " and coated_reel <> '' "
+        conditions += " and rl.coated_reel <> '' "
     
     if filters.coated == "Uncoated":
-        conditions += " and coated_reel = '' "
+        conditions += " and rl.coated_reel = '' "
     
     if filters.printed == "Printed":
-        conditions += " and printed_reel <> '' "
+        conditions += " and rl.printed_reel <> '' "
     
     if filters.printed == "Non-Printed":
-        conditions += " and printed_reel = '' "
+        conditions += " and rl.printed_reel = '' "
     
     return frappe.db.sql("""
             select 
-                item, count(item), sum(weight), status, size, gsm, brand, 
-                coated_reel, printed_reel
+                rl.item, count(rl.item), sum(rl.weight), rl.status, rl.brand, 
+                rl.coated_reel, rl.printed_reel
 
-            from `tabReel` 
-                where docstatus = '1' {0}
+            from `tabReel` as rl {0}
+                where rl.docstatus = '1' {1} {2}
 
             group by 
-                item, size, gsm, coated_reel, printed_reel;
-        """.format(conditions))
+                rl.item, rl.coated_reel, rl.printed_reel;
+        """.format(table, conditions, conditions_for_varient))

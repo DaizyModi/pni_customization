@@ -76,6 +76,7 @@ class Slitting(Document):
 					"process_prefix": "SL",
 					"supplier_reel_id": reel_in.supplier_reel_id,
 					"item": data.item_out,
+					"printed_item": reel_in.printed_item,
 					"warehouse": self.fg_warehouse,
 					"type": data.type if data.type else reel_in.type,
 					"brand": reel_in.brand,
