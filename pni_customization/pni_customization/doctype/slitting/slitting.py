@@ -93,7 +93,6 @@ class Slitting(Document):
 				doc = frappe.get_doc("Reel",data.reel_out)
 				doc.weight = data.weight_out
 				doc.type = data.type if data.type else reel_in.type
-				doc.size = data.size_out
 				doc.save()
 	
 	def manage_reel_tracking(self):
