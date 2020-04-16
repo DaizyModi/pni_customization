@@ -79,10 +79,11 @@ class Slitting(Document):
 					"warehouse": self.fg_warehouse,
 					"type": data.type if data.type else reel_in.type,
 					"brand": reel_in.brand,
-					"size": data.size_out,
-					"coated_reel": reel_in.coated_reel,
+					"blank_weight": reel_in.blank_weight,
+					"coated_reel":  reel_in.coated_reel,
 					"printed_reel": reel_in.printed_reel,
-					"gsm": reel_in.gsm,
+					"printed_weight": reel_in.printed_weight,
+					"coated_weight": reel_in.coated_weight,
 					"weight": data.weight_out
 				})
 				doc.insert()

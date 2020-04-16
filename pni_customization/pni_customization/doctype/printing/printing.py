@@ -35,10 +35,11 @@ class Printing(Document):
 					"warehouse": self.fg_warehouse,
 					"type": reel_in.type,
 					"brand": reel_in.brand,
-					"size": reel_in.size,
-					"coated_reel": reel_in.coated_reel,
+					"blank_weight": reel_in.blank_weight,
+					"coated_reel":  reel_in.coated_reel,
 					"printed_reel": True,
-					"gsm": reel_in.gsm,
+					"printed_weight": data.weight_out,
+					"coated_weight": data.weight_out,
 					"weight": data.weight_out
 				})
 				doc.insert()

@@ -44,10 +44,11 @@ class Coating(Document):
 					"item": reel_in.item,
 					"type": reel_in.type,
 					"brand": reel_in.brand,
-					"size": reel_in.size,
+					"blank_weight": reel_in.blank_weight,
 					"coated_reel": True,
 					"printed_reel": reel_in.printed_reel,
-					"gsm": reel_in.gsm,
+					"printed_weight": reel_in.printed_weight,
+					"coated_weight": data.weight_out,
 					"weight": data.weight_out
 				})
 				doc.insert()

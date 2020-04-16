@@ -7,10 +7,12 @@ def validate_reel_qty(doc):
 		if item.is_reel_item:
 			if not doc.reel_table_purchase:
 				frappe.throw("Reel Entry needed for Item "+item.item_code)
+			if not item.reel_brand:
+				frappe.throw("Reel Brand is Mandatory for Item " + item.item_code)
 			reel_weight = 0
 			for reel in doc.reel_table_purchase:
 				if (reel.item == item.item_code and 
-					item.reel_brand == reel.brand and):
+					item.reel_brand == reel.brand):
 					reel_weight += reel.weight
 			if reel_weight < item.qty:
 				frappe.throw("Total Reel Qty for item  {0} is less then {1} ".format(item.item_code, item.qty))
@@ -33,9 +35,8 @@ def create_reel(doc, method):
 				"warehouse": item.accepted_warehouse,
 				"item": item.item,
 				"type": "Blank Reel",
+				"blank_weight": item.weight,
 				"brand": item.brand,
-				"size": item.size,
-				"gsm": item.gsm,
 				"weight": item.weight
 			})
 			doc.insert(ignore_permissions=True)
