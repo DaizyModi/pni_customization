@@ -48,6 +48,24 @@ frappe.ui.form.on('Punching', {
 	},
 });
 
+frappe.ui.form.on('Punching Table', {
+	reel_in: function(frm, cdt, cdn){
+		var d2 = locals[cdt][cdn];
+		frappe.call({
+			"method": "frappe.client.get",
+			args: {
+				doctype: "Reel",
+				name: d2.reel_in
+			},
+			callback: function (data) {
+				frappe.model.set_value(cdt,cdn, "item_out", data.message.printed_item);
+				frm.refresh_field("punching_table")
+			}
+		});
+		
+	}
+})
+
 var process_production = function (frm) {
 	frappe.call({
 		doc: frm.doc,
