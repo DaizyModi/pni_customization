@@ -27,7 +27,6 @@ fixtures = [
 					"get_items_from",
 					"pni_sales_order_details",
 					"get_pni_so",
-					"pni_sales_order",
 					"pni_delivery_note",
 					"pni_packing_table",
 					"add_item_pni",
@@ -70,7 +69,8 @@ fixtures = [
 					"paper_plate",
 					"reel",
 					"bag",
-					"scan_bagreel"
+					"scan_bag",
+					"scan_reel"
 				)
 			]
 		]
