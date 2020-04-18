@@ -2,18 +2,21 @@ frappe.ui.form.on('Delivery Note', {
 	scan_carton: function(frm) {
 		let scan_barcode_field = frm.fields_dict["scan_carton"];
 		fetch_packing(frm, scan_barcode_field, "PNI Carton");
+		scan_barcode_field.set_value('');
 		refresh_field('scan_carton')
 		return false;
 	},
 	scan_bag: function(frm) {
 		let scan_barcode_field = frm.fields_dict["scan_bag"];
 		fetch_packing(frm, scan_barcode_field, "PNI Bag");
+		scan_barcode_field.set_value('');
 		refresh_field('scan_bag')
 		return false;
 	},
 	scan_reel: function(frm) {
 		let scan_barcode_field = frm.fields_dict["scan_reel"];
 		fetch_packing(frm, scan_barcode_field, "Reel");
+		scan_barcode_field.set_value('');
 		refresh_field('scan_reel')
 		return false;
 	}
@@ -79,8 +82,6 @@ var fetch_packing = function(frm, scan_barcode_field, doctype){
 						row_to_modify.name, field, data[field]);
 				}
 			});
-
-			scan_barcode_field.set_value('');
 			
 			refresh_field('pni_packing_table')
 			
