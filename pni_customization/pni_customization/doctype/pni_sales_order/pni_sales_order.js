@@ -45,8 +45,6 @@ frappe.ui.form.on('PNI Sales Order', {
 		});
 		
 		frappe.db.get_value('Sales Person', {'pni_user':frappe.session.user} , ['name'],(r) => {
-			console.log(r);
-			debugger;
 			if(typeof r !== 'undefined' && typeof r.name !== 'undefined'){
 				frm.set_value("sales_person",r.name);
 			}else{
@@ -70,10 +68,3 @@ cur_frm.cscript['Make Delivery Note'] = function() {
 		frm: cur_frm
 	})
 }
-
-// cur_frm.cscript['Make Sales Order'] = function() {
-// 	frappe.model.open_mapped_doc({
-// 		method: "pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order.make_sales_order",
-// 		frm: cur_frm
-// 	})
-// }

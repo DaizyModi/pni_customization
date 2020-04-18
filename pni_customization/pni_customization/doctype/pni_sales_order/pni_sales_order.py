@@ -132,16 +132,6 @@ def make_delivery_note(source_name, target_doc=None, ignore_permissions = False)
 					"customer": "party",
 				}
 			},
-			"PNI Sales Order Item": {
-				"doctype": "PNI Delivery Note Item",
-				"field_map": {
-					"item": "item",
-					"stack_size": "stack_size",
-					"qty": "qty",
-					"uom": "uom",
-					"rate": "rate"
-				}
-			}
 		}, target_doc, set_missing_values, ignore_permissions=ignore_permissions)
 	
 	return doclist

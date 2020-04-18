@@ -1,3 +1,5 @@
+// Added in ERPNext Custom Script
+
 frappe.ui.form.on("Delivery Note Item",{
 	"item_code" : function (frm, cdt, cdn){
 		var d2 = locals[cdt][cdn];
