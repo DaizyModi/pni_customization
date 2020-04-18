@@ -52,12 +52,22 @@ class Coating(Document):
 					"coated_weight": data.weight_out,
 					"weight": data.weight_out
 				})
+				if data.half_reel:
+					doc = self.half_reeel(doc)
 				doc.insert()
 				data.reel_out = doc.name
 			else:
 				doc = frappe.get_doc("Reel",data.reel_out)
 				doc.weight = data.weight_out
+				if data.half_reeel:
+					doc = self.half_reeel(doc)
 				doc.save()
+	
+	def half_reeel(self, doc, data):
+		doc.warehouse = self.src_warehouse,
+		doc.coated_reel = False
+		doc.coated_weight =  ""
+		return doc
 	
 	def manage_reel_tracking(self):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
