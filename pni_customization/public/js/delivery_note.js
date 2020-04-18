@@ -41,12 +41,13 @@ var fetch_packing = function(frm, scan_barcode_field, doctype){
 				scan_barcode_field.set_new_description(__('Cannot find Item with this barcode'));
 				return;
 			}
-
-			const existing_item_row = frm.doc.pni_packing_table.find(d => d.pni_carton === data.name);
-			debugger;
-			if(existing_item_row){
-				scan_barcode_field.set_new_description(__('Already Added'));
-				return;
+			if(frm.doc.pni_packing_table){
+				const existing_item_row = frm.doc.pni_packing_table.find(d => d.pni_carton === data.name);
+				debugger;
+				if(existing_item_row){
+					scan_barcode_field.set_new_description(__('Already Added'));
+					return;
+				}
 			}
 			let cur_grid = frm.fields_dict.pni_packing_table.grid;
 
