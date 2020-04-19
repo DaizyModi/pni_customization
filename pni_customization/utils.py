@@ -501,3 +501,33 @@ def manage_se_changes(doc, method):
 @frappe.whitelist()
 def get_attributes():
 	return ["abc","def"]
+
+@frappe.whitelist(allow_guest=True)
+def create_lead(**kwargs):
+	"""
+		Create lead from Out Side
+	"""
+	lead = frappe.get_doc({
+		"doctype": "Lead",
+		"lead_name": kwargs.get('prefix', "") + kwargs.get('name', ""),
+		"j_leadid": kwargs.get('leadid', ""),
+		"j_leadtype": kwargs.get('leadtype', ""),
+		"mobile_no": kwargs.get('mobile', ""),
+		"phone": kwargs.get('phone', ""),
+		"j_email": kwargs.get('email', ""),
+		"j_date": kwargs.get('date', ""),
+		"j_category": kwargs.get('category', ""),
+		"j_city": kwargs.get('city', ""),
+		"j_area": kwargs.get('area', ""),
+		"j_brancharea": kwargs.get('brancharea', ""),
+		"j_dncmobile": kwargs.get('dncmobile', ""),
+		"j_dncphone": kwargs.get('dncphone', ""),
+		"j_company": kwargs.get('company', ""),
+		"j_pincode": kwargs.get('pincode', ""),
+		"j_time": kwargs.get('time', ""),
+		"j_branchpin": kwargs.get('branchpin', ""),
+		"j_parentid": kwargs.get('parentid', ""),
+	})
+	lead.insert(ignore_permissions=True)
+	frappe.db.commit()
+	return lead.name
