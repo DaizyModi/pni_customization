@@ -22,7 +22,7 @@
    "reqd": 1
   },
   {
-   "columns": 2,
+   "columns": 1,
    "fetch_from": "reel_in.brand",
    "fieldname": "brand",
    "fieldtype": "Link",
@@ -60,11 +60,12 @@
    "default": "0",
    "fieldname": "half_reel",
    "fieldtype": "Check",
+   "in_list_view": 1,
    "label": "Half Reel"
   }
  ],
  "istable": 1,
- "modified": "2020-04-18 10:55:23.722889",
+ "modified": "2020-04-20 03:11:44.355043",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Coating Table",

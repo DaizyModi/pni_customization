@@ -40,34 +40,28 @@ class Coating(Document):
 					"status": "Draft",
 					"process_prefix": "CO",
 					"supplier_reel_id": reel_in.supplier_reel_id,
-					"warehouse": self.fg_warehouse,
+					"warehouse": self.fg_warehouse if not data.half_reel else self.src_warehouse ,
 					"item": reel_in.item,
 					"printed_item": reel_in.printed_item,
 					"type": reel_in.type,
 					"brand": reel_in.brand,
 					"blank_weight": reel_in.blank_weight,
-					"coated_reel": True,
+					"coated_reel": True if not data.half_reel else False,
 					"printed_reel": reel_in.printed_reel,
 					"printed_weight": reel_in.printed_weight,
-					"coated_weight": data.weight_out,
+					"coated_weight": data.weight_out if not data.half_reel else "",
 					"weight": data.weight_out
 				})
-				if data.half_reel:
-					doc = self.half_reeel(doc)
 				doc.insert()
 				data.reel_out = doc.name
 			else:
 				doc = frappe.get_doc("Reel",data.reel_out)
 				doc.weight = data.weight_out
-				if data.half_reeel:
-					doc = self.half_reeel(doc)
+				if data.half_reel:
+					doc.warehouse = self.src_warehouse
+					doc.coated_reel = False
+					doc.coated_weight = ""
 				doc.save()
-	
-	def half_reeel(self, doc, data):
-		doc.warehouse = self.src_warehouse,
-		doc.coated_reel = False
-		doc.coated_weight =  ""
-		return doc
 	
 	def manage_reel_tracking(self):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
@@ -82,7 +76,8 @@ class Coating(Document):
 				"time": frappe.utils.nowtime(),
 				"out_reel": data.reel_out,
 				"status": "Coating Submit",
-				"process_reference": self.name
+				"process_reference": self.name,
+				"note": "" if not data.half_reel else "Half Process Uncoated"
 			})
 			doc.insert(ignore_permissions=True)
 	
@@ -99,7 +94,8 @@ class Coating(Document):
 				"time": frappe.utils.nowtime(),
 				"out_reel": data.reel_out,
 				"status": "Coating Cancel",
-				"process_reference": self.name
+				"process_reference": self.name,
+				"note": "" if not data.half_reel else "Half Process Uncoated"
 			})
 			doc.insert(ignore_permissions=True)
 
@@ -160,9 +156,11 @@ class Coating(Document):
 		#TODO allow multiple raw material transfer
 		raw_material_cost = 0
 		operating_cost = 0
-
+		reelin = []
 		for item in self.coating_table:
-			se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
+			if item.reel_in not in reelin:
+				se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
+				reelin.append(item.reel_in)
 		if self.ldpe_bag>0:
 			pass
 			# paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
@@ -202,7 +200,7 @@ class Coating(Document):
 
 		#add Stock Entry Items for produced goods and scrap
 		for item in self.coating_table:
-			se = self.set_se_items(se, item, None, se.to_warehouse, True, 
+			se = self.set_se_items(se, item, None, se.to_warehouse if not item.half_reel else se.from_warehouse, True, 
 					qty_of_total_production, total_sale_value, 
 					production_cost, reel_out = True)
 

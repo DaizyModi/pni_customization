@@ -33,32 +33,26 @@ class Printing(Document):
 					"supplier_reel_id": reel_in.supplier_reel_id,
 					"item": reel_in.item,
 					"printed_item": data.printing_item,
-					"warehouse": self.fg_warehouse,
+					"warehouse": self.fg_warehouse if not data.half_reel else self.src_warehouse,
 					"type": reel_in.type,
 					"brand": reel_in.brand,
 					"blank_weight": reel_in.blank_weight,
 					"coated_reel":  reel_in.coated_reel,
-					"printed_reel": True,
-					"printed_weight": data.weight_out,
-					"coated_weight": data.weight_out,
+					"printed_reel": True if not data.half_reel else False,
+					"printed_weight": data.weight_out if not data.half_reel else "",
+					"coated_weight": reel_in.coated_weight,
 					"weight": data.weight_out
 				})
-				if data.half_reel:
-					doc = self.half_reeel(doc)
 				doc.insert()
 				data.reel_out = doc.name
 			else:
 				doc = frappe.get_doc("Reel",data.reel_out)
 				doc.weight = data.weight_out
 				if data.half_reel:
-					doc = self.half_reeel(doc)
+					doc.warehouse = self.src_warehouse
+					doc.printed_reel = False
+					doc.printed_weight = ""
 				doc.save()
-	
-	def half_reeel(self, doc, data):
-		doc.warehouse = self.src_warehouse,
-		doc.coated_reel = False
-		doc.coated_weight =  ""
-		return doc
 	
 	def manage_reel_tracking(self):
 		for data in self.printing_table:
@@ -71,7 +65,8 @@ class Printing(Document):
 				"time": frappe.utils.nowtime(),
 				"out_reel": data.reel_out,
 				"status": "Printing Submit",
-				"process_reference": self.name
+				"process_reference": self.name,
+				"note": "" if not data.half_reel else "Half Process Un Printed"
 			})
 			doc.insert(ignore_permissions=True)
 	
@@ -86,7 +81,8 @@ class Printing(Document):
 				"time": frappe.utils.nowtime(),
 				"out_reel": data.reel_out,
 				"status": "Printing Cancel",
-				"process_reference": self.name
+				"process_reference": self.name,
+				"note": "" if not data.half_reel else "Half Process Un Printed"
 			})
 			doc.insert(ignore_permissions=True)
 
@@ -146,12 +142,15 @@ class Printing(Document):
 		#TODO allow multiple raw material transfer
 		raw_material_cost = 0
 		operating_cost = 0
-
+		
 		for item in self.printing_inc_table:
 			se = self.set_se_items(se, item, se.from_warehouse, None , False, inc_item =  True)
 		
+		reelin = []
 		for item in self.printing_table:
-			se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
+			if item.reel_in not in reelin:
+				se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
+				reelin.append(item.reel_in)
 
 		#TODO calc raw_material_cost
 
@@ -185,7 +184,7 @@ class Printing(Document):
 
 		#add Stock Entry Items for produced goods and scrap
 		for item in self.printing_table:
-			se = self.set_se_items(se, item, None, se.to_warehouse, True, qty_of_total_production, total_sale_value, production_cost, reel_out = True)
+			se = self.set_se_items(se, item, None, se.to_warehouse if not item.half_reel else se.from_warehouse, True, qty_of_total_production, total_sale_value, production_cost, reel_out = True)
 
 		for item in self.printing_scrap:
 			# if value_scrap:

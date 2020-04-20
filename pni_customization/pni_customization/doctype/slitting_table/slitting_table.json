@@ -10,7 +10,8 @@
   "item_out",
   "type",
   "weight_out",
-  "reel_out"
+  "reel_out",
+  "half_reel"
  ],
  "fields": [
   {
@@ -72,10 +73,16 @@
    "label": "Item Out",
    "options": "Item",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "half_reel",
+   "fieldtype": "Check",
+   "label": "Half Reel"
   }
  ],
  "istable": 1,
- "modified": "2020-04-16 06:00:34.489734",
+ "modified": "2020-04-20 08:13:34.104936",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Slitting Table",

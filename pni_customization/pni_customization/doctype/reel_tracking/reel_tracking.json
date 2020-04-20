@@ -13,6 +13,7 @@
   "time",
   "output_section",
   "out_reel",
+  "note",
   "reference_details_section",
   "status",
   "process_reference"
@@ -75,9 +76,14 @@
    "fieldname": "status",
    "fieldtype": "Data",
    "label": "Status"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Data",
+   "label": "Note"
   }
  ],
- "modified": "2020-04-08 21:24:17.754686",
+ "modified": "2020-04-20 03:16:16.327659",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel Tracking",

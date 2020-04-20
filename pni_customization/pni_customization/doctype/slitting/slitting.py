@@ -75,9 +75,9 @@ class Slitting(Document):
 					"status": "Draft",
 					"process_prefix": "SL",
 					"supplier_reel_id": reel_in.supplier_reel_id,
-					"item": data.item_out,
+					"item": data.item_out if not data.half_reel else reel_in.item,
 					"printed_item": reel_in.printed_item,
-					"warehouse": self.fg_warehouse,
+					"warehouse": self.fg_warehouse if not data.half_reel else self.src_warehouse,
 					"type": data.type if data.type else reel_in.type,
 					"brand": reel_in.brand,
 					"blank_weight": reel_in.blank_weight,
@@ -93,6 +93,9 @@ class Slitting(Document):
 				doc = frappe.get_doc("Reel",data.reel_out)
 				doc.weight = data.weight_out
 				doc.type = data.type if data.type else reel_in.type
+				if data.half_reel:
+					doc.item = reel_in.item
+					doc.warehouse = self.src_warehouse
 				doc.save()
 	
 	def manage_reel_tracking(self):
@@ -106,7 +109,8 @@ class Slitting(Document):
 				"time": frappe.utils.nowtime(),
 				"out_reel": data.reel_out,
 				"status": "Slitting Submit",
-				"process_reference": self.name
+				"process_reference": self.name,
+				"note": "" if not data.half_reel else "Half UnSlitted Reel"
 			})
 			doc.insert(ignore_permissions=True)
 	
@@ -121,7 +125,8 @@ class Slitting(Document):
 				"time": frappe.utils.nowtime(),
 				"out_reel": data.reel_out,
 				"status": "Slitting Cancel",
-				"process_reference": self.name
+				"process_reference": self.name,
+				"note" : "" if not data.half_reel else "Half UnSlitted Reel"
 			})
 			doc.insert(ignore_permissions=True)
 
@@ -220,7 +225,7 @@ class Slitting(Document):
 
 		#add Stock Entry Items for produced goods and scrap
 		for item in self.slitting_table:
-			se = self.set_se_items(se, item, None, se.to_warehouse, True, qty_of_total_production,
+			se = self.set_se_items(se, item, None, se.to_warehouse if not item.half_reel else se.from_warehouse, True, qty_of_total_production,
 			total_sale_value, production_cost, reel_out = True)
 
 		for item in self.slitting_scrap:
