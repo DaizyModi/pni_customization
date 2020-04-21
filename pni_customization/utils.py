@@ -503,7 +503,7 @@ def get_attributes():
 	return ["abc","def"]
 
 @frappe.whitelist(allow_guest=True)
-def create_lead(name, prefix, leadid="", leadtype="", mobile="",
+def create_lead(name, prefix="", leadid="", leadtype="", mobile="",
 	phone="",email="",date="",category="",
 	city="",area="",brancharea="",dncmobile="",
 	dncphone="",company="",pincode="",time="",branchpin="",parentid=""):
