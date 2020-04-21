@@ -502,7 +502,7 @@ def manage_se_changes(doc, method):
 def get_attributes():
 	return ["abc","def"]
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=True)
 def create_lead(**kwargs):
 	"""
 		Create lead from Out Side
@@ -528,6 +528,6 @@ def create_lead(**kwargs):
 		"j_branchpin": kwargs.get('branchpin', ""),
 		"j_parentid": kwargs.get('parentid', ""),
 	})
-	lead.insert()
+	lead.insert(ignore_permissions=True)
 	frappe.db.commit()
 	return lead.name
