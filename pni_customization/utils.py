@@ -527,6 +527,7 @@ def create_lead(**kwargs):
 		"j_time": kwargs.get('time', ""),
 		"j_branchpin": kwargs.get('branchpin', ""),
 		"j_parentid": kwargs.get('parentid', ""),
+		"source": "Just Dial"
 	})
 	lead.insert(ignore_permissions=True)
 	frappe.db.commit()
