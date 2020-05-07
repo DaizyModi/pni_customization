@@ -31,7 +31,7 @@ fixtures = [
 					"total_reel_weight", "scrap_entry", "paper_cup", "paper_plate", "reel", "bag", "scan_bag",
 					"scan_reel", "justdial_details", "j_leadid", "j_leadtype", "j_email", "j_date","j_category",
 					"j_city","j_area","j_brancharea","j_dncmobile","j_dncphone","j_company", "j_pincode",
-					"j_time","j_branchpin", "j_parentid"
+					"j_time","j_branchpin", "j_parentid","pni_sales_order_item"
 				)
 			]
 		]
