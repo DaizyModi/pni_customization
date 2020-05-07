@@ -105,8 +105,8 @@ class Punching(Document):
 			reel_in = frappe.get_doc("Reel",data.reel_in)
 			reel_in.status = "In Stock"
 			reel_in.save()
-			reel_out = frappe.get_doc("Reel",data.reel_out)
-			reel_out.cancel()
+			punch_table = frappe.get_doc("Punch Table",data.punch_table)
+			punch_table.cancel()
 		self.cancel_reel_tracking()
 	
 	def manufacture_entry(self):
