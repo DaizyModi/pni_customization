@@ -125,14 +125,14 @@ def make_delivery_note(source_name, target_doc=None, ignore_permissions = False)
 		target.run_method("set_po_nos")
 		target.run_method("calculate_taxes_and_totals")
 
-		if source.company_address:
-			target.update({'company_address': source.company_address})
-		else:
-			# set company address
-			target.update(get_company_address(target.company))
+		# if source.company_address:
+		# 	target.update({'company_address': source.company_address})
+		# else:
+		# 	# set company address
+		# 	target.update(get_company_address(target.company))
 
-		if target.company_address:
-			target.update(get_fetch_values("Delivery Note", 'company_address', target.company_address))
+		# if target.company_address:
+		# 	target.update(get_fetch_values("Delivery Note", 'company_address', target.company_address))
 		
 		target.party_type = "Customer"
 		target.paid_from = frappe.db.get_value("Account",
