@@ -15,17 +15,10 @@ frappe.ui.form.on('PNI Sales Order', {
 		}
 	},
 	customer: function(frm) {
-		frm.call({
-			doc: frm.doc,
-			method: 'get_address',
-			callback: function(r) {
-				if(r.message) {
-					console.log(r.message);
-					// frm.set_query('contact_person', );
-					// frm.set_query('shipping_address', );
-				}
-			}
-		})
+
+		erpnext.utils.get_party_details(frm, null, null, function() {
+			// frm.apply_price_list();
+		});
 	},
 	onload: function(frm) {
 
@@ -50,10 +43,10 @@ frappe.ui.form.on('PNI Sales Order', {
 		} )
 	},
 	customer_address: function(frm) {
-		erpnext.utils.get_address_display(frm, 'customer_address', 'billing_address', false);
+		erpnext.utils.get_address_display(frm, 'customer_address', 'address_display', false);
 	},
-	shipping_address: function(frm) {
-		erpnext.utils.get_address_display(frm, 'shipping_address', 'shipping_address_display', false);
+	shipping_address_name: function(frm) {
+		erpnext.utils.get_address_display(frm, 'shipping_address_name', 'shipping_address', false);
 	},
 	user: function(frm) {
 		cur_frm.set_query("sales_person", function() {

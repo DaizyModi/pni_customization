@@ -19,10 +19,10 @@
   "delivery_date",
   "address_and_contact_section",
   "customer_address",
-  "billing_address",
+  "address_display",
   "column_break_13",
+  "shipping_address_name",
   "shipping_address",
-  "shipping_address_display",
   "price_list_details_section",
   "price_list",
   "section_break_6",
@@ -209,36 +209,36 @@
    "label": "Address and Contact"
   },
   {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shipping_address",
+   "fieldtype": "Small Text",
+   "label": "Shipping Address Display",
+   "read_only": 1
+  },
+  {
+   "fieldname": "shipping_address_name",
+   "fieldtype": "Link",
+   "label": "Shipping Address",
+   "options": "Address"
+  },
+  {
    "fieldname": "customer_address",
    "fieldtype": "Link",
    "label": "Customer Address",
    "options": "Address"
   },
   {
-   "fieldname": "column_break_13",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "shipping_address",
-   "fieldtype": "Link",
-   "label": "Shipping Address",
-   "options": "Address"
-  },
-  {
-   "fieldname": "billing_address",
+   "fieldname": "address_display",
    "fieldtype": "Small Text",
    "label": "Billing Address",
-   "read_only": 1
-  },
-  {
-   "fieldname": "shipping_address_display",
-   "fieldtype": "Small Text",
-   "label": "Shipping Address Display",
    "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-05-20 11:40:01.161418",
+ "modified": "2020-05-20 12:27:13.267547",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Sales Order",
