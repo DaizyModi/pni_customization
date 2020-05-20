@@ -8,6 +8,8 @@ from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import flt, nowdate, getdate
 from erpnext.selling.doctype.customer.customer import check_credit_limit,get_credit_limit
+from frappe.contacts.doctype.address.address import (get_address_display,
+	get_default_address, get_company_address)
 
 class PNISalesOrder(Document):
 	def validate(self):
@@ -21,6 +23,9 @@ class PNISalesOrder(Document):
 				self.save()
 				self.submit()
 
+	def get_address(self):
+		address = frappe.get_add
+		return "Hello world"
 @frappe.whitelist()
 def make_pni_sales_order(source_name, target_doc=None, ignore_permissions = False):
 	lead = frappe.get_doc("Lead", source_name)

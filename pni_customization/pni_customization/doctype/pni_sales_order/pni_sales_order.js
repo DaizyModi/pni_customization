@@ -14,7 +14,21 @@ frappe.ui.form.on('PNI Sales Order', {
 			'Delivery Note': 'Make Delivery Note'
 		}
 	},
+	customer: function(frm) {
+		frm.call({
+			doc: frm.doc,
+			method: 'get_address',
+			callback: function(r) {
+				if(r.message) {
+					console.log(r.message);
+					// frm.set_query('contact_person', );
+					// frm.set_query('shipping_address', );
+				}
+			}
+		})
+	},
 	onload: function(frm) {
+
 		if(!frm.doc.date){
 			frm.set_value("date", moment(frappe.datetime.now_datetime()));
 		}
@@ -34,6 +48,12 @@ frappe.ui.form.on('PNI Sales Order', {
 			frm.set_value("price_list",r.selling_price_list);
 			frm.refresh_field("price_list");
 		} )
+	},
+	customer_address: function(frm) {
+		erpnext.utils.get_address_display(frm, 'customer_address', 'billing_address', false);
+	},
+	shipping_address: function(frm) {
+		erpnext.utils.get_address_display(frm, 'shipping_address', 'shipping_address_display', false);
 	},
 	user: function(frm) {
 		cur_frm.set_query("sales_person", function() {
