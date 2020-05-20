@@ -24,7 +24,7 @@ class PNISalesOrder(Document):
 				self.submit()
 
 	def get_address(self):
-		address = frappe.get_add
+		# address = frappe.get_add
 		return "Hello world"
 @frappe.whitelist()
 def make_pni_sales_order(source_name, target_doc=None, ignore_permissions = False):
