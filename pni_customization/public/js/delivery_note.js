@@ -21,7 +21,6 @@ frappe.ui.form.on('Delivery Note', {
 		return false;
 	},
 	item_filter: function(frm) {
-		debugger;
 		cur_frm.set_query("pni_carton", "pni_packing_table", function(doc, cdt, cdn) {
 			let row = locals[cdt][cdn]
 			console.log(doc.item_filter);
@@ -31,6 +30,44 @@ frappe.ui.form.on('Delivery Note', {
 				}
 			}
 		})
+	},
+	add_pni_bag: function(frm) {
+		frappe.prompt([
+			{
+				'fieldname': 'item', 
+				'fieldtype': 'Link', 
+				'label': 'PNI Bag Item', 
+				'reqd': 1,
+				'options': 'Item'	
+			},
+			{
+				'fieldname': 'qty', 
+				'fieldtype': 'Int', 
+				'label': 'Qty', 
+				'reqd': 1
+			}  
+		],
+		function(values){
+			frappe.call({
+				method: "pni_customization.utils.get_pni_bags",
+				args: { 'item': values.item, 'qty':values.qty }
+			}).then(r => {
+				const data = r && r.message;
+				console.log(data);
+				data.forEach(function(entry) {
+					let child_doc = ""
+					child_doc = frappe.model.add_child(frm.doc, "PNI Packing Table", 'pni_packing_table');
+					child_doc.packing_type = "PNI Bag"
+					child_doc.pni_carton = entry.name
+					child_doc.item = entry.item
+					child_doc.total_qty = entry.weight
+				});
+				refresh_field('pni_packing_table');
+			})			
+		},
+		'Add PNI Bag',
+		'Add'
+		)
 	}
 })
 frappe.ui.form.on('PNI Packing Table', {
