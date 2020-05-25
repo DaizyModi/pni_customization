@@ -19,6 +19,18 @@ frappe.ui.form.on('Delivery Note', {
 		scan_barcode_field.set_value('');
 		refresh_field('scan_reel')
 		return false;
+	},
+	item_filter: function(frm) {
+		debugger;
+		cur_frm.set_query("pni_carton", "pni_packing_table", function(doc, cdt, cdn) {
+			let row = locals[cdt][cdn]
+			console.log(doc.item_filter);
+			return {
+				"filters": {
+					"item": doc.item_filter
+				}
+			}
+		})
 	}
 })
 frappe.ui.form.on('PNI Packing Table', {
