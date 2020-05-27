@@ -36,41 +36,6 @@ fixtures = [
 				)
 			]
 		]
-	},
-	{
-		"dt":"Workflow State",
-		"filters": [
-			[
-				"name", "in", (
-					"Cancel",
-					"Account Approved",
-					"Sales Approved",
-					"Customer Approved"
-				)
-			]
-		]
-	},
-	{
-		"dt":"Workflow Action Master",
-		"filters": [
-			[
-				"name", "in", (
-					"Account Approve",
-					"Sales Approve",
-					"Customer Approved",
-				)
-			]
-		]
-	},
-	{
-		"dt":"Workflow",
-		"filters": [
-			[
-				"name", "in", (
-					"PNI Sales Order",
-				)
-			]
-		]
 	}
 ]
 
