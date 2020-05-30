@@ -45,12 +45,17 @@ frappe.ui.form.on('Delivery Note', {
 				'fieldtype': 'Int', 
 				'label': 'Qty', 
 				'reqd': 1
+			},
+			{
+				'fieldname': 'weight',
+				'fieldtype': 'Float',
+				'label': 'Weight',
 			}  
 		],
 		function(values){
 			frappe.call({
 				method: "pni_customization.utils.get_pni_bags",
-				args: { 'item': values.item, 'qty':values.qty }
+				args: { 'item': values.item, 'qty':values.qty, 'weight':values.weight }
 			}).then(r => {
 				const data = r && r.message;
 				console.log(data);
