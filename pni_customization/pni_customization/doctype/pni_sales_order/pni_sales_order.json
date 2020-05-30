@@ -249,6 +249,7 @@
    "label": "Billing and Delivery Status"
   },
   {
+   "allow_on_submit": 1,
    "default": "Draft",
    "fieldname": "status",
    "fieldtype": "Select",
@@ -259,6 +260,7 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "delivery_status",
    "fieldtype": "Select",
    "hidden": 1,
@@ -267,6 +269,7 @@
    "options": "Not Delivered\nFully Delivered\nPartly Delivered\nClosed\nNot Applicable"
   },
   {
+   "allow_on_submit": 1,
    "depends_on": "eval:!doc.__islocal ",
    "fieldname": "per_delivered",
    "fieldtype": "Percent",
@@ -280,6 +283,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "depends_on": "eval:!doc.__islocal",
    "fieldname": "per_billed",
    "fieldtype": "Percent",
@@ -289,6 +293,7 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "billing_status",
    "fieldtype": "Select",
    "hidden": 1,
@@ -299,7 +304,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-05-30 12:47:18.353338",
+ "modified": "2020-05-30 14:12:29.843456",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Sales Order",

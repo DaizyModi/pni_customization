@@ -34,7 +34,7 @@ def update_delivery_pni_sales_order(doc, action):
 	if doc.pni_sales_order:
 		pni_so = frappe.get_doc("PNI Sales Order",doc.pni_sales_order)
 		if action == "submit":
-			pni_so.per_delivered = 1
+			pni_so.per_delivered = 100
 		else: 
 			pni_so.per_delivered = 0
 		pni_so.save(ignore_permissions=True)
