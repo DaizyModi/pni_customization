@@ -38,6 +38,13 @@
   "company",
   "column_break_11",
   "sales_person",
+  "billing_and_delivery_status_section",
+  "status",
+  "delivery_status",
+  "per_delivered",
+  "column_break_36",
+  "per_billed",
+  "billing_status",
   "amended_from"
  ],
  "fields": [
@@ -235,10 +242,64 @@
    "fieldtype": "Small Text",
    "label": "Billing Address",
    "read_only": 1
+  },
+  {
+   "fieldname": "billing_and_delivery_status_section",
+   "fieldtype": "Section Break",
+   "label": "Billing and Delivery Status"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nDraft\nOn Hold\nTo Deliver and Bill\nTo Bill\nTo Deliver\nCompleted\nCancelled\nClosed",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "delivery_status",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "in_standard_filter": 1,
+   "label": "Delivery Status",
+   "options": "Not Delivered\nFully Delivered\nPartly Delivered\nClosed\nNot Applicable"
+  },
+  {
+   "depends_on": "eval:!doc.__islocal ",
+   "fieldname": "per_delivered",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "%  Delivered",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_36",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:!doc.__islocal",
+   "fieldname": "per_billed",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "% Amount Billed",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "billing_status",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "in_standard_filter": 1,
+   "label": "Billing Status",
+   "options": "Not Billed\nFully Billed\nPartly Billed\nClosed",
+   "print_hide": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-05-20 12:27:13.267547",
+ "modified": "2020-05-30 12:47:18.353338",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Sales Order",

@@ -9,7 +9,7 @@
   "qty",
   "uom",
   "rate",
-  "pni_production_plan"
+  "against_pni_sales_order"
  ],
  "fields": [
   {
@@ -40,22 +40,20 @@
    "label": "Rate"
   },
   {
-   "allow_on_submit": 1,
-   "fieldname": "pni_production_plan",
-   "fieldtype": "Link",
-   "label": "PNI Production Plan",
-   "options": "PNI Production Plan",
-   "read_only": 1
-  },
-  {
    "fieldname": "stack_size",
    "fieldtype": "Int",
    "in_list_view": 1,
    "label": "Stack Size"
+  },
+  {
+   "fieldname": "against_pni_sales_order",
+   "fieldtype": "Link",
+   "label": "Against PNI Sales Order",
+   "options": "PNI Sales Order"
   }
  ],
  "istable": 1,
- "modified": "2020-04-08 21:23:44.668659",
+ "modified": "2020-05-30 13:06:36.640271",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Sales Order Item",

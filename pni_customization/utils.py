@@ -1,6 +1,7 @@
 import frappe, json
 from frappe.model.mapper import get_mapped_doc
 from frappe import _
+from pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order import update_delivery_pni_sales_order
 
 def validate_reel_qty(doc):
 	for item in doc.items:
@@ -183,6 +184,7 @@ def submit_delivery_item(doc, method):
 		carton = frappe.get_doc("PNI Carton", row.pni_carton)
 		carton.status = "Delivered"
 		carton.save()
+	update_delivery_pni_sales_order(doc,"submit")
 
 @frappe.whitelist()
 def cancel_delivery_item(doc, method):
@@ -190,6 +192,7 @@ def cancel_delivery_item(doc, method):
 		carton = frappe.get_doc("PNI Carton", row.pni_carton)
 		carton.status = "Available"
 		carton.save()
+	update_delivery_pni_sales_order(doc,"cancel")
 
 @frappe.whitelist()
 def update_delivery_item(doc, method):

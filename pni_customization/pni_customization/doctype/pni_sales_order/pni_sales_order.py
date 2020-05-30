@@ -26,6 +26,20 @@ class PNISalesOrder(Document):
 	def get_address(self):
 		# address = frappe.get_add
 		return "Hello world"
+
+def update_delivery_pni_sales_order(doc, action):
+	"""
+		doc will be delivery note
+	"""
+	if doc.pni_sales_order:
+		pni_so = frappe.get_doc("PNI Sales Order",doc.pni_sales_order)
+		if action == "submit":
+			pni_so.per_delivered = 1
+		else: 
+			pni_so.per_delivered = 0
+		pni_so.save(ignore_permissions=True)
+		frappe.db.commit()
+
 @frappe.whitelist()
 def make_pni_sales_order(source_name, target_doc=None, ignore_permissions = False):
 	lead = frappe.get_doc("Lead", source_name)
