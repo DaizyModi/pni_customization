@@ -192,9 +192,18 @@ def make_pni_quotation_from_opportunity(source_name, target_doc=None, ignore_per
 @frappe.whitelist()
 def submit_delivery_item(doc, method):
 	for row in doc.pni_packing_table:
-		carton = frappe.get_doc("PNI Carton", row.pni_carton)
-		carton.status = "Delivered"
-		carton.save()
+		if row.packing_type == "PNI Carton":
+			carton = frappe.get_doc("PNI Carton", row.pni_carton)
+			carton.status = "Delivered"
+			carton.save()
+		if row.packing_type == "PNI Bag":
+			bag = frappe.get_doc("PNI Bag", row.pni_carton)
+			bag.status = "Sold"
+			bag.save()
+		if row.packing_type == "Reel":
+			reel = frappe.get_doc("Reel", row.pni_carton)
+			reel.status = "Sold"
+			reel.save()
 	update_delivery_pni_sales_order(doc,"submit")
 
 @frappe.whitelist()
