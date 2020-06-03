@@ -81,28 +81,26 @@ class PNIPacking(Document):
 			if not data.carton_id:
 				doc = frappe.get_doc({
 					"doctype": "PNI Carton",
-					"naming_series": setting.paper_plate_carton_series if self.is_paper_plate else setting.paper_cup_carton_series,
-					"is_paper_plate": True if self.is_paper_plate else False,
-					"item": self.item,
-					"supervisor": self.supervisor,
-					"supervisor_name": self.supervisor_name,
-					"shift": self.shift,
-					"item_name": frappe.get_value("Item", self.item, "item_name"),
-					"item_description": frappe.get_value("Item", self.item, "description"),
-					"size": data.stack_size,
-					"no_of_stack": data.packing_size,
-					"total": float(data.stack_size) * float(data.packing_size),
+					"naming_series": setting.paper_plate_carton_series if self.is_paper_plate else setting.paper_cup_carton_series,	
 				})
 				doc.insert()
 				data.carton_id = doc.name
 				# data.print_carton = doc.name
-			else:
+			if data.carton_id:
 				doc = frappe.get_doc("PNI Carton",data.carton_id)
-				doc.gross_weight = data.weight
-				doc.net_weight = data.net_weight
+				doc.is_paper_plate = True if self.is_paper_plate else False
+				doc.item = self.item,
 				doc.shift = self.shift
 				doc.supervisor = self.supervisor
 				doc.supervisor_name =  self.supervisor_name
+				doc.item_name = frappe.get_value("Item", self.item, "item_name")
+				doc.item_description = frappe.get_value("Item", self.item, "description")
+				doc.gross_weight = data.weight
+				doc.net_weight = data.net_weight
+				doc.size = data.stack_size
+				doc.no_of_stack = data.packing_size
+				doc.total = float(data.stack_size) * float(data.packing_size)
+				
 				doc.save()
 				# data.print_carton = data.carton_id
 			
