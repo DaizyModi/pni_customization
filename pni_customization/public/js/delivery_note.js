@@ -23,7 +23,6 @@ frappe.ui.form.on('Delivery Note', {
 	item_filter: function(frm) {
 		cur_frm.set_query("pni_carton", "pni_packing_table", function(doc, cdt, cdn) {
 			let row = locals[cdt][cdn]
-			console.log(doc.item_filter);
 			return {
 				"filters": {
 					"item": doc.item_filter
@@ -47,6 +46,12 @@ frappe.ui.form.on('Delivery Note', {
 				'reqd': 1
 			},
 			{
+				'fieldname': 'packing_category',
+				'fieldtype': 'Link',
+				'label': 'Packing Category',
+				'options': 'Packing Category'
+			},
+			{
 				'fieldname': 'weight',
 				'fieldtype': 'Float',
 				'label': 'Weight',
@@ -55,7 +60,7 @@ frappe.ui.form.on('Delivery Note', {
 		function(values){
 			frappe.call({
 				method: "pni_customization.utils.get_pni_bags",
-				args: { 'item': values.item, 'qty':values.qty, 'weight':values.weight }
+				args: { 'item': values.item, 'qty':values.qty, 'weight':values.weight, 'packing_category': values.packing_category }
 			}).then(r => {
 				const data = r && r.message;
 				console.log(data);
@@ -68,6 +73,7 @@ frappe.ui.form.on('Delivery Note', {
 					child_doc.total_qty = entry.weight
 				});
 				refresh_field('pni_packing_table');
+				add_packing_to_item(frm);
 			})			
 		},
 		'Add PNI Bag',

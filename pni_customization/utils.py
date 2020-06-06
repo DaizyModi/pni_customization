@@ -80,25 +80,23 @@ def get_packing(packing,doctype):
 		frappe.throw(str(doctype) + " Not Available with "+packing_doc.name)
 
 @frappe.whitelist()
-def get_pni_bags(item, qty, weight=0):
+def get_pni_bags(item, qty, weight=0, packing_category = None):
+	filters={
+		'item': item, 
+		'status':'In Stock',
+		'docstatus': 1
+	}
 	if float(weight) > 0:
-		bags = frappe.get_all("PNI Bag", filters={
-				'item': item, 
-				'status':'In Stock',
-				'weight': weight,
-				'docstatus': 1
-			}, 
-			fields=['name', 'item', 'weight'],
-			limit_page_length = qty)
-		return bags
-	else:
-		bags = frappe.get_all("PNI Bag", filters={
-			'item': item, 
-			'status':'In Stock',
-			'docstatus': 1
-		}, 
+		filters['weight']= weight
+	if packing_category:
+		filters['packing_category'] = packing_category
+		
+	bags = frappe.get_all("PNI Bag", 
+		filters=filters, 
 		fields=['name', 'item', 'weight'],
-		limit_page_length = qty)
+		limit_page_length = qty
+	)
+	
 	return bags
 
 @frappe.whitelist()
