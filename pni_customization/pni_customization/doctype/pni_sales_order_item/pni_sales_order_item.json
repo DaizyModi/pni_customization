@@ -8,8 +8,7 @@
   "stack_size",
   "qty",
   "uom",
-  "rate",
-  "against_pni_sales_order"
+  "rate"
  ],
  "fields": [
   {
@@ -44,16 +43,10 @@
    "fieldtype": "Int",
    "in_list_view": 1,
    "label": "Stack Size"
-  },
-  {
-   "fieldname": "against_pni_sales_order",
-   "fieldtype": "Link",
-   "label": "Against PNI Sales Order",
-   "options": "PNI Sales Order"
   }
  ],
  "istable": 1,
- "modified": "2020-05-30 13:06:36.640271",
+ "modified": "2020-06-10 14:29:22.259827",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Sales Order Item",
