@@ -73,7 +73,7 @@ frappe.ui.form.on('Delivery Note', {
 					child_doc.total_qty = entry.weight
 				});
 				refresh_field('pni_packing_table');
-				add_packing_to_item(frm);
+				//add_packing_to_item(frm);
 			})			
 		},
 		'Add PNI Bag',
@@ -154,7 +154,7 @@ var fetch_packing = function(frm, scan_barcode_field, doctype){
 }
 
 
-var add_packing_to_item = function(frm){
+var add_packing_to_item = function(frm, clear_table = true){
 	// add item to table
 	var list_item = {} 
 	var item_name = {}
@@ -173,8 +173,9 @@ var add_packing_to_item = function(frm){
 		item_name[value.item] = value.item_name
 		item_detail[value.item] = value.item_description
 	})
-	
-	cur_frm.clear_table("items");
+	if(clear_table){
+		cur_frm.clear_table("items");
+	}
 	refresh_field("items")
 	
 	items.forEach(function(value){
