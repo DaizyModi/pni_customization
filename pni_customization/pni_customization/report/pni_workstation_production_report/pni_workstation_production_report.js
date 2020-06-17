@@ -4,6 +4,6 @@
 
 frappe.query_reports["PNI Workstation Production Report"] = {
 	"filters": [
-
+		
 	]
 };
