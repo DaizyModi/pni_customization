@@ -47,6 +47,7 @@ def get_data(filters=None):
 	return frappe.db.sql("""
 		select table1.workstation,table1.total_production,table2.total_scrap
 			from 
+				
 				(select 
 					packing.workstation as workstation, sum(pni_crt.total) as total_production 
 				from 
@@ -59,6 +60,7 @@ def get_data(filters=None):
 					pni_crt_tbl.parent = packing.name	
 
 				group by packing.workstation) as table1,
+				
 				(select 
 					stock_entry.pni_reference as workstation,
 					sum(item_table.qty) as total_scrap
@@ -72,6 +74,7 @@ def get_data(filters=None):
 					stock_entry.pni_reference_type = "Workstation"
 				
 				group by stock_entry.pni_reference) as table2
+			
 			where table1.workstation = table2.workstation
 			{0}
     """.format(conditions))
