@@ -67,7 +67,7 @@ def get_data(filters=None):
 					`tabStock Entry` as stock_entry
 				
 				where
-					item_table.name = stock_entry.parent and
+					item_table.parent = stock_entry.name and
 					stock_entry.scrap_entry = "1" and
 					stock_entry.pni_reference = "Workstation"
 				
