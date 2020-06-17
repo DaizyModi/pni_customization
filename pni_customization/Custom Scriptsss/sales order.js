@@ -64,6 +64,9 @@ frappe.ui.form.on("Sales Order Item",{
 		}
 		d2.base_uom_rate = parseFloat(d2.price_list_rate / d2.conversion_factor	)
 	},
+	"is_paper_plate": function(frm, cdt, cdn) {
+		frm.set_df_property('rate','read_only', 1);
+	},
 	"uom": function(frm, cdt,cdn){
 		var d2 = locals[cdt][cdn];
 		d2.base_uom_rate = parseFloat(d2.price_list_rate / d2.conversion_factor	)
