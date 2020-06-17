@@ -69,7 +69,7 @@ def get_data(filters=None):
 				where
 					item_table.parent = stock_entry.name and
 					stock_entry.scrap_entry = "1" and
-					stock_entry.pni_reference = "Workstation"
+					stock_entry.pni_reference_type = "Workstation"
 				
 				group by stock_entry.pni_reference) as table2
 			where table1.workstation = table2.workstation
