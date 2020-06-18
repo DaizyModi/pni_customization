@@ -80,6 +80,13 @@ def get_data():
 				},
 				{
 					"type": "report",
+					"name": "PNI Workstation Production Report",
+					"description": _("PNI Workstation Production Report"),
+					"is_query_report": True,
+					"reference_doctype": "PNI Packing",
+				},
+				{
+					"type": "report",
 					"name": "Paper Plate Stock",
 					"description": _("Paper Plate Stock"),
 					"is_query_report": True,
