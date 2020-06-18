@@ -31,18 +31,17 @@ def get_columns():
             "fieldtype": "Float",
         }
     ]
+def get_condition(filters):
+    condition1,condition2 = "",""
+    if filters.get("from_date"): condition1 += " AND packing.date >= %(from_date)s"
+    if filters.get("from_date"): condition2 += " AND stock_entry.posting_date >= %(from_date)s"
+    if filters.get("to_date"): condition1 += " AND packing.date <= %(to_date)s"
+    if filters.get("to_date"): condition2 += " AND stock_entry.posting_date <= %(to_date)s"
+    
+    return condition1,condition2
 
 def get_data(filters=None):
-	conditions = ""
-
-	if filters.status:
-		conditions += " and crt.status = '{0}' ".format(filters.status)
-
-	if filters.item:
-		conditions += " and crt.item = '{0}' ".format(filters.item)
-	
-	if filters.brand:
-		conditions += " and item.brand = '{0}' ".format(filters.brand)
+	condition1,condition2 = get_condition(filters)
 
 	return frappe.db.sql("""
 		select table1.workstation,table1.total_production,table2.total_scrap
@@ -57,8 +56,10 @@ def get_data(filters=None):
 					
 				where 
 					pni_crt.name = pni_crt_tbl.carton_id and
-					pni_crt_tbl.parent = packing.name	
-
+					pni_crt_tbl.parent = packing.name and
+					pni_crt.docstatus = "1" and
+					packing.docstatus = "1"
+					%s
 				group by packing.workstation) as table1,
 				
 				(select 
@@ -72,9 +73,9 @@ def get_data(filters=None):
 					item_table.parent = stock_entry.name and
 					stock_entry.scrap_entry = "1" and
 					stock_entry.pni_reference_type = "Workstation"
-				
+					%s
 				group by stock_entry.pni_reference) as table2
 			
 			where table1.workstation = table2.workstation
-			{0}
-    """.format(conditions))
+			
+    """%(condition1,condition2), filters)

@@ -4,6 +4,11 @@
 
 frappe.query_reports["PNI Workstation Production Report"] = {
 	"filters": [
-		
+		{
+			"fieldname": "from_date", "fieldtype": "Date", "label": __("From Date")
+		},
+		{
+			"fieldname": "to_date", "fieldtype": "Date", "label": __("To Date")
+		}
 	]
 };
