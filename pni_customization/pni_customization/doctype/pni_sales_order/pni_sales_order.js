@@ -37,10 +37,12 @@ frappe.ui.form.on('PNI Sales Order', {
 		cur_frm.set_query("price_list", function() {
 			return { filters: { selling: 1 } };
 		});
-		frappe.db.get_value('Selling Settings', 'Selling Settings', 'selling_price_list',(r) => {
-			frm.set_value("price_list",r.selling_price_list);
-			frm.refresh_field("price_list");
-		} )
+		if(!frm.doc.price_list){
+			frappe.db.get_value('Selling Settings', 'Selling Settings', 'selling_price_list',(r) => {
+				frm.set_value("price_list",r.selling_price_list);
+				frm.refresh_field("price_list");
+			} )
+		}
 	},
 	customer_address: function(frm) {
 		erpnext.utils.get_address_display(frm, 'customer_address', 'address_display', false);
