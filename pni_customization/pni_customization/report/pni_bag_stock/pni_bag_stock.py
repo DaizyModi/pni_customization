@@ -83,7 +83,7 @@ def get_columns():
 
 def get_data(filters=None):
 	conditions = ""
-	group = ", bag.packing_category"
+	group = ", bag.weight"
 	weight = "bag.weight,"
 	if filters.status:
 		conditions += " and bag.status = '{0}' ".format(filters.status)
@@ -137,5 +137,5 @@ def get_data(filters=None):
 			docstatus = "1" {0}
 			
 		group by 
-			bag.item, bag.coated_reel, bag.printed_reel, bag.warehouse, bag.weight {1};
+			bag.item, bag.coated_reel, bag.printed_reel, bag.warehouse, bag.packing_category {1};
 	""".format(conditions, group, weight))
