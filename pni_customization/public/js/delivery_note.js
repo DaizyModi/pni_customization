@@ -52,6 +52,12 @@ frappe.ui.form.on('Delivery Note', {
 				'options': 'Packing Category'
 			},
 			{
+				'fieldname': 'warehouse',
+				'fieldtype': 'Link',
+				'label': 'Warehouse',
+				'options': 'Warehouse'
+			},
+			{
 				'fieldname': 'weight',
 				'fieldtype': 'Float',
 				'label': 'Weight',
@@ -60,7 +66,7 @@ frappe.ui.form.on('Delivery Note', {
 		function(values){
 			frappe.call({
 				method: "pni_customization.utils.get_pni_bags",
-				args: { 'item': values.item, 'qty':values.qty, 'weight':values.weight, 'packing_category': values.packing_category }
+				args: { 'item': values.item, 'qty':values.qty, 'weight':values.weight, 'packing_category': values.packing_category, 'warehouse': values.warehouse }
 			}).then(r => {
 				const data = r && r.message;
 				console.log(data);
