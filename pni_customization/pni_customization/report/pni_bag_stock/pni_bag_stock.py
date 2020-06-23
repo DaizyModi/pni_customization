@@ -6,10 +6,10 @@ import frappe
 from frappe import _
 
 def execute(filters=None):
-    columns, data = [], []
-    data = get_data(filters)
-    columns = get_columns()
-    return columns, data
+	columns, data = [], []
+	data = get_data(filters)
+	columns = get_columns()
+	return columns, data
 
 def get_columns():
     return  [
@@ -83,7 +83,8 @@ def get_columns():
 
 def get_data(filters=None):
 	conditions = ""
-
+	group = ", bag.packing_category"
+	weight = "bag.weight,"
 	if filters.status:
 		conditions += " and bag.status = '{0}' ".format(filters.status)
 
@@ -91,33 +92,37 @@ def get_data(filters=None):
 		conditions += " and bag.item = '{0}' ".format(filters.item)
 	
 	if filters.brand:
-	    conditions += " and bag.brand = '{0}' ".format(filters.brand)
+		conditions += " and bag.brand = '{0}' ".format(filters.brand)
 
 	if filters.packing_category:
 		conditions += " and bag.packing_category = '{0}' ".format(filters.packing_category)
-    
+
 	if filters.warehouse:
 		conditions += " and bag.warehouse = '{0}' ".format(filters.warehouse)
 	
 	if filters.coated == "Coated":
 		conditions += " and bag.coated_reel <> '' "
-    
+
 	if filters.coated == "Uncoated":
 		conditions += " and bag.coated_reel = '' "
-    
+
 	if filters.printed == "Printed":
 		conditions += " and bag.printed_reel <> '' "
 
 	if filters.printed == "Non-Printed":
 		conditions += " and bag.printed_reel = '' "
 
+	if filters.printed == "packet":
+		conditions += " and bag.packing_category = 'PKT' "
+		group = ""
+		weight = "sum(bag.weight),"
 	return frappe.db.sql("""
 		select 
 			bag.item as "Item:Link/Item:150", 
 			bag.status,
-            bag.packing_category, 
+			bag.packing_category, 
 			count(bag.item), 
-			bag.weight,
+			{2}
 			sum(bag.weight),
 			bag.punching_die, 
 			bag.brand, 
@@ -132,5 +137,5 @@ def get_data(filters=None):
 			docstatus = "1" {0}
 			
 		group by 
-			bag.item, bag.coated_reel, bag.printed_reel, bag.warehouse, bag.weight, bag.packing_category;
-    """.format(conditions))
+			bag.item, bag.coated_reel, bag.printed_reel, bag.warehouse, bag.weight {1};
+	""".format(conditions, group, weight))

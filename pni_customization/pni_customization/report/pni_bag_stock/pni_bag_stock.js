@@ -64,6 +64,13 @@ frappe.query_reports["PNI Bag Stock"] = {
 			"default": "All",
 			"reqd": 0,
 			"width": "80",
+		},
+		{
+			"fieldname":"packet",
+			"label": __("Packet"),
+			"fieldtype": "Check",
+			"reqd": 0,
+			"width": "80",
 		}
 	]
 }
