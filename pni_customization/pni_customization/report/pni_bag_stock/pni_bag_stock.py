@@ -112,7 +112,7 @@ def get_data(filters=None):
 	if filters.printed == "Non-Printed":
 		conditions += " and bag.printed_reel = '' "
 
-	if filters.printed == "packet":
+	if filters.packet:
 		conditions += " and bag.packing_category = 'PKT' "
 		group = ""
 		weight = "sum(bag.weight),"
