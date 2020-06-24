@@ -159,6 +159,7 @@
    "options": "Item"
   },
   {
+   "allow_on_submit": 1,
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
@@ -166,7 +167,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-24 14:09:55.321392",
+ "modified": "2020-06-24 14:26:31.641815",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel",
