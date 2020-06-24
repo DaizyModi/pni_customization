@@ -82,7 +82,8 @@ class PNIPacking(Document):
 				doc = frappe.get_doc({
 					"doctype": "PNI Carton",
 					"naming_series": setting.paper_plate_carton_series if self.is_paper_plate else setting.paper_cup_carton_series,
-					"item": self.item	
+					"item": self.item,
+					"posting_date": self.date	
 				})
 				doc.insert()
 				data.carton_id = doc.name
@@ -90,6 +91,7 @@ class PNIPacking(Document):
 			if data.carton_id:
 				doc2 = frappe.get_doc("PNI Carton",data.carton_id)
 				doc2.is_paper_plate = True if self.is_paper_plate else False
+				doc2.posting_date = self.date
 				doc2.item = self.item
 				doc2.shift = self.shift
 				doc2.supervisor = self.supervisor

@@ -76,6 +76,12 @@ def get_data(filters=None):
 	if filters.brand:
 		conditions += " and item.brand = '{0}' ".format(filters.brand)
 
+	if filters.from_date:
+		conditions += " and crt.posting_date >= '{0}' ".format(filters.from_date)
+	
+	if filters.to_date:
+		conditions += " and crt.posting_date <='{0}' ".format(filters.to_date)
+
 	return frappe.db.sql("""
 		select 
 			crt.item, item.brand, crt.status, crt.size, crt.no_of_stack, count(crt.item), sum(crt.total), sum(crt.net_weight),

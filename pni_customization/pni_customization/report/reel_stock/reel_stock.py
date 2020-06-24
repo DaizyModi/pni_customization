@@ -54,54 +54,59 @@ def get_columns():
     ]
 
 def get_data(filters=None):
-    conditions = ""
-    table = ""
-    conditions_for_varient = ""
+	conditions = ""
+	table = ""
+	conditions_for_varient = ""
 
-    if filters.gsm or filters.size:
-        table += " , `tabItem Variant Attribute` as ivt "
-        conditions_for_varient += " and ivt.parent = rl.item"
-    
-    
-    if filters.status:
-        conditions += " and rl.status = '{0}' ".format(filters.status)
+	if filters.gsm or filters.size:
+		table += " , `tabItem Variant Attribute` as ivt "
+		conditions_for_varient += " and ivt.parent = rl.item"
 
-    if filters.item:
-        conditions += " and rl.item = '{0}' ".format(filters.item)
-    
-    if filters.brand:
-        conditions += " and rl.brand = '{0}' ".format(filters.brand)
-    
-    if filters.gsm:
-        conditions_for_varient += " and ivt.attribute = 'GSM' and ivt.attribute_value = '{0}' ".format(filters.gsm)
-    
-    if filters.size:
-        conditions_for_varient += " and ivt.attribute = 'Reel Size' and ivt.attribute_value = '{0}' ".format(filters.size)
 
-    
-    if filters.warehouse:
-        conditions += " and rl.warehouse = '{0}' ".format(filters.warehouse)
-    
-    if filters.coated == "Coated":
-        conditions += " and rl.coated_reel <> '' "
-    
-    if filters.coated == "Uncoated":
-        conditions += " and rl.coated_reel = '' "
-    
-    if filters.printed == "Printed":
-        conditions += " and rl.printed_reel <> '' "
-    
-    if filters.printed == "Non-Printed":
-        conditions += " and rl.printed_reel = '' "
-    
-    return frappe.db.sql("""
-            select 
-                rl.item, count(rl.item), sum(rl.weight), rl.status, rl.brand, 
-                rl.coated_reel, rl.printed_reel
+	if filters.status:
+		conditions += " and rl.status = '{0}' ".format(filters.status)
 
-            from `tabReel` as rl {0}
-                where rl.docstatus = '1' {1} {2}
+	if filters.item:
+		conditions += " and rl.item = '{0}' ".format(filters.item)
 
-            group by 
-                rl.item, rl.coated_reel, rl.printed_reel;
-        """.format(table, conditions, conditions_for_varient))
+	if filters.brand:
+		conditions += " and rl.brand = '{0}' ".format(filters.brand)
+
+	if filters.gsm:
+		conditions_for_varient += " and ivt.attribute = 'GSM' and ivt.attribute_value = '{0}' ".format(filters.gsm)
+
+	if filters.size:
+		conditions_for_varient += " and ivt.attribute = 'Reel Size' and ivt.attribute_value = '{0}' ".format(filters.size)
+
+
+	if filters.warehouse:
+		conditions += " and rl.warehouse = '{0}' ".format(filters.warehouse)
+
+	if filters.coated == "Coated":
+		conditions += " and rl.coated_reel <> '' "
+
+	if filters.coated == "Uncoated":
+		conditions += " and rl.coated_reel = '' "
+
+	if filters.printed == "Printed":
+		conditions += " and rl.printed_reel <> '' "
+
+	if filters.printed == "Non-Printed":
+		conditions += " and rl.printed_reel = '' "
+
+	if filters.from_date:
+		conditions += " and rl.posting_date >= '{0}' ".format(filters.from_date)
+
+	if filters.to_date:
+		conditions += " and rl.posting_date <='{0}' ".format(filters.to_date)
+	return frappe.db.sql("""
+		select 
+		rl.item, count(rl.item), sum(rl.weight), rl.status, rl.brand, 
+		rl.coated_reel, rl.printed_reel
+
+		from `tabReel` as rl {0}
+		where rl.docstatus = '1' {1} {2}
+
+		group by 
+		rl.item, rl.coated_reel, rl.printed_reel;
+	""".format(table, conditions, conditions_for_varient))

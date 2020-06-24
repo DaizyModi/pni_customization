@@ -8,6 +8,6 @@ frappe.query_reports["PNI Carton Stock"] = {
 			"default": "Available",
 			"reqd": 1,
 			"width": "80",
-		},
+		}
 	]
 }

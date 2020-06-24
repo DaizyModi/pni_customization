@@ -11,6 +11,7 @@
   "is_paper_plate",
   "item_name",
   "column_break_4",
+  "posting_date",
   "item_description",
   "shift",
   "supervisor",
@@ -129,10 +130,16 @@
    "fieldname": "is_paper_plate",
    "fieldtype": "Check",
    "label": "Is Paper Plate"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-20 17:56:38.671551",
+ "modified": "2020-06-24 13:41:58.577006",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Carton",

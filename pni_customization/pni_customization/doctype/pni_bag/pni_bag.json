@@ -9,6 +9,7 @@
   "naming_series",
   "status",
   "item",
+  "posting_date",
   "supplier_reel_id",
   "packing_category",
   "punching_die",
@@ -118,10 +119,16 @@
    "fieldtype": "Data",
    "label": "Supplier Reel ID",
    "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-24 10:55:25.195682",
+ "modified": "2020-06-24 13:57:24.712365",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Bag",

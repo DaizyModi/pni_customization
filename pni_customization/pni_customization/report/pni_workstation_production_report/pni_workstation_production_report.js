@@ -9,9 +9,6 @@ frappe.query_reports["PNI Workstation Production Report"] = {
 		},
 		{
 			"fieldname": "to_date", "fieldtype": "Date", "label": __("To Date")
-		},
-		// {
-		// 	"fieldname": "by_item", "fieldtype": "Check", "label": __("Scrap By Item")
-		// }
+		}
 	]
 };

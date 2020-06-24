@@ -71,6 +71,12 @@ frappe.query_reports["PNI Bag Stock"] = {
 			"fieldtype": "Check",
 			"reqd": 0,
 			"width": "80",
+		},
+		{
+			"fieldname": "from_date", "fieldtype": "Date", "label": __("From Date")
+		},
+		{
+			"fieldname": "to_date", "fieldtype": "Date", "label": __("To Date")
 		}
 	]
 }

@@ -8,6 +8,6 @@ frappe.query_reports["PNI Carton Stock Paper Plate"] = {
 			"default": "Available",
 			"reqd": 1,
 			"width": "80",
-		},
+		}
 	]
 }

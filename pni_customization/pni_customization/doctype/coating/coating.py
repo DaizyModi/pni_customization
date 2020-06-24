@@ -39,6 +39,7 @@ class Coating(Document):
 					"doctype": "Reel",
 					"status": "Draft",
 					"process_prefix": "CO",
+					"posting_date": self.date,
 					"supplier_reel_id": reel_in.supplier_reel_id,
 					"warehouse": self.fg_warehouse if not data.half_reel else self.src_warehouse ,
 					"item": reel_in.item,

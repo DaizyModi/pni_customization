@@ -74,6 +74,7 @@ class Slitting(Document):
 					"doctype": "Reel",
 					"status": "Draft",
 					"process_prefix": "SL",
+					"posting_date": self.date,
 					"supplier_reel_id": reel_in.supplier_reel_id,
 					"item": data.item_out if not data.half_reel else reel_in.item,
 					"printed_item": reel_in.printed_item,

@@ -30,6 +30,7 @@ class Printing(Document):
 					"doctype": "Reel",
 					"status": "Draft",
 					"process_prefix": "PR",
+					"posting_date": self.date,
 					"supplier_reel_id": reel_in.supplier_reel_id,
 					"item": reel_in.item,
 					"printed_item": data.printing_item,

@@ -78,6 +78,7 @@ class Packing(Document):
 					doc = frappe.get_doc({
 						"doctype": "PNI Bag",
 						"status": "In Stock",
+						"posting_date": self.date
 						"item": self.item,
 						"punching_die": self.punching_die,
 						"packing_category": row.packing_category,
