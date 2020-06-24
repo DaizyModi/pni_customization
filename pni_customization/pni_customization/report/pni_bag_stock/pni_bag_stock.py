@@ -118,10 +118,10 @@ def get_data(filters=None):
 		weight = "sum(bag.weight),"
 	
 	if filters.from_date:
-		conditions += " and bag.posting_date >= '{0}' ".format(filters.from_date)
+		conditions += " and bag.creation >= '{0}' ".format(filters.from_date)
 	
 	if filters.to_date:
-		conditions += " and bag.posting_date <='{0}' ".format(filters.to_date)
+		conditions += " and bag.creation <='{0}' ".format(filters.to_date)
 	
 	return frappe.db.sql("""
 		select 

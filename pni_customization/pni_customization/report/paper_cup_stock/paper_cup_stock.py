@@ -77,10 +77,10 @@ def get_data(filters=None):
 		conditions += " and item.brand = '{0}' ".format(filters.brand)
 
 	if filters.from_date:
-		conditions += " and crt.posting_date >= '{0}' ".format(filters.from_date)
+		conditions += " and crt.creation >= '{0}' ".format(filters.from_date)
 	
 	if filters.to_date:
-		conditions += " and crt.posting_date <='{0}' ".format(filters.to_date)
+		conditions += " and crt.creation <='{0}' ".format(filters.to_date)
 
 	return frappe.db.sql("""
 		select 

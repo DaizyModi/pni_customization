@@ -95,10 +95,10 @@ def get_data(filters=None):
 		conditions += " and rl.printed_reel = '' "
 
 	if filters.from_date:
-		conditions += " and rl.posting_date >= '{0}' ".format(filters.from_date)
+		conditions += " and rl.creation >= '{0}' ".format(filters.from_date)
 
 	if filters.to_date:
-		conditions += " and rl.posting_date <='{0}' ".format(filters.to_date)
+		conditions += " and rl.creation <='{0}' ".format(filters.to_date)
 	return frappe.db.sql("""
 		select 
 		rl.item, count(rl.item), sum(rl.weight), rl.status, rl.brand, 
