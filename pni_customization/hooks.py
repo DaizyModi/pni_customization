@@ -32,7 +32,7 @@ fixtures = [
 					"scan_reel", "justdial_details", "j_leadid", "j_leadtype", "j_email", "j_date","j_category",
 					"j_city","j_area","j_brancharea","j_dncmobile","j_dncphone","j_company", "j_pincode",
 					"j_time","j_branchpin", "j_parentid","pni_sales_order_item","item_filter",
-					"add_pni_bag", "weight_filter", "section_pni_settings", "section_pni_packing_table", "pni_clm_brk"
+					"add_pni_bag", "weight_filter", "section_pni_settings", "section_pni_packing_table", "pni_clm_brk","is_paper_cup"
 				)
 			]
 		]
