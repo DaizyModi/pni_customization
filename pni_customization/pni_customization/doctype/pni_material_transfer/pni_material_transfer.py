@@ -51,7 +51,7 @@ class PNIMaterialTransfer(Document):
 			if self.packing_category:
 				filters['packing_category'] = self.packing_category
 			if self.pni_bag_weight:
-				filters['weight'] = self.pni_bag_weight
+				filters['weight'] = int(self.pni_bag_weight)
 			bags = frappe.get_all("PNI Bag", filters=filters, fields=['name', 'weight'])
 			count = 0
 			for bag in bags:
