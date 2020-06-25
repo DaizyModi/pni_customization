@@ -22,6 +22,8 @@
   "get_data",
   "column_break_10",
   "nos",
+  "packing_category",
+  "pni_bag_weight",
   "total_weight",
   "section_break_12",
   "material_transfer_table",
@@ -149,10 +151,21 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "PNI Material Type"
+  },
+  {
+   "fieldname": "packing_category",
+   "fieldtype": "Link",
+   "label": "Packing Category",
+   "options": "Packing Category"
+  },
+  {
+   "fieldname": "pni_bag_weight",
+   "fieldtype": "Float",
+   "label": "Pni Bag Weight"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-04-08 21:24:13.483984",
+ "modified": "2020-06-25 11:48:17.929651",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Material Transfer",

@@ -47,7 +47,12 @@ class PNIMaterialTransfer(Document):
 	def get_bag(self):
 		self.material_transfer_table = {}
 		if self.pni_material_type=="Blank":
-			bags = frappe.get_all("PNI Bag", filters={'item': self.item, 'status': "In Stock", 'warehouse': self.from_warehouse}, fields=['name', 'weight'])
+			filters={'item': self.item, 'status': "In Stock", 'warehouse': self.from_warehouse}
+			if self.packing_category:
+				filters['packing_category'] = self.packing_category
+			if self.pni_bag_weight:
+				filters['weight'] = self.pni_bag_weight
+			bags = frappe.get_all("PNI Bag", filters=filters, fields=['name', 'weight'])
 			count = 0
 			for bag in bags:
 				count += 1
