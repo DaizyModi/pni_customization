@@ -1,18 +1,6 @@
-frappe.ui.form.on('Sales Order', {
-	is_order_approved_by_customer(frm) {
-	    if(frm.doc.is_order_approved_by_customer === 1){
-	        frm.set_value("image","");
-	        frm.set_df_property('image','reqd', 1);
-	    }
-	    if(frm.doc.is_order_approved_by_customer === 0){
-	        frm.set_value("image","");
-	        frm.set_df_property('image','reqd', 0);
-	    }
-	}
-});
-
 frappe.ui.form.on("Sales Order Item",{
 	"item_code" : function (frm, cdt, cdn){
+		cur_frm.clear_table("last_sales_table");
 		cur_frm.clear_table("last_customer_sales_table");
 		var d2 = locals[cdt][cdn];
 		if(frm.doc.customer && d2.item_code){
@@ -35,13 +23,6 @@ frappe.ui.form.on("Sales Order Item",{
 				}
 			});
 		}
-	}
-});
-                	
-frappe.ui.form.on("Sales Order Item",{
-	"item_code" : function (frm, cdt, cdn){
-		cur_frm.clear_table("last_sales_table");
-		var d2 = locals[cdt][cdn];
 		if(d2.item_code){
 			frappe.call({
 				"method": "last_records.last_records.doctype.last_purchase_table.last_purchase_table.getLastSalespriceCustomer",
@@ -65,7 +46,12 @@ frappe.ui.form.on("Sales Order Item",{
 		d2.base_uom_rate = parseFloat(d2.price_list_rate / d2.conversion_factor	)
 	},
 	"is_paper_plate": function(frm, cdt, cdn) {
-		frm.set_df_property('rate','read_only', 1);
+		debugger;
+		frappe.meta.get_docfield(cdt, 'rate', cdn).read_only=1
+	},
+	"paper_cup": function(frm, cdt, cdn) {
+		debugger;
+		frappe.meta.get_docfield(cdt, 'rate', cdn).read_only=1
 	},
 	"uom": function(frm, cdt,cdn){
 		var d2 = locals[cdt][cdn];
@@ -78,13 +64,15 @@ frappe.ui.form.on("Sales Order Item",{
 	},
 	"base_uom_rate": function(frm, cdt, cdn){
 		var d2 = locals[cdt][cdn];
-		if(parseFloat(d2.base_uom_rate * d2.conversion_factor) < d2.price_list_rate){
+		if(parseFloat(d2.base_uom_rate * d2.conversion_factor) < d2.price_list_rate & d2.price_list_rate){
 			frappe.msgprint("Rate can't be less then "+parseFloat(d2.price_list_rate / d2.conversion_factor	))
 			d2.base_uom_rate = parseFloat(d2.price_list_rate / d2.conversion_factor	)
 			frm.refresh_field("items")
 			return;
 		}
 		d2.rate = parseFloat(d2.base_uom_rate * d2.conversion_factor)
+		// d2.price_list_rate = parseFloat(d2.base_uom_rate * d2.conversion_factor)
+		// frm.script_manager.trigger("price_list_rate", cdt, cdn);
 		frm.refresh_field("items")
 	},
 	"rate": function(frm, cdt, cdn){
@@ -94,6 +82,19 @@ frappe.ui.form.on("Sales Order Item",{
 			d2.base_uom_rate = parseFloat(d2.price_list_rate / d2.conversion_factor	)
 			frm.refresh_field("items")
 		}
+	}
+});
+
+frappe.ui.form.on('Sales Order', {
+	is_order_approved_by_customer(frm) {
+	    if(frm.doc.is_order_approved_by_customer === 1){
+	        frm.set_value("image","");
+	        frm.set_df_property('image','reqd', 1);
+	    }
+	    if(frm.doc.is_order_approved_by_customer === 0){
+	        frm.set_value("image","");
+	        frm.set_df_property('image','reqd', 0);
+	    }
 	}
 });
 
