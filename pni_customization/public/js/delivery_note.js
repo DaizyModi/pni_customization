@@ -56,7 +56,7 @@ frappe.ui.form.on('Delivery Note', {
 				'fieldtype': 'Link',
 				'label': 'Warehouse',
 				'options': 'Warehouse',
-				'default': 'FG Blank and Bottom'
+				'default': 'FG Blank and Bottom - PNI'
 			},
 			{
 				'fieldname': 'weight',
