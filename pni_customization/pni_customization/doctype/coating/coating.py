@@ -40,29 +40,32 @@ class Coating(Document):
 					"status": "Draft",
 					"process_prefix": "CO",
 					"posting_date": self.date,
-					"supplier_reel_id": reel_in.supplier_reel_id,
-					"warehouse": self.fg_warehouse if not data.half_reel else self.src_warehouse ,
-					"item": reel_in.item,
-					"printed_item": reel_in.printed_item,
-					"type": reel_in.type,
-					"brand": reel_in.brand,
-					"blank_weight": reel_in.blank_weight,
-					"coated_reel": True if not data.half_reel else False,
-					"printed_reel": reel_in.printed_reel,
-					"printed_weight": reel_in.printed_weight,
-					"coated_weight": data.weight_out if not data.half_reel else "",
-					"weight": data.weight_out
 				})
 				doc.insert()
 				data.reel_out = doc.name
 			else:
 				doc = frappe.get_doc("Reel",data.reel_out)
-				doc.weight = data.weight_out
-				if data.half_reel:
-					doc.warehouse = self.src_warehouse
-					doc.coated_reel = False
-					doc.coated_weight = ""
-				doc.save()
+			
+			doc.type = reel_in.type
+			doc.item = reel_in.item
+			doc.brand = reel_in.brand
+			doc.supplier_reel_id =  reel_in.supplier_reel_id
+			doc.warehouse = self.fg_warehouse if not data.half_reel else self.src_warehouse 
+			doc.printed_item = reel_in.printed_item
+			doc.custom_id = data.custom_id
+			doc.blank_weight = reel_in.blank_weight
+			doc.coated_reel = True if not data.half_reel else False
+			doc.printed_reel = reel_in.printed_reel
+			doc.printed_weight = reel_in.printed_weight
+			doc.coated_weight = data.weight_out if not data.half_reel else ""
+			doc.weight = data.weight_out
+			
+			if data.half_reel:
+				doc.warehouse = self.src_warehouse
+				doc.coated_reel = False
+				doc.coated_weight = ""
+			
+			doc.save()
 	
 	def manage_reel_tracking(self):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")

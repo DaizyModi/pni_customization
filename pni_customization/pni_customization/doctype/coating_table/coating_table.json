@@ -9,6 +9,7 @@
   "weight",
   "weight_out",
   "reel_out",
+  "custom_id",
   "half_reel"
  ],
  "fields": [
@@ -62,10 +63,15 @@
    "fieldtype": "Check",
    "in_list_view": 1,
    "label": "Half Reel"
+  },
+  {
+   "fieldname": "custom_id",
+   "fieldtype": "Data",
+   "label": "Custom ID"
   }
  ],
  "istable": 1,
- "modified": "2020-04-20 03:11:44.355043",
+ "modified": "2020-06-27 13:21:33.989320",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Coating Table",

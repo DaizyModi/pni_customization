@@ -9,6 +9,7 @@
   "naming_series",
   "process_prefix",
   "reel_id",
+  "custom_id",
   "posting_date",
   "status",
   "supplier_reel_id",
@@ -35,8 +36,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Brand",
-   "options": "Brand",
-   "reqd": 1
+   "options": "Brand"
   },
   {
    "fieldname": "weight",
@@ -48,8 +48,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Type",
-   "options": "Blank Reel\nBottom Reel",
-   "reqd": 1
+   "options": "Blank Reel\nBottom Reel"
   },
   {
    "default": "0",
@@ -71,8 +70,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Item",
-   "options": "Item",
-   "reqd": 1
+   "options": "Item"
   },
   {
    "fieldname": "column_break_5",
@@ -163,11 +161,17 @@
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date"
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "custom_id",
+   "fieldtype": "Data",
+   "label": "Custom ID"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-24 14:26:31.641815",
+ "modified": "2020-06-27 13:29:39.860393",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel",
