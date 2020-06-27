@@ -11,7 +11,8 @@
   "die_serial_number",
   "punch_table",
   "weight_out",
-  "item_out"
+  "item_out",
+  "custom_id"
  ],
  "fields": [
   {
@@ -82,10 +83,15 @@
    "label": "Item Out",
    "options": "Item",
    "reqd": 1
+  },
+  {
+   "fieldname": "custom_id",
+   "fieldtype": "Data",
+   "label": "Custom Id"
   }
  ],
  "istable": 1,
- "modified": "2020-04-16 05:56:36.338684",
+ "modified": "2020-06-27 13:40:05.204599",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Punching Table",

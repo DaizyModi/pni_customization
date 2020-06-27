@@ -30,7 +30,7 @@ class Printing(Document):
 					"doctype": "Reel",
 					"status": "Draft",
 					"process_prefix": "PR",
-					"posting_date": self.date,
+					"posting_date": self.date
 				})
 				doc.insert()
 				data.reel_out = doc.name

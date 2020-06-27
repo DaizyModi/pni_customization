@@ -28,22 +28,22 @@ class Punching(Document):
 				doc = frappe.get_doc({
 					"doctype": "Punch Table",
 					"status": "Draft",
-					"item": data.item_out,
-					"printed_item": reel_in.printed_item,
-					"supplier_reel_id": reel_in.supplier_reel_id,
-					"punching_die": data.punching_die,
-					"brand": reel_in.brand,
-					"coated_reel": reel_in.coated_reel,
-					"printed_reel": reel_in.printed_reel,
-					"weight": data.weight_out
 				})
 				doc.insert()
 				data.punch_table = doc.name
 			else:
 				doc = frappe.get_doc("Punch Table",data.punch_table)
-				doc.weight = data.weight_out
-				doc.punching_die = data.punching_die
-				doc.save()
+			doc.custom_id = data.custom_id
+			doc.item = data.item_out
+			doc.printed_item = reel_in.printed_item
+			doc.supplier_reel_id = reel_in.supplier_reel_id
+			doc.punching_die = data.punching_die
+			doc.brand = reel_in.brand
+			doc.coated_reel = reel_in.coated_reel
+			doc.printed_reel = reel_in.printed_reel
+			doc.weight = data.weight_out
+			doc.punching_die = data.punching_die
+			doc.save()
 	
 	def manage_reel_tracking(self):
 		for data in self.punching_table:
