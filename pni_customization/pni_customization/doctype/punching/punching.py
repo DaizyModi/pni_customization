@@ -27,7 +27,7 @@ class Punching(Document):
 			if not data.punch_table:
 				doc = frappe.get_doc({
 					"doctype": "Punch Table",
-					"status": "Draft",
+					"status": "Draft"
 				})
 				doc.insert()
 				data.punch_table = doc.name
