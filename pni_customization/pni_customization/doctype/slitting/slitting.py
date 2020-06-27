@@ -75,29 +75,31 @@ class Slitting(Document):
 					"status": "Draft",
 					"process_prefix": "SL",
 					"posting_date": self.date,
-					"supplier_reel_id": reel_in.supplier_reel_id,
-					"item": data.item_out if not data.half_reel else reel_in.item,
-					"printed_item": reel_in.printed_item,
-					"warehouse": self.fg_warehouse if not data.half_reel else self.src_warehouse,
-					"type": data.type if data.type else reel_in.type,
-					"brand": reel_in.brand,
-					"blank_weight": reel_in.blank_weight,
-					"coated_reel":  reel_in.coated_reel,
-					"printed_reel": reel_in.printed_reel,
-					"printed_weight": reel_in.printed_weight,
-					"coated_weight": reel_in.coated_weight,
-					"weight": data.weight_out
+					
 				})
 				doc.insert()
 				data.reel_out = doc.name
 			else:
 				doc = frappe.get_doc("Reel",data.reel_out)
-				doc.weight = data.weight_out
-				doc.type = data.type if data.type else reel_in.type
-				if data.half_reel:
-					doc.item = reel_in.item
-					doc.warehouse = self.src_warehouse
-				doc.save()
+			
+			doc.custom_id = data.custom_id
+			doc.supplier_reel_id = reel_in.supplier_reel_id
+			doc.item = data.item_out if not data.half_reel else reel_in.item
+			doc.printed_item = reel_in.printed_item
+			doc.warehouse = self.fg_warehouse if not data.half_reel else self.src_warehouse
+			doc.type = data.type if data.type else reel_in.type
+			doc.brand = reel_in.brand
+			doc.blank_weight = reel_in.blank_weight
+			doc.coated_reel =  reel_in.coated_reel
+			doc.printed_reel = reel_in.printed_reel
+			doc.printed_weight = reel_in.printed_weight
+			doc.coated_weight = reel_in.coated_weight
+			doc.weight = data.weight_out
+			doc.type = data.type if data.type else reel_in.type
+			if data.half_reel:
+				doc.item = reel_in.item
+				doc.warehouse = self.src_warehouse
+			doc.save()
 	
 	def manage_reel_tracking(self):
 		for data in self.slitting_table:

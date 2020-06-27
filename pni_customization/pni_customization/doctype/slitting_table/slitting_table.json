@@ -11,7 +11,8 @@
   "type",
   "weight_out",
   "reel_out",
-  "half_reel"
+  "half_reel",
+  "custom_id"
  ],
  "fields": [
   {
@@ -79,10 +80,15 @@
    "fieldname": "half_reel",
    "fieldtype": "Check",
    "label": "Half Reel"
+  },
+  {
+   "fieldname": "custom_id",
+   "fieldtype": "Data",
+   "label": "Custom ID"
   }
  ],
  "istable": 1,
- "modified": "2020-04-20 08:13:34.104936",
+ "modified": "2020-06-27 13:33:48.255453",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Slitting Table",
