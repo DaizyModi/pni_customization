@@ -90,7 +90,7 @@ frappe.ui.form.on('Delivery Note', {
 })
 frappe.ui.form.on('PNI Packing Table', {
 	pni_carton: function(frm, cdt, cdn){
-		add_packing_to_item(frm);
+		// add_packing_to_item(frm);
 	}
 })
 var fetch_packing = function(frm, scan_barcode_field, doctype){
@@ -154,7 +154,7 @@ var fetch_packing = function(frm, scan_barcode_field, doctype){
 			});
 			
 			refresh_field('pni_packing_table')
-			add_packing_to_item(frm);
+			// add_packing_to_item(frm);
 			
 		});
 	}
