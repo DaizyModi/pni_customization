@@ -73,7 +73,9 @@ def get_data(filters=None):
 					packing.docstatus = "1" and
 					item.name = packing.item
 					%s
-				group by packing.workstation) as table1,
+				group by packing.workstation) as table1
+
+				left join 
 				
 				(select 
 					stock_entry.pni_reference as workstation,
@@ -90,6 +92,6 @@ def get_data(filters=None):
 					%s
 				group by stock_entry.pni_reference) as table2
 			
-			where table1.workstation = table2.workstation
+			on table1.workstation = table2.workstation
 			
     """%(condition1, condition2), filters)
