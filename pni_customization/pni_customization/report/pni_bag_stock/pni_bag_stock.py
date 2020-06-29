@@ -79,6 +79,12 @@ def get_columns():
             "options": "Warehouse",
             "width": 120
         },
+		{
+            "fieldname": "actual_stock",
+            "label": _("Actual Stock"),
+            "fieldtype": "Float",
+			"width": 100
+        },
     ]
 
 def get_data(filters=None):
@@ -135,13 +141,17 @@ def get_data(filters=None):
 			bag.brand, 
 			bag.coated_reel, 
 			bag.printed_reel, 
-			bag.warehouse       
+			bag.warehouse,
+			sum(bin.actual_qty)       
 		
 		from 
 			`tabPNI Bag` as bag
+		left join
+			`tabBin` as bin
+		on bin.item_code = bag.item and bin.warehouse = bag.warehouse
 			
 		where 
-			docstatus = "1" {0}
+			bag.docstatus = "1" {0}
 			
 		group by 
 			bag.item, bag.coated_reel, bag.printed_reel, bag.warehouse, bag.packing_category {1};

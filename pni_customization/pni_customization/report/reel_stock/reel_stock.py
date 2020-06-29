@@ -50,6 +50,19 @@ def get_columns():
             "fieldname": "printed_reel",
             "label": _("Printed Reel"),
             "fieldtype": "Check",
+        },
+		{
+            "fieldname": "warehouse",
+            "label": _("Warehouse"),
+            "fieldtype": "Link",
+            "options": "Warehouse",
+            "width": 120
+        },
+		{
+            "fieldname": "actual_stock",
+            "label": _("Actual Stock"),
+            "fieldtype": "Float",
+			"width": 100
         }
     ]
 
@@ -59,7 +72,7 @@ def get_data(filters=None):
 	conditions_for_varient = ""
 
 	if filters.gsm or filters.size:
-		table += " , `tabItem Variant Attribute` as ivt "
+		table += "`tabItem Variant Attribute` as ivt, "
 		conditions_for_varient += " and ivt.parent = rl.item"
 
 
@@ -102,11 +115,14 @@ def get_data(filters=None):
 	return frappe.db.sql("""
 		select 
 		rl.item, count(rl.item), sum(rl.weight), rl.status, rl.brand, 
-		rl.coated_reel, rl.printed_reel
+		rl.coated_reel, rl.printed_reel, rl.warehouse, sum(bin.actual_qty)
 
-		from `tabReel` as rl {0}
+		from {0} `tabReel` as rl 
+		left join
+			`tabBin` as bin
+		on bin.item_code = rl.item and bin.warehouse = rl.warehouse
 		where rl.docstatus = '1' {1} {2}
 
 		group by 
-		rl.item, rl.coated_reel, rl.printed_reel;
+		rl.item, rl.coated_reel, rl.printed_reel, rl.warehouse;
 	""".format(table, conditions, conditions_for_varient))
