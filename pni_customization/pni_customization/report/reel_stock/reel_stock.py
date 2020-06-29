@@ -115,7 +115,7 @@ def get_data(filters=None):
 	return frappe.db.sql("""
 		select 
 		rl.item, count(rl.item), sum(rl.weight), rl.status, rl.brand, 
-		rl.coated_reel, rl.printed_reel, rl.warehouse, sum(bin.actual_qty)
+		rl.coated_reel, rl.printed_reel, rl.warehouse, bin.actual_qty
 
 		from {0} `tabReel` as rl 
 		left join

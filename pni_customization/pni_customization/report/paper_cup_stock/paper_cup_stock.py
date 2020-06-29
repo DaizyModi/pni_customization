@@ -91,7 +91,7 @@ def get_data(filters=None):
 	return frappe.db.sql("""
 		select 
 			crt.item, item.brand, crt.status, crt.size, crt.no_of_stack, count(crt.item), sum(crt.total), sum(crt.net_weight),
-			sum(crt.gross_weight), sum(bin.actual_qty)
+			sum(crt.gross_weight), bin.actual_qty
 		
 		from 
 			 `tabItem` as item, `tabPNI Carton` as crt

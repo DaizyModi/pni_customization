@@ -142,7 +142,7 @@ def get_data(filters=None):
 			bag.coated_reel, 
 			bag.printed_reel, 
 			bag.warehouse,
-			sum(bin.actual_qty)       
+			bin.actual_qty
 		
 		from 
 			`tabPNI Bag` as bag
