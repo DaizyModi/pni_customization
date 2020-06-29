@@ -195,40 +195,64 @@ def make_pni_quotation_from_opportunity(source_name, target_doc=None, ignore_per
 @frappe.whitelist()
 def submit_delivery_item(doc, method):
 	for row in doc.pni_packing_table:
+		
 		if row.packing_type == "PNI Carton":
 			carton = frappe.get_doc("PNI Carton", row.pni_carton)
+			
+			validate_pni_packing(row.pni_carton, carton.item,carton.warehouse, doc.items)
+			
+			if carton.docstatus != 1:
+				frappe.throw("Carton Not SUbmitted")
 			carton.status = "Delivered"
 			carton.save()
+		
 		if row.packing_type == "PNI Bag":
 			bag = frappe.get_doc("PNI Bag", row.pni_carton)
+			
+			validate_pni_packing(row.pni_carton, bag.item, bag.warehouse, doc.items)
+			
+			if carton.docstatus != 1:
+				frappe.throw("Bag Not SUbmitted")
 			bag.status = "Sold"
 			bag.save()
+		
 		if row.packing_type == "Reel":
 			reel = frappe.get_doc("Reel", row.pni_carton)
+			
+			validate_pni_packing(row.pni_carton, reel.item,reel.warehouse, doc.items)
+			
+			if carton.docstatus != 1:
+				frappe.throw("Reel Not SUbmitted")
 			reel.status = "Sold"
 			reel.save()
-	update_delivery_pni_sales_order(doc,"submit")
+	
+	frappe.throw("Success")
+
+def validate_pni_packing(pni_carton, packing_item, packing_item_warehouse, items):
+	item_exist = False
+	for item in items:
+		if packing_item == item.item_code:
+			item_exist = True
+			if packing_item_warehouse != item.warehouse:
+				frappe.throw("Packing {0}'s warehouse {1} not match with Delivery Item's Warehouse: {2}".format(pni_carton,packing_item_warehouse,item.warehouse))
+	if not item_exist:
+		frappe.throw("Packing {0}'s item {1} not available in Delivery Item".format(pni_carton, packing_item))
 
 @frappe.whitelist()
 def cancel_delivery_item(doc, method):
 	for row in doc.pni_packing_table:
-		carton = frappe.get_doc("PNI Carton", row.pni_carton)
-		carton.status = "Available"
-		carton.save()
-	update_delivery_pni_sales_order(doc,"cancel")
-
-@frappe.whitelist()
-def update_delivery_item(doc, method):
-	pass
-	# if doc.pni_sales_order:
-	# 	rate_card = {}
-	# 	list_item = {}
-	# 	for data in doc.pni_delivery_note:
-	# 		rate_card[data.item] = data.rate
-	# 	for data in doc.pni_packing_table:
-	# 		if not list_item[data.item]:
-	# 			list_item[data.item] = 0
-	# 		list_item[data.item] += data.total_qty
+		if row.packing_type == "PNI Carton":
+			carton = frappe.get_doc("PNI Carton", row.pni_carton)
+			carton.status = "Available"
+			carton.save()
+		if row.packing_type == "PNI Bag":
+			bag = frappe.get_doc("PNI Bag", row.pni_carton)
+			bag.status = "In Stock"
+			bag.save()
+		if row.packing_type == "Reel":
+			reel = frappe.get_doc("Reel", row.pni_carton)
+			reel.status = "In Stock"
+			reel.save()
 
 @frappe.whitelist()
 def submit_work_order_item(doc, method):

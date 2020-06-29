@@ -50,7 +50,6 @@ doc_events = {
 		"on_update": "pni_customization.utils.update_item"
 	},
 	"Delivery Note": {
-		"on_update": "pni_customization.utils.update_delivery_item",
 		"on_submit": "pni_customization.utils.submit_delivery_item",
         "on_cancel": "pni_customization.utils.cancel_delivery_item",
 	},

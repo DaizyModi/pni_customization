@@ -24,6 +24,7 @@
   "total",
   "net_weight",
   "gross_weight",
+  "warehouse",
   "amended_from"
  ],
  "fields": [
@@ -137,10 +138,17 @@
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "label": "Posting Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-24 14:25:44.837237",
+ "modified": "2020-06-29 15:43:12.087245",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Carton",
