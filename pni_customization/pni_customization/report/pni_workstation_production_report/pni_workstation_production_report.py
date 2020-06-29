@@ -49,6 +49,7 @@ def get_condition(filters):
     if filters.get("from_date"): condition2 += " AND stock_entry.posting_date >= %(from_date)s"
     if filters.get("to_date"): condition1 += " AND packing.date <= %(to_date)s"
     if filters.get("to_date"): condition2 += " AND stock_entry.posting_date <= %(to_date)s"
+    if filters.get("parent_item"): condition1 += " AND item.variant_of = %(parent_item)s"
     return condition1,condition2
 
 def get_data(filters=None):
