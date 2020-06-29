@@ -13,6 +13,12 @@ def execute(filters=None):
 
 def get_columns():
     return  [
+		{
+            "fieldname": "parent_item",
+            "label": _("Parent Item"),
+            "fieldtype": "Link",
+			"options": "Item"
+        },
         {
             "fieldname": "workstation",
             "label": _("Workstation"),
@@ -49,21 +55,23 @@ def get_data(filters=None):
 	condition1,condition2 = get_condition(filters)
 
 	return frappe.db.sql("""
-		select table1.workstation,table1.total_production,table2.total_scrap, table2.item_code
+		select table1.parent_item, table1.workstation,table1.total_production,table2.total_scrap, table2.item_code
 			from 
 				
 				(select 
-					packing.workstation as workstation, sum(pni_crt.total) as total_production 
+					item.variant_of as parent_item, packing.workstation as workstation, sum(pni_crt.total) as total_production 
 				from 
 					`tabPNI Carton` as pni_crt,
 					`tabPNI Packing` as packing, 
-					`tabPNI Packing Carton` as pni_crt_tbl
+					`tabPNI Packing Carton` as pni_crt_tbl,
+					`tabItem` as item
 					
 				where 
 					pni_crt.name = pni_crt_tbl.carton_id and
 					pni_crt_tbl.parent = packing.name and
 					pni_crt.docstatus = "1" and
-					packing.docstatus = "1"
+					packing.docstatus = "1" and
+					item.name = packing.item
 					%s
 				group by packing.workstation) as table1,
 				
