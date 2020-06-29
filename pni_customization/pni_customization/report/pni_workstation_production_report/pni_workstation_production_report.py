@@ -32,15 +32,14 @@ def get_columns():
             "fieldtype": "Int",
         },
         {
-            "fieldname": "scrap",
-            "label": _("Total Scrap"),
+            "fieldname": "bottom_scrap",
+            "label": _("Total Bottom Scrap"),
             "fieldtype": "Float",
         },
-		{
-            "fieldname": "scrap_item",
-            "label": _("Scrap Item"),
-            "fieldtype": "Link",
-			"options": "Item"
+        {
+            "fieldname": "blank_scrap",
+            "label": _("Total Blank Scrap"),
+            "fieldtype": "Float",
         }
     ]
 def get_condition(filters):
@@ -56,7 +55,7 @@ def get_data(filters=None):
 	condition1,condition2 = get_condition(filters)
 
 	return frappe.db.sql("""
-		select table1.parent_item, table1.workstation,table1.total_production,table2.total_scrap, table2.item_code
+		select table1.parent_item, table1.workstation,table1.total_production,table2.total_bottom_scrap, table2.total_blank_scrap
 			from 
 				
 				(select 
@@ -78,8 +77,8 @@ def get_data(filters=None):
 				
 				(select 
 					stock_entry.pni_reference as workstation,
-					item_table.item_code as item_code,
-					sum(item_table.qty) as total_scrap 
+					SUM(CASE WHEN item_table.item_code = 'Bottom Paper Scrap' THEN item_table.qty ELSE 0 END) as total_bottom_scrap,
+					SUM(CASE WHEN item_table.item_code = 'Blank Paper Scrap' THEN item_table.qty ELSE 0 END) as total_blank_scrap
 				from 
 					`tabStock Entry Detail` as item_table,
 					`tabStock Entry` as stock_entry
@@ -89,7 +88,7 @@ def get_data(filters=None):
 					stock_entry.scrap_entry = "1" and
 					stock_entry.pni_reference_type = "Workstation"
 					%s
-				group by stock_entry.pni_reference, item_table.item_code) as table2
+				group by stock_entry.pni_reference) as table2
 			
 			where table1.workstation = table2.workstation
 			
