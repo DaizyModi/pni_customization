@@ -225,8 +225,6 @@ def submit_delivery_item(doc, method):
 				frappe.throw("Reel Not SUbmitted")
 			reel.status = "Sold"
 			reel.save()
-	
-	frappe.throw("Success")
 
 def validate_pni_packing(pni_carton, packing_item, packing_item_warehouse, items):
 	item_exist = False
