@@ -211,7 +211,7 @@ def submit_delivery_item(doc, method):
 			
 			validate_pni_packing(row.pni_carton, bag.item, bag.warehouse, doc.items)
 			
-			if carton.docstatus != 1:
+			if bag.docstatus != 1:
 				frappe.throw("Bag Not SUbmitted")
 			bag.status = "Sold"
 			bag.save()
@@ -221,7 +221,7 @@ def submit_delivery_item(doc, method):
 			
 			validate_pni_packing(row.pni_carton, reel.item,reel.warehouse, doc.items)
 			
-			if carton.docstatus != 1:
+			if reel.docstatus != 1:
 				frappe.throw("Reel Not SUbmitted")
 			reel.status = "Sold"
 			reel.save()
