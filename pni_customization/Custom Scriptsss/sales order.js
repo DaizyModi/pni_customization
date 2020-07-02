@@ -69,9 +69,9 @@ frappe.ui.form.on("Sales Order Item",{
 		var d2 = locals[cdt][cdn];
 		
 		if(parseFloat(d2.base_uom_rate * d2.conversion_factor) < d2.price_list_rate && d2.price_list_rate > 0){
-			frappe.msgprint("Rate can't be less then "+parseFloat(d2.price_list_rate / d2.conversion_factor	))
+			frappe.msgprint("[Warning] Rate is less then "+parseFloat(d2.price_list_rate / d2.conversion_factor	))
 			if(d2.price_list_rate>0){
-				d2.base_uom_rate = parseFloat(d2.price_list_rate / d2.conversion_factor	)
+				// d2.base_uom_rate = parseFloat(d2.price_list_rate / d2.conversion_factor	)
 				frm.refresh_field("items")
 			}
 			return;
@@ -83,8 +83,8 @@ frappe.ui.form.on("Sales Order Item",{
 	"rate": function(frm, cdt, cdn){
 		var d2 = locals[cdt][cdn];
 		if(d2.rate < d2.price_list_rate && d2.price_list_rate > 0){
-			frappe.msgprint("Rate can't be less then "+d2.price_list_rate)
-			d2.base_uom_rate = parseFloat(d2.price_list_rate / d2.conversion_factor	)
+			frappe.msgprint("[Warning] Rate is less then "+d2.price_list_rate)
+			// d2.base_uom_rate = parseFloat(d2.price_list_rate / d2.conversion_factor	)
 		}
 	}
 });
@@ -112,7 +112,14 @@ frappe.ui.form.on('Sales Order', {
 	    if(frm.doc.docstatus === 0){
 			navigator.geolocation.getCurrentPosition(showPosition);
 			
-	    }
+		}
+	},
+	refresh(frm){
+		frm.doc.items.forEach(function(element) {
+			if(element.price_list_rate>element.rate && element.price_list_rate > 0){
+				frappe.msgprint("[Warning] Item "+element.item_code +"'s rate is lower then Item Price List");
+			}
+		})
 	}
 });
 
