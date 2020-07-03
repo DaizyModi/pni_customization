@@ -103,7 +103,7 @@ class PNIPacking(Document):
 				doc2.size = data.stack_size
 				doc2.no_of_stack = data.packing_size
 				doc2.total = float(data.stack_size) * float(data.packing_size)
-				
+				doc2.warehouse = self.to_warehouse
 				doc2.save()
 				# data.print_carton = data.carton_id
 			
