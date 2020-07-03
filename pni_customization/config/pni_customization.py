@@ -105,6 +105,13 @@ def get_data():
 					"description": _("PNI Bag Stock"),
 					"is_query_report": True,
 					"reference_doctype": "PNI Bag",
+				},
+				{
+					"type": "report",
+					"name": "Low Price Sell",
+					"description": _("Low Price Sell"),
+					"is_query_report": True,
+					"reference_doctype": "Sales Order",
 				}
 			]
 		},
