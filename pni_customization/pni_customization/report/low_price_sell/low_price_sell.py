@@ -67,12 +67,17 @@ def get_columns():
 
 def get_data(filters=None):
 	conditions = ""
+	table_join = ""
 
 	if filters.from_date:
 		conditions += " and so.creation >= '{0}' ".format(filters.from_date)
 	
 	if filters.to_date:
 		conditions += " and so.creation <='{0}' ".format(filters.to_date)
+	
+	if filters.item_group:
+		conditions += " and item.name = soi.item_code and item.item_group = '{0}' ".format(filters.item_group)
+		table_join += ", `tabItem` as item "
 
 	return frappe.db.sql("""
 		select 
@@ -81,11 +86,11 @@ def get_data(filters=None):
 			((soi.price_list_rate - soi.rate)*100/soi.price_list_rate) as diff_per
 		from 
 			 `tabSales Order` as so, `tabSales Order Item` as soi
-
+				{1}
 		where 
 			so.name = soi.parent and
 			so.docstatus <> "2" and
-			soi.price_list_rate > soi.rate
+			soi.price_list_rate > soi.rate and
 			soi.approve_law_rate__ <> "1"
 			{0};
-    """.format(conditions))
+    """.format(conditions, table_join))

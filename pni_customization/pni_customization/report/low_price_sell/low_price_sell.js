@@ -9,6 +9,9 @@ frappe.query_reports["Low Price Sell"] = {
 		},
 		{
 			"fieldname": "to_date", "fieldtype": "Date", "label": __("To Date")
+		},
+		{
+			"fieldname": "item_group", "fieldtype": "Link", "label": "Item Group", "options": "Item Group"
 		}
 	]
 };
