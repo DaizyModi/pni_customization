@@ -86,5 +86,6 @@ def get_data(filters=None):
 			so.name = soi.parent and
 			so.docstatus <> "2" and
 			soi.price_list_rate > soi.rate
+			soi.approve_law_rate__ <> "1"
 			{0};
     """.format(conditions))
