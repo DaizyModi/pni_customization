@@ -70,10 +70,10 @@ def get_data(filters=None):
 	table_join = ""
 
 	if filters.from_date:
-		conditions += " and so.creation >= '{0}' ".format(filters.from_date)
+		conditions += " and so.transaction_date >= '{0}' ".format(filters.from_date)
 	
 	if filters.to_date:
-		conditions += " and so.creation <='{0}' ".format(filters.to_date)
+		conditions += " and so.transaction_date <='{0}' ".format(filters.to_date)
 	
 	if filters.item_group:
 		conditions += " and item.name = soi.item_code and item.item_group = '{0}' ".format(filters.item_group)
