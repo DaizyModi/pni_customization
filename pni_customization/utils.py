@@ -18,6 +18,12 @@ def validate_reel_qty(doc):
 			if int(reel_weight) < int(item.qty):
 				frappe.throw("Total Reel Qty{1} for item  {0} is less then {2} ".format(item.item_code,reel_weight, item.qty))
 
+def validate_so(doc, method):
+	for item in doc.items:
+		if item.is_paper_plate or item.paper_cup:
+			pass
+			# item.rate = item.base_uom_rate * item.conversion_factor
+
 def validate_reel(doc, method):
 	total_weight = 0
 	for reel in doc.reel_table_purchase:

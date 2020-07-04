@@ -62,6 +62,9 @@ doc_events = {
 		"on_update": "pni_customization.utils.job_card_update",
 		# "validate": "pni_customization.utils.job_card_onload"
 	},
+	"Sales Order": {
+		"validate": "pni_customization.utils.validate_so",
+	},
 	"Opportunity": {
 		"validate": "pni_customization.utils.validate_opportunity"
 	},
@@ -171,7 +174,7 @@ permission_query_conditions = {
 # ---------------
 scheduler_events = {
 	"all": [
-		"erpnext.stock.reorder_item.reorder_item"
+		# "erpnext.stock.reorder_item.reorder_item"
 	]
 }
 # scheduler_events = {
