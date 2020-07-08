@@ -205,39 +205,63 @@ def submit_delivery_item(doc, method):
 		if row.packing_type == "PNI Carton":
 			carton = frappe.get_doc("PNI Carton", row.pni_carton)
 			
-			validate_pni_packing(row.pni_carton, carton.item,carton.warehouse, doc.items)
+			validate_pni_packing(row.pni_carton, carton.item,carton.warehouse, doc.items, doc.is_return)
+			
+			if not doc.is_return:
+				carton.status = "Delivered"
+			else:
+				carton.status = "Available"
+				carton.warehouse = get_carton_warehouse(carton.item, doc.items)
+				carton.is_return = True
 			
 			if carton.docstatus != 1:
 				frappe.throw("Carton Not SUbmitted")
-			carton.status = "Delivered"
+			
 			carton.save()
 		
 		if row.packing_type == "PNI Bag":
 			bag = frappe.get_doc("PNI Bag", row.pni_carton)
 			
-			validate_pni_packing(row.pni_carton, bag.item, bag.warehouse, doc.items)
+			validate_pni_packing(row.pni_carton, bag.item, bag.warehouse, doc.items, doc.is_return)
+			
+			if not doc.is_return:
+				bag.status = "Sold"
+			else:
+				bag.status = "In Stock"
+				bag.warehouse = get_carton_warehouse(bag.item, doc.items)
+				bag.is_return = True
 			
 			if bag.docstatus != 1:
 				frappe.throw("Bag Not SUbmitted")
-			bag.status = "Sold"
+			
 			bag.save()
 		
 		if row.packing_type == "Reel":
 			reel = frappe.get_doc("Reel", row.pni_carton)
 			
-			validate_pni_packing(row.pni_carton, reel.item,reel.warehouse, doc.items)
+			validate_pni_packing(row.pni_carton, reel.item,reel.warehouse, doc.items, doc.is_return)
+			
+			if not doc.is_return:
+				reel.status = "Sold"
+			else:
+				reel.status = "In Stock"
+				reel.warehouse = get_carton_warehouse(reel.item, doc.items)
+				reel.is_return = True
 			
 			if reel.docstatus != 1:
 				frappe.throw("Reel Not SUbmitted")
-			reel.status = "Sold"
+			
 			reel.save()
-
-def validate_pni_packing(pni_carton, packing_item, packing_item_warehouse, items):
+def get_carton_warehouse(packing_item, items):
+	for item in items:
+		if packing_item == item.item_code:
+			return item.warehouse
+def validate_pni_packing(pni_carton, packing_item, packing_item_warehouse, items, is_return = False):
 	item_exist = False
 	for item in items:
 		if packing_item == item.item_code:
 			item_exist = True
-			if packing_item_warehouse != item.warehouse:
+			if packing_item_warehouse != item.warehouse and not is_return:
 				frappe.throw("Packing {0}'s warehouse {1} not match with Delivery Item's Warehouse: {2}".format(pni_carton,packing_item_warehouse,item.warehouse))
 	if not item_exist:
 		frappe.throw("Packing {0}'s item {1} not available in Delivery Item".format(pni_carton, packing_item))
@@ -247,15 +271,24 @@ def cancel_delivery_item(doc, method):
 	for row in doc.pni_packing_table:
 		if row.packing_type == "PNI Carton":
 			carton = frappe.get_doc("PNI Carton", row.pni_carton)
-			carton.status = "Available"
+			if doc.is_return:
+				carton.status = "Delivered"
+			else:
+				carton.status = "Available"
 			carton.save()
 		if row.packing_type == "PNI Bag":
 			bag = frappe.get_doc("PNI Bag", row.pni_carton)
-			bag.status = "In Stock"
+			if doc.is_return:
+				bag.status = "Sold"
+			else:
+				bag.status = "In Stock"
 			bag.save()
 		if row.packing_type == "Reel":
 			reel = frappe.get_doc("Reel", row.pni_carton)
-			reel.status = "In Stock"
+			if doc.is_return:
+				reel.status = "Sold"
+			else:
+				reel.status = "In Stock"
 			reel.save()
 
 @frappe.whitelist()

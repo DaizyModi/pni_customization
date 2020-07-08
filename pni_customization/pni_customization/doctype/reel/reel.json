@@ -12,6 +12,7 @@
   "custom_id",
   "posting_date",
   "status",
+  "is_return",
   "supplier_reel_id",
   "type",
   "column_break_5",
@@ -168,10 +169,18 @@
    "fieldname": "custom_id",
    "fieldtype": "Data",
    "label": "Custom ID"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "is_return",
+   "fieldtype": "Check",
+   "label": "Is Return",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-27 13:39:25.150331",
+ "modified": "2020-07-08 10:35:44.913487",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel",
