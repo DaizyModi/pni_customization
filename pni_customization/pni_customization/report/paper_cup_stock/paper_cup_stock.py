@@ -91,7 +91,7 @@ def get_data(filters=None):
 	return frappe.db.sql("""
 		select 
 			crt.item, crt.brand, crt.status, crt.size, crt.no_of_stack, crt.nos, crt.total, crt.net_weight,
-			crt.gross_weight, bin.actual_qty
+			crt.gross_weight, sum(bin.actual_qty)
 		
 		from 
 			(select 
@@ -109,5 +109,6 @@ def get_data(filters=None):
 
 		left join
 			`tabBin` as bin
-		on bin.item_code = crt.item 		
+		on bin.item_code = crt.item 
+		group by crt.item	
     """.format(conditions))
