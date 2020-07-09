@@ -94,13 +94,20 @@ def get_data(filters=None):
 			sum(crt.gross_weight), bin.actual_qty
 		
 		from 
-			 `tabItem` as item, `tabPNI Carton` as crt
+			(select 
+				crt.item, item.brand, crt.status, crt.size, crt.no_of_stack, count(crt.item), sum(crt.total), sum(crt.net_weight),
+				sum(crt.gross_weight)
+			
+			from 
+				`tabItem` as item, `tabPNI Carton` as crt
+			
+			where 
+				item.name = crt.item and
+				crt.docstatus = "1" and crt.is_paper_plate = "" {0}
+			
+			group by crt.item,crt.size,crt.no_of_stack, crt.status) as crt
+
 		left join
 			`tabBin` as bin
-		on bin.item_code = crt.item 
-		where 
-			item.name = crt.item and
-			crt.docstatus = "1" and crt.is_paper_plate = "" {0}
-    	
-		group by crt.item,crt.size,crt.no_of_stack, crt.status;
+		on bin.item_code = crt.item 		
     """.format(conditions))
