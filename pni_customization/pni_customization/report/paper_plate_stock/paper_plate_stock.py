@@ -79,8 +79,8 @@ def get_data(filters=None):
 		conditions += " and crt.creation <='{0}' ".format(filters.to_date)
 	return frappe.db.sql("""
 		select 
-				crt.item, crt.brand, crt.status, crt.item, crt.nos, crt.net_weight,
-				crt.gross_weight, bin.actual_qty
+				crt.item, crt.brand, crt.status, crt.nos, crt.total, crt.net_weight,
+				crt.gross_weight, sum(bin.actual_qty)
 			
 		from
 			(select 
