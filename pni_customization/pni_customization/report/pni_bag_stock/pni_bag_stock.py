@@ -136,7 +136,7 @@ def get_data(filters=None):
 			bag.packing_category, 
 			bag.nos, 
 			{2}
-			bag.weight,
+			bag.weights,
 			bag.punching_die, 
 			bag.brand, 
 			bag.coated_reel, 
@@ -151,7 +151,7 @@ def get_data(filters=None):
 				bag.packing_category, 
 				count(bag.item) as nos, 
 				{2}
-				sum(bag.weight) as weight,
+				sum(bag.weight) as weights,
 				bag.punching_die, 
 				bag.brand, 
 				bag.coated_reel, 
