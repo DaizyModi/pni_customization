@@ -43,9 +43,10 @@ frappe.ui.form.on("Sales Order Item",{
 				}
 			});
 		}
-		// if(d2.price_list_rate>0){
-		// 	d2.base_uom_rate = parseFloat(d2.price_list_rate / d2.conversion_factor	)
-		// }
+		if(d2.price_list_rate>0){
+			d2.base_uom_rate = parseFloat(d2.price_list_rate / d2.conversion_factor	)
+			frm.refresh_field("items")
+		}
 	},
 	"is_paper_plate": function(frm, cdt, cdn) {
 		var d2 = locals[cdt][cdn];
@@ -61,10 +62,6 @@ frappe.ui.form.on("Sales Order Item",{
 			frm.refresh_field("items")
 		}
 	},
-	"uom": function(frm, cdt,cdn){
-	},
-	"qty": function(frm, cdt, cdn){
-	},
 	"base_uom_rate": function(frm, cdt, cdn){
 		var d2 = locals[cdt][cdn];
 		
@@ -73,7 +70,6 @@ frappe.ui.form.on("Sales Order Item",{
 		}
 		
 		d2.rate = parseFloat(d2.base_uom_rate * d2.conversion_factor)
-		console.log(locals);
 		frm.refresh_field("items")
 	},
 	"rate": function(frm, cdt, cdn){
@@ -122,4 +118,11 @@ frappe.ui.form.on('Sales Order', {
 
 frappe.ui.form.on("Sales Order", "google_map", function(frm) {
    window.open("http://www.google.com/maps/place/" + frm.doc.latitude + "," + frm.doc.longitude);
+});
+
+frappe.ui.form.on('Sales Order Item', {
+	refresh(frm) {
+		cur_frm.fields_dict.child_table_name.grid.toggle_reqd
+    ("bottom_size", item_group=="Paper Cup Machine")
+	}
 });

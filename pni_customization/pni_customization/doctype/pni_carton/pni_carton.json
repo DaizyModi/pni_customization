@@ -19,10 +19,8 @@
   "section_break_5",
   "status",
   "is_return",
-  "size",
-  "no_of_stack",
-  "column_break_9",
   "total",
+  "column_break_9",
   "net_weight",
   "gross_weight",
   "warehouse",
@@ -39,16 +37,6 @@
    "fieldtype": "Link",
    "label": "Item",
    "options": "Item"
-  },
-  {
-   "fieldname": "size",
-   "fieldtype": "Float",
-   "label": " Size"
-  },
-  {
-   "fieldname": "no_of_stack",
-   "fieldtype": "Float",
-   "label": "No of Stack"
   },
   {
    "fieldname": "net_weight",
@@ -154,7 +142,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-08 12:19:41.535356",
+ "modified": "2020-07-11 11:17:20.999022",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Carton",

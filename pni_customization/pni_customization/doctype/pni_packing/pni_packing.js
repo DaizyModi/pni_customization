@@ -3,7 +3,7 @@
 $(document).ready(function(){
 	$("[data-fieldname='print_carton']").find("a.grey").click(function(event){
 		event.preventDefault();
-		alert("The paragraph was clicked.");
+		// alert("The paragraph was clicked.");
 	});
 });
 frappe.ui.form.on('PNI Packing', {
@@ -13,6 +13,24 @@ frappe.ui.form.on('PNI Packing', {
 				process_production(frm);
 			})
 			finish_btn.addClass('btn-primary')
+		}
+	},
+	packing_unit: function(frm){
+		if(!frm.doc.packing_unit){
+			frappe.msgprint("Item Don't have Default Selling UOM")
+			frappe.model.set_value(frm.doctype,frm.docname, "conversation_factor",false)
+		}else{
+			frappe.call({
+				"method": "get_conversation_factor",
+				doc: cur_frm.doc,
+				callback: function (r) {
+					if(r.message){
+	
+						frappe.model.set_value(frm.doctype,frm.docname, "conversation_factor",r.message)
+						refresh_field("conversation_factor");
+					}	
+				}
+			})
 		}
 	},
 	loose_stock: function(frm) {

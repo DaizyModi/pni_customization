@@ -27,33 +27,10 @@ class PNIPacking(Document):
 	def calculate_total_stock(self):
 		total = 0
 		for row in self.carton_data:
-			total += float(row.stack_size) * float(row.packing_size)
+			total += float(self.conversation_factor)
 		for row in self.pni_loose_stock:
 			total +=  float(row.nos) * float(row.stack_size)
 		self.total_stock = total
-	# def update_packing(self):
-	# 	count = {}
-	# 	for data in self.carton_data:
-	# 		if data.pni_packing_type in count:
-	# 			count[data.pni_packing_type] = 1 + count[data.pni_packing_type]
-	# 		else:
-	# 			count[data.pni_packing_type] = 1
-	# 	self.items = {}
-	# 	for row in count:
-	# 		self.append("items",{
-	# 			"packing": row,
-	# 			"packing_size": float(row) ,
-	# 			"nos": count[row],
-	# 			"total": float(row) * float(count[row]) * float(self.stack_size)
-	# 		})
-		
-	# 	total = 0
-		
-	# 	for row in self.items:
-	# 		total += int(row.total)
-	# 	if self.total:
-	# 		total += int(self.total)
-	# 	self.total_stock = total
 	
 	def update_weight(self):
 		gross_weight = 0
@@ -100,9 +77,9 @@ class PNIPacking(Document):
 				doc2.item_description = frappe.get_value("Item", self.item, "description")
 				doc2.gross_weight = data.weight
 				doc2.net_weight = data.net_weight
-				doc2.size = data.stack_size
-				doc2.no_of_stack = data.packing_size
-				doc2.total = float(data.stack_size) * float(data.packing_size)
+				# doc2.size = data.stack_size
+				# doc2.no_of_stack = data.packing_size
+				doc2.total = float(self.conversation_factor)
 				doc2.warehouse = self.to_warehouse
 				doc2.save()
 				# data.print_carton = data.carton_id
@@ -137,6 +114,18 @@ class PNIPacking(Document):
 			if doc:
 				return doc.employee_team_table
 	
+	def get_conversation_factor(self):
+		item = frappe.get_doc("Item",self.item)
+		not_exist = True
+		conversion_factor = 0
+		for uom in item.uoms:
+			if uom.uom == item.sales_uom:
+				not_exist = False
+				conversion_factor = uom.conversion_factor
+				
+		if not_exist:
+			frappe.throw("Uom Conversation Not Found")
+		return conversion_factor
 	def manufacture_entry(self):
 		return self.make_stock_entry()
 	

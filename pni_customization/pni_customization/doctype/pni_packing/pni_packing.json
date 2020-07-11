@@ -16,6 +16,8 @@
   "workstation",
   "to_warehouse",
   "date",
+  "packing_unit",
+  "conversation_factor",
   "employee_details_section",
   "select_employee_group",
   "employee",
@@ -196,10 +198,27 @@
    "label": "Company",
    "options": "Company",
    "reqd": 1
+  },
+  {
+   "description": "Item Sales Uom only can be packing UOM",
+   "fetch_from": "item.sales_uom",
+   "fieldname": "packing_unit",
+   "fieldtype": "Link",
+   "label": "Packing Unit",
+   "options": "UOM",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "conversation_factor",
+   "fieldtype": "Int",
+   "label": "Conversation Factor",
+   "read_only": 1,
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-04-08 21:23:49.354165",
+ "modified": "2020-07-11 12:04:47.049244",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

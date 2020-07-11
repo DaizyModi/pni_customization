@@ -32,16 +32,6 @@ def get_columns():
             "label": _("Status"),
             "fieldtype": "Data",
         },
-		{
-            "fieldname": "size",
-            "label": _("Cups in Stack"),
-            "fieldtype": "Int",
-        },
-        {
-            "fieldname": "no_of_stack",
-            "label": _("Stack in Carton"),
-            "fieldtype": "Int",
-        },
         {
             "fieldname": "nos",
             "label": _("Nos"),
@@ -89,17 +79,25 @@ def get_data(filters=None):
 		conditions += " and crt.creation <='{0}' ".format(filters.to_date)
 	return frappe.db.sql("""
 		select 
-			crt.item, item.brand, crt.status, crt.size, crt.no_of_stack, count(crt.item), sum(crt.total), sum(crt.net_weight),
-			sum(crt.gross_weight),bin.actual_qty
+				crt.item, crt.brand, crt.status, crt.item, crt.nos, crt.net_weight,
+				crt.gross_weight, bin.actual_qty
+			
+		from
+			(select 
+				crt.item, item.brand, crt.status, count(crt.item) as nos, sum(crt.total) as total, sum(crt.net_weight) as net_weight,
+				sum(crt.gross_weight) as gross_weight
+			
+			from 
+				`tabItem` as item, `tabPNI Carton` as crt
+			
+			where 
+				item.name = crt.item and
+				crt.docstatus = "1" and crt.is_paper_plate <> "" {0}
+			
+			group by crt.item, crt.status) as crt
 		
-		from 
-			`tabItem` as item, `tabPNI Carton` as crt
 		left join
 			`tabBin` as bin
 		on bin.item_code = crt.item 
-		where 
-			item.name = crt.item and
-			crt.docstatus = "1" and crt.is_paper_plate <> "" {0}
-    	
-		group by crt.item,crt.size,crt.no_of_stack, crt.status;
+		group by crt.item
     """.format(conditions))

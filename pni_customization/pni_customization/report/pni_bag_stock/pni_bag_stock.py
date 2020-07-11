@@ -131,12 +131,12 @@ def get_data(filters=None):
 	
 	return frappe.db.sql("""
 		select 
-			bag.item as "Item:Link/Item:150", 
+			bag.item, 
 			bag.status,
 			bag.packing_category, 
-			count(bag.item), 
+			bag.nos, 
 			{2}
-			sum(bag.weight),
+			bag.weight,
 			bag.punching_die, 
 			bag.brand, 
 			bag.coated_reel, 
@@ -144,15 +144,30 @@ def get_data(filters=None):
 			bag.warehouse,
 			bin.actual_qty
 		
-		from 
-			`tabPNI Bag` as bag
+		from	
+			(select 
+				bag.item, 
+				bag.status,
+				bag.packing_category, 
+				count(bag.item) as nos, 
+				{2}
+				sum(bag.weight) as weight,
+				bag.punching_die, 
+				bag.brand, 
+				bag.coated_reel, 
+				bag.printed_reel, 
+				bag.warehouse			
+			from 
+				`tabPNI Bag` as bag
+			
+				
+			where 
+				bag.docstatus = "1" {0}
+				
+			group by 
+				bag.item, bag.coated_reel, bag.printed_reel, bag.warehouse, bag.packing_category {1}
+			) as bag
 		left join
 			`tabBin` as bin
 		on bin.item_code = bag.item and bin.warehouse = bag.warehouse
-			
-		where 
-			bag.docstatus = "1" {0}
-			
-		group by 
-			bag.item, bag.coated_reel, bag.printed_reel, bag.warehouse, bag.packing_category {1};
 	""".format(conditions, group, weight))
