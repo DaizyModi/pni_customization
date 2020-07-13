@@ -47,5 +47,8 @@ frappe.ui.form.on('Delivery Note', {
 				frappe.msgprint("[Warning] Item "+element.item_code +"'s rate is lower then Item Price List");
 			}
 		})
+		if(frm.doc.is_return && frm.doc.__islocal){
+			frm.set_value("naming_series","MAT-CRN-.YYYY.-");
+		}
 	}
 });

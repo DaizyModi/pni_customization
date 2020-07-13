@@ -20,9 +20,7 @@ def validate_reel_qty(doc):
 
 def validate_so(doc, method):
 	for item in doc.items:
-		if item.is_paper_plate or item.paper_cup:
-			pass
-			# item.rate = item.base_uom_rate * item.conversion_factor
+		
 
 def validate_reel(doc, method):
 	total_weight = 0
@@ -293,7 +291,11 @@ def cancel_delivery_item(doc, method):
 
 @frappe.whitelist()
 def submit_work_order_item(doc, method):
-	pass
+	if doc.workflow_state == "Pending For Accounts Approval":
+		for item in doc.items:
+			if item.rate < item.price_list_rate and item.price_list_rate > 0:
+				if not approve_law_rate__:
+					frappe.throw("Item {0}'s low rate is not approved by management."%(item.item_code))
 
 @frappe.whitelist()
 def validate_inspection_for_work_order(doc, method):

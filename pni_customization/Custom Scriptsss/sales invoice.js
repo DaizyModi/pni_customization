@@ -32,3 +32,11 @@ frappe.ui.form.on("Sales Invoice Item",{
 		}
 	}
 });
+
+frappe.ui.form.on('Sales Invoice', {
+	refresh(frm){
+		if(frm.doc.is_return && frm.doc.__islocal){
+			frm.set_value("naming_series","CN-.YYYY.-");
+		}
+	}
+});
