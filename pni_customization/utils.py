@@ -23,7 +23,7 @@ def validate_so(doc, method):
 		for item in doc.items:
 			if item.rate < item.price_list_rate and item.price_list_rate > 0:
 				if not item.approve_law_rate__:
-					frappe.throw("Item {0}'s low rate is not approved by management."%(item.item_code))
+					frappe.throw("Item {0}'s low rate is not approved by management.".format(item.item_code))
 
 def validate_reel(doc, method):
 	total_weight = 0
