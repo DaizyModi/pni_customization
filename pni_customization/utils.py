@@ -19,6 +19,12 @@ def validate_reel_qty(doc):
 				frappe.throw("Total Reel Qty{1} for item  {0} is less then {2} ".format(item.item_code,reel_weight, item.qty))
 
 def validate_so(doc, method):
+	for item in doc.items:
+		if item.rate >= item.price_list_rate:
+			item.need_approval = True
+		else:
+			item.need_approval = False
+
 	if doc.workflow_state == "Pending For Accounts Approval":
 		for item in doc.items:
 			if item.rate < item.price_list_rate and item.price_list_rate > 0:
