@@ -206,19 +206,17 @@
    "fieldtype": "Link",
    "label": "Packing Unit",
    "options": "UOM",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "conversation_factor",
    "fieldtype": "Int",
    "label": "Conversation Factor",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-11 12:04:47.049244",
+ "modified": "2020-07-14 12:53:40.274702",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

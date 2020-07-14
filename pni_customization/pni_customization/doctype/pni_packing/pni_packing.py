@@ -10,6 +10,8 @@ from frappe.utils import get_datetime, time_diff_in_hours
 
 class PNIPacking(Document):
 	def validate(self):
+		if not self.packing_unit or not self.conversation_factor:
+			frappe.throw("Packing Unit and Conversation Factor is mandatory.")
 		self.update_employee()
 		self.create_carton()
 
