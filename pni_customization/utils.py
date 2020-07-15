@@ -21,7 +21,7 @@ def validate_reel_qty(doc):
 
 def validate_so(doc, method):
 	for item in doc.items:
-		if item.rate <= item.price_list_rate:
+		if item.rate < item.price_list_rate:
 			item.need_approval = True
 		else:
 			item.need_approval = False
