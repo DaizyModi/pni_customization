@@ -25,6 +25,7 @@ def validate_so(doc, method):
 			item.need_approval = True
 		else:
 			item.need_approval = False
+		item.unit_price_pni = float(float(item.price_list_rate) / float(item.conversion_factor))
 
 	if doc.workflow_state == "Pending For Accounts Approval":
 		for item in doc.items:
