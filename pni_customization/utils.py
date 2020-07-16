@@ -306,18 +306,28 @@ def submit_work_order_item(doc, method):
 
 @frappe.whitelist()
 def validate_inspection_for_work_order(doc, method):
-	print("hello")
 	if doc.work_order and doc.stock_entry_type == "Manufacture":
 		wo = frappe.get_doc("Work Order", doc.work_order)
 		if wo:
-			total_qty = wo.qty
+			qty_stock = 0
+			qty_stock += doc.fg_completed_qty
+			
+			# Get qty from submited stock entry
+			stock_entrys = frappe.get_all("Stock Entry", {
+				"work_order": doc.work_order,
+				"stock_entry_type": "Manufacture",
+				"docstatus": 1
+			})
+			for se  in stock_entrys:
+				qty_stock += se.fg_completed_qty
+
 			pni_qi = frappe.get_all("PNI Quality Inspection",{"reference_name":wo.name, "docstatus": 1})
 			inspect_qty = 0
 			for qi in pni_qi:
 				pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
 				inspect_qty += int(pni_qi_doc.accepted_qty)
-			if inspect_qty < total_qty:
-				frappe.throw(" Please do PNI Quality Inspection for {0} Items".format(str( total_qty- inspect_qty )))
+			if inspect_qty < qty_stock:
+				frappe.throw(" Please do PNI Quality Inspection for {0} Items".format(str( qty_stock- inspect_qty )))
 
 @frappe.whitelist()
 def validate_work_order_item(doc, method):
