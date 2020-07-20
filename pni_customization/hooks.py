@@ -54,6 +54,9 @@ doc_events = {
 		"on_submit": "pni_customization.utils.submit_delivery_item",
         "on_cancel": "pni_customization.utils.cancel_delivery_item",
 	},
+	"Sales Invoice": {
+		"validate": "pni_customization.utils.sales_invoice_validate"
+	},
 	"Work Order": {
 		"on_submit": "pni_customization.utils.submit_work_order_item",
 		"validate": "pni_customization.utils.validate_work_order_item",

@@ -47,12 +47,15 @@ class Slitting(Document):
 		for data in self.slitting_scrap:
 			scrap += data.qty
 		threshold = float(float(all_reel_in_weight) *  0.01)
+		print(all_reel_in_weight)
+		print(all_reel_out_weight)
+		print(scrap)
 		if threshold < scrap:
 			if not self.scrap_weight_approved :
-				frappe.throw("Need Approval (Scrap is greater then threshold " + threshold)
-		if all_reel_in_weight > (all_reel_out_weight + scrap):
+				frappe.throw("Need Approval Scrap is greater then threshold " + str(threshold))
+		if all_reel_in_weight > (float(all_reel_out_weight) + float(scrap) + float(threshold)):
 			if not self.all_weight_approved:
-				frappe.throw("Need Approval (Scrap is greater then threshold " + threshold)
+				frappe.throw("[All] Need Approval Scrap is greater then threshold " + str(threshold))
 	def validate_reel_size(self):
 		calculate = {}
 		calculate_intial = {}
@@ -68,37 +71,37 @@ class Slitting(Document):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
 		for data in self.slitting_table:
 			reel_in = frappe.get_doc("Reel",data.reel_in)
-			
-			if not data.reel_out:
-				doc = frappe.get_doc({
-					"doctype": "Reel",
-					"status": "Draft",
-					"process_prefix": "SL",
-					"posting_date": self.date
-				})
-				doc.insert()
-				data.reel_out = doc.name
-			else:
-				doc = frappe.get_doc("Reel",data.reel_out)
-			
-			doc.custom_id = data.custom_id
-			doc.supplier_reel_id = reel_in.supplier_reel_id
-			doc.item = data.item_out if not data.half_reel else reel_in.item
-			doc.printed_item = reel_in.printed_item
-			doc.warehouse = self.fg_warehouse if not data.half_reel else self.src_warehouse
-			doc.type = data.type if data.type else reel_in.type
-			doc.brand = reel_in.brand
-			doc.blank_weight = reel_in.blank_weight
-			doc.coated_reel =  reel_in.coated_reel
-			doc.printed_reel = reel_in.printed_reel
-			doc.printed_weight = reel_in.printed_weight
-			doc.coated_weight = reel_in.coated_weight
-			doc.weight = data.weight_out
-			doc.type = data.type if data.type else reel_in.type
-			if data.half_reel:
-				doc.item = reel_in.item
-				doc.warehouse = self.src_warehouse
-			doc.save()
+			if data.type != "Bottom Reel":
+				if not data.reel_out:
+					doc = frappe.get_doc({
+						"doctype": "Reel",
+						"status": "Draft",
+						"process_prefix": "SL",
+						"posting_date": self.date
+					})
+					doc.insert()
+					data.reel_out = doc.name
+				else:
+					doc = frappe.get_doc("Reel",data.reel_out)
+				
+				doc.custom_id = data.custom_id
+				doc.supplier_reel_id = reel_in.supplier_reel_id
+				doc.item = data.item_out if not data.half_reel else reel_in.item
+				doc.printed_item = reel_in.printed_item
+				doc.warehouse = self.fg_warehouse if not data.half_reel else self.src_warehouse
+				doc.type = data.type if data.type else reel_in.type
+				doc.brand = reel_in.brand
+				doc.blank_weight = reel_in.blank_weight
+				doc.coated_reel =  reel_in.coated_reel
+				doc.printed_reel = reel_in.printed_reel
+				doc.printed_weight = reel_in.printed_weight
+				doc.coated_weight = reel_in.coated_weight
+				doc.weight = data.weight_out
+				doc.type = data.type if data.type else reel_in.type
+				if data.half_reel:
+					doc.item = reel_in.item
+					doc.warehouse = self.src_warehouse
+				doc.save()
 	
 	def manage_reel_tracking(self):
 		for data in self.slitting_table:
@@ -137,7 +140,9 @@ class Slitting(Document):
 		if (not self.end_dt) or (not self.end_dt):
 			frappe.throw("Please Select Operation Start and End Time")
 		for item in self.slitting_table:
-			if (not item.reel_in) or (not item.reel_out) :
+			if (not item.reel_in) :
+				frappe.throw("Reel is Compulsory")
+			if item.type != "Bottom Reel" and not item.reel_out:
 				frappe.throw("Reel is Compulsory")
 		for data in self.slitting_table:
 			if not data.weight_out:
@@ -145,10 +150,11 @@ class Slitting(Document):
 			reel_in = frappe.get_doc("Reel",data.reel_in)
 			reel_in.status = "Consume"
 			reel_in.save()
-			reel_out = frappe.get_doc("Reel",data.reel_out)
-			reel_out.status = "In Stock"
-			reel_out.save()
-			reel_out.submit()
+			if item.type != "Bottom Reel":
+				reel_out = frappe.get_doc("Reel",data.reel_out)
+				reel_out.status = "In Stock"
+				reel_out.save()
+				reel_out.submit()
 		self.manage_reel_tracking()
 		frappe.db.set(self, 'status', 'Pending For Stock Entry')
 	
@@ -163,8 +169,9 @@ class Slitting(Document):
 			reel_in = frappe.get_doc("Reel",data.reel_in)
 			reel_in.status = "In Stock"
 			reel_in.save()
-			reel_out = frappe.get_doc("Reel",data.reel_out)
-			reel_out.cancel()
+			if item.type != "Bottom Reel":
+				reel_out = frappe.get_doc("Reel",data.reel_out)
+				reel_out.cancel()
 		self.cancel_reel_tracking()
 	
 	def manufacture_entry(self):
@@ -250,7 +257,12 @@ class Slitting(Document):
 		if reel_in:
 			item_from_reel = frappe.get_doc("Reel",item.reel_in)
 		if reel_out:
-			item_from_reel = frappe.get_doc("Reel",item.reel_out)
+			if item.type != "Bottom Reel":
+				item_from_reel = frappe.get_doc("Reel",item.reel_out)
+			else:
+				item_from_reel = Empty()
+				item_from_reel.item = item.item_out
+				item_from_reel.weight = item.weight_out
 		if scrap_item:
 			item_from_reel = Empty()
 			item_from_reel.item = item.item

@@ -207,6 +207,9 @@ def make_pni_quotation_from_opportunity(source_name, target_doc=None, ignore_per
 	
 	return doclist
 
+def sales_invoice_validate(doc, method):
+	for row in doc.items:
+		pass
 @frappe.whitelist()
 def submit_delivery_item(doc, method):
 	for row in doc.pni_packing_table:
