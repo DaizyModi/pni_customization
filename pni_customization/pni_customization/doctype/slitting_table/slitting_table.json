@@ -5,6 +5,7 @@
  "engine": "InnoDB",
  "field_order": [
   "reel_in",
+  "item",
   "brand",
   "weight",
   "item_out",
@@ -28,7 +29,6 @@
    "fetch_from": "reel_in.brand",
    "fieldname": "brand",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Brand",
    "options": "Brand",
    "read_only": 1
@@ -85,10 +85,19 @@
    "fieldname": "custom_id",
    "fieldtype": "Data",
    "label": "Custom ID"
+  },
+  {
+   "fetch_from": "reel_in.item",
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2020-06-27 13:33:48.255453",
+ "modified": "2020-07-21 18:08:53.492930",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Slitting Table",
