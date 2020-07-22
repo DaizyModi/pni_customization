@@ -1,0 +1,36 @@
+{
+ "creation": "2020-07-22 15:09:17.156508",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "brand",
+  "selling_rate"
+ ],
+ "fields": [
+  {
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Brand",
+   "options": "Brand"
+  },
+  {
+   "fieldname": "selling_rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Selling Rate"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-07-22 15:10:18.249234",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Brand Pricing Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
