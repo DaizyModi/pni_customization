@@ -3,9 +3,18 @@
 
 frappe.ui.form.on('Brand Pricing Update Tool', {
 	refresh: function(frm) {
+		if(!frm.doc.brand_group){
+			frm.doc.brand_pricing_table = ""
+			refresh_field("brand_pricing_table");
+		}
 
 	},
 	brand_group: function(frm) {
+		if(!frm.doc.brand_group){
+			frm.doc.brand_pricing_table = ""
+			refresh_field("brand_pricing_table");
+			return
+		}
 		frappe.call({
 			"method": "get_brand_list",
 			doc: cur_frm.doc,
