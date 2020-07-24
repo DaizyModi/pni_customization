@@ -33,6 +33,16 @@ def get_data():
 			"items": [
 				{
 					"type": "doctype",
+					"name": "Brand Pricing Update Tool",
+					"description": _("Brand Pricing Update Tool"),
+				},
+				{
+					"type": "doctype",
+					"name": "Brand Group",
+					"description": _("Brand Group"),
+				},
+				{
+					"type": "doctype",
 					"name": "PNI Packing",
 					"description": _("Detail of Paper Cup Carton"),
 				},
@@ -71,6 +81,13 @@ def get_data():
 		{
 			"label": _("Paper Cup Reports"),
 			"items": [
+				{
+					"type": "report",
+					"name": "Item Price List Report",
+					"description": _("Item Price List Report"),
+					"is_query_report": True,
+					"reference_doctype": "Item Price",
+				},
                 {
 					"type": "report",
 					"name": "Paper Cup Stock",

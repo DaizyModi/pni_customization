@@ -10,5 +10,5 @@ class BrandGroup(Document):
 	def validate(self):
 		query = ""
 		for data in self.brand_group_table:
-			query += data.brand + ","
+			query += "'"+data.brand + "',"
 		self.query = query.strip(",")

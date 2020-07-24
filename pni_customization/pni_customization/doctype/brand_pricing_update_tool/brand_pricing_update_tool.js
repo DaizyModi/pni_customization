@@ -24,26 +24,27 @@ frappe.ui.form.on('Brand Pricing Update Tool', {
 					r.message.forEach(function(element) {
 						var c = frm.add_child("brand_pricing_table");
 						c.brand = element.brand;
+						c.selling_rate = element.selling_rate;
 					});
 					refresh_field("brand_pricing_table");
 
-					frappe.call({
-						"method": "get_brand_rate",
-						doc: cur_frm.doc,
-						callback: function (r) {
-							if(r.message){
+					// frappe.call({
+					// 	"method": "get_brand_rate",
+					// 	doc: cur_frm.doc,
+					// 	callback: function (r) {
+					// 		if(r.message){
 			
-								frm.doc.brand_pricing_table.forEach(function(element) {
-									console.log(r.message);
-									console.log(element);
-									frappe.model.set_value(element.doctype, element.name , "selling_rate", r.message[element.brand])
-									debugger;
+					// 			frm.doc.brand_pricing_table.forEach(function(element) {
+					// 				console.log(r.message);
+					// 				console.log(element);
+					// 				frappe.model.set_value(element.doctype, element.name , "selling_rate", r.message[element.brand])
+					// 				debugger;
 
-								})
-								refresh_field("brand_pricing_table");
-							}	
-						}
-					})
+					// 			})
+					// 			refresh_field("brand_pricing_table");
+					// 		}	
+					// 	}
+					// })
 				}	
 			}
 		})
