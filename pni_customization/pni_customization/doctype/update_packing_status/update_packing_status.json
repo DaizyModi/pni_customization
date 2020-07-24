@@ -4,6 +4,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "add_pni_bag",
   "packing_status",
   "packing_bag_status",
   "pni_reel_status"
@@ -26,10 +27,15 @@
    "fieldtype": "Table",
    "label": "PNI Reel Status",
    "options": "PNI Reel Status"
+  },
+  {
+   "fieldname": "add_pni_bag",
+   "fieldtype": "Button",
+   "label": "Add PNI Bag"
   }
  ],
  "issingle": 1,
- "modified": "2020-07-15 15:43:33.605084",
+ "modified": "2020-07-24 15:58:23.606401",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Update Packing Status",
