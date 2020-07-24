@@ -52,7 +52,7 @@ frappe.ui.form.on('Delivery Note', {
 		}
 		const doc = frm.doc;
 		debugger;
-		if(doc.payment_terms_template && !doc.payment_schedule.length ) {
+		if(doc.payment_terms_template && !doc.payment_schedule.length && frm.doc.__islocal) {
 			var posting_date = doc.posting_date || doc.transaction_date;
 			frappe.call({
 				method: "erpnext.controllers.accounts_controller.get_payment_terms",
