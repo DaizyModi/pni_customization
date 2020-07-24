@@ -4,6 +4,9 @@
 
 frappe.query_reports["Item Price List Report"] = {
 	"filters": [
-
+		{
+			"fieldname": "brand_group", "fieldtype": "Link", "label": __("Brand Group"),
+			"options": "Brand Group"
+		},
 	]
 };

@@ -30,29 +30,25 @@ def get_columns():
 
 def get_data(filters=None):
 	conditions = ""
-	if filters.from_date:
-		conditions += " and so.transaction_date >= '{0}' ".format(filters.from_date)
+	join = ""
+	if filters.brand_group:
+		conditions += " and bgt.parent = bg.name and bgt.brand = ip.brand "
+		join += " ,`tabBrand Group` as bg, `tabBrand Group Table` as bgt"
+		conditions += " and bgt.brand = '{0}' ".format(filters.brand_group)
+		
 	conditions += get_condition()
-	print("""
-		select 
-			brand,price_list_rate
-		from 
-			 `tabItem Price`
-		where 
-			1=1
-			{0}
-		group by brand
-    """.format(conditions))
+
 	return frappe.db.sql("""
 		select 
-			brand,price_list_rate
+			ip.brand,ip.price_list_rate
 		from 
-			 `tabItem Price`
+			`tabItem Price` as ip
+			{1}
 		where 
 			1=1
 			{0}
-		group by brand
-    """.format(conditions))
+		group by ip.brand
+    """.format(conditions, join))
 
 def get_condition():
 	data = frappe.db.get_all("Brand Group", fields=['query', 'role'])
@@ -65,5 +61,5 @@ def get_condition():
 			query += group.query + ","
 	if not query:
 		frappe.throw("You DOn't have permission")
-	return " and brand in (" +query.strip(",") + ")"
+	return " and ip.brand in (" +query.strip(",") + ")"
 
