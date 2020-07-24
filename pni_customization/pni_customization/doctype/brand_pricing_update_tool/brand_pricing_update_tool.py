@@ -21,11 +21,16 @@ class BrandPricingUpdateTool(Document):
 		return data
 	
 	def validate(self):
+		doc = frappe.get_doc("Brand Group", self.brand_group)
 		for row in self.brand_pricing_table:
+			for row2  in doc.brand_group_table:
+				if row2.brand == row.brand:
+					row2.selling_rate = row.selling_rate
 			data = frappe.db.get_list("Item Price", {"brand": row.brand, "selling": True})
 			for item_price in data:
 				ip = frappe.get_doc("Item Price",item_price.name)
 				ip.price_list_rate = row.selling_rate
 				ip.save()
+		doc.save()
 		self.brand_pricing_table = []
 		self.brand_group = ""
