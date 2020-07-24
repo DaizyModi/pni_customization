@@ -32,9 +32,9 @@ def get_data(filters=None):
 	conditions = ""
 	join = ""
 	if filters.brand_group:
-		conditions += " and bgt.parent = bg.name and bgt.brand = ip.brand "
-		join += " ,`tabBrand Group` as bg, `tabBrand Group Table` as bgt"
-		conditions += " and bgt.brand = '{0}' ".format(filters.brand_group)
+		conditions += " and bgt.brand = ip.brand "
+		join += " ,`tabBrand Group Table` as bgt"
+		conditions += " and bgt.parent = '{0}' ".format(filters.brand_group)
 		
 	conditions += get_condition()
 
@@ -45,6 +45,7 @@ def get_data(filters=None):
 			`tabItem Price` as ip
 			{1}
 		where 
+
 			1=1
 			{0}
 		group by ip.brand
