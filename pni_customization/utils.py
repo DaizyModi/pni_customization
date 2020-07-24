@@ -4,7 +4,7 @@ from frappe import _
 from pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order import update_delivery_pni_sales_order
 
 def validate_item_price(doc, method):
-	if doc.brand and doc.selling:
+	if doc.brand and doc.selling and not doc.customer:
 		value = frappe.db.get_value("Brand Group Table",
 			{
 				"brand":doc.brand, 
