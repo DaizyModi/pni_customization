@@ -62,7 +62,7 @@ def get_condition():
 	for group in data:
 		print(group.role)
 		if group.role and group.role in user_roles :
-			query += group.query
-
-	return " and brand in (" +query + ")"
+			query += group.query + ","
+	
+	return " and brand in (" +query.strip(",") + ")"
 
