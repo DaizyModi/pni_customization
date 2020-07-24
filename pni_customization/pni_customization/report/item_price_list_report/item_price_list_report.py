@@ -63,6 +63,7 @@ def get_condition():
 		print(group.role)
 		if group.role and group.role in user_roles :
 			query += group.query + ","
-	
+	if not query:
+		frappe.throw("You DOn't have permission")
 	return " and brand in (" +query.strip(",") + ")"
 
