@@ -19,11 +19,12 @@
    "fieldname": "selling_rate",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Selling Rate"
+   "label": "Selling Rate",
+   "precision": "4"
   }
  ],
  "istable": 1,
- "modified": "2020-07-24 11:51:35.554232",
+ "modified": "2020-07-24 14:00:41.309607",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Brand Group Table",
