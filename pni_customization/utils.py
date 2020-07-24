@@ -330,7 +330,8 @@ def validate_inspection_for_work_order(doc, method):
 				"docstatus": 1
 			})
 			for se  in stock_entrys:
-				qty_stock += int(se.fg_completed_qty)
+				se_doc = frappe.get_doc("Stock Entry", se.name)
+				qty_stock += int(se_doc.fg_completed_qty)
 
 			pni_qi = frappe.get_all("PNI Quality Inspection",{"reference_name":wo.name, "docstatus": 1})
 			inspect_qty = 0
