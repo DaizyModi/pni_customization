@@ -3,6 +3,14 @@ from frappe.model.mapper import get_mapped_doc
 from frappe import _
 from pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order import update_delivery_pni_sales_order
 
+def validate_item_price(doc, method):
+	if doc.brand and doc.selling:
+		value = frappe.db.get_value("Brand Group Table",
+			{
+				"brand":doc.brand, 
+			} ,"selling_rate" )
+		if value > 0:
+			doc.price_list_rate = value
 def validate_reel_qty(doc):
 	for item in doc.items:
 		if item.is_reel_item:

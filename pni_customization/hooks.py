@@ -79,6 +79,9 @@ doc_events = {
 		"validate": "pni_customization.utils.validate_reel",
 		"on_submit": "pni_customization.utils.create_reel",
 		"on_cancel": "pni_customization.utils.cancel_reel"
+	},
+	"Item Price": {
+		"validate": "pni_customization.utils.validate_item_price"
 	}
 }
 # include js, css files in header of desk.html
