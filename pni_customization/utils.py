@@ -29,6 +29,8 @@ def validate_reel_qty(doc):
 
 def validate_so(doc, method):
 	for item in doc.items:
+		if not (item.price_list_rate > 0):
+			frappe.throw("Price List Rate not available for "+ item.item_code)
 		if item.rate < item.price_list_rate:
 			item.need_approval = True
 		else:
