@@ -20,4 +20,4 @@ def update_work_order(work_order):
 		rejected_qty += int(frappe.get_value("PNI Quality Inspection",pni_qi.name, "rejected_qty"))
 	frappe.db.set_value("Work Order", work_order, "pni_rejected_qty", rejected_qty, update_modified=False)
 	frappe.db.commit()
-	frappe.msgprint("Success")
+	# frappe.msgprint("Success")
