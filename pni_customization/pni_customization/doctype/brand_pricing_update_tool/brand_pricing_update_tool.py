@@ -29,7 +29,7 @@ class BrandPricingUpdateTool(Document):
 			data = frappe.db.get_list("Item Price", {"brand": row.brand, "selling": True})
 			for item_price in data:
 				ip = frappe.get_doc("Item Price",item_price.name)
-				if not doc.customer:
+				if not ip.customer:
 					ip.price_list_rate = row.selling_rate
 					ip.save()
 		doc.save()

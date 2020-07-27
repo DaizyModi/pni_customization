@@ -23,8 +23,9 @@ def get_columns():
 		{
             "fieldname": "selling_rate",
             "label": _("Selling Rate"),
-            "fieldtype": "Currency",
-            "width": 150
+            "fieldtype": "Data",
+            "width": 150,
+			"precision":4
         }
     ]
 
