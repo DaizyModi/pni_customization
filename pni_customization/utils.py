@@ -31,6 +31,10 @@ def validate_so(doc, method):
 	for item in doc.items:
 		if not (item.price_list_rate > 0):
 			frappe.throw("Price List Rate not available for "+ item.item_code)
+		if item.is_paper_plate or item.paper_cup:
+			if not(item.base_uom_rate > 0):
+				frappe.throw("Paper Cup and Plate Rate can't be zero for "+ item.item_code)
+			item.rate = float(item.base_uom_rate) * float(item.conversion_factor)
 		if item.rate < item.price_list_rate:
 			item.need_approval = True
 		else:
