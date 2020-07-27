@@ -347,8 +347,7 @@ def validate_inspection_for_work_order(doc, method):
 				inspect_qty += int(pni_qi_doc.accepted_qty)
 			if inspect_qty < qty_stock:
 				frappe.throw(" Please do PNI Quality Inspection for {0} Items".format(str( qty_stock- inspect_qty )))
-def on_load_work_order_item(doc, method):
-	update_work_order(doc.name)
+
 @frappe.whitelist()
 def validate_work_order_item(doc, method):
 	update_work_order(doc.name)
