@@ -3,8 +3,17 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
-# import frappe
+import frappe
 from frappe.model.document import Document
 
 class PNIQualityInspection(Document):
-	pass
+	def on_submit(self):
+		if self.reference_type == "Work Order" and self.reference_name:
+			update_work_order(self.reference_name)
+
+def update_work_order(work_order):
+	pni_qis =  frappe.get_all("PNI Quality Inspection",filter={"docstatus":1, "reference_type":"Work Order", "reference_name": work_order})
+	rejected_qty = 0
+	for pni_qi in pni_qis:
+		rejected_qty += frappe.get_value("PNI Quality Inspection",pni_qi.name, "rejected_qty")
+	frappe.db.set_value("Work Order", work_order, "pni_rejected_qty", rejected_qty, update_modified=False)

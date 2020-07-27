@@ -33,7 +33,8 @@ fixtures = [
 					"j_city","j_area","j_brancharea","j_dncmobile","j_dncphone","j_company", "j_pincode",
 					"j_time","j_branchpin", "j_parentid","pni_sales_order_item","item_filter",
 					"add_pni_bag", "weight_filter", "section_pni_settings", "section_pni_packing_table", "pni_clm_brk","is_paper_cup","base_uom_rate",
-					"approve_law_rate__","need_approval","tear_weight", "unit_price_pni"
+					"approve_law_rate__","need_approval","tear_weight", "unit_price_pni",
+					"pni_rejected_qty"
 				)
 			]
 		]
@@ -60,6 +61,7 @@ doc_events = {
 	"Work Order": {
 		"on_submit": "pni_customization.utils.submit_work_order_item",
 		"validate": "pni_customization.utils.validate_work_order_item",
+		"on_load": "pni_customization.utils.on_load_work_order_item"
 	},
 	"Job Card": {
 		"on_submit": "pni_customization.utils.job_card_submit",

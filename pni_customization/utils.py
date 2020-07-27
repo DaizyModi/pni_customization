@@ -2,6 +2,7 @@ import frappe, json
 from frappe.model.mapper import get_mapped_doc
 from frappe import _
 from pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order import update_delivery_pni_sales_order
+from pni_customization.pni_customization.doctype.pni_quality_inspection.pni_quality_inspection import update_work_order
 
 def validate_item_price(doc, method):
 	if doc.brand and doc.selling and not doc.customer:
@@ -346,9 +347,11 @@ def validate_inspection_for_work_order(doc, method):
 				inspect_qty += int(pni_qi_doc.accepted_qty)
 			if inspect_qty < qty_stock:
 				frappe.throw(" Please do PNI Quality Inspection for {0} Items".format(str( qty_stock- inspect_qty )))
-
+def on_load_work_order_item(doc, method):
+	update_work_order(doc.name)
 @frappe.whitelist()
 def validate_work_order_item(doc, method):
+	update_work_order(doc.name)
 	if doc.required_items:
 		if doc.bom_no:
 			bom = frappe.get_doc("BOM",doc.bom_no)
