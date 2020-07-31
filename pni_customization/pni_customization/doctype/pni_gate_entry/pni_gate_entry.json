@@ -15,9 +15,6 @@
   "gate_entry_type",
   "is_local_slip",
   "local_slip",
-  "column_break_4",
-  "reference_doc_type",
-  "reference",
   "item_details_section",
   "items",
   "visiter_detail_section",
@@ -44,10 +41,6 @@
    "label": "Gate Entry Type",
    "options": "\nMaterial Receipt\nMaterial Issue",
    "reqd": 1
-  },
-  {
-   "fieldname": "column_break_4",
-   "fieldtype": "Column Break"
   },
   {
    "default": "Today",
@@ -107,20 +100,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "depends_on": "eval: !doc.is_local_slip",
-   "fieldname": "reference_doc_type",
-   "fieldtype": "Select",
-   "label": "Reference Doc Type",
-   "options": "\nSales Order\nSales Invoice\nDelivery Note\nPurchase Order"
-  },
-  {
-   "depends_on": "eval: !doc.is_local_slip",
-   "fieldname": "reference",
-   "fieldtype": "Dynamic Link",
-   "label": "Reference",
-   "options": "reference_doc_type"
-  },
-  {
    "fieldname": "created_by",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -162,7 +141,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-04-08 21:23:38.086038",
+ "modified": "2020-07-31 14:10:00.945974",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Entry",

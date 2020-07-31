@@ -90,7 +90,8 @@ frappe.ui.form.on('Sales Order', {
 	    if(frm.doc.is_order_approved_by_customer === 0){
 	        frm.set_value("image","");
 	        frm.set_df_property('image','reqd', 0);
-	    }
+		}
+		
 	}
 });
 
@@ -107,6 +108,10 @@ frappe.ui.form.on('Sales Order', {
 		}
 	},
 	refresh(frm){
+		$("[data-label='Update%20Items'").prop('disabled', true);
+		if(frappe.user.has_role('System Manager') ){
+	        $("[data-label='Update%20Items'").prop('disabled', false);
+		}
 		frm.doc.items.forEach(function(element) {
 			if(element.price_list_rate>element.rate && element.price_list_rate > 0 && !element.approve_law_rate__){
 				frappe.msgprint("[Warning] Item "+element.item_code +"'s rate is lower then Item Price List");
