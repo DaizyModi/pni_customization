@@ -25,6 +25,8 @@
   "supervisor_name",
   "carton_details_section",
   "carton_data",
+  "loose_stock_in_section",
+  "pni_loose_stock_in",
   "loose_stock_details_section",
   "pni_loose_stock",
   "loose_weight",
@@ -213,10 +215,21 @@
    "fieldtype": "Int",
    "label": "Conversation Factor",
    "read_only": 1
+  },
+  {
+   "fieldname": "loose_stock_in_section",
+   "fieldtype": "Section Break",
+   "label": "Loose Stock IN"
+  },
+  {
+   "fieldname": "pni_loose_stock_in",
+   "fieldtype": "Table",
+   "label": "PNI Loose Stock IN",
+   "options": "PNI Loose Stock IN"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-14 12:53:40.274702",
+ "modified": "2020-07-31 17:26:27.292043",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

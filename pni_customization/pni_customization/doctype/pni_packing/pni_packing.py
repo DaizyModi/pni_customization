@@ -31,7 +31,7 @@ class PNIPacking(Document):
 		for row in self.carton_data:
 			total += float(self.conversation_factor)
 		for row in self.pni_loose_stock:
-			total +=  float(row.nos) * float(row.stack_size)
+			total +=  float(row.nos)
 		self.total_stock = total
 	
 	def update_weight(self):
@@ -66,7 +66,6 @@ class PNIPacking(Document):
 				})
 				doc.insert()
 				data.carton_id = doc.name
-				# data.print_carton = doc.name
 			if data.carton_id:
 				doc2 = frappe.get_doc("PNI Carton",data.carton_id)
 				doc2.is_paper_plate = True if self.is_paper_plate else False
@@ -79,12 +78,9 @@ class PNIPacking(Document):
 				doc2.item_description = frappe.get_value("Item", self.item, "description")
 				doc2.gross_weight = data.weight
 				doc2.net_weight = data.net_weight
-				# doc2.size = data.stack_size
-				# doc2.no_of_stack = data.packing_size
 				doc2.total = float(self.conversation_factor)
 				doc2.warehouse = self.to_warehouse
 				doc2.save()
-				# data.print_carton = data.carton_id
 			
 	
 	def on_submit(self):

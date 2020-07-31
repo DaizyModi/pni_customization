@@ -34,7 +34,8 @@ fixtures = [
 					"j_time","j_branchpin", "j_parentid","pni_sales_order_item","item_filter",
 					"add_pni_bag", "weight_filter", "section_pni_settings", "section_pni_packing_table", "pni_clm_brk","is_paper_cup","base_uom_rate",
 					"approve_law_rate__","need_approval","tear_weight", "unit_price_pni",
-					"pni_rejected_qty", "pni_rework_qty"
+					"pni_rejected_qty", "pni_rework_qty", "pni_carton_in_section",
+					"pni_carton_in", "pni_packing_carton"
 				)
 			]
 		]

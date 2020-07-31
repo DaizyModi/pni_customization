@@ -1,32 +1,25 @@
 {
- "creation": "2020-01-11 07:54:25.914891",
+ "creation": "2020-07-31 17:33:35.530007",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "item",
-  "nos"
+  "pni_carton"
  ],
  "fields": [
   {
-   "fieldname": "nos",
-   "fieldtype": "Int",
-   "in_list_view": 1,
-   "label": "Nos"
-  },
-  {
-   "fieldname": "item",
+   "fieldname": "pni_carton",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Loose Item",
-   "options": "Item"
+   "label": "PNI Carton",
+   "options": "PNI Carton"
   }
  ],
  "istable": 1,
- "modified": "2020-07-31 17:18:17.863911",
+ "modified": "2020-07-31 17:37:35.732686",
  "modified_by": "Administrator",
  "module": "PNI Customization",
- "name": "PNI Loose Stock",
+ "name": "PNI Carton IN",
  "owner": "Administrator",
  "permissions": [],
  "quick_entry": 1,
