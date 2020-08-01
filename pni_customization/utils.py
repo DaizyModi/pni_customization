@@ -363,6 +363,7 @@ def validate_work_order_item(doc, method):
 @frappe.whitelist()
 def validate_stock_entry_item(doc, method):
 	print("Hello World")
+	validate_repack_entry(doc)
 	validate_inspection_for_work_order(doc, method)
 	if doc.items:
 		if doc.bom_no:
@@ -374,6 +375,38 @@ def validate_stock_entry_item(doc, method):
 							if bom_item.item_code == row.item_code:
 								row.pni_qty_per_piece = bom_item.pni_qty_per_piece
 
+def validate_repack_entry(stock_entry):
+	if stock_entry.stock_entry_type == "Repack":
+		setting = frappe.get_doc("PNI Settings","PNI Settings")
+		# if not self.carton_weight:
+		# 	self.carton_weight = setting.paper_cup_carton_weight
+		for data in stock_entry.pni_packing_carton:
+			if data.weight:
+				data.net_weight = data.weight - data.carton_weight
+			if not data.carton_id:
+				doc = frappe.get_doc({
+					"doctype": "PNI Carton",
+					"naming_series": setting.paper_plate_carton_series if stock_entry.is_paper_plate else setting.paper_cup_carton_series,
+					"item": stock_entry.carton_item,
+					"posting_date": stock_entry.posting_date	
+				})
+				doc.insert()
+				data.carton_id = doc.name
+			if data.carton_id:
+				doc2 = frappe.get_doc("PNI Carton",data.carton_id)
+				doc2.is_paper_plate = True if stock_entry.is_paper_plate else False
+				doc2.posting_date = stock_entry.posting_date
+				doc2.item = stock_entry.carton_item
+				doc2.shift = self.shift
+				doc2.supervisor = self.supervisor
+				doc2.supervisor_name =  self.supervisor_name
+				doc2.item_name = frappe.get_value("Item", self.item, "item_name")
+				doc2.item_description = frappe.get_value("Item", self.item, "description")
+				doc2.gross_weight = data.weight
+				doc2.net_weight = data.net_weight
+				doc2.total = float(self.conversation_factor)
+				doc2.warehouse = self.to_warehouse
+				doc2.save()
 @frappe.whitelist()
 def job_card_submit(doc, method):
 	total_qty = 0
