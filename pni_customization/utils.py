@@ -397,15 +397,15 @@ def validate_repack_entry(stock_entry):
 				doc2.is_paper_plate = True if stock_entry.is_paper_plate else False
 				doc2.posting_date = stock_entry.posting_date
 				doc2.item = stock_entry.carton_item
-				doc2.shift = self.shift
-				doc2.supervisor = self.supervisor
-				doc2.supervisor_name =  self.supervisor_name
-				doc2.item_name = frappe.get_value("Item", self.item, "item_name")
-				doc2.item_description = frappe.get_value("Item", self.item, "description")
+				doc2.shift = stock_entry.shift
+				doc2.supervisor = stock_entry.supervisor
+				doc2.supervisor_name =  stock_entry.supervisor_name
+				doc2.item_name = frappe.get_value("Item", stock_entry.item, "item_name")
+				doc2.item_description = frappe.get_value("Item", stock_entry.item, "description")
 				doc2.gross_weight = data.weight
 				doc2.net_weight = data.net_weight
-				doc2.total = float(self.conversation_factor)
-				doc2.warehouse = self.to_warehouse
+				doc2.total = float(stock_entry.conversation_factor)
+				doc2.warehouse = stock_entry.to_warehouse
 				doc2.save()
 @frappe.whitelist()
 def job_card_submit(doc, method):
