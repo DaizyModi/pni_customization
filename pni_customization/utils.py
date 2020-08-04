@@ -400,8 +400,8 @@ def validate_repack_entry(stock_entry):
 				doc2.shift = stock_entry.shift
 				doc2.supervisor = stock_entry.supervisor
 				doc2.supervisor_name =  stock_entry.supervisor_name
-				doc2.item_name = frappe.get_value("Item", stock_entry.item, "item_name")
-				doc2.item_description = frappe.get_value("Item", stock_entry.item, "description")
+				doc2.item_name = frappe.get_value("Item", stock_entry.carton_item, "item_name")
+				doc2.item_description = frappe.get_value("Item", stock_entry.carton_item, "description")
 				doc2.gross_weight = data.weight
 				doc2.net_weight = data.net_weight
 				doc2.total = float(stock_entry.conversation_factor)

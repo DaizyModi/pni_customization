@@ -80,7 +80,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Pending\nAvailable\nDelivered",
+   "options": "Pending\nAvailable\nDelivered\nRepack\nConsume",
    "read_only": 1
   },
   {
@@ -143,7 +143,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-15 15:48:44.539771",
+ "modified": "2020-08-04 16:05:13.824439",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Carton",
