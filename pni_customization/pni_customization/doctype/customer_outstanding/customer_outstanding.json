@@ -15,29 +15,33 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Sales Invoice",
-   "options": "Sales Invoice"
+   "options": "Sales Invoice",
+   "read_only": 1
   },
   {
    "fieldname": "date",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Date"
+   "label": "Date",
+   "read_only": 1
   },
   {
    "fieldname": "invoice_amt",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Invoice Amt"
+   "label": "Invoice Amt",
+   "read_only": 1
   },
   {
    "fieldname": "outstanding_amt",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Outstanding Amt"
+   "label": "Outstanding Amt",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2020-08-05 19:21:15.147076",
+ "modified": "2020-08-06 11:40:13.297777",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Customer Outstanding",
