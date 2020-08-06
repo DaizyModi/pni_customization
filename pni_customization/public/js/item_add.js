@@ -3,6 +3,8 @@ frappe.ui.form.on('Sales Order', {
 		cur_frm.cscript.add_item_dialog("Sales Order Item", "items");
 	},
 	customer: function(frm) {
+		frm.doc.customer_outstanding = []
+		frm.doc.total_customer_outstanding = ""
 		if(frm.doc.customer){
 			frappe.call({
 				method:"pni_customization.utils.get_outstanding_invoice",
@@ -11,17 +13,19 @@ frappe.ui.form.on('Sales Order', {
 				}, 
 				callback: function(r) { 
 					console.log(r.message);
-					r.message.forEach(function(element) {
+					r.message.data.forEach(function(element) {
 						var c = frm.add_child("customer_outstanding");
 						c.sales_invoice = element.name;
 						c.date = element.posting_date;
 						c.invoice_amt = element.rounded_total;
 						c.outstanding_amt = element.outstanding_amount;
 					});
+					frappe.model.set_value(frm.doctype,frm.docname,"total_customer_outstanding",r.message.total);
 					refresh_field("customer_outstanding");
 				}
 			})
 		}
+		refresh_field("customer_outstanding");
 	}
 });
 

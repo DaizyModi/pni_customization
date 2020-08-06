@@ -29,6 +29,10 @@ def validate_reel_qty(doc):
 				frappe.throw("Total Reel Qty {1} for item  {0} is less then {2} ".format(item.item_code,reel_weight, item.qty))
 
 def validate_so(doc, method):
+	outstanding_amt = 0
+	for row in doc.customer_outstanding:
+		outstanding_amt += float(row.outstanding_amt)
+	doc.total_customer_outstanding = outstanding_amt
 	for item in doc.items:
 		if not (item.price_list_rate > 0):
 			frappe.throw("Price List Rate not available for "+ item.item_code)
@@ -376,10 +380,14 @@ def validate_stock_entry_item(doc, method):
 								row.pni_qty_per_piece = bom_item.pni_qty_per_piece
 @frappe.whitelist()
 def get_outstanding_invoice(customer):
-	return frappe.get_list("Sales Invoice", 
+	data =  frappe.get_list("Sales Invoice", 
 		fields=["name","posting_date","customer","rounded_total","outstanding_amount"],
 		filters={ "docstatus":1, "customer":customer, "outstanding_amount":(">",0)}
 	)
+	total = 0
+	for row in data:
+		total += row.outstanding_amount
+	return {"data":data,"total":total}
 def validate_repack_entry(stock_entry):
 	if stock_entry.stock_entry_type == "Repack":
 		setting = frappe.get_doc("PNI Settings","PNI Settings")
