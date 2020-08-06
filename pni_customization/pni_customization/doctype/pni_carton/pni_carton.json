@@ -33,6 +33,7 @@
    "label": "Naming Series"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "item",
    "fieldtype": "Link",
    "label": "Item",
@@ -143,7 +144,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-08-04 16:05:13.824439",
+ "modified": "2020-08-06 21:24:12.539587",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Carton",
