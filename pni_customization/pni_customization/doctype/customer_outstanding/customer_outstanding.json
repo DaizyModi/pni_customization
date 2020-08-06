@@ -1,0 +1,50 @@
+{
+ "creation": "2020-08-05 19:20:53.401166",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sales_invoice",
+  "date",
+  "invoice_amt",
+  "outstanding_amt"
+ ],
+ "fields": [
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sales Invoice",
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Date"
+  },
+  {
+   "fieldname": "invoice_amt",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Invoice Amt"
+  },
+  {
+   "fieldname": "outstanding_amt",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Outstanding Amt"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-08-05 19:21:15.147076",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Customer Outstanding",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

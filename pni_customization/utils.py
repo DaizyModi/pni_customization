@@ -374,7 +374,12 @@ def validate_stock_entry_item(doc, method):
 						for bom_item in bom.items:
 							if bom_item.item_code == row.item_code:
 								row.pni_qty_per_piece = bom_item.pni_qty_per_piece
-
+@frappe.whitelist()
+def get_outstanding_invoice(customer):
+	return frappe.get_list("Sales Invoice", 
+		fields=["name","posting_date","customer","rounded_total","outstanding_amount"],
+		filters={ "docstatus":1, "customer":customer, "outstanding_amount":(">",0)}
+	)
 def validate_repack_entry(stock_entry):
 	if stock_entry.stock_entry_type == "Repack":
 		setting = frappe.get_doc("PNI Settings","PNI Settings")
