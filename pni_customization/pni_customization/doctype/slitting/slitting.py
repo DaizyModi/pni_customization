@@ -150,7 +150,7 @@ class Slitting(Document):
 			reel_in = frappe.get_doc("Reel",data.reel_in)
 			reel_in.status = "Consume"
 			reel_in.save()
-			if item.type != "Bottom Reel":
+			if data.type != "Bottom Reel":
 				reel_out = frappe.get_doc("Reel",data.reel_out)
 				reel_out.status = "In Stock"
 				reel_out.save()
