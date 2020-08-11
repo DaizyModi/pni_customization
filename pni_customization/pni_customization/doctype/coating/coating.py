@@ -31,6 +31,7 @@ class Coating(Document):
 	
 	def manage_reel(self):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
+		reel_outs = []
 		for data in self.coating_table:
 			reel_in = frappe.get_doc("Reel",data.reel_in)
 			
@@ -45,7 +46,10 @@ class Coating(Document):
 				data.reel_out = doc.name
 			else:
 				doc = frappe.get_doc("Reel",data.reel_out)
-			
+			if data.reel_out not in reel_outs:
+				reel_outs.append(data.reel_out)
+			else:
+				frappe.throw("Duplicate Reel Out Id "+data.reel_out)
 			doc.type = reel_in.type
 			doc.item = reel_in.item
 			doc.brand = reel_in.brand
