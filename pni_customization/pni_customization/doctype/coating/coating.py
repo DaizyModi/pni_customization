@@ -134,6 +134,7 @@ class Coating(Document):
 			reel_in.status = "In Stock"
 			reel_in.save()
 			reel_out = frappe.get_doc("Reel",data.reel_out)
+			frappe.msgprint("Reel {0} Canceled.".format(data.reel_out))
 			reel_out.cancel()
 		self.cancel_reel_tracking()
 	
