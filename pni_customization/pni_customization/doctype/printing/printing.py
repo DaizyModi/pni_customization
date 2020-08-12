@@ -183,7 +183,7 @@ class Printing(Document):
 		qty_of_total_production = 0
 		total_sale_value = 0
 		for item in self.printing_table:
-			if item.weight_out > 0 and not data.merge_reel:
+			if item.weight_out > 0 and not item.merge_reel:
 				qty_of_total_production = float(qty_of_total_production) + item.weight_out
 		
 		# for item in self.coating_scrap:
