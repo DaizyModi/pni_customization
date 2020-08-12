@@ -24,36 +24,43 @@ class Printing(Document):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
 		for data in self.printing_table:
 			reel_in = frappe.get_doc("Reel",data.reel_in)
-
-			if not data.reel_out:
-				doc = frappe.get_doc({
-					"doctype": "Reel",
-					"status": "Draft",
-					"process_prefix": "PR",
-					"posting_date": self.date
-				})
-				doc.insert()
-				data.reel_out = doc.name
+			if not data.merge_reel:
+				if not data.reel_out:
+					doc = frappe.get_doc({
+						"doctype": "Reel",
+						"status": "Draft",
+						"process_prefix": "PR",
+						"posting_date": self.date
+					})
+					doc.insert()
+					data.reel_out = doc.name
+				else:
+					doc = frappe.get_doc("Reel",data.reel_out)
+				doc.custom_id = data.custom_id
+				doc.supplier_reel_id = reel_in.supplier_reel_id
+				doc.item = reel_in.item
+				doc.printed_item = data.printing_item
+				doc.warehouse = self.fg_warehouse if not data.half_reel else self.src_warehouse
+				doc.type = reel_in.type
+				doc.brand = reel_in.brand
+				doc.blank_weight = reel_in.blank_weight
+				doc.coated_reel =  reel_in.coated_reel
+				doc.printed_reel = True if not data.half_reel else False
+				doc.printed_weight = data.weight_out if not data.half_reel else ""
+				doc.coated_weight = reel_in.coated_weight
+				doc.weight = data.weight_out
+				if data.half_reel:
+					doc.warehouse = self.src_warehouse
+					doc.printed_reel = False
+					doc.printed_weight = ""
+				doc.save()
 			else:
-				doc = frappe.get_doc("Reel",data.reel_out)
-			doc.custom_id = data.custom_id
-			doc.supplier_reel_id = reel_in.supplier_reel_id
-			doc.item = reel_in.item
-			doc.printed_item = data.printing_item
-			doc.warehouse = self.fg_warehouse if not data.half_reel else self.src_warehouse
-			doc.type = reel_in.type
-			doc.brand = reel_in.brand
-			doc.blank_weight = reel_in.blank_weight
-			doc.coated_reel =  reel_in.coated_reel
-			doc.printed_reel = True if not data.half_reel else False
-			doc.printed_weight = data.weight_out if not data.half_reel else ""
-			doc.coated_weight = reel_in.coated_weight
-			doc.weight = data.weight_out
-			if data.half_reel:
-				doc.warehouse = self.src_warehouse
-				doc.printed_reel = False
-				doc.printed_weight = ""
-			doc.save()
+				if data.reel_out:
+					doc = frappe.get_doc("Reel",data.reel_out)
+					doc.delete()
+					frappe.msgprint("Reel Deleted becuase it's mereged "+data.reel_out)
+					data.reel_out = ""
+
 	
 	def manage_reel_tracking(self):
 		for data in self.printing_table:
@@ -91,7 +98,7 @@ class Printing(Document):
 		if (not self.end_dt) or (not self.end_dt):
 			frappe.throw("Please Select Operation Start and End Time")
 		for item in self.printing_table:
-			if (not item.reel_in) or (not item.reel_out) :
+			if (not item.reel_in) or ( (not item.reel_out) and ( not item.merge_reel) ):
 				frappe.throw("Reel is Compulsory")
 		for data in self.printing_table:
 			if not data.weight_out:
@@ -99,10 +106,15 @@ class Printing(Document):
 			reel_in = frappe.get_doc("Reel",data.reel_in)
 			reel_in.status = "Consume"
 			reel_in.save()
-			reel_out = frappe.get_doc("Reel",data.reel_out)
-			reel_out.status = "In Stock"
-			reel_out.save()
-			reel_out.submit()
+			if not data.merge_reel:
+				reel_out = frappe.get_doc("Reel",data.reel_out)
+				reel_out.status = "In Stock"
+				reel_out.save()
+				reel_out.submit()
+			else:
+				if data.reel_out:
+					frappe.throw("Reel Merge still reel out exist "+data.reel_out)
+
 		self.manage_reel_tracking()
 		frappe.db.set(self, 'status', 'Pending For Stock Entry')
 	
@@ -117,8 +129,9 @@ class Printing(Document):
 			reel_in = frappe.get_doc("Reel",data.reel_in)
 			reel_in.status = "In Stock"
 			reel_in.save()
-			reel_out = frappe.get_doc("Reel",data.reel_out)
-			reel_out.cancel()
+			if data.reel_out:
+				reel_out = frappe.get_doc("Reel",data.reel_out)
+				reel_out.cancel()
 		self.cancel_reel_tracking()
 	
 	def manufacture_entry(self):
@@ -170,7 +183,7 @@ class Printing(Document):
 		qty_of_total_production = 0
 		total_sale_value = 0
 		for item in self.printing_table:
-			if item.weight_out > 0:
+			if item.weight_out > 0 and not data.merge_reel:
 				qty_of_total_production = float(qty_of_total_production) + item.weight_out
 		
 		# for item in self.coating_scrap:
@@ -185,7 +198,8 @@ class Printing(Document):
 
 		#add Stock Entry Items for produced goods and scrap
 		for item in self.printing_table:
-			se = self.set_se_items(se, item, None, se.to_warehouse if not item.half_reel else se.from_warehouse, True, qty_of_total_production, total_sale_value, production_cost, reel_out = True)
+			if not item.merge_reel:
+				se = self.set_se_items(se, item, None, se.to_warehouse if not item.half_reel else se.from_warehouse, True, qty_of_total_production, total_sale_value, production_cost, reel_out = True)
 
 		for item in self.printing_scrap:
 			# if value_scrap:

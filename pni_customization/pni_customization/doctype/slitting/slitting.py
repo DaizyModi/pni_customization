@@ -234,7 +234,10 @@ class Slitting(Document):
 
 		#add Stock Entry Items for produced goods and scrap
 		for item in self.slitting_table:
-			se = self.set_se_items(se, item, None, se.to_warehouse if not item.half_reel else se.from_warehouse, True, qty_of_total_production,
+			warehouse = se.to_warehouse if not item.half_reel else se.from_warehouse
+			if item.type == "Bottom Reel" and item.finish_good_warehouse:
+				warehouse = item.finish_good_warehouse
+			se = self.set_se_items(se, item, None, warehouse, True, qty_of_total_production,
 			total_sale_value, production_cost, reel_out = True)
 
 		for item in self.slitting_scrap:

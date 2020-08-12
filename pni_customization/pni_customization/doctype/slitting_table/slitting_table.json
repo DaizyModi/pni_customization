@@ -10,6 +10,7 @@
   "weight",
   "item_out",
   "type",
+  "finish_good_warehouse",
   "weight_out",
   "reel_out",
   "half_reel",
@@ -94,10 +95,17 @@
    "label": "Item",
    "options": "Item",
    "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.type == \"Bottom Reel\"",
+   "fieldname": "finish_good_warehouse",
+   "fieldtype": "Link",
+   "label": "Finish Good Warehouse",
+   "options": "Warehouse"
   }
  ],
  "istable": 1,
- "modified": "2020-07-21 18:08:53.492930",
+ "modified": "2020-08-12 15:35:25.030110",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Slitting Table",
