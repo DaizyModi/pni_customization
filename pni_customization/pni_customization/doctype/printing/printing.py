@@ -101,7 +101,7 @@ class Printing(Document):
 			if (not item.reel_in) or ( (not item.reel_out) and ( not item.merge_reel) ):
 				frappe.throw("Reel is Compulsory")
 		for data in self.printing_table:
-			if not data.weight_out:
+			if not data.weight_out and not data.merge_reel:
 				frappe.throw("Weight Can't be empty")
 			reel_in = frappe.get_doc("Reel",data.reel_in)
 			reel_in.status = "Consume"
