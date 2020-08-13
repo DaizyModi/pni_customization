@@ -42,6 +42,8 @@ class PNIMaterialTransfer(Document):
 		for bag in self.material_transfer_table:
 			doc = frappe.get_doc(bag.reference_type, bag.id)
 			doc.warehouse = self.from_warehouse
+			if self.is_wip_warehouse:
+				doc.status = "In Stock"
 			doc.save()
 	
 	def get_bag(self):
