@@ -288,10 +288,13 @@ def submit_delivery_item(doc, method):
 				frappe.throw("Reel Not SUbmitted")
 			
 			reel.save()
-	
+	item_in_table = {}
 	for item in doc.items:
-		if items_calc[item.item_code] > 0 and items_calc[item.item_code] != item.qty:
-			frappe.throw("{0}'s qty({1}) is not metch in item table qty({2})".format(item.item_code,items_calc[item.item_code], item.qty))
+		weight = item_in_table.get(row.item, 0)
+		item_in_table.update({row.item:(weight + item.qty)})
+	for data in items_calc:
+		if item_in_table[data] != items_calc[data]:
+			frappe.throw("{0}'s qty({1}) is not metch in item table qty({2})".format(data,items_calc[data], item_in_table[data]))
 def get_carton_warehouse(packing_item, items):
 	for item in items:
 		if packing_item == item.item_code:
