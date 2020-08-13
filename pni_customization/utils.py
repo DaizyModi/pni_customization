@@ -231,10 +231,15 @@ def sales_invoice_validate(doc, method):
 		pass
 @frappe.whitelist()
 def submit_delivery_item(doc, method):
+	items_calc = {}
 	for row in doc.pni_packing_table:
+		
+		weight = items_calc.get(row.item, 0)
+		items_calc.update({row.item:(weight + row.total_qty)})
 		
 		if row.packing_type == "PNI Carton":
 			carton = frappe.get_doc("PNI Carton", row.pni_carton)
+			
 			
 			validate_pni_packing(row.pni_carton, carton.item,carton.warehouse, doc.items, doc.is_return)
 			
@@ -283,6 +288,10 @@ def submit_delivery_item(doc, method):
 				frappe.throw("Reel Not SUbmitted")
 			
 			reel.save()
+	
+	for item in doc.items:
+		if items_calc[item.item_code] > 0 and items_calc[item.item_code] != item.qty:
+			frappe.throw("{0}'s qty({1}) is not metch in item table qty({2})".format(item.item_code,items_calc[item.item_code], item.qty))
 def get_carton_warehouse(packing_item, items):
 	for item in items:
 		if packing_item == item.item_code:
