@@ -290,8 +290,8 @@ def submit_delivery_item(doc, method):
 			reel.save()
 	item_in_table = {}
 	for item in doc.items:
-		weight = item_in_table.get(row.item, 0)
-		item_in_table.update({row.item:(weight + item.stock_qty)})
+		weight = item_in_table.get(item.item_code, 0)
+		item_in_table.update({item.item_code:(weight + item.stock_qty)})
 	for data in items_calc:
 		if item_in_table.get(row.item) and items_calc.get(row.item):
 			if item_in_table.get(row.item) != items_calc.get(row.item):
