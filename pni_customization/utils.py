@@ -235,7 +235,7 @@ def submit_delivery_item(doc, method):
 	for row in doc.pni_packing_table:
 		
 		weight = items_calc.get(row.item, 0)
-		items_calc.update({row.item:(weight + row.total_qty)})
+		items_calc.update({row.item:(weight + float(row.total_qty))})
 		
 		if row.packing_type == "PNI Carton":
 			carton = frappe.get_doc("PNI Carton", row.pni_carton)
