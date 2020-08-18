@@ -402,7 +402,7 @@ def get_outstanding_invoice(customer):
 		total += row.outstanding_amount
 	return {"data":data,"total":total}
 def validate_repack_entry(stock_entry):
-	if stock_entry.stock_entry_type == "Repack":
+	if stock_entry.stock_entry_type == "Repack" and stock_entry.packing_type == "PNI Carton":
 		setting = frappe.get_doc("PNI Settings","PNI Settings")
 		# if not self.carton_weight:
 		# 	self.carton_weight = setting.paper_cup_carton_weight
@@ -430,9 +430,11 @@ def validate_repack_entry(stock_entry):
 				doc2.item_description = frappe.get_value("Item", stock_entry.carton_item, "description")
 				doc2.gross_weight = data.weight
 				doc2.net_weight = data.net_weight
-				doc2.total = float(stock_entry.conversation_factor)
+				doc2.total = float(stock_entry.conversation_factor if stock_entry.conversation_factor else 0)
 				doc2.warehouse = stock_entry.to_warehouse
 				doc2.save()
+	if stock_entry.stock_entry_type == "Repack" and stock_entry.packing_type == "PNI Bag":
+		pass
 @frappe.whitelist()
 def job_card_submit(doc, method):
 	total_qty = 0

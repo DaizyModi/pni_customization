@@ -36,7 +36,10 @@ fixtures = [
 					"approve_law_rate__","need_approval","tear_weight", "unit_price_pni",
 					"pni_rejected_qty", "pni_rework_qty", "pni_carton_in_section",
 					"pni_carton_in", "pni_packing_carton", "carton_item", "pni_carton_out_data",
-					"shift", "customer_outstanding", "total_customer_outstanding"
+					"shift", "customer_outstanding", "total_customer_outstanding",
+					"packing_type","pnicbc","supervisor","supervisor_name","conversation_factor",
+					"pni_bag_in", "carton_warehouse", "pni_bag_out_data", "bag_item", "punching_die",
+					"pni_cbc2","bag_brand", "coated_real", "printed_reel", "bag_warehouse"
 				)
 			]
 		]

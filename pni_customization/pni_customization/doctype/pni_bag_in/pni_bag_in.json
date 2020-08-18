@@ -1,0 +1,29 @@
+{
+ "creation": "2020-08-18 11:29:40.704183",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "pni_bag"
+ ],
+ "fields": [
+  {
+   "fieldname": "pni_bag",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "PNI Bag",
+   "options": "PNI Bag"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-08-18 11:29:40.704183",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "PNI Bag IN",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
