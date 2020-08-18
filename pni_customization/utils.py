@@ -229,6 +229,13 @@ def make_pni_quotation_from_opportunity(source_name, target_doc=None, ignore_per
 def sales_invoice_validate(doc, method):
 	for row in doc.items:
 		pass
+def validate_delivery_item(doc, method):
+	data = []
+	for row in doc.pni_packing_table:
+		if row.pni_carton in data:
+			frappe.throw("Duplicate Carton Entry {0}".format(row.pni_carton))
+		else:
+			data.append(row.pni_carton)
 @frappe.whitelist()
 def submit_delivery_item(doc, method):
 	items_calc = {}
@@ -416,6 +423,7 @@ def submit_repack_entry(stock_entry, method):
 			if(method=="on_submit"):
 				carton.status = "Available"
 				carton.save()
+				carton.submit()
 			else:
 				carton.cancel()
 

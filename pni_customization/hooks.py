@@ -40,7 +40,7 @@ fixtures = [
 					"packing_type","pnicbc","supervisor","supervisor_name","conversation_factor",
 					"pni_bag_in", "carton_warehouse", "pni_bag_out_data", "bag_item", "punching_die",
 					"pni_cbc2","bag_brand", "coated_real", "printed_reel", "bag_warehouse"
-					
+
 				)
 			]
 		]
@@ -58,6 +58,7 @@ doc_events = {
 		"on_update": "pni_customization.utils.update_item"
 	},
 	"Delivery Note": {
+		"validate": "pni_customization.utils.validate_delivery_item",
 		"on_submit": "pni_customization.utils.submit_delivery_item",
         "on_cancel": "pni_customization.utils.cancel_delivery_item",
 	},
