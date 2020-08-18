@@ -40,6 +40,7 @@ fixtures = [
 					"packing_type","pnicbc","supervisor","supervisor_name","conversation_factor",
 					"pni_bag_in", "carton_warehouse", "pni_bag_out_data", "bag_item", "punching_die",
 					"pni_cbc2","bag_brand", "coated_real", "printed_reel", "bag_warehouse"
+					
 				)
 			]
 		]

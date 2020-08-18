@@ -401,6 +401,24 @@ def get_outstanding_invoice(customer):
 	for row in data:
 		total += row.outstanding_amount
 	return {"data":data,"total":total}
+
+def submit_repack_entry(stock_entry, method):
+	if stock_entry.stock_entry_type == "Repack" and stock_entry.packing_type == "PNI Carton":
+		for item in stock_entry.pni_carton:
+			carton =  frappe.get_doc("PNI Carton",item.pni_carton)
+			if(method=="on_submit"):
+				carton.status = "Repack"
+			else:
+				carton.status = "Available"
+			carton.save()
+		for item in stock_entry.pni_packing_carton:
+			carton =  frappe.get_doc("PNI Carton",item.pni_carton)
+			if(method=="on_submit"):
+				carton.status = "Available"
+				carton.save()
+			else:
+				carton.cancel()
+
 def validate_repack_entry(stock_entry):
 	if stock_entry.stock_entry_type == "Repack" and stock_entry.packing_type == "PNI Carton":
 		setting = frappe.get_doc("PNI Settings","PNI Settings")
@@ -560,7 +578,7 @@ def validate_po(doc, method):
 
 @frappe.whitelist()
 def manage_se_changes(doc, method):
-	
+	submit_repack_entry(doc, method)
 	if doc.pni_reference and doc.pni_reference_type == "PNI Packing":
 		co = frappe.get_doc("PNI Packing", doc.pni_reference)
 		if(method=="on_submit"):
