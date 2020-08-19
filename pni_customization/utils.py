@@ -419,7 +419,7 @@ def submit_repack_entry(stock_entry, method):
 				carton.status = "Available"
 			carton.save()
 		for item in stock_entry.pni_packing_carton:
-			carton =  frappe.get_doc("PNI Carton",item.pni_carton)
+			carton =  frappe.get_doc("PNI Carton",item.carton_id)
 			if(method=="on_submit"):
 				carton.status = "Available"
 				carton.save()
