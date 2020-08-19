@@ -411,7 +411,7 @@ def get_outstanding_invoice(customer):
 
 def submit_repack_entry(stock_entry, method):
 	if stock_entry.stock_entry_type == "Repack" and stock_entry.packing_type == "PNI Carton":
-		for item in stock_entry.pni_carton:
+		for item in stock_entry.pni_carton_in:
 			carton =  frappe.get_doc("PNI Carton",item.pni_carton)
 			if(method=="on_submit"):
 				carton.status = "Repack"
