@@ -434,7 +434,7 @@ def validate_repack_entry(stock_entry):
 		# 	self.carton_weight = setting.paper_cup_carton_weight
 		for data in stock_entry.pni_packing_carton:
 			if data.weight:
-				data.net_weight = data.weight - data.carton_weight
+				data.net_weight = float(data.weight) - float(data.carton_weight)
 			if not data.carton_id:
 				doc = frappe.get_doc({
 					"doctype": "PNI Carton",
