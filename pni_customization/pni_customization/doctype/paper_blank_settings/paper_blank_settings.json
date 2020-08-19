@@ -7,6 +7,7 @@
   "item_group_section",
   "coating_scrap",
   "slitting_scrap",
+  "coated_item_group",
   "column_break_4",
   "printing_scrap",
   "punching_scrap",
@@ -71,10 +72,16 @@
    "fieldtype": "Link",
    "label": "Printing Inc Item Group",
    "options": "Item Group"
+  },
+  {
+   "fieldname": "coated_item_group",
+   "fieldtype": "Link",
+   "label": "Coated Item Group",
+   "options": "Item Group"
   }
  ],
  "issingle": 1,
- "modified": "2020-04-08 21:24:04.890757",
+ "modified": "2020-08-19 12:57:38.619971",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Paper Blank Settings",

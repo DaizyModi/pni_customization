@@ -19,6 +19,7 @@ class Coating(Document):
 	def onload(self):
 		paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
 		self.set_onload("scrapitemgroup", paper_blank_setting.coating_scrap)
+		self.set_onload("coated_item_group", paper_blank_setting.coated_item_group)
 
 	def calculate_ldap(self):
 		ldap = 0
@@ -50,8 +51,10 @@ class Coating(Document):
 				reel_outs.append(data.reel_out)
 			else:
 				frappe.throw("Duplicate Reel Out Id "+data.reel_out)
+			if not data.item_out:
+				frappe.throw("Out Reel Item Not Available {0}".format(data.reel_in))
 			doc.type = reel_in.type
-			doc.item = reel_in.item
+			doc.item = data.item_out
 			doc.brand = reel_in.brand
 			doc.supplier_reel_id =  reel_in.supplier_reel_id
 			doc.warehouse = self.fg_warehouse if not data.half_reel else self.src_warehouse 
@@ -171,12 +174,6 @@ class Coating(Document):
 			if item.reel_in not in reelin:
 				se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
 				reelin.append(item.reel_in)
-		if self.ldpe_bag>0:
-			pass
-			# paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
-			# se = self.set_se_items(se, paper_blank_setting.ldpe_bag, 
-			# se.from_warehouse, None, False, ldpe=True)
-		#TODO calc raw_material_cost
 
 		#no timesheet entries, calculate operating cost 
 		# based on workstation hourly rate and process start, end
@@ -196,17 +193,6 @@ class Coating(Document):
 		for item in self.coating_table:
 			if item.weight_out > 0:
 				qty_of_total_production = float(qty_of_total_production) + item.weight_out
-		
-		# for item in self.coating_scrap:
-		# 	if item.quantity > 0:
-		# 		qty_of_total_production = float(qty_of_total_production + item.quantity)
-		# 		if self.costing_method == "Relative Sales Value":
-		# 			sale_value_of_pdt = frappe.db.get_value("Item Price", 
-		# 				{"item_code":item.item}, "price_list_rate")
-		# 			if sale_value_of_pdt:
-		# 				total_sale_value += float(sale_value_of_pdt) * item.quantity
-		# 			else:
-		# 				frappe.throw(_("Selling price not set for item {0}").format(item.item))
 
 		#add Stock Entry Items for produced goods and scrap
 		for item in self.coating_table:
@@ -215,11 +201,6 @@ class Coating(Document):
 					production_cost, reel_out = True)
 
 		for item in self.coating_scrap:
-			# if value_scrap:
-			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, True, 
-			# qty_of_total_production, total_sale_value, production_cost)
-			# else:
-			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, False)
 			se = self.set_se_items(se, item, None, self.scrap_warehouse, 
 					False, scrap_item = True)
 

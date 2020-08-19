@@ -36,9 +36,11 @@ class Printing(Document):
 					data.reel_out = doc.name
 				else:
 					doc = frappe.get_doc("Reel",data.reel_out)
+				if not data.item_out:
+					frappe.throw("Item Out in Mandatory for reel  {0}".format(data.reel_in))
 				doc.custom_id = data.custom_id
 				doc.supplier_reel_id = reel_in.supplier_reel_id
-				doc.item = reel_in.item
+				doc.item = data.item_out
 				doc.printed_item = data.printing_item
 				doc.warehouse = self.fg_warehouse if not data.half_reel else self.src_warehouse
 				doc.type = reel_in.type

@@ -16,6 +16,11 @@ frappe.ui.form.on('Coating', {
 					filters: {"item_group": frm.doc.__onload.scrapitemgroup}
 				}
 			});
+			frm.set_query("item_out", "coating_table", function () {
+				return {
+					filters: {"item_group": frm.doc.__onload.coated_item_group}
+				}
+			});
 		}
 	},
 	setup: function (frm) {

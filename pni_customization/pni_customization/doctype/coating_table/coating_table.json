@@ -8,6 +8,7 @@
   "item",
   "brand",
   "weight",
+  "item_out",
   "weight_out",
   "reel_out",
   "custom_id",
@@ -34,7 +35,7 @@
    "read_only": 1
   },
   {
-   "columns": 2,
+   "columns": 1,
    "fetch_from": "reel_in.weight",
    "fieldname": "weight",
    "fieldtype": "Float",
@@ -71,17 +72,26 @@
    "label": "Custom ID"
   },
   {
+   "columns": 1,
    "fetch_from": "reel_in.item",
    "fieldname": "item",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Item",
+   "label": "In Item",
    "options": "Item",
    "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "item_out",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Out",
+   "options": "Item"
   }
  ],
  "istable": 1,
- "modified": "2020-07-21 18:00:44.315588",
+ "modified": "2020-08-19 12:52:56.110704",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Coating Table",
