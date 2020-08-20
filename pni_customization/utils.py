@@ -300,8 +300,8 @@ def submit_delivery_item(doc, method):
 		weight = item_in_table.get(item.item_code, 0)
 		item_in_table.update({item.item_code:(weight + float(item.stock_qty))})
 	for data in items_calc:
-		if item_in_table.get(row.item) and items_calc.get(row.item):
-			if item_in_table.get(row.item) != items_calc.get(row.item):
+		if item_in_table.get(data) and items_calc.get(data):
+			if item_in_table.get(data) != items_calc.get(data):
 				frappe.throw("{0}'s qty({1}) is not metch in item table qty({2})".format(data,item_in_table.get(row.item), items_calc.get(row.item)))
 def get_carton_warehouse(packing_item, items):
 	for item in items:
