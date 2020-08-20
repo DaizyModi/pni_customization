@@ -36,6 +36,8 @@ class Printing(Document):
 					data.reel_out = doc.name
 				else:
 					doc = frappe.get_doc("Reel",data.reel_out)
+				if not data.half_reel and not data.printing_item:
+					frappe.throw("Printing Item Mandatory.")
 				if not data.item_out:
 					frappe.throw("Item Out in Mandatory for reel  {0}".format(data.reel_in))
 				doc.custom_id = data.custom_id
