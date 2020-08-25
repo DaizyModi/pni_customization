@@ -7,6 +7,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import get_datetime, time_diff_in_hours
+from frappe.utils import cint, cstr, flt
 
 class Coating(Document):
 	def validate(self):
@@ -14,7 +15,7 @@ class Coating(Document):
 		if self.end_dt and self.start_dt:
 			hours = time_diff_in_hours(self.end_dt, self.start_dt)
 			frappe.db.set(self, 'operation_hours', hours)
-		# self.calculate_ldap()
+		self.calculate_ldap()
 
 	def onload(self):
 		paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
@@ -24,9 +25,7 @@ class Coating(Document):
 	def calculate_ldap(self):
 		ldap = 0
 		for data in self.coating_table:
-			if float(data.gsm) >170:
-				ldap += float(data.weight) * 0.08
-			else:
+			if not data.half_reel:
 				ldap += float(data.weight) * 0.08
 		self.ldpe_bag = ldap
 	
@@ -116,6 +115,8 @@ class Coating(Document):
 		for item in self.coating_table:
 			if (not item.reel_in) or (not item.reel_out) :
 				frappe.throw("Reel is Compulsory")
+		if not self.ldpe_warehouse:
+			frappe.throw("LDPE Warehouse Mandatory")
 		for data in self.coating_table:
 			if not data.weight_out:
 				frappe.throw("Weight Can't be empty")
@@ -159,7 +160,31 @@ class Coating(Document):
 		stock_entry = self.set_se_items_finish(stock_entry)
 
 		return stock_entry.as_dict()
+	
+	def get_valuation_rate(self, item):
+		""" Get weighted average of valuation rate from all warehouses """
 
+		total_qty, total_value, valuation_rate = 0.0, 0.0, 0.0
+		for d in frappe.db.sql("""select actual_qty, stock_value from `tabBin`
+			where item_code=%s""", item, as_dict=1):
+				total_qty += flt(d.actual_qty)
+				total_value += flt(d.stock_value)
+
+		if total_qty:
+			valuation_rate =  total_value / total_qty
+
+		if valuation_rate <= 0:
+			last_valuation_rate = frappe.db.sql("""select valuation_rate
+				from `tabStock Ledger Entry`
+				where item_code = %s and valuation_rate > 0
+				order by posting_date desc, posting_time desc, creation desc limit 1""", item)
+
+			valuation_rate = flt(last_valuation_rate[0][0]) if last_valuation_rate else 0
+
+		if not valuation_rate:
+			valuation_rate = frappe.db.get_value("Item", item, "valuation_rate")
+
+		return flt(valuation_rate)
 	def set_se_items_finish(self, se):
 		#set from and to warehouse
 		se.from_warehouse = self.src_warehouse
@@ -174,26 +199,37 @@ class Coating(Document):
 			if item.reel_in not in reelin:
 				se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
 				reelin.append(item.reel_in)
-
+				raw_material_cost += self.get_valuation_rate(item.item) * float(item.weight)
+		
+		#calculate raw material cost
+		#add ldpe bag
+		paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
+		ldpe_item =paper_blank_setting.ldpe_bag
+		if not ldpe_item:
+			frappe.throw("Please Sett LDPE Item in Paper Blank Settings")
+		raw_material_cost += self.get_valuation_rate(ldpe_item) * float(self.ldpe_bag)
+		se = self.set_se_items(se, ldpe_item, self.ldpe_warehouse, None, False, ldpe = True)
+		# raw_material_cost
 		#no timesheet entries, calculate operating cost 
 		# based on workstation hourly rate and process start, end
-		hourly_rate = frappe.db.get_value("Workstation", self.work_station, "hour_rate")
-		if hourly_rate:
-			if self.operation_hours > 0:
-				hours = self.operation_hours
-			else:
-				hours = time_diff_in_hours(self.end_dt, self.start_dt)
-				frappe.db.set(self, 'operation_hours', hours)
-			operating_cost = hours * float(hourly_rate)
+		# hourly_rate = frappe.db.get_value("Workstation", self.work_station, "hour_rate")
+		# if hourly_rate:
+		# 	if self.operation_hours > 0:
+		# 		hours = self.operation_hours
+		# 	else:
+		# 		hours = time_diff_in_hours(self.end_dt, self.start_dt)
+		# 		frappe.db.set(self, 'operation_hours', hours)
+		# 	operating_comake_stock_entryst = hours * float(hourly_rate)
 		production_cost = raw_material_cost + operating_cost
 
 		#calc total_qty and total_sale_value
 		qty_of_total_production = 0
 		total_sale_value = 0
 		for item in self.coating_table:
-			if item.weight_out > 0:
-				qty_of_total_production = float(qty_of_total_production) + item.weight_out
-
+			if item.weight_out > 0 and not item.half_reel:
+				qty_of_total_production = float(qty_of_total_production) + float(item.weight_out)
+		
+		
 		#add Stock Entry Items for produced goods and scrap
 		for item in self.coating_table:
 			se = self.set_se_items(se, item, None, se.to_warehouse if not item.half_reel else se.from_warehouse, True, 
@@ -274,12 +310,6 @@ class Coating(Document):
 
 		if calc_basic_rate:
 			se_item.basic_rate = production_cost/qty_of_total_production
-			# if self.costing_method == "Physical Measurement":
-			# 	se_item.basic_rate = production_cost/qty_of_total_production
-			# elif self.costing_method == "Relative Sales Value":
-			# 	sale_value_of_pdt = frappe.db.get_value("Item Price", 
-			# 		{"item_code":item_from_reel.item}, "price_list_rate")
-			# 	se_item.basic_rate = (
-			# 		float(sale_value_of_pdt) 
-			# 		* float(production_cost)) / float(total_sale_value)
+		if scrap_item:
+			se_item.basic_rate = self.get_valuation_rate(item_from_reel.item)
 		return se

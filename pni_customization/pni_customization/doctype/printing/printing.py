@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import get_datetime, time_diff_in_hours
+from frappe.utils import get_datetime, time_diff_in_hours, flt
 
 class Printing(Document):
 	def validate(self):
@@ -150,7 +150,32 @@ class Printing(Document):
 		stock_entry = self.set_se_items_finish(stock_entry)
 
 		return stock_entry.as_dict()
+	
+	def get_valuation_rate(self, item):
+		""" Get weighted average of valuation rate from all warehouses """
 
+		total_qty, total_value, valuation_rate = 0.0, 0.0, 0.0
+		for d in frappe.db.sql("""select actual_qty, stock_value from `tabBin`
+			where item_code=%s""", item, as_dict=1):
+				total_qty += flt(d.actual_qty)
+				total_value += flt(d.stock_value)
+
+		if total_qty:
+			valuation_rate =  total_value / total_qty
+
+		if valuation_rate <= 0:
+			last_valuation_rate = frappe.db.sql("""select valuation_rate
+				from `tabStock Ledger Entry`
+				where item_code = %s and valuation_rate > 0
+				order by posting_date desc, posting_time desc, creation desc limit 1""", item)
+
+			valuation_rate = flt(last_valuation_rate[0][0]) if last_valuation_rate else 0
+
+		if not valuation_rate:
+			valuation_rate = frappe.db.get_value("Item", item, "valuation_rate")
+
+		return flt(valuation_rate)
+	
 	def set_se_items_finish(self, se):
 		#set from and to warehouse
 		se.from_warehouse = self.src_warehouse
@@ -169,8 +194,7 @@ class Printing(Document):
 			if item.reel_in not in reelin:
 				se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
 				reelin.append(item.reel_in)
-
-		#TODO calc raw_material_cost
+				raw_material_cost += self.get_valuation_rate(item.item) * float(item.weight)
 
 		#no timesheet entries, calculate operating cost based on workstation hourly rate and process start, end
 		hourly_rate = frappe.db.get_value("Workstation", self.workstation, "hour_rate")
@@ -180,7 +204,7 @@ class Printing(Document):
 			else:
 				hours = time_diff_in_hours(self.end_dt, self.start_dt)
 				frappe.db.set(self, 'operation_hours', hours)
-			operating_cost = hours * float(hourly_rate)
+			# operating_cost = hours * float(hourly_rate)
 		production_cost = raw_material_cost + operating_cost
 
 		#calc total_qty and total_sale_value
@@ -188,7 +212,7 @@ class Printing(Document):
 		total_sale_value = 0
 		for item in self.printing_table:
 			if item.weight_out > 0 and not item.merge_reel:
-				qty_of_total_production = float(qty_of_total_production) + item.weight_out
+				qty_of_total_production = float(qty_of_total_production) + float(item.weight_out)
 		
 		# for item in self.coating_scrap:
 		# 	if item.quantity > 0:
@@ -267,10 +291,15 @@ class Printing(Document):
 			se_item.set(f, item_details.get(f))
 
 		if calc_basic_rate:
-			se_item.basic_rate = production_cost/qty_of_total_production
+			# se_item.basic_rate = float(production_cost/qty_of_total_production)*1.04
+			se_item.basic_rate = self.get_valuation_rate(item.item) * 1.04
+			
+
 			# if self.costing_method == "Physical Measurement":
 			# 	se_item.basic_rate = production_cost/qty_of_total_production
 			# elif self.costing_method == "Relative Sales Value":
 			# 	sale_value_of_pdt = frappe.db.get_value("Item Price", {"item_code":item_from_reel.item}, "price_list_rate")
 			# 	se_item.basic_rate = (float(sale_value_of_pdt) * float(production_cost)) / float(total_sale_value)
+		if scrap_item:
+			se_item.basic_rate = self.get_valuation_rate(item_from_reel.item)
 		return se

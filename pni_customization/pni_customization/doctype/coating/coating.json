@@ -19,6 +19,8 @@
   "src_warehouse",
   "fg_warehouse",
   "scrap_warehouse",
+  "column_break_14",
+  "ldpe_warehouse",
   "coating_details_section",
   "ldpe_bag",
   "coating_table",
@@ -168,10 +170,20 @@
    "fieldname": "operation_hours",
    "fieldtype": "Float",
    "label": "Hours of Operation"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ldpe_warehouse",
+   "fieldtype": "Link",
+   "label": "LDPE Warehouse",
+   "options": "Warehouse"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-04-10 19:46:38.327027",
+ "modified": "2020-08-25 08:04:58.816545",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Coating",

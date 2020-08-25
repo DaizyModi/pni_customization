@@ -289,4 +289,6 @@ class Packing(Document):
 			# 								"item_code":item_from_reel.item
 			# 							}, "price_list_rate")
 			# 	se_item.basic_rate=(float(sale_value_of_pdt)*float(production_cost))/float(total_sale_value)
+		if scrap_item:
+			se_item.basic_rate = self.get_valuation_rate(item_from_reel.item)
 		return se
