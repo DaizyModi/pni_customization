@@ -10,7 +10,7 @@ def validate_item_price(doc, method):
 			{
 				"brand":doc.brand, 
 			} ,"selling_rate" )
-		if value and value > 0:
+		if value and float(value) > 0:
 			doc.price_list_rate = value
 def validate_reel_qty(doc):
 	for item in doc.items:
