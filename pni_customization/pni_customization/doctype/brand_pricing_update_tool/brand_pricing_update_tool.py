@@ -31,7 +31,7 @@ class BrandPricingUpdateTool(Document):
 				ip = frappe.get_doc("Item Price",item_price.name)
 				if not ip.customer:
 					ip.price_list_rate = row.selling_rate
-					frappe.msgprint("Item Price Updated for "+ ip.name)
+					# frappe.msgprint("Item Price Updated for "+ ip.name)
 					ip.save()
 
 		doc.save()
