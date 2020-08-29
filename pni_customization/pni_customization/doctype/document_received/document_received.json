@@ -11,7 +11,8 @@
   "date",
   "time",
   "section_break_6",
-  "user"
+  "user",
+  "amended_from"
  ],
  "fields": [
   {
@@ -58,9 +59,19 @@
    "label": "User",
    "options": "User",
    "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Document Received",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
- "modified": "2020-08-29 16:43:44.019120",
+ "is_submittable": 1,
+ "modified": "2020-08-29 16:45:48.507944",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Document Received",

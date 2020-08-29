@@ -225,6 +225,11 @@ def get_data():
 					"type": "doctype",
 					"name": "PNI Gate Pass",
 					"description": _("Initial Order From Customer"),
+				},
+				{
+					"type": "doctype",
+					"name": "Document Received",
+					"description": _("Document Received"),
 				}
 			]
 		}
