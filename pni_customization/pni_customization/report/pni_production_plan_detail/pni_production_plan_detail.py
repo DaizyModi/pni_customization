@@ -98,37 +98,40 @@ def get_data(filters=None):
 	return frappe.db.sql("""
 		select 
 			soi.parent, soi.qty,
-			result2.warehouse, result2.item_code, result2.projected_qty,result2.box,
+			result2.warehouse, result2.item_code, 
+			result2.projected_qty,result2.box,
 			result2.actual_qty, result2.ordered_qty, 
 			result2.planned_qty, result2.reserved_qty, 
 			result2.item_name, result2.description
-			from
+		from (
+			select 
+				result.warehouse, result.item_code, result.actual_qty, 
+				result.ordered_qty, result.planned_qty ,
+				result.reserved_qty, result.projected_qty,
+				(result.projected_qty / NULLIF(uom_con.conversion_factor,1)) as box, 
+				result.item_name, result.description
+			from 
 				(
-					select 
-						result.warehouse, result.item_code, result.actual_qty, result.ordered_qty, result.planned_qty ,
-						result.reserved_qty, result.projected_qty,(result.projected_qty / NULLIF(uom_con.conversion_factor,1)) as box, 
-						result.item_name, result.description
-						from 
-							(SELECT  
-								bin.warehouse, bin.item_code, bin.actual_qty, bin.ordered_qty, bin.planned_qty ,
-								bin.reserved_qty, bin.projected_qty, item.item_name, item.description
-							FROM 
-								tabBin as bin
-							INNER JOIN 
-								tabItem as item
-							ON 	bin.item_code=item.name
-							WHERE 	bin.projected_qty<0  {0}
-							ORDER BY 	bin.projected_qty) as result
-						Left JOIN
-							`tabUOM Conversion Detail` as uom_con
-						ON
-							uom_con.parent = result.item_code and uom_con.uom = "Box" 
-				) as result2
-				LEFT JOIN
-					`tabSales Order Item` as soi
-				ON
-					soi.item_code = result2.item_code and soi.docstatus= 1
-
-
-
+					SELECT  
+						bin.warehouse, bin.item_code, bin.actual_qty, 
+						bin.ordered_qty, bin.planned_qty ,
+						bin.reserved_qty, bin.projected_qty, 
+						item.item_name, item.description
+					FROM 
+						tabBin as bin
+					INNER JOIN 
+						tabItem as item
+					ON 	bin.item_code=item.name
+					WHERE 	bin.projected_qty<0  {0}
+					ORDER BY 	bin.projected_qty
+				) as result
+			Left JOIN
+				`tabUOM Conversion Detail` as uom_con
+			ON
+				uom_con.parent = result.item_code and uom_con.uom = "Box" 
+		) as result2
+		LEFT JOIN
+			`tabSales Order Item` as soi
+		ON
+			soi.item_code = result2.item_code and soi.docstatus= 1 and soi.qty <> soi.delivered_qty
 	""".format(conditions))
