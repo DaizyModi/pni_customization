@@ -131,8 +131,10 @@ class PNIPacking(Document):
 		stock_entry = frappe.new_doc("Stock Entry")
 		stock_entry.pni_reference_type = "PNI Packing"
 		stock_entry.pni_reference = self.name
+		stock_entry.posting_date = self.date
+		stock_entry.set_posting_time = True
 		
-		stock_entry.stock_entry_type = "Material Receipt"
+		stock_entry.stock_entry_type = "Manufacture"
 		stock_entry = self.set_se_items_finish(stock_entry)
 
 		return stock_entry.as_dict()
@@ -141,6 +143,7 @@ class PNIPacking(Document):
 		#set from and to warehouse
 
 		se.to_warehouse = self.to_warehouse
+		se.from_warehouse = self.source_warehouse
 
 		#TODO allow multiple raw material transfer
 		raw_material_cost = 0
@@ -165,14 +168,21 @@ class PNIPacking(Document):
 		total_sale_value = 0
 		
 		qty_of_total_production = float(qty_of_total_production) + float(self.total_stock)
-
-		#add Stock Entry Items for produced goods and scrap
 		
-		se = self.set_se_items(se, self.item, se.to_warehouse, True, qty_of_total_production, total_sale_value, production_cost)
+		#add carton to stock entry
+		cartons = {}
+		for row in self.carton_data:
+			if row.carton_item:
+				count = cartons.get(row.carton_item, 0)
+				cartons.update({row.carton_item:(count + 1)})
+		for data in cartons:
+			se = self.set_se_items(se, data, None, se.from_warehouse, True, qty_of_total_production, total_sale_value, production_cost, raw_material = cartons[data])
 
+		#add paper cup item to stockentry
+		se = self.set_se_items(se, self.item, se.to_warehouse, None, True, qty_of_total_production, total_sale_value, production_cost)
 		return se
 	
-	def set_se_items(self, se, item, t_wh, calc_basic_rate=False, qty_of_total_production=None, total_sale_value=None, production_cost=None):
+	def set_se_items(self, se, item, t_wh , f_wh , calc_basic_rate=False, qty_of_total_production=None, total_sale_value=None, production_cost=None, raw_material = None):
 		
 		temp_item = {}
 		
@@ -182,6 +192,8 @@ class PNIPacking(Document):
 		temp_item = Empty()
 		temp_item.item = item
 		temp_item.weight = float(self.total_stock)
+		if raw_material:
+			temp_item.weight = raw_material
 		
 		expense_account, cost_center = frappe.db.get_values("Company", self.company, \
 			["default_expense_account", "cost_center"])[0]
@@ -192,15 +204,18 @@ class PNIPacking(Document):
 			["expense_account", "buying_cost_center"])
 
 		if not expense_account and not item_expense_account:
-			frappe.throw(_("Please update default Default Cost of Goods Sold Account for company {0}").format(self.company))
+			frappe.throw("Please update default Default Cost of Goods Sold Account for company {0}".format(self.company))
 
 		if not cost_center and not item_cost_center:
-			frappe.throw(_("Please update default Cost Center for company {0}").format(self.company))
+			frappe.throw("Please update default Cost Center for company {0}".format(self.company))
 
 		se_item = se.append("items")
 		se_item.item_code = temp_item.item
 		se_item.qty = temp_item.weight
-		se_item.t_warehouse = t_wh
+		if raw_material:
+			se_item.s_warehouse = f_wh
+		else:
+			se_item.t_warehouse = t_wh
 		se_item.item_name = item_name
 		se_item.description = description
 		se_item.uom = stock_uom

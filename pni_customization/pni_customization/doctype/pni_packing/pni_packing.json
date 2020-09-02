@@ -14,6 +14,7 @@
   "shift",
   "column_break_4",
   "workstation",
+  "source_warehouse",
   "to_warehouse",
   "date",
   "packing_unit",
@@ -226,10 +227,17 @@
    "fieldtype": "Table",
    "label": "PNI Loose Stock IN",
    "options": "PNI Loose Stock IN"
+  },
+  {
+   "fieldname": "source_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-08-02 14:29:50.704073",
+ "modified": "2020-08-31 14:53:20.301336",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
