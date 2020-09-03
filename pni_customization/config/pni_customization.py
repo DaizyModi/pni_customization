@@ -129,6 +129,13 @@ def get_data():
 					"description": _("Low Price Sell"),
 					"is_query_report": True,
 					"reference_doctype": "Sales Order",
+				},
+				{
+					"type": "report",
+					"name": "PNI Production Plan Detail",
+					"description": _("PNI Production Plan Detail"),
+					"is_query_report": True,
+					"reference_doctype": "Sales Order",
 				}
 			]
 		},
