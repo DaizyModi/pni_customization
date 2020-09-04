@@ -168,12 +168,14 @@ def get_data(filters=None):
 				LEFT JOIN
 					`tabSales Order Item` as soi
 				ON
-					soi.item_code = result2.item_code and soi.docstatus= 1 and soi.qty <> soi.delivered_qty
+					soi.item_code = result2.item_code 
+					and soi.docstatus= 1 
+					and soi.qty <> soi.delivered_qty
 			) as result3
 		LEFT JOIN
 			`tabSales Order` as so
 		ON
-			so.name = result3.so_name
+			so.name = result3.so_name and so.status <> "Closed"
 		LEFT JOIN
 			`tabSales Team` as st
 		ON
