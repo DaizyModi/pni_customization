@@ -188,9 +188,10 @@ def get_data(filters=None):
 		LEFT JOIN
 			`tabSales Order` as so
 		ON
-			so.name = result3.so_name and so.status <> "Closed"
+			so.name = result3.so_name 
 		LEFT JOIN
 			`tabSales Team` as st
 		ON
 			st.parent = result3.so_name
+		where so.status <> "Closed"
 	""".format(conditions))
