@@ -21,6 +21,12 @@ def get_columns():
             "width": 180
         },
 		{
+            "fieldname": "date",
+            "label": _("Date"),
+            "fieldtype": "Date",
+            "width": 180
+        },
+		{
             "fieldname": "customer",
             "label": _("Customer"),
             "fieldtype": "Link",
@@ -73,14 +79,20 @@ def get_columns():
 			"width": 100
         },
 		{
-            "fieldname": "box",
-            "label": _("Box"),
+            "fieldname": "projected_box",
+            "label": _("Projected Box"),
             "fieldtype": "Float",
 			"width": 100
         },
 		{
             "fieldname": "actual_qty",
             "label": _("Actual Qty"),
+            "fieldtype": "Float",
+			"width": 100
+        },
+		{
+            "fieldname": "actual_box",
+            "label": _("Actual Box"),
             "fieldtype": "Float",
 			"width": 100
         },
@@ -123,10 +135,10 @@ def get_data(filters=None):
 	
 	return frappe.db.sql("""
 		select 
-			result3.so_name, so.customer, st.sales_person,result3.qty,result3.delivered_qty,result3.pending_qty,
+			result3.so_name, so.transaction_date, so.customer_name, st.sales_person,result3.qty,result3.delivered_qty,result3.pending_qty,
 			result3.warehouse, result3.item_code, 
 			result3.projected_qty,result3.box,
-			result3.actual_qty, result3.ordered_qty, 
+			result3.actual_qty, result3.actual_box, result3.ordered_qty, 
 			result3.planned_qty, result3.reserved_qty, 
 			result3.item_name, result3.description
 		from 
@@ -135,7 +147,7 @@ def get_data(filters=None):
 					soi.parent as so_name, soi.qty,soi.delivered_qty,(soi.qty-soi.delivered_qty) as pending_qty,
 					result2.warehouse, result2.item_code, 
 					result2.projected_qty,result2.box,
-					result2.actual_qty, result2.ordered_qty, 
+					result2.actual_qty, result2.actual_box, result2.ordered_qty, 
 					result2.planned_qty, result2.reserved_qty, 
 					result2.item_name, result2.description
 				from (
@@ -144,6 +156,7 @@ def get_data(filters=None):
 						result.ordered_qty, result.planned_qty ,
 						result.reserved_qty, result.projected_qty,
 						(result.projected_qty / NULLIF(uom_con.conversion_factor,1)) as box, 
+						(result.actual_qty / NULLIF(uom_con.conversion_factor,1)) as actual_box, 
 						result.item_name, result.description
 					from 
 						(
