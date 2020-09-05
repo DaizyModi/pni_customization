@@ -230,6 +230,7 @@
    "options": "PNI Loose Stock IN"
   },
   {
+   "fetch_from": "workstation.src_warehouse",
    "fieldname": "source_warehouse",
    "fieldtype": "Link",
    "label": "Source Warehouse",
@@ -244,7 +245,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-09-05 16:35:14.094122",
+ "modified": "2020-09-05 17:55:32.712306",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
