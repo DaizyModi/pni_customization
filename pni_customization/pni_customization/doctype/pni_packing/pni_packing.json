@@ -12,6 +12,7 @@
   "company",
   "is_paper_plate",
   "shift",
+  "workstation_head",
   "column_break_4",
   "workstation",
   "source_warehouse",
@@ -234,10 +235,16 @@
    "label": "Source Warehouse",
    "options": "Warehouse",
    "reqd": 1
+  },
+  {
+   "fetch_from": "workstation.workstation_head_name",
+   "fieldname": "workstation_head",
+   "fieldtype": "Data",
+   "label": "Workstation Head"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-08-31 14:53:20.301336",
+ "modified": "2020-09-05 16:35:14.094122",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

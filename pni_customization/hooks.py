@@ -39,7 +39,8 @@ fixtures = [
 					"shift", "customer_outstanding", "total_customer_outstanding",
 					"packing_type","pnicbc","supervisor","supervisor_name","conversation_factor",
 					"pni_bag_in", "carton_warehouse", "pni_bag_out_data", "bag_item", "punching_die",
-					"pni_cbc2","bag_brand", "coated_real", "printed_reel", "bag_warehouse"
+					"pni_cbc2","bag_brand", "coated_real", "printed_reel", "bag_warehouse",
+					"workstation_head"
 
 				)
 			]
@@ -55,7 +56,8 @@ doc_events = {
         "on_cancel": "pni_customization.utils.manage_se_changes"
     },
 	"Item": {
-		"on_update": "pni_customization.utils.update_item"
+		"on_update": "pni_customization.utils.update_item",
+		# "autoname": "pni_customization.utility.item_utility.autoname"
 	},
 	"Delivery Note": {
 		"validate": "pni_customization.utils.validate_delivery_item",
@@ -122,6 +124,7 @@ doctype_js = {
 	"Delivery Note": "public/js/delivery_note.js",
 	"Opportunity": "public/js/opportunity.js",
 	"Stock Entry" : "public/js/stock_entry.js",
+	"Item": "public/js/item.js"
 }
 
 # Home Pages
