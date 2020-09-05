@@ -234,8 +234,7 @@
    "fieldname": "source_warehouse",
    "fieldtype": "Link",
    "label": "Source Warehouse",
-   "options": "Warehouse",
-   "reqd": 1
+   "options": "Warehouse"
   },
   {
    "fetch_from": "workstation.workstation_head_name",
@@ -245,7 +244,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-09-05 17:55:32.712306",
+ "modified": "2020-09-05 18:58:03.765468",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
