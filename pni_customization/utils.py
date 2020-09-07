@@ -631,9 +631,13 @@ def manage_se_changes(doc, method):
 			slitting_items = []
 			for item in slitting.slitting_table:
 				reel_in = frappe.get_doc("Reel",item.reel_in)
-				reel_out = frappe.get_doc("Reel",item.reel_out)
+				if item.type != "Bottom Reel":
+					reel_out = frappe.get_doc("Reel",item.reel_out)
 				slitting_items.append(reel_in.item)
-				slitting_items.append(reel_out.item)
+				if item.type != "Bottom Reel":
+					slitting_items.append(reel_out.item)
+				else:
+					slitting_items.append(item.item_out)
 			for item in slitting.slitting_scrap:
 				slitting_items.append(item.item)
 
