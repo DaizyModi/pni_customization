@@ -14,7 +14,12 @@ class Printing(Document):
 		if self.end_dt and self.start_dt:
 			hours = time_diff_in_hours(self.end_dt, self.start_dt)
 			frappe.db.set(self, 'operation_hours', hours)
-
+	
+	def complete_entry(self):
+		self.status = "Completed"
+		self.save()
+		return "Success"
+	
 	def onload(self):
 		paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
 		self.set_onload("scrapitemgroup", paper_blank_setting.printing_scrap)
