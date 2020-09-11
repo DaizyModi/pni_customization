@@ -25,7 +25,7 @@ def get_bom_active_default(item):
 		fields=['name']
 	)
 	if bom[0]:
-		return bom[0]
+		return bom[0].name
 	else:
 		return None
 
