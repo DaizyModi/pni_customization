@@ -58,7 +58,20 @@ frappe.ui.form.on('Work Order', {
 
 frappe.ui.form.on('BOM', {
 	refresh: function(frm) {
-		cur_frm.cscript.add_item_dialog("BOM Item", "items")	
+		cur_frm.cscript.add_item_dialog("BOM Item", "items")
+		cur_frm.add_custom_button(__("Update BOM with Default Active"), function() {
+			frappe.call({
+				method: "pni_customization.utility.bom_utility.update_bom_default_active",
+				args: { 
+					bom: frm.doc.name
+				},
+				callback: (response) => {
+					if(response.message){
+						frappe.msgprint("Bom Enque for Replace")
+					}
+				}
+			})
+		})	
 	}
 });
 

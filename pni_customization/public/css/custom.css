@@ -17,3 +17,11 @@
 #page-Form\/Rename\ Tool > div.container.page-body > div.page-wrapper > div > div.row.layout-main > div > div.layout-main-section > div:nth-child(3) > div > div > div.form-page > div.row.form-section.visible-section.shaded-section > div > div > form > div:nth-child(3) > div > div.control-input-wrapper > div.control-input > div > div:nth-child(2) > a:nth-child(2){
 	display: inline!important;
 }
+
+#page-Form\/Data\ Import\ Legacy > div.container.page-body > div.page-wrapper > div > div.row.layout-main > div.col-md-10.layout-main-section-wrapper > div.layout-main-section > div:nth-child(3) > div > div > div.form-page > div:nth-child(3) > div > div:nth-child(1) > form > div > div > div.control-input-wrapper > div.control-input > div > div:nth-child(2) > a:nth-child(1){
+	display: inline!important;
+}
+
+#page-Form\/Data\ Import\ Legacy > div.container.page-body > div.page-wrapper > div > div.row.layout-main > div.col-md-10.layout-main-section-wrapper > div.layout-main-section > div:nth-child(3) > div > div > div.form-page > div:nth-child(3) > div > div:nth-child(1) > form > div > div > div.control-input-wrapper > div.control-input > div > div:nth-child(2) > a:nth-child(2){
+	display: inline!important;
+}

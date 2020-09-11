@@ -175,7 +175,10 @@ class Slitting(Document):
 				reel_out = frappe.get_doc("Reel",data.reel_out)
 				reel_out.cancel()
 		self.cancel_reel_tracking()
-	
+	def complete_entry(self):
+		self.status = "Completed"
+		self.save()
+		return "Success"
 	def manufacture_entry(self):
 		return self.make_stock_entry()
 	

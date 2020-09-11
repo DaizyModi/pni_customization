@@ -9,6 +9,20 @@ frappe.ui.form.on('Printing', {
 			});
 			finish_btn.addClass('btn-primary')
 		}
+		if(!frm.doc.__islocal && frm.doc.status != 'Completed' && frappe.user.has_role("System Manager")){
+			var finish_btn = frm.add_custom_button(__('Complete It'), function(){
+				frappe.call({
+					doc: frm.doc,
+					method: "complete_entry",
+					callback: function(r) {
+						if (r.message){
+							frappe.msgprint("Updated")
+						}
+					}
+				});
+			});
+			finish_btn.addClass('btn-primary')
+		}
 		
 		if(!cur_frm.doc.__islocal){
 			frm.set_query("item", "printing_scrap", function () {
