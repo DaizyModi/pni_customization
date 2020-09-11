@@ -656,7 +656,8 @@ def manage_se_changes(doc, method):
 			printing_items = []
 			for item in printing.printing_table:
 				reel_in = frappe.get_doc("Reel",item.reel_in)
-				reel_out = frappe.get_doc("Reel",item.reel_out)
+				if not item.merge_reel:
+					reel_out = frappe.get_doc("Reel",item.reel_out)
 				printing_items.append(reel_in.item)
 				printing_items.append(reel_out.item)
 			for item in printing.printing_scrap:
