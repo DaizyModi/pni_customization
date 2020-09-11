@@ -32,7 +32,8 @@ fixtures = [
 					"scan_reel", "justdial_details", "j_leadid", "j_leadtype", "j_email", "j_date","j_category",
 					"j_city","j_area","j_brancharea","j_dncmobile","j_dncphone","j_company", "j_pincode",
 					"j_time","j_branchpin", "j_parentid","pni_sales_order_item","item_filter",
-					"add_pni_bag", "weight_filter", "section_pni_settings", "section_pni_packing_table", "pni_clm_brk","is_paper_cup","base_uom_rate",
+					"add_pni_bag", "weight_filter", "section_pni_settings", "section_pni_packing_table", 
+					"pni_clm_brk","is_paper_cup","base_uom_rate", "pni_item_code",
 					"approve_law_rate__","need_approval","tear_weight", "unit_price_pni",
 					"pni_rejected_qty", "pni_rework_qty", "pni_carton_in_section",
 					"pni_carton_in", "pni_packing_carton", "carton_item", "pni_carton_out_data",
@@ -40,7 +41,8 @@ fixtures = [
 					"packing_type","pnicbc","supervisor","supervisor_name","conversation_factor",
 					"pni_bag_in", "carton_warehouse", "pni_bag_out_data", "bag_item", "punching_die",
 					"pni_cbc2","bag_brand", "coated_real", "printed_reel", "bag_warehouse",
-					"workstation_head", "workstation_head_name"
+					"workstation_head", "workstation_head_name", "main_category", "main_category_code",
+					"sub_category", "sub_category_code"
 
 				)
 			]
