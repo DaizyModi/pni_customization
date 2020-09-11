@@ -13,7 +13,6 @@ def update_bom_default_active(bom):
 	for _bom in list_for_bom:
 		frappe.msgprint(" Bom will Replace {0} with {1} ".format(_bom, list_for_bom[_bom]))
 		enque_bom_update(_bom,list_for_bom[_bom])
-		frappe.msgprint("Queued for replacing the BOM. It may take a few minutes.")
 	return "Success"
 
 def get_bom_active_default(item):
@@ -50,4 +49,4 @@ def enque_bom_update(current_bom, new_bom):
 		"new_bom": new_bom
 	}
 	frappe.enqueue("erpnext.manufacturing.doctype.bom_update_tool.bom_update_tool.replace_bom", args=args, timeout=40000)
-	frappe.msgprint(_("Queued for replacing the BOM. It may take a few minutes."))
+	frappe.msgprint("Queued for replacing the BOM. It may take a few minutes.")
