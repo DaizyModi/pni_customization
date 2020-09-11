@@ -5,11 +5,12 @@ def update_bom_default_active(bom):
 	master_bom =  frappe.get_doc("BOM", bom)
 	list_for_bom = {}
 	for item in master_bom.items:
-		if item.bom_no and not check_bom_is_active_default(item.bom_no):
+		if item.bom_no:
 			update_bom_default_active(item.bom_no)
-			new_bom = get_bom_active_default(item.item_code)
-			if new_bom:
-				list_for_bom[item.bom_no] = new_bom
+			if  not check_bom_is_active_default(item.bom_no):
+				new_bom = get_bom_active_default(item.item_code)
+				if new_bom:
+					list_for_bom[item.bom_no] = new_bom
 	for _bom in list_for_bom:
 		frappe.msgprint(" Bom will Replace {0} with {1} ".format(_bom, list_for_bom[_bom]))
 		enque_bom_update(_bom,list_for_bom[_bom])

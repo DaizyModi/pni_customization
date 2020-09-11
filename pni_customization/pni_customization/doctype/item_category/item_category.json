@@ -9,7 +9,12 @@
   "category_name",
   "category_code",
   "is_sub_category",
-  "parent_category"
+  "parent_category",
+  "lft",
+  "rgt",
+  "is_group",
+  "old_parent",
+  "parent_item_category"
  ],
  "fields": [
   {
@@ -40,12 +45,47 @@
    "fieldtype": "Link",
    "label": "Parent Category",
    "options": "Item Category"
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "label": "Old Parent",
+   "options": "Item Category"
+  },
+  {
+   "fieldname": "parent_item_category",
+   "fieldtype": "Link",
+   "label": "Parent Item Category",
+   "options": "Item Category"
   }
  ],
- "modified": "2020-09-03 16:40:11.583048",
+ "is_tree": 1,
+ "modified": "2020-09-11 14:39:29.736193",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Item Category",
+ "nsm_parent_field": "parent_item_category",
  "owner": "Administrator",
  "permissions": [
   {
