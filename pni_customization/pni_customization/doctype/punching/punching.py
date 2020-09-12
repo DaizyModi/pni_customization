@@ -158,9 +158,11 @@ class Punching(Document):
 		#TODO allow multiple raw material transfer
 		raw_material_cost = 0
 		operating_cost = 0
-		
+		reelin = []
 		for item in self.punching_table:
-			se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
+			if item.reel_in not in reelin:
+				se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
+				reelin.append(item.reel_in)
 
 		#no timesheet entries, calculate operating cost based on workstation hourly rate and process start, end
 		hourly_rate = frappe.db.get_value("Workstation", self.workstation, "hour_rate")

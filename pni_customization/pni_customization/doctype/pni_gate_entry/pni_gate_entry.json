@@ -8,6 +8,7 @@
  "field_order": [
   "naming_series",
   "created_by",
+  "entry_status",
   "column_break_3",
   "date",
   "time",
@@ -91,9 +92,8 @@
   },
   {
    "fieldname": "approver",
-   "fieldtype": "Link",
-   "label": "Approver",
-   "options": "Employee"
+   "fieldtype": "Data",
+   "label": "Approver"
   },
   {
    "fieldname": "column_break_12",
@@ -138,10 +138,18 @@
    "fieldname": "is_local_slip",
    "fieldtype": "Check",
    "label": "Is local slip"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "entry_status",
+   "fieldtype": "Select",
+   "label": "Entry Status",
+   "options": "Pending For Delivery\nDelivered",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-07-31 14:10:00.945974",
+ "modified": "2020-09-12 09:17:46.920553",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Entry",
