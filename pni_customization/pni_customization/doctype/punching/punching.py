@@ -23,27 +23,75 @@ class Punching(Document):
 		# setting = frappe.get_doc("PNI Settings","PNI Settings")
 		for data in self.punching_table:
 			reel_in = frappe.get_doc("Reel",data.reel_in)
-			
-			if not data.punch_table:
-				doc = frappe.get_doc({
-					"doctype": "Punch Table",
-					"status": "Draft"
-				})
-				doc.insert()
-				data.punch_table = doc.name
+			if not data.half_reel:
+				"""
+					In case of no half reel
+					create table and 
+					delete reel out if creted
+				"""
+				if data.reel_out:
+					frappe.msgprint("Please Manually Delete Reel "+data.reel_out)
+					data.reel_out = ""
+				if not data.punch_table:
+					doc = frappe.get_doc({
+						"doctype": "Punch Table",
+						"status": "Draft"
+					})
+					doc.insert()
+					data.punch_table = doc.name
+				else:
+					doc = frappe.get_doc("Punch Table",data.punch_table)
+				doc.custom_id = data.custom_id
+				doc.item = data.item_out
+				doc.printed_item = reel_in.printed_item
+				doc.supplier_reel_id = reel_in.supplier_reel_id
+				doc.punching_die = data.punching_die
+				doc.brand = reel_in.brand
+				doc.coated_reel = reel_in.coated_reel
+				doc.printed_reel = reel_in.printed_reel
+				doc.weight = data.weight_out
+				doc.punching_die = data.punching_die
+				doc.save()
 			else:
-				doc = frappe.get_doc("Punch Table",data.punch_table)
-			doc.custom_id = data.custom_id
-			doc.item = data.item_out
-			doc.printed_item = reel_in.printed_item
-			doc.supplier_reel_id = reel_in.supplier_reel_id
-			doc.punching_die = data.punching_die
-			doc.brand = reel_in.brand
-			doc.coated_reel = reel_in.coated_reel
-			doc.printed_reel = reel_in.printed_reel
-			doc.weight = data.weight_out
-			doc.punching_die = data.punching_die
-			doc.save()
+				"""
+					In Case of Hallf Reel Don;t 
+					Create table 
+					need to create table
+					and delete table if created
+				"""
+				if data.punch_table:
+					frappe.msgprint("Please Manually Delete Table "+data.punch_table)
+					data.punch_table = ""
+				if not data.reel_out:
+					doc = frappe.get_doc({
+						"doctype": "Reel",
+						"status": "Draft",
+						"process_prefix": "PN",
+						"posting_date": self.date
+					})
+					doc.insert()
+					data.reel_out = doc.name
+				else:
+					doc = frappe.get_doc("Reel",data.reel_out)
+				
+				doc.custom_id = data.custom_id
+				doc.supplier_reel_id = reel_in.supplier_reel_id
+				doc.item = data.item_out if not data.half_reel else reel_in.item
+				doc.printed_item = reel_in.printed_item
+				doc.warehouse = self.fg_warehouse if not data.half_reel else self.src_warehouse
+				doc.type = reel_in.type
+				doc.brand = reel_in.brand
+				doc.blank_weight = reel_in.blank_weight
+				doc.coated_reel =  reel_in.coated_reel
+				doc.printed_reel = reel_in.printed_reel
+				doc.printed_weight = reel_in.printed_weight
+				doc.coated_weight = reel_in.coated_weight
+				doc.weight = data.weight_out
+				doc.type = reel_in.type
+				if data.half_reel:
+					doc.item = reel_in.item
+					doc.warehouse = self.src_warehouse
+				doc.save()
 	
 	def manage_reel_tracking(self):
 		for data in self.punching_table:
@@ -79,7 +127,7 @@ class Punching(Document):
 		if (not self.end_dt) or (not self.end_dt):
 			frappe.throw("Please Select Operation Start and End Time")
 		for item in self.punching_table:
-			if (not item.reel_in) or (not item.punch_table) :
+			if ((not item.reel_in) or (not item.punch_table)) and not item.half_reel:
 				frappe.throw("Reel  and Punch Table is Compulsory")
 		for data in self.punching_table:
 			if not data.weight_out:
@@ -87,10 +135,17 @@ class Punching(Document):
 			reel_in = frappe.get_doc("Reel",data.reel_in)
 			reel_in.status = "Consume"
 			reel_in.save()
-			punch_table = frappe.get_doc("Punch Table",data.punch_table)
-			punch_table.status = "In Stock"
-			punch_table.save()
-			punch_table.submit()
+			if not data.half_reel:
+				punch_table = frappe.get_doc("Punch Table",data.punch_table)
+				punch_table.status = "In Stock"
+				punch_table.save()
+				punch_table.submit()
+			else:
+				reel_out = frappe.get_doc("Reel",data.reel_out)
+				reel_out.status = "In Stock"
+				reel_out.save()
+				reel_out.submit()
+
 		self.manage_reel_tracking()
 		frappe.db.set(self, 'status', 'Pending For Stock Entry')
 	
@@ -121,7 +176,6 @@ class Punching(Document):
 		
 		stock_entry.stock_entry_type = "Manufacture"
 		stock_entry = self.set_se_items_finish(stock_entry)
-
 		return stock_entry.as_dict()
 	
 	def get_valuation_rate(self, item):
@@ -163,7 +217,7 @@ class Punching(Document):
 			if item.reel_in not in reelin:
 				se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
 				reelin.append(item.reel_in)
-
+		
 		#no timesheet entries, calculate operating cost based on workstation hourly rate and process start, end
 		hourly_rate = frappe.db.get_value("Workstation", self.workstation, "hour_rate")
 		if hourly_rate:
@@ -197,7 +251,9 @@ class Punching(Document):
 
 		#add Stock Entry Items for produced goods and scrap
 		for item in self.punching_table:
-			se = self.set_se_items(se, item, None, se.to_warehouse, True, qty_of_total_production, total_sale_value, production_cost, table_out = True)
+			warehouse = se.to_warehouse if not item.half_reel else se.from_warehouse
+			
+			se = self.set_se_items(se, item, None, warehouse, True, qty_of_total_production, total_sale_value, production_cost, table_out = True)
 
 		for item in self.punching_scrap:
 			# if value_scrap:
@@ -216,7 +272,10 @@ class Punching(Document):
 		if reel_in:
 			item_from_reel = frappe.get_doc("Reel",item.reel_in)
 		if table_out:
-			item_from_reel = frappe.get_doc("Punch Table",item.punch_table)
+			if not item.half_reel:
+				item_from_reel = frappe.get_doc("Punch Table",item.punch_table)
+			else:
+				item_from_reel = frappe.get_doc("Reel",item.reel_out)
 		if scrap_item:
 			item_from_reel = Empty()
 			item_from_reel.item = item.item
