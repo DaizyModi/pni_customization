@@ -13,5 +13,5 @@ class PNIGateEntry(Document):
 		else:
 			self.entry_status = ""
 		
-			if not self.sender_names:
+		if not self.sender_names and self.gate_entry_type != "Visitor" :
 				frappe.throw("Sender Name is Mandatory")
