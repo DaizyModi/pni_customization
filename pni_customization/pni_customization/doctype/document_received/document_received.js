@@ -2,7 +2,13 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Document Received', {
-	// refresh: function(frm) {
-
-	// }
+	onload: function(frm) {
+		frm.set_query('pni_gate_entry', function(doc) {
+			return {
+				filters: {
+					entry_status: ['not in', ['Delivered']]
+				}
+			};
+		});
+	},
 });

@@ -7,4 +7,8 @@ from __future__ import unicode_literals
 from frappe.model.document import Document
 
 class PNIGateEntry(Document):
-	pass
+	def validate(self):
+		if self.gate_entry_type == "Document Receive":
+			self.entry_status = "Pending For Delivery"
+		else:
+			self.entry_status = ""
