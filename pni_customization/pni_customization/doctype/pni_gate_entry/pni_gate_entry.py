@@ -3,7 +3,7 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
-# import frappe
+import frappe
 from frappe.model.document import Document
 
 class PNIGateEntry(Document):
@@ -12,3 +12,6 @@ class PNIGateEntry(Document):
 			self.entry_status = "Pending For Delivery"
 		else:
 			self.entry_status = ""
+		
+			if not self.sender_names:
+				frappe.throw("Sender Name is Mandatory")
