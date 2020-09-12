@@ -33,6 +33,11 @@ def get_data():
 			"items": [
 				{
 					"type": "doctype",
+					"name": "Brand Pricing Update Tool For Customer",
+					"description": _("Brand Pricing Update Tool For Customer"),
+				},
+				{
+					"type": "doctype",
 					"name": "Brand Pricing Update Tool",
 					"description": _("Brand Pricing Update Tool"),
 				},
