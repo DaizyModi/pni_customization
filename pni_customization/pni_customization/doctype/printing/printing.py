@@ -104,8 +104,8 @@ class Printing(Document):
 			doc.insert(ignore_permissions=True)
 
 	def on_submit(self):
-		if (not self.end_dt) or (not self.end_dt):
-			frappe.throw("Please Select Operation Start and End Time")
+		# if (not self.end_dt) or (not self.end_dt):
+		# 	frappe.throw("Please Select Operation Start and End Time")
 		for item in self.printing_table:
 			if (not item.reel_in) or ( (not item.reel_out) and ( not item.merge_reel) ):
 				frappe.throw("Reel is Compulsory")

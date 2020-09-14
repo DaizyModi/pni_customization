@@ -139,8 +139,8 @@ class Slitting(Document):
 
 	def on_submit(self):
 		self.validate_reel_weight()
-		if (not self.end_dt) or (not self.end_dt):
-			frappe.throw("Please Select Operation Start and End Time")
+		# if (not self.end_dt) or (not self.end_dt):
+		# 	frappe.throw("Please Select Operation Start and End Time")
 		for item in self.slitting_table:
 			if (not item.reel_in) :
 				frappe.throw("Reel is Compulsory")

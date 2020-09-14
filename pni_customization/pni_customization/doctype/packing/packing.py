@@ -60,8 +60,8 @@ class Packing(Document):
 		doc.insert(ignore_permissions=True)
 
 	def on_submit(self):
-		if (not self.end_dt) or (not self.end_dt):
-			frappe.throw("Please Select Operation Start and End Time")
+		# if (not self.end_dt) or (not self.end_dt):
+		# 	frappe.throw("Please Select Operation Start and End Time")
 		for item in self.packing_table:
 			if not item.employee:
 				frappe.throw("Employee is Compulsory")

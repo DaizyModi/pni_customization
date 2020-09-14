@@ -124,8 +124,8 @@ class Punching(Document):
 			doc.insert(ignore_permissions=True)
 
 	def on_submit(self):
-		if (not self.end_dt) or (not self.end_dt):
-			frappe.throw("Please Select Operation Start and End Time")
+		# if (not self.end_dt) or (not self.end_dt):
+		# 	frappe.throw("Please Select Operation Start and End Time")
 		for item in self.punching_table:
 			if ((not item.reel_in) or (not item.punch_table)) and not item.half_reel:
 				frappe.throw("Reel  and Punch Table is Compulsory")
