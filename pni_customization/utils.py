@@ -682,9 +682,11 @@ def manage_se_changes(doc, method):
 			punching_items = []
 			for item in punching.punching_table:
 				reel_in = frappe.get_doc("Reel",item.reel_in)
-				punch_table = frappe.get_doc("Punch Table",item.punch_table)
+				if not item.half_reel:
+					punch_table = frappe.get_doc("Punch Table",item.punch_table)
+					punching_items.append(punch_table.item)
 				punching_items.append(reel_in.item)
-				punching_items.append(punch_table.item)
+				
 			for item in punching.punching_scrap:
 				punching_items.append(item.item)
 
