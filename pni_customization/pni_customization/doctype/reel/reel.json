@@ -66,6 +66,7 @@
    "label": "Printed Reel"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "item",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -177,7 +178,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-09-08 16:34:08.019429",
+ "modified": "2020-09-17 10:44:38.600516",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Reel",
