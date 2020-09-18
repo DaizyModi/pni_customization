@@ -64,10 +64,12 @@
    "label": "Total"
   },
   {
+   "allow_on_submit": 1,
    "fetch_from": "item.item_name",
    "fieldname": "item_name",
    "fieldtype": "Data",
-   "label": "Item Name"
+   "label": "Item Name",
+   "read_only": 1
   },
   {
    "fetch_from": "item.description",
@@ -143,7 +145,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-09-18 19:32:33.128434",
+ "modified": "2020-09-18 20:24:19.801206",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Carton",
