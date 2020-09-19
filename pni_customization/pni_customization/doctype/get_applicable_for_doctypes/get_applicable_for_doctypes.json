@@ -1,0 +1,46 @@
+{
+ "creation": "2020-09-19 12:35:12.237453",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "applicable_for",
+  "applicable_for_table"
+ ],
+ "fields": [
+  {
+   "fieldname": "applicable_for",
+   "fieldtype": "Link",
+   "label": "Applicable For",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "applicable_for_table",
+   "fieldtype": "Table",
+   "label": "Applicable For Table",
+   "options": "Applicable For"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2020-09-19 12:36:36.677894",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Get Applicable For Doctypes",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

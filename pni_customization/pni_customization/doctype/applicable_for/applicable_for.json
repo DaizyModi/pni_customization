@@ -1,0 +1,28 @@
+{
+ "creation": "2020-09-19 12:36:07.630400",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "name1"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-09-19 12:36:13.249833",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Applicable For",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

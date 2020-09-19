@@ -457,7 +457,7 @@ def validate_repack_entry(stock_entry):
 				doc2.gross_weight = data.weight
 				doc2.net_weight = data.net_weight
 				doc2.total = float(stock_entry.conversation_factor if stock_entry.conversation_factor else 0)
-				doc2.warehouse = stock_entry.to_warehouse
+				doc2.warehouse = stock_entry.carton_warehouse
 				doc2.save()
 	if stock_entry.stock_entry_type == "Repack" and stock_entry.packing_type == "PNI Bag":
 		pass
