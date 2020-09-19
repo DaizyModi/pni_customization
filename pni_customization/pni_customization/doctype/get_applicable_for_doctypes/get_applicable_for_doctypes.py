@@ -23,6 +23,7 @@ class GetApplicableForDoctypes(Document):
 			linked_doctypes += [self.applicable_for]
 
 			linked_doctypes.sort()
+			self.applicable_for_table = {}
 			for dt in linked_doctypes:
 				print(dt)
 				self.append("applicable_for_table",{"name1":dt})
