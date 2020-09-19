@@ -25,6 +25,11 @@ def get_data():
 					"type": "doctype",
 					"name": "Stock Entry",
 					"description": _("Record item movement."),
+				},
+				{
+					"type": "doctype",
+					"name": "Get Applicable For Doctypes",
+					"description": _("Usefull for User Permission"),
 				}
 			]
 		},
