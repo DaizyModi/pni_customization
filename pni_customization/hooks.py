@@ -59,7 +59,7 @@ doc_events = {
     },
 	"Item": {
 		"on_update": "pni_customization.utils.update_item",
-		# "autoname": "pni_customization.utility.item_utility.autoname"
+		"autoname": "pni_customization.utility.item_utility.autoname"
 	},
 	"Delivery Note": {
 		"validate": "pni_customization.utils.validate_delivery_item",
