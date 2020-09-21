@@ -20,3 +20,5 @@ def autoname(doc, method):
 
 	doc.item_code = strip(doc.item_code)
 	doc.name = doc.item_code
+	frappe.msgprint(doc.item_code)
+	frappe.msgprint(doc.name)
