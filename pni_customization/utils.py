@@ -302,7 +302,7 @@ def submit_delivery_item(doc, method):
 	for data in items_calc:
 		if item_in_table.get(data) and items_calc.get(data):
 			if round(item_in_table.get(data),2) != round(items_calc.get(data),2) and not doc.is_return:
-				frappe.throw("{0}'s qty({1}) is not metch in item table qty({2})".format(data,item_in_table.get(row.item), items_calc.get(row.item)))
+				frappe.throw("{0}'s qty({1}) is not metch in item table qty({2})".format(data,round(item_in_table.get(data),2), round(items_calc.get(data),2)))
 def get_carton_warehouse(packing_item, items):
 	for item in items:
 		if packing_item == item.item_code:
