@@ -1,0 +1,50 @@
+{
+ "creation": "2020-09-24 14:10:11.816921",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "series",
+  "counter",
+  "update_btn"
+ ],
+ "fields": [
+  {
+   "fieldname": "series",
+   "fieldtype": "Select",
+   "label": "Series"
+  },
+  {
+   "fieldname": "counter",
+   "fieldtype": "Int",
+   "label": "Counter"
+  },
+  {
+   "fieldname": "update_btn",
+   "fieldtype": "Button",
+   "label": "Update"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2020-09-24 14:39:35.827327",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Update Naming Series",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
