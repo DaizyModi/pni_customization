@@ -56,4 +56,5 @@ def enque_bom_update(current_bom, new_bom):
 		"current_bom": current_bom,
 		"new_bom": new_bom
 	}
+	frappe.msgprint(args)
 	frappe.enqueue("erpnext.manufacturing.doctype.bom_update_tool.bom_update_tool.replace_bom", args=args, timeout=40000)
