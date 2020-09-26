@@ -1,23 +1,23 @@
 import frappe
 
 @frappe.whitelist()
-def update_bom_default_active(bom, count = 0):
+def update_bom_default_active(bom):
+	list_for_bom = {}	
+	update_list_bom(bom, list_for_bom)
+	for _bom in list_for_bom:
+		frappe.msgprint(" Bom will Replace {0} with {1} ".format(_bom, list_for_bom[_bom]))
+		enque_bom_update(_bom,list_for_bom[_bom])
+	return "Success"
+
+def update_list_bom(bom, list_for_bom):
 	master_bom =  frappe.get_doc("BOM", bom)
-	list_for_bom = {}
 	for item in master_bom.items:
 		if item.bom_no:
-			update_bom_default_active(item.bom_no, count)
+			update_list_bom(item.bom_no, list_for_bom)
 			if  not check_bom_is_active_default(item.bom_no):
 				new_bom = get_bom_active_default(item.item_code)
 				if new_bom:
 					list_for_bom[item.bom_no] = new_bom
-	for _bom in list_for_bom:
-		count += 1
-		if count > 10:
-			return "Skip"
-		frappe.msgprint(" Bom will Replace {0} with {1} ".format(_bom, list_for_bom[_bom]))
-		enque_bom_update(_bom,list_for_bom[_bom])
-	return "Success"
 
 def get_bom_active_default(item):
 	bom = frappe.get_all('BOM', 
@@ -53,4 +53,3 @@ def enque_bom_update(current_bom, new_bom):
 		"new_bom": new_bom
 	}
 	frappe.enqueue("erpnext.manufacturing.doctype.bom_update_tool.bom_update_tool.replace_bom", args=args, timeout=40000)
-	frappe.msgprint("Queued for replacing the BOM. It may take a few minutes.")
