@@ -7,7 +7,7 @@ def update_bom_default_active(bom):
 	count = 0
 	for _bom in list_for_bom:
 		count += 1
-		if count > 10:
+		if count > 2:
 			return "Skip"
 		frappe.msgprint(" Bom will Replace {0} with {1} ".format(_bom, list_for_bom[_bom]))
 		enque_bom_update(_bom,list_for_bom[_bom])
