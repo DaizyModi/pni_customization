@@ -1,17 +1,16 @@
 import frappe
 
 @frappe.whitelist()
-def update_bom_default_active(bom):
+def update_bom_default_active(bom, count = 0):
 	master_bom =  frappe.get_doc("BOM", bom)
 	list_for_bom = {}
 	for item in master_bom.items:
 		if item.bom_no:
-			update_bom_default_active(item.bom_no)
+			update_bom_default_active(item.bom_no, count)
 			if  not check_bom_is_active_default(item.bom_no):
 				new_bom = get_bom_active_default(item.item_code)
 				if new_bom:
 					list_for_bom[item.bom_no] = new_bom
-	count = 0
 	for _bom in list_for_bom:
 		count += 1
 		if count > 10:
