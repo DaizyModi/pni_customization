@@ -11,7 +11,11 @@ def update_bom_default_active(bom):
 				new_bom = get_bom_active_default(item.item_code)
 				if new_bom:
 					list_for_bom[item.bom_no] = new_bom
+	count = 0
 	for _bom in list_for_bom:
+		count += 1
+		if count > 10:
+			continue
 		frappe.msgprint(" Bom will Replace {0} with {1} ".format(_bom, list_for_bom[_bom]))
 		enque_bom_update(_bom,list_for_bom[_bom])
 	return "Success"
