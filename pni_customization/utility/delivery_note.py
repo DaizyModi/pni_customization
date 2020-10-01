@@ -3,7 +3,7 @@ from erpnext.accounts.party import get_dashboard_info
 
 def validate(doc, method):
 	info = get_dashboard_info("Customer", doc.customer)
-	if info[0] and info[0]['billing_this_year'] and info[0]['billing_this_year'] > 5000000:
+	if len(info) and info[0]['billing_this_year'] and info[0]['billing_this_year'] > 5000000:
 		exist = False
 		for tax in doc.taxes:
 			if tax.account_head == "TCS (Tax Collected at Source) - PNI":
