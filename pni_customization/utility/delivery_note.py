@@ -3,7 +3,6 @@ from erpnext.accounts.party import get_dashboard_info
 
 def validate(doc, method):
 	info = get_dashboard_info("Customer", doc.customer)
-	print(info[0]['billing_this_year'])
 	if info[0] and info[0]['billing_this_year'] > 5000000:
 		exist = False
 		for tax in doc.taxes:
