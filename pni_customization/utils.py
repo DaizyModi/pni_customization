@@ -230,6 +230,8 @@ def sales_invoice_validate(doc, method):
 	for row in doc.items:
 		pass
 def validate_delivery_item(doc, method):
+	from pni_customization.utility.delivery_note import validate
+	validate(doc, method)
 	data = []
 	for row in doc.pni_packing_table:
 		if row.pni_carton in data:
