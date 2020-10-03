@@ -20,7 +20,16 @@ class PNIPacking(Document):
 		# self.update_packing()
 
 		self.calculate_total_stock()
+		self.set_machine_helper()
 	
+	def set_machine_helper(self):
+		helper = ""
+		if self.shift == "Day":
+			helper = frappe.get_value("Workstation", self.workstation, "workstation_helper_name")
+		else:
+			helper = frappe.get_value("Workstation", self.workstation, "workstation_helper_name_night_shift")
+		self.machine_helper = helper
+
 	def update_employee(self):
 		for row in self.employee:
 			if row.duty == "Supervisor":
