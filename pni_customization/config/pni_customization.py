@@ -247,6 +247,11 @@ def get_data():
 					"type": "doctype",
 					"name": "Document Received",
 					"description": _("Document Received"),
+				},
+				{
+					"type": "doctype",
+					"name": "PNI Gate Entry",
+					"description": _("PNI Gate Entry"),
 				}
 			]
 		}
