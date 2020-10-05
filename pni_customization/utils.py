@@ -25,8 +25,10 @@ def validate_reel_qty(doc):
 					item.reel_brand == reel.brand):
 					reel_weight += reel.weight
 			reel_weight -= doc.tear_weight
-			if (int(reel_weight)+1) < int(item.qty):
+			if (int(reel_weight)+1) < int(item.qty) :
 				frappe.throw("Total Reel Qty {1} for item  {0} is less then {2} ".format(item.item_code,reel_weight, item.qty))
+			if int(reel_weight) > (int(item.qty)+1):
+				frappe.throw("Total Reel Qty {1} for item  {0} is more then {2} ".format(item.item_code,reel_weight, item.qty))
 
 def validate_so(doc, method):
 	outstanding_amt = 0
