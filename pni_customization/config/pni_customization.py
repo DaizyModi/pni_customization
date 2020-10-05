@@ -250,8 +250,8 @@ def get_data():
 				},
 				{
 					"type": "doctype",
-					"name": "PNI Gate Entry",
-					"description": _("PNI Gate Entry"),
+					"name": "PNI Gate Exit",
+					"description": _("PNI Gate Exit"),
 				}
 			]
 		}
