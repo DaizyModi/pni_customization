@@ -16,5 +16,5 @@ class PNIGateEntry(Document):
 		if (not self.sender_name1) and (self.gate_entry_type != "Visitor") :
 			frappe.throw("Sender Name is Mandatory")
 		
-		if get_datetime(self.in_time) > get_datetime(self.out_time):
+		if self.gate_entry_type == "Visitor" and get_datetime(self.in_time) > get_datetime(self.out_time):
 			frappe.throw("In time must be less than to out time")
