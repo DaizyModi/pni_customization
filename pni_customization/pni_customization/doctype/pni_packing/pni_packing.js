@@ -14,6 +14,11 @@ frappe.ui.form.on('PNI Packing', {
 			})
 			finish_btn.addClass('btn-primary')
 		}
+		if(!frm.doc.__islocal && frm.doc.status != 'Pending For Stock Entry'){
+			frm.add_custom_button(__('Veiw Stock Entry'), function(){
+				frappe.set_route("List", "Stock Entry",  {"pni_reference": frm.doc.name});
+			})
+		}
 	},
 	packing_unit: function(frm){
 		if(!frm.doc.packing_unit){
