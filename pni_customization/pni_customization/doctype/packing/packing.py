@@ -123,6 +123,7 @@ class Packing(Document):
 		stock_entry = frappe.new_doc("Stock Entry")
 		stock_entry.pni_reference_type = "Packing"
 		stock_entry.pni_reference = self.name
+		stock_entry.pni_shift = self.shift_time
 		stock_entry.posting_date = self.date
 		stock_entry.set_posting_time = True
 		

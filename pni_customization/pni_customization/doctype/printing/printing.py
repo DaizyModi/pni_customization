@@ -151,6 +151,7 @@ class Printing(Document):
 		stock_entry.pni_reference_type = "Printing"
 		stock_entry.pni_reference = self.name
 		stock_entry.posting_date = self.date
+		stock_entry.pni_shift = self.shift_time
 		stock_entry.set_posting_time = True
 		
 		stock_entry.stock_entry_type = "Manufacture"
