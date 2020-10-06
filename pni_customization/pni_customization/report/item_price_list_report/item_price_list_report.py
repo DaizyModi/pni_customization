@@ -46,7 +46,7 @@ def get_data(filters=None):
 			`tabItem Price` as ip
 			{1}
 		where 
-			1=1
+			ip.customer is NULL
 			{0}
 		group by ip.brand
     """.format(conditions, join))
