@@ -93,11 +93,11 @@ def validate(doc, method):
 		
 		exist = False
 		for tax in doc.taxes:
-			if tax.account_head == "TCS (Tax Collected at Source) - PNI":
+			if tax.account_head == "TCS on Sales - PNI":
 				exist = True
 		if not exist:
 			frappe.throw("""
-				TCS (Tax Collected at Source) - PNI Must
+				TCS on Sales - PNI Must
 				be added for customer {0} total anual invoice {1} 
 				is more then 50,00,000 INR
 			""".format(doc.customer,info[0]['billing_this_year']))
