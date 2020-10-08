@@ -28,6 +28,19 @@ frappe.ui.form.on('Update Naming Series', {
 				}
 			}
 		});
+	},
+	add_series: function(frm) {
+		frappe.call({
+			method:"pni_customization.pni_customization.doctype.update_naming_series.update_naming_series.insert_series",
+			args: {
+				series: frm.doc.series_name
+			},
+			callback:function(r){
+				if(r.message){
+					frappe.msgprint(r.message);
+				}
+			}
+		});
 	}
 });
 

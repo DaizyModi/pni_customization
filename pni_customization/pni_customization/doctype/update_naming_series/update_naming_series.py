@@ -28,3 +28,12 @@ def update_count(prefix, count):
 		frappe.db.sql("update `tabSeries` set current = '{0}' where name = '{1}' ".format(count, prefix))
 	frappe.msgprint("Success")
 	return count
+
+@frappe.whitelist()
+def insert_series(series):
+	"""insert series if missing"""
+	if frappe.db.get_value('Series', series, 'name', order_by="name") == None:
+		frappe.db.sql("insert into tabSeries (name, current) values (%s, 0)", (series))
+		return "Series Added"
+	else:
+		return "Series Already There"
