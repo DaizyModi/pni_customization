@@ -19,5 +19,15 @@ frappe.ui.form.on('Item', {
 			frm.toggle_display("pni_item_code",false)
 			frm.toggle_display("naming_series",true)
 		}
-	}
+	},
+	setup: function(frm) {
+		frm.set_query("sub_category", function() {
+			return {
+				filters: {
+					"is_sub_category": true,
+					"parent_category": frm.doc.main_category
+				}
+			};
+		});
+	},
 })
