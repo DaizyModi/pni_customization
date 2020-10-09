@@ -39,7 +39,11 @@ class PNIPacking(Document):
 		packing.loose_stock = float(self.last_shift_loose_stock)
 		packing.total_shift_stock = float(packing.total_stock) + float(packing.loose_stock) - float(packing.last_shift_loose_stock)
 		packing.save()
-
+	def update_can_packing(self):
+		packing =  frappe.get_doc("PNI Packing", self.pni_packing)
+		packing.loose_stock = 0
+		packing.total_shift_stock = float(packing.total_stock) + float(packing.loose_stock) - float(packing.last_shift_loose_stock)
+		packing.save()
 	def set_machine_helper(self):
 		helper = ""
 		if self.shift == "Day":
@@ -134,6 +138,8 @@ class PNIPacking(Document):
 			doc = frappe.get_doc("PNI Carton",data.carton_id)
 			doc.cancel()
 			doc.delete()
+		if self.pni_packing:
+			self.update_can_packing()
 	
 	def get_employee_list(self):
 		if self.select_employee_group:
