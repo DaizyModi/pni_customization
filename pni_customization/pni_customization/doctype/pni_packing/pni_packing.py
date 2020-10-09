@@ -21,7 +21,25 @@ class PNIPacking(Document):
 
 		self.calculate_total_stock()
 		self.set_machine_helper()
+		self.first_carton()
 	
+	def first_carton(self):
+		self.total_shift_stock = float(self.total_stock) + float(self.loose_stock) - float(self.last_shift_loose_stock)
+		if self.pni_packing == self.name:
+			frappe.throw("Can't be "+ self.pni_packing)
+		# if self.shift_first_carton:
+		# 	self.pni_packing = self.get_last_carton()
+	
+	# def get_last_carton(self):
+	# 	'''Returns last carton if exists'''
+	# 	last_carton = frappe.get_all('PNI Packing', 'name',{"workstation": self.workstation},order_by='creation desc', limit=2)
+	# 	return last_carton and last_carton[1] and last_carton[1]['name']		
+	def update_packing(self):
+		packing =  frappe.get_doc("PNI Packing", self.pni_packing)
+		packing.loose_stock = float(self.last_shift_loose_stock)
+		packing.total_shift_stock = float(packing.total_stock) + float(packing.loose_stock) - float(packing.last_shift_loose_stock)
+		packing.save()
+
 	def set_machine_helper(self):
 		helper = ""
 		if self.shift == "Day":
@@ -93,6 +111,8 @@ class PNIPacking(Document):
 			
 	
 	def on_submit(self):
+		if self.pni_packing:
+			self.update_packing()
 		if not self.employee:
 			frappe.throw("Employee Detail Can't be blank")
 		for data in self.carton_data:

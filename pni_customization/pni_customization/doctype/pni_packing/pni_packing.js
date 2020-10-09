@@ -45,6 +45,12 @@ frappe.ui.form.on('PNI Packing', {
 		cur_frm.set_query("workstation", function() {
 			return { filters: { papercup_forming_machine: 1 } };
 		});
+		cur_frm.set_query("pni_packing", function() {
+			return { filters: { 
+				workstation: frm.doc.workstation,
+				shift: frm.doc.shift == "Day"? "Night" :"Day"
+			} };
+		});
 	},
 	select_employee_group: function(frm) {
 		frappe.call({

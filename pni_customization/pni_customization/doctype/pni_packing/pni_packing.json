@@ -9,6 +9,7 @@
   "naming_series",
   "item",
   "status",
+  "shift_first_carton",
   "company",
   "is_paper_plate",
   "shift",
@@ -37,7 +38,13 @@
   "total_net_weight",
   "column_break_11",
   "total_stock",
-  "amended_from"
+  "amended_from",
+  "production_details_section",
+  "pni_packing",
+  "last_shift_loose_stock",
+  "column_break_35",
+  "loose_stock",
+  "total_shift_stock"
  ],
  "fields": [
   {
@@ -241,10 +248,50 @@
    "fieldname": "workstation_head",
    "fieldtype": "Data",
    "label": "Workstation Head"
+  },
+  {
+   "fieldname": "production_details_section",
+   "fieldtype": "Section Break",
+   "label": "Production Details"
+  },
+  {
+   "fieldname": "column_break_35",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "total_shift_stock",
+   "fieldtype": "Float",
+   "label": "Total Shift Stock",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pni_packing",
+   "fieldtype": "Link",
+   "label": "PNI Packing",
+   "options": "PNI Packing"
+  },
+  {
+   "fieldname": "last_shift_loose_stock",
+   "fieldtype": "Float",
+   "label": "Last Shift Loose Stock"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "loose_stock",
+   "fieldtype": "Float",
+   "label": "Loose Stock",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "shift_first_carton",
+   "fieldtype": "Check",
+   "label": "Shift First Carton"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-09-05 18:58:03.765468",
+ "modified": "2020-10-09 18:07:13.250031",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
