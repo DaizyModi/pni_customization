@@ -9,7 +9,9 @@
 [data-action="clear_attachment"] {
 	display: none!important;
 }
-
+#page-Form\/Job\ Applicant > div.container.page-body > div.page-wrapper > div > div.row.layout-main > div.col-md-10.layout-main-section-wrapper > div.layout-main-section > div:nth-child(3) > div > div > div.form-page > div:nth-child(3) > div > div > form > div.frappe-control.input-max-width > div > div.control-input-wrapper > div.control-input > div > div.ellipsis > a {
+	display: inline!important;
+}
 #page-Form\/Rename\ Tool > div.container.page-body > div.page-wrapper > div > div.row.layout-main > div > div.layout-main-section > div:nth-child(3) > div > div > div.form-page > div.row.form-section.visible-section.shaded-section > div > div > form > div:nth-child(3) > div > div.control-input-wrapper > div.control-input > div > div:nth-child(2) > a:nth-child(1) {
 	display: inline!important;
 }
