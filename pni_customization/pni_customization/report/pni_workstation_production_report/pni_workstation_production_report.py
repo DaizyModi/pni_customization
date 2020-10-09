@@ -19,6 +19,11 @@ def get_columns():
             "fieldtype": "Link",
 			"options": "Item"
         },
+		{
+            "fieldname": "machine_helper",
+            "label": _("Machine Helper"),
+            "fieldtype": "Data",
+        },
         {
             "fieldname": "workstation",
             "label": _("Workstation"),
@@ -53,13 +58,12 @@ def get_condition(filters):
 
 def get_data(filters=None):
 	condition1,condition2 = get_condition(filters)
-
 	return frappe.db.sql("""
-		select table1.parent_item, table1.workstation,table1.total_production,table2.total_bottom_scrap, table2.total_blank_scrap
+		select table1.parent_item, table1.machine_helper, table1.workstation,table1.total_production,table2.total_bottom_scrap, table2.total_blank_scrap
 			from 
 				
 				(select 
-					item.variant_of as parent_item, packing.workstation as workstation, sum(pni_crt.total) as total_production 
+					item.variant_of as parent_item, GROUP_CONCAT(packing.machine_helper) as machine_helper, packing.workstation as workstation, sum(pni_crt.total) as total_production 
 				from 
 					`tabPNI Carton` as pni_crt,
 					`tabPNI Packing` as packing, 
