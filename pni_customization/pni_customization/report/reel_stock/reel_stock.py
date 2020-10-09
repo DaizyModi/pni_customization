@@ -124,5 +124,5 @@ def get_data(filters=None):
 		where rl.docstatus = '1' {1} {2}
 
 		group by 
-		rl.item, rl.coated_reel, rl.printed_reel, rl.warehouse;
+		rl.brand, rl.item, rl.coated_reel, rl.printed_reel, rl.warehouse;
 	""".format(table, conditions, conditions_for_varient))
