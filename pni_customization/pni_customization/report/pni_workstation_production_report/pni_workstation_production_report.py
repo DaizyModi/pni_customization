@@ -63,7 +63,7 @@ def get_data(filters=None):
 			from 
 				
 				(select 
-					item.variant_of as parent_item, GROUP_CONCAT(packing.machine_helper) as machine_helper, packing.workstation as workstation, sum(pni_crt.total) as total_production 
+					item.variant_of as parent_item, GROUP_CONCAT(DISTINCT(packing.machine_helper)) as machine_helper, packing.workstation as workstation, sum(pni_crt.total) as total_production 
 				from 
 					`tabPNI Carton` as pni_crt,
 					`tabPNI Packing` as packing, 
