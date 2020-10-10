@@ -16,6 +16,7 @@
   "column_break_6",
   "to_warehouse",
   "is_wip_warehouse",
+  "shift",
   "items_table_section",
   "item",
   "pni_material_type",
@@ -162,10 +163,17 @@
    "fieldname": "pni_bag_weight",
    "fieldtype": "Float",
    "label": "Pni Bag Weight"
+  },
+  {
+   "depends_on": "eval: doc.is_wip_warehouse",
+   "fieldname": "shift",
+   "fieldtype": "Select",
+   "label": "Shift",
+   "options": "\nDay\nNight"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-06-25 11:48:17.929651",
+ "modified": "2020-10-10 19:14:31.472384",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Material Transfer",

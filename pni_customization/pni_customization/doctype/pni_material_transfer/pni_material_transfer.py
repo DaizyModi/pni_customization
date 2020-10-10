@@ -12,6 +12,9 @@ class PNIMaterialTransfer(Document):
 		self.total_weight = 0
 		for item in self.material_transfer_table:
 			self.total_weight += item.qty
+		if self.is_wip_warehouse and not self.shift:
+			frappe.throw("Shift is Mandatory for WIP Warehouse")
+
 	 
 	def on_submit(self):
 		count = 0
@@ -75,6 +78,7 @@ class PNIMaterialTransfer(Document):
 		stock_entry = frappe.new_doc("Stock Entry")
 		stock_entry.pni_reference_type = "PNI Material Transfer"
 		stock_entry.pni_reference = self.name
+		stock_entry.pni_shift = self.shift
 		
 		stock_entry.stock_entry_type = "Material Transfer"
 		stock_entry = self.set_se_items_finish(stock_entry)

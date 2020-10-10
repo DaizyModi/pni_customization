@@ -20,6 +20,11 @@ def get_columns():
 			"options": "Item"
         },
 		{
+            "fieldname": "workstation_head",
+            "label": _("Workstation Head"),
+            "fieldtype": "Data",
+        },
+		{
             "fieldname": "machine_helper",
             "label": _("Machine Helper"),
             "fieldtype": "Data",
@@ -48,22 +53,23 @@ def get_columns():
         }
     ]
 def get_condition(filters):
-    condition1,condition2  = "",""
-    if filters.get("from_date"): condition1 += " AND packing.date >= %(from_date)s"
-    if filters.get("from_date"): condition2 += " AND stock_entry.posting_date >= %(from_date)s"
-    if filters.get("to_date"): condition1 += " AND packing.date <= %(to_date)s"
-    if filters.get("to_date"): condition2 += " AND stock_entry.posting_date <= %(to_date)s"
-    if filters.get("parent_item"): condition1 += " AND item.variant_of = %(parent_item)s"
-    return condition1,condition2
+	condition1,condition2  = "",""
+	if filters.get("from_date"): condition1 += " AND packing.date >= %(from_date)s"
+	if filters.get("from_date"): condition2 += " AND stock_entry.posting_date >= %(from_date)s"
+	if filters.get("to_date"): condition1 += " AND packing.date <= %(to_date)s"
+	if filters.get("to_date"): condition2 += " AND stock_entry.posting_date <= %(to_date)s"
+	if filters.get("parent_item"): condition1 += " AND item.variant_of = %(parent_item)s"
+	if filters.get("item_group"): condition1 += " AND item.item_group = %(item_group)s"
+	return condition1,condition2
 
 def get_data(filters=None):
 	condition1,condition2 = get_condition(filters)
 	return frappe.db.sql("""
-		select table1.parent_item, table1.machine_helper, table1.workstation,table1.total_production,table2.total_bottom_scrap, table2.total_blank_scrap
+		select table1.parent_item, table1.workstation_head, table1.machine_helper, table1.workstation,table1.total_production,table2.total_bottom_scrap, table2.total_blank_scrap
 			from 
 				
 				(select 
-					item.variant_of as parent_item, GROUP_CONCAT(DISTINCT(packing.machine_helper)) as machine_helper, packing.workstation as workstation, sum(pni_crt.total) as total_production 
+					item.variant_of as parent_item,GROUP_CONCAT(DISTINCT(packing.workstation_head)) as workstation_head, GROUP_CONCAT(DISTINCT(packing.machine_helper)) as machine_helper, packing.workstation as workstation, sum(pni_crt.total) as total_production 
 				from 
 					`tabPNI Carton` as pni_crt,
 					`tabPNI Packing` as packing, 
