@@ -169,6 +169,7 @@ class PNIPacking(Document):
 		stock_entry.work_station_head = self.workstation_head
 		stock_entry.pni_shift = self.shift
 		stock_entry.machine_helper = self.machine_helper
+		stock_entry.workstation_pni = self.workstation
 		stock_entry.posting_date = self.date
 		stock_entry.set_posting_time = True
 		

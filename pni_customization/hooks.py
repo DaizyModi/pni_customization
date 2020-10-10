@@ -42,7 +42,8 @@ fixtures = [
 					"pni_bag_in", "carton_warehouse", "pni_bag_out_data", "bag_item", "punching_die",
 					"pni_cbc2","bag_brand", "coated_real", "printed_reel", "bag_warehouse",
 					"workstation_head", "workstation_head_name", "main_category", "main_category_code",
-					"sub_category", "sub_category_code","work_station_head","pni_shift","machine_helper"
+					"sub_category", "sub_category_code","work_station_head","pni_shift","machine_helper",
+					"workstation_pni"
 
 				)
 			]
