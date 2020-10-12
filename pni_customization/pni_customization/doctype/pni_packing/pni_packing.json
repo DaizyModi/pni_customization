@@ -250,6 +250,7 @@
    "label": "Workstation Head"
   },
   {
+   "depends_on": "eval:doc.shift_first_carton",
    "fieldname": "production_details_section",
    "fieldtype": "Section Break",
    "label": "Production Details"
@@ -291,7 +292,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-10-09 18:07:13.250031",
+ "modified": "2020-10-12 14:25:15.899189",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

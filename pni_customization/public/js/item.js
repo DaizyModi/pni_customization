@@ -21,6 +21,13 @@ frappe.ui.form.on('Item', {
 		}
 	},
 	setup: function(frm) {
+		frm.set_query("main_category", function() {
+			return {
+				filters: {
+					"is_sub_category": false
+				}
+			};
+		});
 		frm.set_query("sub_category", function() {
 			return {
 				filters: {
