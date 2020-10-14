@@ -67,7 +67,7 @@ frappe.ui.form.on('BOM', {
 				},
 				callback: (response) => {
 					if(response.message){
-						bom = []
+						var bom = []
 						for (var old_bom in response.message){
 							
 							if(!bom.includes(old_bom)){
