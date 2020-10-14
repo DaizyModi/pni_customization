@@ -5,11 +5,11 @@ def update_bom_default_active(bom):
 	list_for_bom = {}	
 	update_list_bom(bom, list_for_bom)
 	return list_for_bom
-	for _bom in list_for_bom:
-		frappe.msgprint(" Bom will Replace {0} with {1} ".format(_bom, list_for_bom[_bom]))
-		continue
-		enque_bom_update(_bom,list_for_bom[_bom])
-	return "Success"
+	# for _bom in list_for_bom:
+	# 	frappe.msgprint(" Bom will Replace {0} with {1} ".format(_bom, list_for_bom[_bom]))
+	# 	continue
+	# 	enque_bom_update(_bom,list_for_bom[_bom])
+	# return "Success"
 
 def update_list_bom(bom, list_for_bom):
 	master_bom =  frappe.get_doc("BOM", bom)

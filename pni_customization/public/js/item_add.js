@@ -67,6 +67,21 @@ frappe.ui.form.on('BOM', {
 				},
 				callback: (response) => {
 					if(response.message){
+						for (var old_bom in response.message){
+							console.log("Zero")
+							console.log(old_bom)
+							frappe.call({
+								method: "erpnext.manufacturing.doctype.bom_update_tool.bom_update_tool.enqueue_replace_bom",
+								freeze: true,
+								args: {
+									args: {
+										"current_bom": old_bom,
+										"new_bom": response.message[old_bom]
+									}
+								}
+							});
+						}
+						
 						frappe.msgprint("Bom Enque for Replace")
 					}
 				}
