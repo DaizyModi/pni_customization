@@ -393,6 +393,8 @@ def validate_stock_entry_item(doc, method):
 	print("Hello World")
 	if doc.scrap_entry and not doc.pni_shift:
 		frappe.throw("Shift is Mandatory for Scrap Entry")
+	if doc.scrap_entry and not doc.pni_reference:
+		frappe.throw("Workstation is Mandatory for Scrap Entry")
 	validate_repack_entry(doc)
 	validate_inspection_for_work_order(doc, method)
 	if doc.items:
