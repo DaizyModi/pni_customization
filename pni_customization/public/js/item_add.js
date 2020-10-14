@@ -72,16 +72,46 @@ frappe.ui.form.on('BOM', {
 							
 							if(!bom.includes(old_bom)){
 								console.log(old_bom)
-								frappe.call({
-									method: "erpnext.manufacturing.doctype.bom_update_tool.bom_update_tool.enqueue_replace_bom",
-									freeze: true,
-									args: {
-										args: {
-											"current_bom": old_bom,
-											"new_bom": response.message[old_bom]
+								let d = new frappe.ui.Dialog({
+									title: 'Enter details',
+									fields: [
+										{
+											label: 'Old BOM',
+											fieldname: 'current_bom',
+											fieldtype: 'Link',
+											options: 'BOM',
+											read_only: true,
+											default: old_bom
+										},
+										{
+											label: 'New BOM',
+											fieldname: 'new_bom',
+											fieldtype: 'Link',
+											options: 'BOM',
+											read_only: true,
+											default: response.message[old_bom]
 										}
+									],
+									primary_action_label: 'Process',
+									primary_action(values) {
+										console.log(values);
+										frappe.call({
+											method: "erpnext.manufacturing.doctype.bom_update_tool.bom_update_tool.enqueue_replace_bom",
+											freeze: true,
+											args: {
+												args: {
+													"current_bom": values.current_bom,
+													"new_bom": values.new_bom
+												}
+											}
+										});
+										d.hide();
 									}
 								});
+								
+								d.show();
+
+								
 								bom.push(old_bom)
 							}
 						}
