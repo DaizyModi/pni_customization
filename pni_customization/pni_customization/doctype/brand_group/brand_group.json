@@ -8,7 +8,8 @@
   "group_name",
   "brand_group_table",
   "query",
-  "role"
+  "role",
+  "multiplier"
  ],
  "fields": [
   {
@@ -34,9 +35,15 @@
    "fieldtype": "Link",
    "label": "Role",
    "options": "Role"
+  },
+  {
+   "default": "1",
+   "fieldname": "multiplier",
+   "fieldtype": "Int",
+   "label": "Multiplier"
   }
  ],
- "modified": "2020-07-23 19:46:39.940375",
+ "modified": "2020-10-15 16:54:54.163625",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Brand Group",
