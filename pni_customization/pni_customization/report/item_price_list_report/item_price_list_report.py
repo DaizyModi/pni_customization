@@ -40,6 +40,13 @@ def get_columns():
             "fieldtype": "Data",
             "width": 150,
 			"precision":4
+        },
+		{
+            "fieldname": "dumy",
+            "label": _("Empty"),
+            "fieldtype": "Data",
+            "width": 150,
+			"precision":4
         }
 
     ]
@@ -53,7 +60,7 @@ def get_data(filters=None):
 
 	return frappe.db.sql("""
 		select 
-			ip.brand, ip.price_list_rate, (ip.price_list_rate * bg.multiplier), (ip.price_list_rate * bg.multiplier * 1.18)
+			ip.brand, ip.price_list_rate, (ip.price_list_rate * bg.multiplier) as decimal(10,4), (ip.price_list_rate * bg.multiplier * 1.18) as decimal(10,2)
 		from 
 			`tabItem Price` as ip,
 			`tabBrand Group Table` as bgt,
