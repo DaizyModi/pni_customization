@@ -30,14 +30,14 @@ def get_columns():
 		{
             "fieldname": "packing_rate",
             "label": _("Packing Rate"),
-            "fieldtype": "Data",
+            "fieldtype": "Float",
             "width": 150,
 			"precision":4
         },
 		{
             "fieldname": "packing_rate_with_gst",
             "label": _("Packing Rate with GST"),
-            "fieldtype": "Data",
+            "fieldtype": "Float",
             "width": 150,
 			"precision":4
         },
@@ -60,7 +60,7 @@ def get_data(filters=None):
 
 	return frappe.db.sql("""
 		select 
-			ip.brand, ip.price_list_rate, (ip.price_list_rate * bg.multiplier) as decimal(10,4), (ip.price_list_rate * bg.multiplier * 1.18) as decimal(10,2)
+			ip.brand, ip.price_list_rate, (ip.price_list_rate * bg.multiplier), (ip.price_list_rate * bg.multiplier * 1.18)
 		from 
 			`tabItem Price` as ip,
 			`tabBrand Group Table` as bgt,
