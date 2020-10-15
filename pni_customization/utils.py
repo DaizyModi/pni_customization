@@ -354,7 +354,7 @@ def submit_work_order_item(doc, method):
 def validate_inspection_for_work_order(doc, method):
 	if doc.work_order and doc.stock_entry_type == "Manufacture":
 		wo = frappe.get_doc("Work Order", doc.work_order)
-		if wo:
+		if wo and not wo.skip_pni_quality_inspection:
 			qty_stock = 0
 			qty_stock += int(doc.fg_completed_qty)
 			
