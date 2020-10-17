@@ -10,5 +10,8 @@ frappe.query_reports["Packing Production"] = {
 		{
 			"fieldname": "to_date", "fieldtype": "Date", "label": __("To Date")
 		},
+		{
+			"fieldname": "workstation_head", "fieldtype": "Data", "label": __("Workstation Head")
+		},
 	]
 };

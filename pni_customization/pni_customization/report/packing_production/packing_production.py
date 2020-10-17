@@ -13,6 +13,12 @@ def execute(filters=None):
 
 def get_columns():
     return  [
+		{
+            "fieldname": "workstation_head",
+            "label": _("Workstation Head"),
+            "fieldtype": "Data",
+            "width": 150
+        },
         {
             "fieldname": "machine_helper",
             "label": _("Machine Helper"),
@@ -50,9 +56,12 @@ def get_data(filters=None):
 	if filters.to_date:
 		conditions += " and date <='{0}' ".format(filters.to_date)
 	
-
+	if filters.workstation_head:
+		conditions += " and workstation_head like '{0} ".format(filters.workstation_head)
+	
 	return frappe.db.sql("""
 		select 
+			workstation_head,
 			machine_helper,
 			shift,
 			sum(total_shift_stock)
