@@ -57,7 +57,7 @@ def get_data(filters=None):
 		conditions += " and date <='{0}' ".format(filters.to_date)
 	
 	if filters.workstation_head:
-		conditions += " and workstation_head like '{0}' ".format(filters.workstation_head)
+		conditions += " and workstation_head like '%{0}%' ".format(filters.workstation_head)
 	
 	return frappe.db.sql("""
 		select 
