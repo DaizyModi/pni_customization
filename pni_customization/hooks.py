@@ -94,6 +94,9 @@ doc_events = {
 	},
 	"Item Price": {
 		"validate": "pni_customization.utils.validate_item_price"
+	},
+	"Customer": {
+		"validate": "pni_customization.utility.customer_utility.validate_customer"
 	}
 }
 # include js, css files in header of desk.html
