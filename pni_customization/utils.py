@@ -479,7 +479,7 @@ def job_card_submit(doc, method):
 	for qi in pni_qi:
 		pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
 		inspect_qty += int(pni_qi_doc.accepted_qty)
-	if inspect_qty < total_qty:
+	if inspect_qty < total_qty and not doc.skip_pni_quality_inspection:
 		frappe.throw(" Please do PNI QUality Inspection for {0} Items".format(str( total_qty- inspect_qty )))
 
 @frappe.whitelist()
@@ -495,9 +495,9 @@ def job_card_update(doc, method):
 		for qi in pni_qi:
 			pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
 			inspect_qty += int(pni_qi_doc.accepted_qty)
-		if inspect_qty == 0:
+		if inspect_qty == 0 and not doc.skip_pni_quality_inspection:
 			frappe.throw(" Pre PNI Quality Inpection Needed")
-		if inspect_qty < total_qty:
+		if inspect_qty < total_qty and not doc.skip_pni_quality_inspection:
 			frappe.throw(" Please do Pre PNI QUality Inspection for {0} Items".format(str( total_qty- inspect_qty )))
 
 @frappe.whitelist()
