@@ -60,16 +60,16 @@ def get_condition(filters):
 	if filters.get("to_date"): condition2 += " AND stock_entry.posting_date <= %(to_date)s"
 	if filters.get("parent_item"): condition1 += " AND item.variant_of = %(parent_item)s"
 	if filters.get("item_group"): condition1 += " AND item.item_group = %(item_group)s"
-	
-	if filters.get("workstation_head"): 
-		condition1 += " AND packing.workstation_head like %(workstation_head)s "
-		filters["workstation_head"] = "%" + filters.get("workstation_head") +"%"
-	if filters.get("machine_helper"): 
-		condition1 += " AND packing.machine_helper like %(machine_helper)s "
-		filters["machine_helper"] = "%" + filters.get("machine_helper") +"%"
 	if filters.get("workstation"): condition1 += " AND packing.workstation = %(workstation)s"
-
 	if filters.get("shift"): condition1 += " and packing.shift = %(shift)s  "
+
+	if filters.get("workstation_head"): 
+		filters["workstation_head"] = frappe.get_value("Employee", filters.get("workstation_head"), "employee_name")
+		condition1 += " AND packing.workstation_head = %(workstation_head)s "
+	
+	if filters.get("machine_helper"): 
+		filters["machine_helper"] = frappe.get_value("Employee", filters.get("machine_helper"), "employee_name")
+		condition1 += " AND packing.machine_helper = %(machine_helper)s "
 
 	if filters.get("employee"):
 		filters["employee"] = frappe.get_value("Employee", filters.get("employee"), "employee_name")
@@ -78,6 +78,7 @@ def get_condition(filters):
 		temp_condition1+= 	" or packing.machine_helper = %(employee)s "
 		temp_condition1 += 	" or ett.employee_name = %(employee)s "
 		temp_condition1 += 	" )"
+	
 	return condition1,condition2
 
 def get_data(filters=None):
@@ -101,7 +102,6 @@ def get_data(filters=None):
 					pni_crt.docstatus = "1" and
 					packing.docstatus = "1" and
 					item.name = packing.item 
-
 					%s
 				group by packing.workstation, packing.workstation_head, packing.machine_helper) as table1
 
