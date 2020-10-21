@@ -68,6 +68,14 @@ def get_condition(filters):
 		condition1 += " AND packing.machine_helper like %(machine_helper)s "
 		filters["machine_helper"] = "%" + filters.get("machine_helper") +"%"
 	if filters.get("workstation"): condition1 += " AND packing.workstation = %(workstation)s"
+
+	if filters.get("shift"): condition1 += " and packing.shift = %(shift)s  "
+
+	if filters.get("employee"):
+		condition1 += " or employee.name = %(employee)s "
+		condition1 += " or employee.employee_name = packing.workstation_head "
+		condition1 += " or employee.employee_name = packing.machine_helper "
+		condition1 += " or employee.employee_name = ett.employee_name "
 	return condition1,condition2
 
 def get_data(filters=None):
@@ -82,13 +90,17 @@ def get_data(filters=None):
 					`tabPNI Carton` as pni_crt,
 					`tabPNI Packing` as packing, 
 					`tabPNI Packing Carton` as pni_crt_tbl,
-					`tabItem` as item
+					`tabItem` as item,
+					`tabEmployee` as employee,
+					`tabEmployee Team Table` as ett
 				where 
 					pni_crt.name = pni_crt_tbl.carton_id and
 					pni_crt_tbl.parent = packing.name and
+					ett.parent = packing.name and
 					pni_crt.docstatus = "1" and
 					packing.docstatus = "1" and
-					item.name = packing.item 
+					item.name = packing.item and
+
 					%s
 				group by packing.workstation, packing.workstation_head, packing.machine_helper) as table1
 
