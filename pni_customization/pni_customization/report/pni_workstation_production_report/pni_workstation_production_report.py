@@ -99,7 +99,7 @@ def get_data(filters=None):
 					ett.parent = packing.name and
 					pni_crt.docstatus = "1" and
 					packing.docstatus = "1" and
-					item.name = packing.item and
+					item.name = packing.item 
 
 					%s
 				group by packing.workstation, packing.workstation_head, packing.machine_helper) as table1
