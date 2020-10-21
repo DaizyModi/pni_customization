@@ -234,8 +234,6 @@ def sales_invoice_validate(doc, method):
 		doc.commitment_date = row.commitment_date
 		doc.commitment_amt = row.commitment_amt
 		doc.remark = row.remark
-		frappe.msgprint(doc.remark)
-		frappe.msgprint(row.remark)
 def validate_delivery_item(doc, method):
 	from pni_customization.utility.delivery_note import validate
 	validate(doc, method)
