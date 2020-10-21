@@ -229,8 +229,11 @@ def make_pni_quotation_from_opportunity(source_name, target_doc=None, ignore_per
 	return doclist
 
 def sales_invoice_validate(doc, method):
-	for row in doc.items:
-		pass
+	doc.commitment_date,doc.commitment_amt,doc.remark = "","",""
+	for row in doc.daily_payment_report:
+		doc.commitment_date = row.commitment_date
+		doc.commitment_amt = row.commitment_amt
+		doc.remark = row.remark
 def validate_delivery_item(doc, method):
 	from pni_customization.utility.delivery_note import validate
 	validate(doc, method)
