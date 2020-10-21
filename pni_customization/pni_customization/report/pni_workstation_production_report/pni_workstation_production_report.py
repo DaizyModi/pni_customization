@@ -93,7 +93,6 @@ def get_data(filters=None):
 					`tabPNI Packing` as packing, 
 					`tabPNI Packing Carton` as pni_crt_tbl,
 					`tabItem` as item,
-					`tabEmployee` as employee,
 					`tabEmployee Team Table` as ett
 				where 
 					pni_crt.name = pni_crt_tbl.carton_id and
