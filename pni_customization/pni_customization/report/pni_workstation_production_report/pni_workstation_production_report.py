@@ -72,10 +72,12 @@ def get_condition(filters):
 	if filters.get("shift"): condition1 += " and packing.shift = %(shift)s  "
 
 	if filters.get("employee"):
-		condition1 += " or employee.name = %(employee)s "
-		condition1 += " or employee.employee_name = packing.workstation_head "
-		condition1 += " or employee.employee_name = packing.machine_helper "
-		condition1 += " or employee.employee_name = ett.employee_name "
+		filters["employee"] = frappe.get_value("Employee", filters.get("employee"), "employee_name")
+		temp_condition1 = 	" and ( 1=0 "
+		temp_condition1 += 	" or packing.workstation_head = %(employee)s  "
+		temp_condition1+= 	" or packing.machine_helper = %(employee)s "
+		temp_condition1 += 	" or ett.employee_name = %(employee)s "
+		temp_condition1 += 	" )"
 	return condition1,condition2
 
 def get_data(filters=None):
