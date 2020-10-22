@@ -86,43 +86,55 @@ def get_data(filters=None):
 	# `tabEmployee Team Table` as ett
 	# ett.parent = packing.name and
 	return frappe.db.sql("""
-		select table1.parent_item, table1.workstation_head, table1.machine_helper, table1.workstation,table1.total_production,table2.total_bottom_scrap, table2.total_blank_scrap
-			from 
-				
-				(select 
-					item.variant_of as parent_item,
-					packing.workstation_head as workstation_head, 
-					packing.machine_helper as machine_helper, 
-					packing.workstation as workstation, 
-					sum(packing.total_stock) as total_production 
+		select 
+			table1.parent_item, 
+			table1.workstation_head, 
+			table1.machine_helper, 
+			table1.workstation,
+			table1.total_production,
+			table2.total_bottom_scrap, 
+			table2.total_blank_scrap
+		from 		
+			(
+				select 
+						item.variant_of as parent_item,
+						packing.workstation_head as workstation_head, 
+						packing.machine_helper as machine_helper, 
+						packing.workstation as workstation, 
+						sum(packing.total_stock) as total_production 
 				from 
 					`tabPNI Packing` as packing, 
-					`tabItem` as item,
-					
-				where 
-					
+					`tabItem` as item
+				where 		
 					packing.docstatus = "1" and
 					item.name = packing.item 
 					%s
-				group by packing.workstation, packing.workstation_head, packing.machine_helper, item.variant_of) as table1
+				group by 
+					packing.workstation, 
+					packing.workstation_head, 
+					packing.machine_helper, 
+					item.variant_of
+			) as table1
 
-				left join 
-				
-				(select 
+		left join 
+			
+			(
+				select 
 					stock_entry.pni_reference as workstation,
 					SUM(CASE WHEN item_table.item_code = 'Bottom Paper Scrap' THEN item_table.qty ELSE 0 END) as total_bottom_scrap,
 					SUM(CASE WHEN item_table.item_code = 'Blank Paper Scrap' THEN item_table.qty ELSE 0 END) as total_blank_scrap
 				from 
 					`tabStock Entry Detail` as item_table,
 					`tabStock Entry` as stock_entry
-				
 				where
 					item_table.parent = stock_entry.name and
 					stock_entry.scrap_entry = "1" and
 					stock_entry.pni_reference_type = "Workstation"
 					%s
-				group by stock_entry.pni_reference) as table2
-			
-			on table1.workstation = table2.workstation
+				group by 
+					stock_entry.pni_reference
+			) as table2
+		
+		on table1.workstation = table2.workstation
 			
     """%(condition1, condition2), filters)
