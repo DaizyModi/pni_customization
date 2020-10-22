@@ -234,6 +234,9 @@ def sales_invoice_validate(doc, method):
 		doc.commitment_date = row.commitment_date
 		doc.commitment_amt = row.commitment_amt
 		doc.remark = row.remark
+	frappe.db.set_value('Sales Invoice', doc.name, 'commitment_date', doc.commitment_date)
+	frappe.db.set_value('Sales Invoice', doc.name, 'commitment_amt', doc.commitment_amt)
+	frappe.db.set_value('Sales Invoice', doc.name, 'remark', doc.remark)
 def validate_delivery_item(doc, method):
 	from pni_customization.utility.delivery_note import validate
 	validate(doc, method)
