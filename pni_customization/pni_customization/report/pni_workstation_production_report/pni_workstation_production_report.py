@@ -88,18 +88,13 @@ def get_data(filters=None):
 			from 
 				
 				(select 
-					item.variant_of as parent_item,packing.workstation_head as workstation_head, packing.machine_helper as machine_helper, packing.workstation as workstation, sum(pni_crt.total) as total_production 
+					item.variant_of as parent_item,packing.workstation_head as workstation_head, packing.machine_helper as machine_helper, packing.workstation as workstation, sum(packing.total_stock) as total_production 
 				from 
-					`tabPNI Carton` as pni_crt,
 					`tabPNI Packing` as packing, 
-					`tabPNI Packing Carton` as pni_crt_tbl,
 					`tabItem` as item,
 					`tabEmployee Team Table` as ett
 				where 
-					pni_crt.name = pni_crt_tbl.carton_id and
-					pni_crt_tbl.parent = packing.name and
 					ett.parent = packing.name and
-					pni_crt.docstatus = "1" and
 					packing.docstatus = "1" and
 					item.name = packing.item 
 					%s
