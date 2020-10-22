@@ -83,6 +83,7 @@ def get_condition(filters):
 
 def get_data(filters=None):
 	condition1,condition2 = get_condition(filters)
+	# `tabEmployee Team Table` as ett
 	return frappe.db.sql("""
 		select table1.parent_item, table1.workstation_head, table1.machine_helper, table1.workstation,table1.total_production,table2.total_bottom_scrap, table2.total_blank_scrap
 			from 
@@ -96,7 +97,7 @@ def get_data(filters=None):
 				from 
 					`tabPNI Packing` as packing, 
 					`tabItem` as item,
-					`tabEmployee Team Table` as ett
+					
 				where 
 					ett.parent = packing.name and
 					packing.docstatus = "1" and
