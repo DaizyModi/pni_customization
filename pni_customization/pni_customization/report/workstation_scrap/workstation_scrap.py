@@ -124,7 +124,7 @@ def get_data(filters=None):
 				group by 
 					stock_entry.pni_reference, stock_entry.pni_shift
 			) as scrap_data
-		FULL JOIN
+		UNION ALL
 			(
 				select
 					count(packing.name) as packing,
