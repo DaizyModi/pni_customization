@@ -124,7 +124,7 @@ def get_data(filters=None):
 				group by 
 					stock_entry.pni_reference, stock_entry.pni_shift
 			) as scrap_data
-		UNION ALL
+		left join
 			(
 				select
 					count(packing.name) as packing,
@@ -142,4 +142,55 @@ def get_data(filters=None):
 		on  
 			scrap_data.pni_shift = production_data.shift and 
 			scrap_data.workstation = production_data.workstation
+		union all
+		select 
+				scrap_data.workstation, 
+				scrap_data.workstation_head_name, 
+				scrap_data.pni_shift, 
+				production_data.packing,
+				production_data.production,
+				scrap_data.total_bottom_scrap, 
+				scrap_data.total_blank_scrap
+			from
+				(
+					select 
+						stock_entry.name,
+						stock_entry.pni_reference as workstation,
+						workstation.workstation_head_name as workstation_head_name,
+						stock_entry.pni_shift,
+						SUM(CASE WHEN item_table.item_code = 'Bottom Paper Scrap' THEN item_table.qty ELSE 0 END) as total_bottom_scrap,
+						SUM(CASE WHEN item_table.item_code = 'Blank Paper Scrap' THEN item_table.qty ELSE 0 END) as total_blank_scrap
+					from 
+						`tabStock Entry Detail` as item_table,
+						`tabStock Entry` as stock_entry,
+						`tabWorkstation` as workstation
+					where
+						workstation.name = stock_entry.pni_reference and
+						item_table.parent = stock_entry.name and
+						stock_entry.scrap_entry = "1" and
+						stock_entry.docstatus = "1" and
+						stock_entry.pni_reference_type = "Workstation"
+						{0}
+					group by 
+						stock_entry.pni_reference, stock_entry.pni_shift
+				) as scrap_data
+			right join
+				(
+					select
+						count(packing.name) as packing,
+						packing.shift,
+						packing.workstation,
+						sum(packing.total_shift_stock) as production
+					from
+						`tabPNI Packing` as packing
+					where
+						packing.docstatus = "1"
+						{1}
+					group by
+						packing.shift,packing.workstation
+				) as production_data
+			on  
+				scrap_data.pni_shift = production_data.shift and 
+				scrap_data.workstation = production_data.workstation and
+				scrap_data.name is NULL			
     """.format(condition1, condition2))
