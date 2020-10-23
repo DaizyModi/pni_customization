@@ -154,6 +154,7 @@ def get_data(filters=None):
 			from
 				(
 					select 
+						stock_entry.name,
 						stock_entry.pni_reference as workstation,
 						workstation.workstation_head_name as workstation_head_name,
 						stock_entry.pni_shift,
@@ -190,7 +191,7 @@ def get_data(filters=None):
 				) as production_data
 			on  
 				scrap_data.pni_shift = production_data.shift and 
-				scrap_data.workstation = production_data.workstation and
-				scrap_data.pni_shift is NULL and
-				scrap_data.workstation is NULL 
+				scrap_data.workstation = production_data.workstation
+			where
+				scrap_data.name is NULL
     """.format(condition1, condition2))
