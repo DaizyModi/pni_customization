@@ -101,7 +101,7 @@ def get_data(filters=None):
 						packing.workstation_head as workstation_head, 
 						packing.machine_helper as machine_helper, 
 						packing.workstation as workstation, 
-						sum(packing.total_stock) as total_production 
+						sum(packing.total_shift_stock) as total_production 
 				from 
 					`tabPNI Packing` as packing, 
 					`tabItem` as item

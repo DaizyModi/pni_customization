@@ -33,13 +33,13 @@ def get_columns():
             "width": 150,
 			"precision":4
         },
-		{
-            "fieldname": "packing",
-            "label": _("PNI Packing"),
-            "fieldtype": "Float",
-            "width": 150,
-			"precision":4
-        },
+		# {
+        #     "fieldname": "packing",
+        #     "label": _("PNI Packing"),
+        #     "fieldtype": "Float",
+        #     "width": 150,
+		# 	"precision":4
+        # },
 		{
             "fieldname": "total_production",
             "label": _("Total Production"),
@@ -98,7 +98,6 @@ def get_data(filters=None):
 			scrap_data.workstation, 
 			scrap_data.workstation_head_name, 
 			scrap_data.pni_shift, 
-			production_data.packing,
 			production_data.production,
 			scrap_data.total_bottom_scrap, 
 			scrap_data.total_blank_scrap
@@ -127,14 +126,16 @@ def get_data(filters=None):
 		left join
 			(
 				select
-					count(packing.name) as packing,
 					packing.shift,
 					packing.workstation,
 					sum(packing.total_shift_stock) as production
 				from
-					`tabPNI Packing` as packing
+					`tabPNI Packing` as packing,
+					`tabItem` as item
 				where
-					packing.docstatus = "1"
+					packing.docstatus = "1" and
+						item.name = packing.item and
+						AND item.item_group = "Paper Cup"
 					{1}
 				group by
 					packing.shift,packing.workstation
@@ -147,7 +148,6 @@ def get_data(filters=None):
 				scrap_data.workstation, 
 				scrap_data.workstation_head_name, 
 				scrap_data.pni_shift, 
-				production_data.packing,
 				production_data.production,
 				scrap_data.total_bottom_scrap, 
 				scrap_data.total_blank_scrap
@@ -177,14 +177,16 @@ def get_data(filters=None):
 			right join
 				(
 					select
-						count(packing.name) as packing,
 						packing.shift,
 						packing.workstation,
 						sum(packing.total_shift_stock) as production
 					from
-						`tabPNI Packing` as packing
+						`tabPNI Packing` as packing,
+						`tabItem` as item
 					where
-						packing.docstatus = "1"
+						packing.docstatus = "1" and
+						item.name = packing.item and
+						AND item.item_group = "Paper Cup"
 						{1}
 					group by
 						packing.shift,packing.workstation
