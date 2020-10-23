@@ -600,7 +600,7 @@ def validate_po(doc, method):
 			for mr_item in mr.items:
 				if mr_item.item_code == item.item_code:
 					if item.qty > mr_item.qty:
-						frappe.throw("Purchase Order {0}({1}) Qty should not greater then Material Request {3}({4})".format(
+						frappe.throw("Purchase Order {0}({1}) Qty should not greater then Material Request {2}({3})".format(
 							item.item_code,
 							item.qty,
 							mr_item.item_code,
