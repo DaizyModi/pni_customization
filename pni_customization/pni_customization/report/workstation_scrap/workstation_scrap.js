@@ -16,5 +16,8 @@ frappe.query_reports["Workstation Scrap"] = {
 		{
 			"fieldname": "workstation", "fieldtype": "Link", "label": __("Workstation"), "options": "Workstation"
 		},
+		{
+			"fieldname": "shift", "fieldtype": "Select", "label": __("Shift"), "options": "\nDay\nNight"
+		},
 	]
 };

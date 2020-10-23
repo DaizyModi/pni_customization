@@ -82,6 +82,10 @@ def get_data(filters=None):
 		condition1 += " and stock_entry.pni_reference = '{0}' ".format(filters.workstation)
 		condition2 += " and packing.workstation ='{0}' ".format(filters.workstation)
 	
+	if filters.shift:
+		condition1 += " and stock_entry.pni_shift = '{0}' ".format(filters.shift)
+		condition2 += " and packing.shift ='{0}' ".format(filters.shift)
+	
 	return frappe.db.sql("""
 		select 
 			scrap_data.workstation, 
