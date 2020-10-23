@@ -121,7 +121,7 @@ def get_data(filters=None):
 				select
 					packing.shift,
 					packing.workstation,
-					sum(packing.total_stock) as production
+					sum(packing.total_shift_stock) as production
 				from
 					`tabPNI Packing` as packing
 				where
