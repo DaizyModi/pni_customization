@@ -34,6 +34,13 @@ def get_columns():
 			"precision":4
         },
 		{
+            "fieldname": "packing",
+            "label": _("PNI Packing"),
+            "fieldtype": "Float",
+            "width": 150,
+			"precision":4
+        },
+		{
             "fieldname": "total_production",
             "label": _("Total Production"),
             "fieldtype": "Float",
@@ -91,6 +98,7 @@ def get_data(filters=None):
 			scrap_data.workstation, 
 			scrap_data.workstation_head_name, 
 			scrap_data.pni_shift, 
+			production_data.packing,
 			production_data.production,
 			scrap_data.total_bottom_scrap, 
 			scrap_data.total_blank_scrap
@@ -119,6 +127,7 @@ def get_data(filters=None):
 		left join
 			(
 				select
+					count(packing.name) as packing,
 					packing.shift,
 					packing.workstation,
 					sum(packing.total_shift_stock) as production
