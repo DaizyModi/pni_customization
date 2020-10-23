@@ -135,7 +135,7 @@ def get_data(filters=None):
 				where
 					packing.docstatus = "1" and
 						item.name = packing.item and
-						AND item.item_group = "Paper Cup"
+						item.item_group = "Paper Cup"
 					{1}
 				group by
 					packing.shift,packing.workstation
@@ -186,7 +186,7 @@ def get_data(filters=None):
 					where
 						packing.docstatus = "1" and
 						item.name = packing.item and
-						AND item.item_group = "Paper Cup"
+						item.item_group = "Paper Cup"
 						{1}
 					group by
 						packing.shift,packing.workstation
