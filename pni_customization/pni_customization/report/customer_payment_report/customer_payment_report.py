@@ -64,7 +64,7 @@ def get_data(filters=None):
 			(
 				select 
 					siv.sales_person_name, 
-					siv.outstanding_amount,
+					sum(siv.outstanding_amount) as outstanding_amount,
 					sum(dpr.commitment_amt) as commitment_amt
 				from
 					`tabSales Invoice` as siv
