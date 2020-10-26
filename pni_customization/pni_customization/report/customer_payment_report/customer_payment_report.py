@@ -49,8 +49,8 @@ def get_data(filters=None):
 		select 
 			siv.sales_person_name, sum(dpr.commitment_amt), sum(per.allocated_amount)
 		from
-			`tabSales Invoice` as siv,
-			`tabDaily Payment Report` as dpr
+			`tabDaily Payment Report` as dpr,
+			`tabSales Invoice` as siv
 		left join
 			`tabPayment Entry Reference` as per
 		on siv.name = per.reference_name
