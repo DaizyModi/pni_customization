@@ -80,6 +80,7 @@ def get_data(filters=None):
 		left join
 			(
 				select 
+					siv.sales_person_name,
 					sum(per.allocated_amount) as allocated_amount
 				from
 					`tabSales Invoice` as siv
@@ -98,5 +99,5 @@ def get_data(filters=None):
 				group by siv.sales_person_name
 			) as payment_data
 		on
-			invoice_data.name = payment_data.name
+			invoice_data.sales_person_name = payment_data.sales_person_name
 		""".format(condition,condition2))
