@@ -28,6 +28,13 @@ def get_columns():
 			"options":"Sales Invoice"
         },
 		{
+            "fieldname": "outstanding_amt",
+            "label": _("Outstanding Ammount"),
+            "fieldtype": "Float",
+            "width": 150,
+			"precision":4
+        },
+		{
             "fieldname": "commitment_amt",
             "label": _("Commitment Ammount"),
             "fieldtype": "Float",
@@ -58,6 +65,7 @@ def get_data(filters=None):
 		select 
 			invoice_data.sales_person_name, 
 			invoice_data.name, 
+			invoice_data.outstanding_amount,
 			invoice_data.commitment_amt, 
 			payment_data.allocated_amount
 		from
@@ -65,6 +73,7 @@ def get_data(filters=None):
 				select 
 					siv.name,
 					siv.sales_person_name, 
+					siv.outstanding_amount,
 					sum(dpr.commitment_amt) as commitment_amt
 				from
 					`tabSales Invoice` as siv
