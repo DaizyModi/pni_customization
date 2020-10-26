@@ -21,13 +21,6 @@ def get_columns():
 			"options":"Sales Person"
         },
 		{
-            "fieldname": "sales_invoice",
-            "label": _("Sales Invoice"),
-            "fieldtype": "Link",
-            "width": 150,
-			"options":"Sales Invoice"
-        },
-		{
             "fieldname": "outstanding_amt",
             "label": _("Outstanding Ammount"),
             "fieldtype": "Float",
@@ -64,14 +57,12 @@ def get_data(filters=None):
 	return frappe.db.sql("""
 		select 
 			invoice_data.sales_person_name, 
-			invoice_data.name, 
 			invoice_data.outstanding_amount,
 			invoice_data.commitment_amt, 
 			payment_data.allocated_amount
 		from
 			(
 				select 
-					siv.name,
 					siv.sales_person_name, 
 					siv.outstanding_amount,
 					sum(dpr.commitment_amt) as commitment_amt
@@ -84,12 +75,11 @@ def get_data(filters=None):
 				where
 					siv.docstatus = "1"
 					{0}
-				group by siv.name,siv.sales_person_name
+				group by siv.sales_person_name
 			) as invoice_data
 		left join
 			(
 				select 
-					siv.name,
 					sum(per.allocated_amount) as allocated_amount
 				from
 					`tabSales Invoice` as siv
@@ -105,7 +95,7 @@ def get_data(filters=None):
 					siv.docstatus = "1" and 
 					per.docstatus = "1"
 					{1}
-				group by siv.name
+				group by siv.sales_person_name
 			) as payment_data
 		on
 			invoice_data.name = payment_data.name

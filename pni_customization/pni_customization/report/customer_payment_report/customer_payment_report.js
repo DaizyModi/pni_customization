@@ -9,15 +9,6 @@ frappe.query_reports["Customer Payment Report"] = {
 		},
 		{
 			"fieldname": "to_date", "fieldtype": "Date", "label": __("To Date")
-		},
-		{
-			"fieldname": "workstation_head", "fieldtype": "Link", "label": __("Workstation Head"), "options": "Employee"
-		},
-		{
-			"fieldname": "workstation", "fieldtype": "Link", "label": __("Workstation"), "options": "Workstation"
-		},
-		{
-			"fieldname": "shift", "fieldtype": "Select", "label": __("Shift"), "options": "\nDay\nNight"
-		},
+		}
 	]
 };
