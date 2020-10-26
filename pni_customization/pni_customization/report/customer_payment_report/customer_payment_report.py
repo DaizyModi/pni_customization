@@ -47,7 +47,7 @@ def get_data(filters=None):
 	
 	return frappe.db.sql("""
 		select 
-			siv.sales_person, sum(dpr.commitment_amt), sum(per.allocated_amount)
+			siv.sales_person_name, sum(dpr.commitment_amt), sum(per.allocated_amount)
 		from
 			`tabSales Invoice` as siv,
 			`tabDaily Payment Report` as dpr
