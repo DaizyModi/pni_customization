@@ -35,6 +35,7 @@ def validate_so(doc, method):
 	for row in doc.customer_outstanding:
 		outstanding_amt += float(row.outstanding_amt)
 	doc.total_customer_outstanding = outstanding_amt
+	doc.need_approval = False
 	for item in doc.items:
 		if not (item.price_list_rate > 0):
 			frappe.throw("Price List Rate not available for "+ item.item_code)
@@ -44,9 +45,11 @@ def validate_so(doc, method):
 			item.rate = float(item.base_uom_rate) * float(item.conversion_factor)
 		if item.rate < item.price_list_rate:
 			item.need_approval = True
+			doc.need_approval = True
 		else:
 			item.need_approval = False
 		item.unit_price_pni = float(float(item.price_list_rate) / float(item.conversion_factor))
+
 
 	if doc.workflow_state == "Pending For Accounts Approval":
 		for item in doc.items:
