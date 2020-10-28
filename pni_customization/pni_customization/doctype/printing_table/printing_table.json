@@ -1,4 +1,5 @@
 {
+ "allow_copy": 1,
  "creation": "2020-01-14 16:12:55.944062",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -53,6 +54,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Reel Out",
+   "no_copy": 1,
    "options": "Reel",
    "read_only": 1
   },
@@ -121,7 +123,7 @@
   }
  ],
  "istable": 1,
- "modified": "2020-08-20 15:29:21.506261",
+ "modified": "2020-10-28 16:39:47.343072",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Printing Table",

@@ -34,3 +34,7 @@
 #page-Form\/Employee > div.container.page-body > div.page-wrapper > div > div.row.layout-main > div.col-md-2.layout-side-section > div > ul.list-unstyled.sidebar-menu.form-attachments > li.attachment-row.flex.align-center {
 	display: none!important;
 }
+
+.grid-duplicate-row {
+	display: none!important;
+}
