@@ -232,17 +232,23 @@ def make_pni_quotation_from_opportunity(source_name, target_doc=None, ignore_per
 	return doclist
 
 def sales_invoice_validate(doc, method):
-	commitment_date,commitment_amt,remark = "","",""
+	receipt_date = receipt_amt = commitment_date = commitment_amt = remark = receipt_date = ""
 	for row in doc.daily_payment_report:
 		commitment_date = row.commitment_date
 		commitment_amt = row.commitment_amt
 		remark = row.remark
+		receipt_date = row.receipt_date
+		receipt_amt = row.receipt_amt
 	if commitment_date:
 		frappe.db.set_value('Sales Invoice', doc.name, 'commitment_date', commitment_date, update_modified=False)
 	if commitment_amt:
 		frappe.db.set_value('Sales Invoice', doc.name, 'commitment_amt', commitment_amt, update_modified=False)
 	if remark:
 		frappe.db.set_value('Sales Invoice', doc.name, 'remark', remark, update_modified=False)
+	if receipt_date:
+		frappe.db.set_value('Sales Invoice', doc.name, 'receipt_date', receipt_date, update_modified=False)
+	if receipt_amt:
+		frappe.db.set_value('Sales Invoice', doc.name, 'receipt_amt', receipt_amt, update_modified=False)
 def validate_delivery_item(doc, method):
 	from pni_customization.utility.delivery_note import validate
 	validate(doc, method)
