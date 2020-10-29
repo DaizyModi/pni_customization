@@ -11,6 +11,8 @@ class PNIGateEntry(Document):
 	def validate(self):
 		if self.gate_entry_type == "Document Receive":
 			self.entry_status = "Pending For Delivery"
+			if not self.employee:
+				frappe.throw("Employee is Mandatory")
 		else:
 			self.entry_status = ""
 		if (not self.sender_name1) and (self.gate_entry_type != "Visitor") :
