@@ -164,7 +164,7 @@ class Punching(Document):
 			punch_table.cancel()
 		self.cancel_reel_tracking()
 	def get_debug(self):
-		qty_of_total_production = operating_cost = 0
+		qty_of_total_production = operating_cost = raw_material_cost = 0
 		
 		for item in self.punching_table:
 			if item.weight_out > 0:
