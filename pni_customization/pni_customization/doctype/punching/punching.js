@@ -9,7 +9,9 @@ frappe.ui.form.on('Punching', {
 			});
 			finish_btn.addClass('btn-primary')
 		}
-		
+		var finish_btn = frm.add_custom_button(__('Get Debug'), function(){
+			get_debug(frm);
+		});
 		if(!cur_frm.doc.__islocal){
 			frm.set_query("item", "punching_scrap", function () {
 				return {
@@ -77,6 +79,19 @@ var process_production = function (frm) {
 			if (r.message){
 				var doclist = frappe.model.sync(r.message);
 				frappe.set_route("Form", doclist[0].doctype, doclist[0].name);
+			}
+		}
+	});
+}
+
+var get_debug = function (frm) {
+	frappe.call({
+		doc: frm.doc,
+		method: "get_debug",
+		callback: function(r) {
+			if (r.message){
+				console.log(r.message);
+				frappe.msgprint("Log is in Console")
 			}
 		}
 	});

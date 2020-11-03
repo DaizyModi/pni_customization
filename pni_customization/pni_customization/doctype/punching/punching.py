@@ -163,7 +163,20 @@ class Punching(Document):
 			punch_table = frappe.get_doc("Punch Table",data.punch_table)
 			punch_table.cancel()
 		self.cancel_reel_tracking()
-	
+	def get_debug(self):
+		qty_of_total_production = operating_cost = 0
+		
+		for item in self.punching_table:
+			if item.weight_out > 0:
+				qty_of_total_production = float(qty_of_total_production) + item.weight_out
+				raw_material_cost += self.get_valuation_rate(item.item) * float(item.weight)
+
+		production_cost = raw_material_cost + operating_cost
+		frappe.errprint("qty_of_total_production")
+		frappe.errprint(qty_of_total_production)
+		frappe.errprint("production_cost")
+		frappe.errprint(production_cost)
+		return 
 	def manufacture_entry(self):
 		return self.make_stock_entry()
 	
