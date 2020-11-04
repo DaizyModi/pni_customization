@@ -43,7 +43,7 @@ def validate_so(doc, method):
 			if not(item.base_uom_rate > 0):
 				frappe.throw("Paper Cup and Plate Rate can't be zero for "+ item.item_code)
 			item.rate = float(item.base_uom_rate) * float(item.conversion_factor)
-		if item.rate < item.price_list_rate:
+		if round(item.rate,4) < round(item.price_list_rate,4):
 			item.need_approval = True
 			doc.need_approval = True
 			frappe.errprint(item)
