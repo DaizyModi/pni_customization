@@ -46,6 +46,9 @@ def validate_so(doc, method):
 		if item.rate < item.price_list_rate:
 			item.need_approval = True
 			doc.need_approval = True
+			frappe.errprint(item)
+			frappe.errprint(item.rate)
+			frappe.errprint(item.price_list_rate)
 		else:
 			item.need_approval = False
 		item.unit_price_pni = float(float(item.price_list_rate) / float(item.conversion_factor))
