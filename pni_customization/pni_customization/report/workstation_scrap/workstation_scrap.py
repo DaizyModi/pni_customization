@@ -178,6 +178,7 @@ def get_data(filters=None):
 				(
 					select
 						packing.shift,
+						packing.workstation_head,
 						packing.workstation,
 						sum(packing.total_shift_stock) as production
 					from
