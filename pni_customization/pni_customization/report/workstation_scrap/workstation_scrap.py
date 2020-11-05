@@ -149,8 +149,8 @@ def get_data(filters=None):
 				production_data.workstation_head, 
 				production_data.shift, 
 				production_data.production,
-				scrap_data.total_bottom_scrap, 
-				scrap_data.total_blank_scrap
+				"0", 
+				"0"
 			from
 				(
 					select 
