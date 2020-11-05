@@ -145,9 +145,9 @@ def get_data(filters=None):
 			scrap_data.workstation = production_data.workstation
 		union all
 		select 
-				scrap_data.workstation, 
-				scrap_data.workstation_head_name, 
-				scrap_data.pni_shift, 
+				production_data.workstation, 
+				production_data.workstation_head, 
+				production_data.shift, 
 				production_data.production,
 				scrap_data.total_bottom_scrap, 
 				scrap_data.total_blank_scrap
