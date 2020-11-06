@@ -606,7 +606,10 @@ def manage_se_cancel(se, co):
 
 def validate_po(doc, method):
 	item_array_mr,item_array_po = {},{}
+	doc.same_price_purchase = True
 	for item in doc.items:
+		if round(item.last_purchase_rate,4) != round(item.rate,4):
+			doc.same_price_purchase = False
 		if item.material_request:
 			mr = frappe.get_doc("Material Request", item.material_request)
 			for mr_item in mr.items:
