@@ -409,14 +409,13 @@ def validate_work_order_item(doc, method):
 					for bom_item in bom.items:
 						if bom_item.item_code == row.item_code:
 							row.pni_qty_per_piece = bom_item.pni_qty_per_piece
-def check_stock(doc):
+def check_stock(doc):	
 	doc.stock_short = False
-	if doc.workflow_state == "Approved":
-		for row in doc.required_items:
-			if not row.available_qty_at_source_warehouse:
-				row.available_qty_at_source_warehouse = 0
-			if float(row.required_qty) > float(row.available_qty_at_source_warehouse):
-				doc.stock_short = True
+	for row in doc.required_items:
+		if not row.available_qty_at_source_warehouse:
+			row.available_qty_at_source_warehouse = 0
+		if float(row.required_qty) > float(row.available_qty_at_source_warehouse):
+			doc.stock_short = True
 	if doc.workflow_state == "Pending For Material Issue" and doc.stock_short:
 		frappe.throw("Couldn't Pending For Material Issue because stock shortage")
 
