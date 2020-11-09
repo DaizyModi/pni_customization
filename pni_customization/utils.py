@@ -415,7 +415,7 @@ def check_stock(doc):
 		for row in doc.required_items:
 			if not row.available_qty_at_source_warehouse:
 				row.available_qty_at_source_warehouse = 0
-			if row.available_qty_at_source_warehouse and float(row.required_qty) > float(row.available_qty_at_source_warehouse):
+			if float(row.required_qty) > float(row.available_qty_at_source_warehouse):
 				doc.stock_short = True
 	if doc.workflow_state == "Pending For Material Issue" and doc.stock_short:
 		frappe.throw("Couldn't Pending For Material Issue because stock shortage")
