@@ -418,7 +418,8 @@ def check_stock(doc):
 			doc.stock_short = True
 	if doc.workflow_state == "Pending For Material Issue" and doc.stock_short:
 		frappe.throw("Couldn't Pending For Material Issue because stock shortage")
-
+def on_update_after_submit_work_order_item(doc, method):
+	check_stock(doc)
 @frappe.whitelist()
 def validate_stock_entry_item(doc, method):
 	print("Hello World")
