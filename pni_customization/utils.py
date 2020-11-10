@@ -421,7 +421,6 @@ def check_stock(doc):
 	frappe.errprint("Data "+str(doc._action))
 	if doc.workflow_state == "Pending For Material Issue" and doc.material_transferred_for_manufacturing > 0:	
 		doc.workflow_state = "In Process"
-		doc.save()
 		frappe.errprint("1)"+str(doc.workflow_state))
 	else:
 		frappe.errprint("2)"+str(doc.workflow_state))
@@ -433,9 +432,9 @@ def check_stock(doc):
 	# else:
 	# 	frappe.errprint("4)"+doc.workflow_state)
 
-
 def on_update_after_submit_work_order_item(doc, method):
 	check_stock(doc)
+
 @frappe.whitelist()
 def validate_stock_entry_item(doc, method):
 	print("Hello World")
