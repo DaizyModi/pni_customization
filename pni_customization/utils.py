@@ -419,10 +419,11 @@ def check_stock(doc):
 	if doc.workflow_state == "Pending For Material Issue" and doc.stock_short and (not doc.skip_short_stock):
 		frappe.throw("Couldn't Pending For Material Issue because stock shortage")
 	
-	if doc.workflow_state == "Pending For Material Issue":
-		doc.release_date = frappe.utils.nowdate()
+	if doc.workflow_state == "Pending For Material Issue" and doc.material_transferred_for_manufacturing > 0:	
 		doc.workflow_state = "In Process"
-		doc.save()
+	
+	if doc.workflow_state == "Approved" and not doc.release_date:
+		doc.release_date = frappe.utils.nowdate()
 
 def on_update_after_submit_work_order_item(doc, method):
 	check_stock(doc)
