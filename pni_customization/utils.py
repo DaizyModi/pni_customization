@@ -425,6 +425,7 @@ def check_stock(doc):
 	if doc.workflow_state == "Approved" and not doc.release_date:
 		doc.release_date = frappe.utils.nowdate()
 
+
 def on_update_after_submit_work_order_item(doc, method):
 	check_stock(doc)
 @frappe.whitelist()
