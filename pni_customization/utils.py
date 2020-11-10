@@ -427,6 +427,7 @@ def check_stock(doc):
 	
 	if doc.workflow_state == "Approved" and not doc.release_date:
 		doc.release_date = frappe.utils.nowdate()
+		doc.save()
 		frappe.errprint("3)"+doc.workflow_state)
 	else:
 		frappe.errprint("4)"+doc.workflow_state)
