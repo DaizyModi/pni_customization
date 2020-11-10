@@ -425,12 +425,12 @@ def check_stock(doc):
 	else:
 		frappe.errprint("2)"+doc.workflow_state)
 	
-	if doc.workflow_state == "Approved" and not doc.release_date:
-		doc.release_date = frappe.utils.nowdate()
-		doc.save()
-		frappe.errprint("3)"+doc.workflow_state)
-	else:
-		frappe.errprint("4)"+doc.workflow_state)
+	# if doc.workflow_state == "Approved" and not doc.release_date:
+	# 	doc.release_date = frappe.utils.nowdate()
+	# 	doc.save()
+	# 	frappe.errprint("3)"+doc.workflow_state)
+	# else:
+	# 	frappe.errprint("4)"+doc.workflow_state)
 
 
 def on_update_after_submit_work_order_item(doc, method):
