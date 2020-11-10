@@ -422,9 +422,9 @@ def check_stock(doc):
 	if doc.workflow_state == "Pending For Material Issue" and doc.material_transferred_for_manufacturing > 0:	
 		doc.workflow_state = "In Process"
 		doc.save()
-		frappe.errprint("1)"+doc.workflow_state)
+		frappe.errprint("1)"+str(doc.workflow_state))
 	else:
-		frappe.errprint("2)"+doc.workflow_state)
+		frappe.errprint("2)"+str(doc.workflow_state))
 	
 	# if doc.workflow_state == "Approved" and not doc.release_date:
 	# 	doc.release_date = frappe.utils.nowdate()
