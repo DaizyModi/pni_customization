@@ -432,6 +432,8 @@ def update_work_order_state():
 		wo_doc = frappe.get_doc("Work Order", wo.name)
 		wo_doc.workflow_state = "In Process"
 		wo_doc.save()
+		print(wo_doc.name)
+		frappe.db.commit()
 
 
 @frappe.whitelist()
