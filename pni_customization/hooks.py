@@ -200,7 +200,7 @@ permission_query_conditions = {
 # ---------------
 scheduler_events = {
 	"all": [
-		# "erpnext.stock.reorder_item.reorder_item"
+		"pni_customization.utils.update_work_order_state"
 	]
 }
 # scheduler_events = {
