@@ -428,13 +428,8 @@ def update_work_order_state():
 		["workflow_state", "=", "Pending For Material Issue"],
 		["material_transferred_for_manufacturing", ">", "0"]
 	], fields=['name'])
-	frappe.db.commit()
 	for wo in wos:
-		wo_doc = frappe.get_doc("Work Order", wo.name)
-		wo_doc.workflow_state = "In Process"
-		wo_doc.save()
-		print(wo_doc.name)
-		frappe.db.commit()
+		frappe.db.set_value("Work Order", wo.name, "workflow_state", "In Process")
 
 
 @frappe.whitelist()
