@@ -74,7 +74,7 @@ doc_events = {
 	"Work Order": {
 		"on_submit": "pni_customization.utils.submit_work_order_item",
 		"validate": "pni_customization.utils.validate_work_order_item",
-		"before_update_after_submit": "pni_customization.utils.before_update_after_submit_work_order_item",
+		"before_update_after_submit": "pni_customization.utils.on_update_after_submit_work_order_item",
 	},
 	"Job Card": {
 		"on_submit": "pni_customization.utils.job_card_submit",
