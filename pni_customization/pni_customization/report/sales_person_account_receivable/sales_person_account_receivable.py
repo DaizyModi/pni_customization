@@ -41,6 +41,7 @@ class ReceivablePayableReport(object):
 			else self.filters.report_date
 	def get_current_sales_person(self):
 		sales_person = frappe.get_value("Sales Person",{"pni_user":frappe.session.user})
+		frappe.msgprint(sales_person)
 		if not sales_person:
 			frappe.throw("Only Sales Person Has Access to This Report")
 		return sales_person
@@ -122,7 +123,8 @@ class ReceivablePayableReport(object):
 	def get_invoices(self, gle):
 		if gle.voucher_type in ('Sales Invoice', 'Purchase Invoice'):
 			if self.filters.get("sales_person"):
-				if gle.voucher_no in self.sales_person_records.get("Sales Invoice", []):
+				if gle.voucher_no in self.sales_person_records.get("Sales Invoice", []) \
+					or gle.party in self.sales_person_records.get("Customer", []):
 						self.invoices.add(gle.voucher_no)
 			else:
 				self.invoices.add(gle.voucher_no)
@@ -182,7 +184,8 @@ class ReceivablePayableReport(object):
 	def get_voucher_balance(self, gle):
 		if self.filters.get("sales_person"):
 			against_voucher = gle.against_voucher or gle.voucher_no
-			if against_voucher in self.sales_person_records.get("Sales Invoice", []):
+			if not (gle.party in self.sales_person_records.get("Customer", []) or \
+				against_voucher in self.sales_person_records.get("Sales Invoice", [])):
 					return
 
 		voucher_balance = None
@@ -599,7 +602,7 @@ class ReceivablePayableReport(object):
 			records = frappe.db.sql("""
 				select distinct parent, parenttype
 				from `tabSales Team` steam
-				where parenttype in ('Customer', 'Sales Invoice')
+				where parenttype in ('Sales Invoice')
 					and exists(select name from `tabSales Person` where lft >= %s and rgt <= %s and name = steam.sales_person)
 			""", (lft, rgt), as_dict=1)
 
