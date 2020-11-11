@@ -233,6 +233,13 @@ def get_data():
 					"type": "doctype",
 					"name": "Sales Order",
 					"description": _("ERPNext Sales Order"),
+				},
+				{
+					"type": "report",
+					"name": "Sales Person Account Receivable",
+					"description": _("Sales Person Account Receivable"),
+					"is_query_report": True,
+					"reference_doctype": "Sales Invoice",
 				}
 			]
 		},
