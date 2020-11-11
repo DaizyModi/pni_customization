@@ -182,8 +182,7 @@ class ReceivablePayableReport(object):
 	def get_voucher_balance(self, gle):
 		if self.filters.get("sales_person"):
 			against_voucher = gle.against_voucher or gle.voucher_no
-			if not (gle.party in self.sales_person_records.get("Customer", []) or \
-				against_voucher in self.sales_person_records.get("Sales Invoice", [])):
+			if against_voucher in self.sales_person_records.get("Sales Invoice", [])):
 					return
 
 		voucher_balance = None
