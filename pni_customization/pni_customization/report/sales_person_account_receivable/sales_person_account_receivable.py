@@ -122,8 +122,7 @@ class ReceivablePayableReport(object):
 	def get_invoices(self, gle):
 		if gle.voucher_type in ('Sales Invoice', 'Purchase Invoice'):
 			if self.filters.get("sales_person"):
-				if gle.voucher_no in self.sales_person_records.get("Sales Invoice", []) \
-					or gle.party in self.sales_person_records.get("Customer", []):
+				if gle.voucher_no in self.sales_person_records.get("Sales Invoice", []):
 						self.invoices.add(gle.voucher_no)
 			else:
 				self.invoices.add(gle.voucher_no)
