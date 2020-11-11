@@ -430,6 +430,7 @@ def update_work_order_state():
 	], fields=['name'])
 	for wo in wos:
 		frappe.db.set_value("Work Order", wo.name, "workflow_state", "In Process")
+		print(wo.name)
 
 
 @frappe.whitelist()
