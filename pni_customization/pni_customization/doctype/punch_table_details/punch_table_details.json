@@ -1,0 +1,68 @@
+{
+ "creation": "2020-11-12 12:00:41.825950",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "punch_table",
+  "item",
+  "punching_die",
+  "brand",
+  "weight",
+  "coated",
+  "printed"
+ ],
+ "fields": [
+  {
+   "fieldname": "punch_table",
+   "fieldtype": "Link",
+   "label": "Punch Table",
+   "options": "Punch Table"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "punching_die",
+   "fieldtype": "Data",
+   "label": "Punching Die"
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "label": "Brand",
+   "options": "Brand"
+  },
+  {
+   "fieldname": "weight",
+   "fieldtype": "Float",
+   "label": "Weight"
+  },
+  {
+   "default": "0",
+   "fieldname": "coated",
+   "fieldtype": "Check",
+   "label": "Coated"
+  },
+  {
+   "default": "0",
+   "fieldname": "printed",
+   "fieldtype": "Check",
+   "label": "Printed"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-11-12 12:05:09.986737",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Punch Table Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

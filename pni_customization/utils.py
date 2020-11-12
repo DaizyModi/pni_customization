@@ -424,12 +424,22 @@ def on_update_after_submit_work_order_item(doc, method):
 	check_stock(doc)
 
 def update_work_order_state():
+	
 	wos = frappe.get_all('Work Order', filters=[
 		["workflow_state", "=", "Pending For Material Issue"],
 		["material_transferred_for_manufacturing", ">", "0"]
 	], fields=['name'])
 	for wo in wos:
 		frappe.db.set_value("Work Order", wo.name, "workflow_state", "In Process")
+		print(wo.name)
+	frappe.db.commit()
+
+	_wos = frappe.get_all('Work Order', filters=[
+		["workflow_state", "!=", "Completed"],
+		["status", "=", "Completed"]
+	], fields=['name'])
+	for wo in _wos:
+		frappe.db.set_value("Work Order", wo.name, "workflow_state", "Completed")
 		print(wo.name)
 	frappe.db.commit()
 
