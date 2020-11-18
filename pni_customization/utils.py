@@ -405,6 +405,8 @@ def validate_work_order_item(doc, method):
 		if doc.bom_no:
 			bom = frappe.get_doc("BOM",doc.bom_no)
 			for row in doc.required_items:
+				if not row.source_warehouse:
+					frappe.throw("Source Warehouse needed on Row {0}".format(row.idx))
 				if not row.pni_qty_per_piece:
 					for bom_item in bom.items:
 						if bom_item.item_code == row.item_code:
