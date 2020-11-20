@@ -6,7 +6,7 @@ frappe.ui.form.on('Document Received', {
 		frm.set_query('pni_gate_entry', function(doc) {
 			return {
 				filters: {
-					entry_status: ['not in', ['Delivered']]
+					entry_status: ['not in', ['Delivered']],
 				}
 			};
 		});

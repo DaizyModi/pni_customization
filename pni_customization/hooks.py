@@ -118,7 +118,9 @@ app_include_css = "assets/pni_customization/css/custom.css"
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
-
+doctype_list_js = {
+	"Shift Type" : "public/js/shift_type_list.js"
+}
 doctype_js = {
 	"Sales Order" : "public/js/item_add.js",
 	"Sales Invoice" : "public/js/item_add.js",

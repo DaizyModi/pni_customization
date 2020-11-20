@@ -20,6 +20,8 @@
   "fg_warehouse",
   "scrap_warehouse",
   "table_details_section",
+  "pni_punch_table",
+  "section_break_16",
   "punch_table",
   "item",
   "punching_die",
@@ -258,10 +260,20 @@
    "label": "Bag Item",
    "options": "Item",
    "read_only": 1
+  },
+  {
+   "fieldname": "pni_punch_table",
+   "fieldtype": "Table",
+   "label": "PNI Punch Table",
+   "options": "PNI Punch Table"
+  },
+  {
+   "fieldname": "section_break_16",
+   "fieldtype": "Section Break"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-04-08 21:24:01.679212",
+ "modified": "2020-11-20 17:28:01.704864",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Packing",
