@@ -21,28 +21,25 @@
   "scrap_warehouse",
   "table_details_section",
   "pni_punch_table",
+  "table_in",
   "section_break_16",
-  "punch_table",
   "item",
   "punching_die",
+  "supplier_reel_id",
   "column_break_7",
   "brand",
-  "weight",
+  "total_weight_in",
   "coated_reel",
   "printed_reel",
   "packing_table_section",
   "packing_table",
-  "bag_item",
   "total_bag",
   "total_weight",
   "scrap_section",
   "packing_scrap",
   "note_section",
   "packing_note",
-  "amended_from",
-  "start_dt",
-  "end_dt",
-  "operation_hours"
+  "amended_from"
  ],
  "fields": [
   {
@@ -112,13 +109,6 @@
    "label": "Table Details"
   },
   {
-   "fieldname": "punch_table",
-   "fieldtype": "Link",
-   "label": "Punch Table",
-   "options": "Punch Table",
-   "reqd": 1
-  },
-  {
    "fetch_from": "punch_table.item",
    "fieldname": "item",
    "fieldtype": "Link",
@@ -138,13 +128,6 @@
    "fieldname": "brand",
    "fieldtype": "Data",
    "label": "Brand",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "punch_table.weight",
-   "fieldname": "weight",
-   "fieldtype": "Float",
-   "label": "Weight",
    "read_only": 1
   },
   {
@@ -220,21 +203,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "start_dt",
-   "fieldtype": "Datetime",
-   "label": "Start Time"
-  },
-  {
-   "fieldname": "end_dt",
-   "fieldtype": "Datetime",
-   "label": "End Time"
-  },
-  {
-   "fieldname": "operation_hours",
-   "fieldtype": "Float",
-   "label": "Hours of Operation"
-  },
-  {
    "fieldname": "column_break_11",
    "fieldtype": "Column Break"
   },
@@ -255,13 +223,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "bag_item",
-   "fieldtype": "Link",
-   "label": "Bag Item",
-   "options": "Item",
-   "read_only": 1
-  },
-  {
    "fieldname": "pni_punch_table",
    "fieldtype": "Table",
    "label": "PNI Punch Table",
@@ -270,10 +231,28 @@
   {
    "fieldname": "section_break_16",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_in",
+   "fieldtype": "Data",
+   "label": "Table In"
+  },
+  {
+   "fetch_from": "punch_table.weight",
+   "fieldname": "total_weight_in",
+   "fieldtype": "Float",
+   "label": "Total Weight IN",
+   "read_only": 1
+  },
+  {
+   "fieldname": "supplier_reel_id",
+   "fieldtype": "Data",
+   "label": "Supplier Reel ID",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-11-20 17:28:01.704864",
+ "modified": "2020-11-21 12:24:25.627163",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Packing",

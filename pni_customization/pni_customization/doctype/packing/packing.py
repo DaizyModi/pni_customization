@@ -11,15 +11,25 @@ from frappe.utils import get_datetime, time_diff_in_hours
 class Packing(Document):
 	def validate(self):
 		self.manage_table()
-		if self.end_dt and self.start_dt:
-			hours = time_diff_in_hours(self.end_dt, self.start_dt)
-			frappe.db.set(self, 'operation_hours', hours)
 
 	def onload(self):
 		paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
 		self.set_onload("scrapitemgroup", paper_blank_setting.packing_scrap)
 
 	def manage_table(self):
+
+		self.table_in = ""
+		self.total_weight_in = 0
+		for raw in self.pni_punch_table:
+			self.table_in += raw.punch_table +","
+			self.item = raw.item
+			self.punching_die = raw.punching_die
+			self.brand = raw.brand
+			self.coated_reel = raw.coated
+			self.printed_reel = raw.printed
+			self.total_weight_in += float(raw.weight)
+			self.supplier_reel_id = raw.supplier_reel_id
+		
 		bag  = 0
 		total_weight = 0
 		for data in self.packing_table:
@@ -28,14 +38,12 @@ class Packing(Document):
 				total_weight += float(data.bag_size) * float(data.bag)
 		self.total_bag = bag
 		self.total_weight = total_weight
-
-		self.bag_item = self.item
 	
 	def manage_reel_tracking(self, bag):
 		doc = frappe.get_doc({
 			"doctype": "Reel Tracking",
 			"status": "Draft",
-			"reel": self.punch_table,
+			"reel": self.table_in,
 			"reel_process": "Packing",
 			"date": frappe.utils.nowdate(),
 			"time": frappe.utils.nowtime(),
@@ -49,7 +57,7 @@ class Packing(Document):
 		doc = frappe.get_doc({
 			"doctype": "Reel Tracking",
 			"status": "Draft",
-			"reel": self.punch_table,
+			"reel": self.table_in,
 			"reel_process": "Packing",
 			"date": frappe.utils.nowdate(),
 			"time": frappe.utils.nowtime(),
@@ -65,12 +73,12 @@ class Packing(Document):
 		for item in self.packing_table:
 			if not item.employee:
 				frappe.throw("Employee is Compulsory")
-		if not self.punch_table:
+		if not self.table_in:
 			frappe.throw("Punch Table is Compulsory")
-
-		punch_table = frappe.get_doc("Punch Table",self.punch_table)
-		punch_table.status = "Consume"
-		punch_table.save()
+		for table in self.pni_punch_table:
+			punch_table = frappe.get_doc("Punch Table",table.punch_table)
+			punch_table.status = "Consume"
+			punch_table.save()
 		
 		for row in self.packing_table:
 			if row.bag and row.bag_size:
@@ -82,7 +90,7 @@ class Packing(Document):
 						"item": self.item,
 						"punching_die": self.punching_die,
 						"packing_category": row.packing_category,
-						"supplier_reel_id": punch_table.supplier_reel_id,
+						"supplier_reel_id": self.supplier_reel_id,
 						"brand": self.brand,
 						"coated_reel": self.coated_reel,
 						"printed_reel": self.printed_reel,
@@ -103,10 +111,10 @@ class Packing(Document):
 			frappe.throw(_("Cannot cancel because submitted Stock Entry \
 			{0} exists").format(stock_entry[0][0]))
 		frappe.db.set(self, 'status', 'Cancelled')
-		
-		punch_table = frappe.get_doc("Punch Table",self.punch_table)
-		punch_table.status = "In Stock"
-		punch_table.save()
+		for table in self.pni_punch_table:
+			punch_table = frappe.get_doc("Punch Table",table.punch_table)
+			punch_table.status = "In Stock"
+			punch_table.save()
 		
 		bags = frappe.get_all("PNI Bag",{"reference":self.name})
 		for bag in bags:
@@ -142,21 +150,9 @@ class Packing(Document):
 		raw_material_cost = 0
 		operating_cost = 0
 		
+		for raw in self.pni_punch_table:
+			se = self.set_se_items(se, raw, se.from_warehouse, None, False, reel_in= True)
 		
-		se = self.set_se_items(se, self.item, se.from_warehouse, None, False, reel_in= True)
-
-		#TODO calc raw_material_cost
-
-		#no timesheet entries, calculate operating cost based on workstation hourly rate and process start, end
-		hourly_rate = None
-		# hourly_rate = frappe.db.get_value("Workstation", self.workstation, "hour_rate")
-		if hourly_rate:
-			if self.operation_hours > 0:
-				hours = self.operation_hours
-			else:
-				hours = time_diff_in_hours(self.end_dt, self.start_dt)
-				frappe.db.set(self, 'operation_hours', hours)
-			operating_cost = hours * float(hourly_rate)
 		production_cost = raw_material_cost + operating_cost
 
 		#calc total_qty and total_sale_value
@@ -164,27 +160,11 @@ class Packing(Document):
 		total_sale_value = 0
 		
 		qty_of_total_production = float(qty_of_total_production) + self.total_weight
-		
-		# for item in self.coating_scrap:
-		# 	if item.quantity > 0:
-		# 		qty_of_total_production = float(qty_of_total_production + item.quantity)
-		# 		if self.costing_method == "Relative Sales Value":
-					# sale_value_of_pdt = frappe.db.get_value(
-					# 	"Item Price", 
-					# 	{
-					# 		"item_code":item.item
-					# 	}, 
-					# 	"price_list_rate"
-					# )
-		# 			if sale_value_of_pdt:
-		# 				total_sale_value += float(sale_value_of_pdt) * item.quantity
-		# 			else:
-		# 				frappe.throw(_("Selling price not set for item {0}").format(item.item))
 
 		#add Stock Entry Items for produced goods and scrap
 		se = self.set_se_items(
 			se, 
-			self.bag_item, 
+			self.item, 
 			None, 
 			se.to_warehouse, 
 			True, 
@@ -195,19 +175,6 @@ class Packing(Document):
 		)
 
 		for item in self.packing_scrap:
-			# if value_scrap:
-				# se = self.set_se_items(
-				# 	se, 
-				# 	item, 
-				# 	None, 
-				# 	self.scrap_warehouse, 
-				# 	True, 
-				# 	qty_of_total_production, 
-				# 	total_sale_value, 
-				# 	production_cost
-				# )
-			# else:
-			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, False)
 			se = self.set_se_items(se, item, None, self.scrap_warehouse, False, scrap_item = True)
 
 		return se
@@ -221,8 +188,8 @@ class Packing(Document):
 			pass  
 		if reel_in:			
 			item_from_reel = Empty()
-			item_from_reel.item = item
-			item_from_reel.weight = self.weight
+			item_from_reel.item = item.item
+			item_from_reel.weight = item.weight
 		if table_out:
 			item_from_reel = Empty()
 			item_from_reel.item = item
