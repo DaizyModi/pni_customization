@@ -188,12 +188,9 @@ class Coating(Document):
 
 		return flt(valuation_rate)
 	def set_se_items_finish(self, se):
-		#set from and to warehouse
 		se.from_warehouse = self.src_warehouse
 		se.to_warehouse = self.fg_warehouse
 
-		#get items to consume from previous stock entry or append to items
-		#TODO allow multiple raw material transfer
 		raw_material_cost = 0
 		operating_cost = 0
 		reelin = []
@@ -203,36 +200,21 @@ class Coating(Document):
 				reelin.append(item.reel_in)
 				raw_material_cost += self.get_valuation_rate(item.item) * float(item.weight)
 		
-		#calculate raw material cost
-		#add ldpe bag
 		paper_blank_setting = frappe.get_doc("Paper Blank Settings","Paper Blank Settings")
 		ldpe_item =paper_blank_setting.ldpe_bag
 		if not ldpe_item:
 			frappe.throw("Please Sett LDPE Item in Paper Blank Settings")
 		raw_material_cost += self.get_valuation_rate(ldpe_item) * float(self.ldpe_bag)
 		se = self.set_se_items(se, ldpe_item, self.ldpe_warehouse, None, False, ldpe = True)
-		# raw_material_cost
-		#no timesheet entries, calculate operating cost 
-		# based on workstation hourly rate and process start, end
-		# hourly_rate = frappe.db.get_value("Workstation", self.work_station, "hour_rate")
-		# if hourly_rate:
-		# 	if self.operation_hours > 0:
-		# 		hours = self.operation_hours
-		# 	else:
-		# 		hours = time_diff_in_hours(self.end_dt, self.start_dt)
-		# 		frappe.db.set(self, 'operation_hours', hours)
-		# 	operating_comake_stock_entryst = hours * float(hourly_rate)
+		
 		production_cost = raw_material_cost + operating_cost
 
-		#calc total_qty and total_sale_value
 		qty_of_total_production = 0
 		total_sale_value = 0
 		for item in self.coating_table:
 			if item.weight_out > 0 and not item.half_reel:
 				qty_of_total_production = float(qty_of_total_production) + float(item.weight_out)
 		
-		
-		#add Stock Entry Items for produced goods and scrap
 		for item in self.coating_table:
 			se = self.set_se_items(se, item, None, se.to_warehouse if not item.half_reel else se.from_warehouse, True, 
 					qty_of_total_production, total_sale_value, 
@@ -247,7 +229,6 @@ class Coating(Document):
 	def set_se_items(self, se, item, s_wh, t_wh, calc_basic_rate=False, 
 		qty_of_total_production=None, total_sale_value=None, production_cost=None, 
 		reel_in = False, reel_out = False, scrap_item = False, ldpe = False):
-		# if item.quantity > 0:
 		item_from_reel = {}
 		class Empty:
 			pass  
@@ -294,8 +275,7 @@ class Coating(Document):
 
 		se_item.expense_account = item_expense_account or expense_account
 		se_item.cost_center = item_cost_center or cost_center
-
-		# in stock uom
+		
 		se_item.transfer_qty = item_from_reel.weight
 		se_item.conversion_factor = 1.00
 

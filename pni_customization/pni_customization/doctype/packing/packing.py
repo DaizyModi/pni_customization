@@ -139,7 +139,7 @@ class Packing(Document):
 		stock_entry = self.set_se_items_finish(stock_entry)
 
 		return stock_entry.as_dict()
-
+	
 	def set_se_items_finish(self, se):
 		#set from and to warehouse
 		se.from_warehouse = self.src_warehouse
@@ -152,6 +152,8 @@ class Packing(Document):
 		
 		for raw in self.pni_punch_table:
 			se = self.set_se_items(se, raw, se.from_warehouse, None, False, reel_in= True)
+			if not raw.half_reel:
+				raw_material_cost += raw.weight 
 		
 		production_cost = raw_material_cost + operating_cost
 

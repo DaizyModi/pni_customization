@@ -218,12 +218,9 @@ class Punching(Document):
 		return flt(valuation_rate)
 	
 	def set_se_items_finish(self, se):
-		#set from and to warehouse
 		se.from_warehouse = self.src_warehouse
 		se.to_warehouse = self.fg_warehouse
 
-		#get items to consume from previous stock entry or append to items
-		#TODO allow multiple raw material transfer
 		raw_material_cost = 0
 		operating_cost = 0
 		reelin = []
@@ -231,37 +228,16 @@ class Punching(Document):
 			if item.reel_in not in reelin:
 				se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
 				reelin.append(item.reel_in)
-		
-		#no timesheet entries, calculate operating cost based on workstation hourly rate and process start, end
-		hourly_rate = frappe.db.get_value("Workstation", self.workstation, "hour_rate")
-		if hourly_rate:
-			if self.operation_hours > 0:
-				hours = self.operation_hours
-			else:
-				hours = time_diff_in_hours(self.end_dt, self.start_dt)
-				frappe.db.set(self, 'operation_hours', hours)
-			# operating_cost = hours * float(hourly_rate)
-		
+				raw_material_cost += self.get_valuation_rate(item.item) * float(item.weight)		
 
-		#calc total_qty and total_sale_value
 		qty_of_total_production = 0
 		total_sale_value = 0
 		for item in self.punching_table:
 			if item.weight_out > 0:
 				qty_of_total_production = float(qty_of_total_production) + item.weight_out
-				raw_material_cost += self.get_valuation_rate(item.item) * float(item.weight)
+				
 
 		production_cost = raw_material_cost + operating_cost
-		
-		# for item in self.coating_scrap:
-		# 	if item.quantity > 0:
-		# 		qty_of_total_production = float(qty_of_total_production + item.quantity)
-		# 		if self.costing_method == "Relative Sales Value":
-		# 			sale_value_of_pdt = frappe.db.get_value("Item Price", {"item_code":item.item}, "price_list_rate")
-		# 			if sale_value_of_pdt:
-		# 				total_sale_value += float(sale_value_of_pdt) * item.quantity
-		# 			else:
-		# 				frappe.throw(_("Selling price not set for item {0}").format(item.item))
 
 		#add Stock Entry Items for produced goods and scrap
 		for item in self.punching_table:
@@ -270,16 +246,11 @@ class Punching(Document):
 			se = self.set_se_items(se, item, None, warehouse, True, qty_of_total_production, total_sale_value, production_cost, table_out = True)
 
 		for item in self.punching_scrap:
-			# if value_scrap:
-			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, True, qty_of_total_production, total_sale_value, production_cost)
-			# else:
-			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, False)
 			se = self.set_se_items(se, item, None, self.scrap_warehouse, False, scrap_item = True)
 
 		return se
 	
 	def set_se_items(self, se, item, s_wh, t_wh, calc_basic_rate=False, qty_of_total_production=None, total_sale_value=None, production_cost=None, reel_in = False, table_out = False, scrap_item = False):
-		# if item.quantity > 0:
 		item_from_reel = {}
 		class Empty:
 			pass  
@@ -334,12 +305,10 @@ class Punching(Document):
 			se_item.set(f, item_details.get(f))
 
 		if calc_basic_rate:
+			print(item_from_reel.item)
+			print(production_cost)
+			print(qty_of_total_production)
 			se_item.basic_rate = production_cost/qty_of_total_production
-			# if self.costing_method == "Physical Measurement":
-			# 	se_item.basic_rate = production_cost/qty_of_total_production
-			# elif self.costing_method == "Relative Sales Value":
-			# 	sale_value_of_pdt = frappe.db.get_value("Item Price", {"item_code":item_from_reel.item}, "price_list_rate")
-			# 	se_item.basic_rate = (float(sale_value_of_pdt) * float(production_cost)) / float(total_sale_value)
 		if scrap_item:
 			se_item.basic_rate = self.get_valuation_rate(item_from_reel.item)
 		return se

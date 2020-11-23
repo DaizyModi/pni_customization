@@ -185,12 +185,9 @@ class Printing(Document):
 		return flt(valuation_rate)
 	
 	def set_se_items_finish(self, se):
-		#set from and to warehouse
 		se.from_warehouse = self.src_warehouse
 		se.to_warehouse = self.fg_warehouse
 
-		#get items to consume from previous stock entry or append to items
-		#TODO allow multiple raw material transfer
 		raw_material_cost = 0
 		operating_cost = 0
 		
@@ -203,16 +200,7 @@ class Printing(Document):
 				se = self.set_se_items(se, item, se.from_warehouse, None, False, reel_in= True)
 				reelin.append(item.reel_in)
 				raw_material_cost += self.get_valuation_rate(item.item) * float(item.weight)
-
-		#no timesheet entries, calculate operating cost based on workstation hourly rate and process start, end
-		hourly_rate = frappe.db.get_value("Workstation", self.workstation, "hour_rate")
-		if hourly_rate:
-			if self.operation_hours > 0:
-				hours = self.operation_hours
-			else:
-				hours = time_diff_in_hours(self.end_dt, self.start_dt)
-				frappe.db.set(self, 'operation_hours', hours)
-			# operating_cost = hours * float(hourly_rate)
+		
 		production_cost = raw_material_cost + operating_cost
 
 		#calc total_qty and total_sale_value
@@ -221,16 +209,6 @@ class Printing(Document):
 		for item in self.printing_table:
 			if item.weight_out > 0 and not item.merge_reel:
 				qty_of_total_production = float(qty_of_total_production) + float(item.weight_out)
-		
-		# for item in self.coating_scrap:
-		# 	if item.quantity > 0:
-		# 		qty_of_total_production = float(qty_of_total_production + item.quantity)
-		# 		if self.costing_method == "Relative Sales Value":
-		# 			sale_value_of_pdt = frappe.db.get_value("Item Price", {"item_code":item.item}, "price_list_rate")
-		# 			if sale_value_of_pdt:
-		# 				total_sale_value += float(sale_value_of_pdt) * item.quantity
-		# 			else:
-		# 				frappe.throw(_("Selling price not set for item {0}").format(item.item))
 
 		#add Stock Entry Items for produced goods and scrap
 		for item in self.printing_table:
@@ -238,10 +216,6 @@ class Printing(Document):
 				se = self.set_se_items(se, item, None, se.to_warehouse if not item.half_reel else se.from_warehouse, True, qty_of_total_production, total_sale_value, production_cost, reel_out = True)
 
 		for item in self.printing_scrap:
-			# if value_scrap:
-			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, True, qty_of_total_production, total_sale_value, production_cost)
-			# else:
-			# 	se = self.set_se_items(se, item, None, self.scrap_warehouse, False)
 			se = self.set_se_items(se, item, None, self.scrap_warehouse, False, scrap_item = True)
 
 		return se
