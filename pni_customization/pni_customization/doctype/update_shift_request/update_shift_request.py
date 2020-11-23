@@ -13,7 +13,9 @@ class UpdateShiftRequest(Document):
 				doc = frappe.get_doc({
 					"doctype": "Shift Request",
 					"shift_type": self.shift_type,
-					"employee": row.employee
+					"employee": row.employee,
+					"from_date": self.from_date,
+					"to_date": self.to_date
 				})
 				doc.insert()
 			self.shift_type = ""

@@ -4,6 +4,8 @@
  "engine": "InnoDB",
  "field_order": [
   "shift_type",
+  "from_date",
+  "to_date",
   "shift_employee_table"
  ],
  "fields": [
@@ -18,10 +20,20 @@
    "fieldtype": "Table",
    "label": "Shift Employee Table",
    "options": "Shift Employee Table"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
   }
  ],
  "issingle": 1,
- "modified": "2020-11-23 18:45:02.806273",
+ "modified": "2020-11-23 19:02:43.096846",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Update Shift Request",
