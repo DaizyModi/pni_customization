@@ -1,0 +1,29 @@
+{
+ "creation": "2020-11-23 18:42:31.219527",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-11-23 18:42:35.552623",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Shift Employee Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -37,6 +37,8 @@
   "total_weight",
   "scrap_section",
   "packing_scrap",
+  "half_table_section",
+  "half_punch_table",
   "note_section",
   "packing_note",
   "amended_from"
@@ -249,10 +251,21 @@
    "fieldtype": "Data",
    "label": "Supplier Reel ID",
    "read_only": 1
+  },
+  {
+   "fieldname": "half_table_section",
+   "fieldtype": "Section Break",
+   "label": "Half Table"
+  },
+  {
+   "fieldname": "half_punch_table",
+   "fieldtype": "Table",
+   "label": "Half Punch Table",
+   "options": "Half Punch Table"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-11-21 12:24:25.627163",
+ "modified": "2020-11-23 17:54:02.265173",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Packing",
