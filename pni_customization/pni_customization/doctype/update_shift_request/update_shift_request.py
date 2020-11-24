@@ -18,6 +18,8 @@ class UpdateShiftRequest(Document):
 					"to_date": self.to_date
 				})
 				doc.insert()
+			self.from_date = ""
+			self.to_date = ""
 			self.shift_type = ""
 			self.shift_employee_table = ""
 			frappe.msgprint("Updated")

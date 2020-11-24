@@ -100,6 +100,9 @@ doc_events = {
 	},
 	"Customer": {
 		"validate": "pni_customization.utility.customer_utility.validate_customer"
+	},
+	"Shift Request": {
+		"validate": "pni_customization.utility.shift_request_utility.validate_shift_request"
 	}
 }
 # include js, css files in header of desk.html
