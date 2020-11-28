@@ -38,6 +38,32 @@ class Packing(Document):
 				total_weight += float(data.bag_size) * float(data.bag)
 		self.total_bag = bag
 		self.total_weight = total_weight
+
+		# Manage Half Table
+		for data in self.half_punch_table:
+			if data.half_punch_table:
+				if not data.punch_table:
+					doc = frappe.get_doc({
+						"doctype": "Punch Table",
+						"status": "Draft"
+					})
+					doc.insert()
+					data.punch_table = doc.name
+				else:
+					doc = frappe.get_doc("Punch Table",data.punch_table)
+				old_table = frappe.get_doc("Punch Table",data.half_punch_table)
+				doc.custom_id = old_table.custom_id
+				data.item = doc.item = old_table.item
+				# doc.printed_item = old_table.printed_item
+				doc.supplier_reel_id = old_table.supplier_reel_id
+				data.punching_die =  doc.punching_die = old_table.punching_die
+				data.brand = doc.brand = old_table.brand
+				data.coated = doc.coated_reel = old_table.coated_reel
+				data.printed = doc.printed_reel = old_table.printed_reel
+				doc.weight = data.weight
+				data.punching_die = doc.punching_die = old_table.punching_die
+				doc.save()
+
 	
 	def manage_reel_tracking(self, bag):
 		doc = frappe.get_doc({
@@ -79,7 +105,9 @@ class Packing(Document):
 			punch_table = frappe.get_doc("Punch Table",table.punch_table)
 			punch_table.status = "Consume"
 			punch_table.save()
-		
+		for data in self.half_punch_table:
+			punch_table = frappe.get_doc("Punch Table",data.punch_table)
+			punch_table.submit()
 		for row in self.packing_table:
 			if row.bag and row.bag_size:
 				for numb in range(row.bag):
@@ -123,6 +151,10 @@ class Packing(Document):
 			bag_doc.save()
 			bag_doc.cancel()	
 			self.cancel_reel_tracking(bag_doc.name)
+		
+		for data in self.half_punch_table:
+			punch_table = frappe.get_doc("Punch Table",data.punch_table)
+			punch_table.cancel()
 	
 	def manufacture_entry(self):
 		return self.make_stock_entry()
@@ -152,8 +184,7 @@ class Packing(Document):
 		
 		for raw in self.pni_punch_table:
 			se = self.set_se_items(se, raw, se.from_warehouse, None, False, reel_in= True)
-			if not raw.half_reel:
-				raw_material_cost += raw.weight 
+			raw_material_cost += raw.weight 
 		
 		production_cost = raw_material_cost + operating_cost
 
@@ -173,8 +204,23 @@ class Packing(Document):
 			qty_of_total_production, 
 			total_sale_value, 
 			production_cost, 
-			table_out = True
+			table_out = True,
+			qty = self.total_weight
 		)
+
+		for data in self.half_punch_table:
+			se = self.set_se_items(
+				se, 
+				data.item, 
+				None, 
+				se.to_warehouse, 
+				True, 
+				qty_of_total_production, 
+				total_sale_value, 
+				production_cost, 
+				table_out = True,
+				qty = data.weight
+			)
 
 		for item in self.packing_scrap:
 			se = self.set_se_items(se, item, None, self.scrap_warehouse, False, scrap_item = True)
@@ -183,7 +229,7 @@ class Packing(Document):
 	
 	def set_se_items(self, se, item, s_wh, t_wh, calc_basic_rate=False, 
 		qty_of_total_production=None, total_sale_value=None, production_cost=None, 
-		reel_in = False, table_out = False, scrap_item = False):
+		reel_in = False, table_out = False, scrap_item = False, qty = 0):
 		# if item.quantity > 0:
 		item_from_reel = {}
 		class Empty:
@@ -195,7 +241,7 @@ class Packing(Document):
 		if table_out:
 			item_from_reel = Empty()
 			item_from_reel.item = item
-			item_from_reel.weight = self.total_weight
+			item_from_reel.weight = qty
 		if scrap_item:
 			item_from_reel = Empty()
 			item_from_reel.item = item.item

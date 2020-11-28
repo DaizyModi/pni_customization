@@ -3,6 +3,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "half_punch_table",
   "punch_table",
   "item",
   "punching_die",
@@ -19,7 +20,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Punch Table IN",
-   "options": "Punch Table"
+   "options": "Punch Table",
+   "read_only": 1
   },
   {
    "fetch_from": "punch_table.item",
@@ -88,10 +90,17 @@
    "no_copy": 1,
    "options": "Punch Table",
    "read_only": 1
+  },
+  {
+   "fieldname": "half_punch_table",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Half Punch Table",
+   "options": "Punch Table"
   }
  ],
  "istable": 1,
- "modified": "2020-11-23 17:53:18.505692",
+ "modified": "2020-11-28 16:30:10.674724",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Half Punch Table",
