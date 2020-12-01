@@ -56,7 +56,7 @@ def validate_so(doc, method):
 
 	if doc.workflow_state == "Pending For Accounts Approval":
 		for item in doc.items:
-			if item.rate < item.price_list_rate and item.price_list_rate > 0:
+			if round(item.rate,4) < round(item.price_list_rate,4) and round(item.price_list_rate,4) > 0:
 				if not item.approve_law_rate__:
 					frappe.throw("Item {0}'s low rate is not approved by management.".format(item.item_code))
 
