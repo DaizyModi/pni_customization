@@ -4,8 +4,12 @@
  "engine": "InnoDB",
  "field_order": [
   "shift_type",
+  "start_time",
+  "end_time",
+  "column_break_4",
   "from_date",
   "to_date",
+  "section_break_7",
   "shift_employee_table"
  ],
  "fields": [
@@ -30,10 +34,32 @@
    "fieldname": "to_date",
    "fieldtype": "Date",
    "label": "To Date"
+  },
+  {
+   "fetch_from": "shift_type.start_time",
+   "fieldname": "start_time",
+   "fieldtype": "Data",
+   "label": "Start Time",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "shift_type.end_time",
+   "fieldname": "end_time",
+   "fieldtype": "Data",
+   "label": "End Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
   }
  ],
  "issingle": 1,
- "modified": "2020-11-23 19:02:43.096846",
+ "modified": "2020-12-01 12:21:25.933775",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Update Shift Request",

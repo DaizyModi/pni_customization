@@ -22,5 +22,7 @@ class UpdateShiftRequest(Document):
 			self.to_date = ""
 			self.shift_type = ""
 			self.shift_employee_table = ""
+			self.start_time = ""
+			self.end_time = ""
 			frappe.msgprint("Updated")
 

@@ -1,7 +1,5 @@
 frappe.ui.form.on("Sales Order Item",{
 	"item_code" : function (frm, cdt, cdn){
-//		cur_frm.clear_table("last_sales_table");
-//		cur_frm.clear_table("last_customer_sales_table");
 		var d2 = locals[cdt][cdn];
 		if(frm.doc.customer && d2.item_code){
 			frappe.call({
@@ -19,6 +17,7 @@ frappe.ui.form.on("Sales Order Item",{
 						row.item_code = r.message[i][3];
 						row.qty = r.message[i][4];
 						row.rate = r.message[i][5];
+						row.base_uom_rate = r.message[i][6];
 					}
 				}
 			});
@@ -39,6 +38,7 @@ frappe.ui.form.on("Sales Order Item",{
 							row.item_code = r.message[i][2];
 							row.qty = r.message[i][3];
 							row.rate = r.message[i][4];
+							row.base_uom_rate = r.message[i][5];
 					}
 				}
 			});
@@ -149,3 +149,14 @@ frappe.ui.form.on('Sales Order',  {
             cur_frm.refresh();
     } 
 });
+frappe.ui.form.on('Sales Order', {
+ setup:function (frm) {
+		frm.set_query("tax_category", function () {
+		    return {
+			    filters: {
+			        title: ['in', ['Out State','In State','OUT OF INDIA',]],
+			    }
+			}
+		});
+	}
+})
