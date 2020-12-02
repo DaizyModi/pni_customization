@@ -399,8 +399,6 @@ def validate_inspection_for_work_order(doc, method):
 
 @frappe.whitelist()
 def validate_work_order_item(doc, method):
-	if doc.status != "Stopped":
-		doc.short_closed = False
 	update_work_order(doc.name)
 	check_stock(doc)
 	if doc.required_items:
