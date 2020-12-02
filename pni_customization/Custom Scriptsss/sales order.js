@@ -123,7 +123,9 @@ frappe.ui.form.on('Sales Order', {
 		});
 
 		frm.doc.items.forEach(function(element) {
-			if(element.price_list_rate>element.rate && element.price_list_rate > 0 && !element.approve_law_rate__){
+			if(parseFloat(element.price_list_rate) >parseFloat(element.rate) && parseFloat(element.price_list_rate) > 0 && !element.approve_law_rate__){
+				console.log(element.price_list_rate);
+				console.log(element.rate);
 				frappe.msgprint("[Warning] Item "+element.item_code +"'s rate is lower then Item Price List");
 			}
 		});

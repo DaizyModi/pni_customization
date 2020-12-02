@@ -399,6 +399,8 @@ def validate_inspection_for_work_order(doc, method):
 
 @frappe.whitelist()
 def validate_work_order_item(doc, method):
+	if doc.status != "Stopped":
+		doc.short_closed = False
 	update_work_order(doc.name)
 	check_stock(doc)
 	if doc.required_items:
@@ -426,7 +428,13 @@ def on_update_after_submit_work_order_item(doc, method):
 	check_stock(doc)
 
 def update_work_order_state():
-	
+	wos_short_closed = frappe.get_all('Work Order', filters=[
+		["status", "!=", "Stopped"],
+		["short_closed", "=", True]
+	], fields=['name'])
+	for wo in wos_short_closed:
+		frappe.db.set_value("Work Order", wo.name, "short_closed", False)
+	frappe.db.commit()
 	wos = frappe.get_all('Work Order', filters=[
 		["workflow_state", "=", "Pending For Material Issue"],
 		["material_transferred_for_manufacturing", ">", "0"]
