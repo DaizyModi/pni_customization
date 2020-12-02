@@ -10,4 +10,9 @@ def include_item_in_manufacturing(work_order):
 @frappe.whitelist()
 def short_closed(work_order):
 	frappe.db.set_value("Work Order", work_order, "short_closed", True)
-	return "Success"	
+	return "Success"
+
+@frappe.whitelist()
+def short_closed_after_complete(work_order):	
+	frappe.db.set_value("Work Order", work_order, "short_closed", True)
+	return "Success"

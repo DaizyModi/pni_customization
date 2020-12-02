@@ -25,6 +25,23 @@ frappe.ui.form.on(cur_frm.doctype, {
 						})
 						
 				    }, __("Status"));
+				}
+				if (frm.doc.status == 'Completed') {
+				    frm.add_custom_button(__('Short Closed'), function() {
+						frappe.call({
+							method: "pni_customization.utility.work_order_utility.short_closed_after_complete",
+							args: {
+								work_order: frm.doc.name
+							},
+							callback: function(r) {
+								if(r.message && !r.exc) {
+									frappe.msgprint("Work Order Short Closed.")
+									frm.reload_doc()
+								}
+							}
+						})
+						
+				    }, __("Status"));
 			    }
             }
         }
