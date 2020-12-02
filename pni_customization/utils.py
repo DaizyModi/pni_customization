@@ -427,7 +427,7 @@ def on_update_after_submit_work_order_item(doc, method):
 
 def update_work_order_state():
 	wos_short_closed = frappe.get_all('Work Order', filters=[
-		["status", "not in", "('Stopped','Completed')"],
+		["status", "not in", "Stopped,Completed"],
 		["short_closed", "=", True]
 	], fields=['name'])
 	for wo in wos_short_closed:
