@@ -16,6 +16,12 @@ class PNIQualityInspection(Document):
 	def validate(self):
 		if self.reference_type == "Work Order" and self.reference_name:
 			update_work_order(self.reference_name)
+		if not self.accepted_qty:
+			self.accepted_qty = 0
+		if not self.rejected_qty:
+			self.rejected_qty = 0
+		if not self.rework_qty:
+			self.rework_qty = 0
 		self.total_qty = float(self.accepted_qty) + float(self.rejected_qty) + float(self.rework_qty)
 
 def update_work_order(work_order):
