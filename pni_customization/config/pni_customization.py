@@ -153,6 +153,12 @@ def get_data():
 					"description": _("PNI Production Plan Detail"),
 					"is_query_report": True,
 					"reference_doctype": "Sales Order",
+				},
+				{
+					"type": "report",
+					"is_query_report": True,
+					"name": "Employee Attendance Report",
+					"doctype": "Attendance Log"
 				}
 			]
 		},
