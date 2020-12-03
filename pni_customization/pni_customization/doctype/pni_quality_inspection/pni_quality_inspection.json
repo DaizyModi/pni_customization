@@ -191,7 +191,8 @@
   {
    "fieldname": "total_qty",
    "fieldtype": "Float",
-   "label": "Total Qty"
+   "label": "Total Qty",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_22",
@@ -200,7 +201,7 @@
  ],
  "icon": "fa fa-search",
  "is_submittable": 1,
- "modified": "2020-12-03 13:11:23.304259",
+ "modified": "2020-12-03 13:17:55.665439",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Quality Inspection",
