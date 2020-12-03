@@ -14,6 +14,7 @@ class PNIQualityInspection(Document):
 	def validate(self):
 		if self.reference_type == "Work Order" and self.reference_name:
 			update_work_order(self.reference_name)
+		self.total_qty = float(self.accepted_qty) + float(self.rejected_qty) + float(self.rework_qty)
 
 def update_work_order(work_order):
 	pni_qis =  frappe.get_all("PNI Quality Inspection",filters={"docstatus":1, "reference_type":"Work Order", "reference_name": work_order})

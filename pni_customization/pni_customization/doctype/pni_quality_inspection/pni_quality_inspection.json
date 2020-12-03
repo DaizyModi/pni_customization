@@ -26,6 +26,9 @@
   "accepted_qty",
   "rejected_qty",
   "rework_qty",
+  "column_break_20",
+  "total_qty",
+  "section_break_22",
   "inspection",
   "amended_from"
  ],
@@ -180,11 +183,24 @@
    "fieldname": "pre_pni_inspection",
    "fieldtype": "Check",
    "label": "Pre PNI Inspection"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Float",
+   "label": "Total Qty"
+  },
+  {
+   "fieldname": "section_break_22",
+   "fieldtype": "Section Break"
   }
  ],
  "icon": "fa fa-search",
  "is_submittable": 1,
- "modified": "2020-04-08 21:23:47.328096",
+ "modified": "2020-12-03 13:11:23.304259",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Quality Inspection",
