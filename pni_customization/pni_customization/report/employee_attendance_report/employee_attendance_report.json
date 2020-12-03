@@ -1,0 +1,25 @@
+{
+ "add_total_row": 0,
+ "creation": "2020-12-03 14:51:40.355955",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "idx": 0,
+ "is_standard": "Yes",
+ "json": "{}",
+ "modified": "2020-12-03 14:53:04.859310",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Employee Attendance Report",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Attendance Log",
+ "report_name": "Employee Attendance Report",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "HR Master Manager"
+  }
+ ]
+}
