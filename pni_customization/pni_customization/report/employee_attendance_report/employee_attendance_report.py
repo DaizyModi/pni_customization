@@ -59,7 +59,8 @@ def get_data(filters=None):
 			emp.name = al.employee
 			and DATE(al.attendance_time) = DATE(now())
 		where 
-			emp.default_shift = shift_type.name
+			emp.status = "Active"
+			and emp.default_shift = shift_type.name
 			{0}
 		group by emp.name;
     """.format(conditions))
