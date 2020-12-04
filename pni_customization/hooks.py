@@ -51,6 +51,11 @@ fixtures = [
 	}
 ]
 
+website_context = {
+	"favicon": 	"/assets/pni_customization/images/logo.jpg",
+	"splash_image": "/assets/pni_customization/images/logo.jpg"
+}
+
 doc_events = {
  	"Stock Entry": {
         # "on_submit": "pni_customization.utils.validate_inspection_for_work_order",
