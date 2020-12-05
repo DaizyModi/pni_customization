@@ -10,7 +10,7 @@ app_icon = "octicon octicon-file-directory"
 app_color = "grey"
 app_email = "team@khatavahi.in"
 app_license = "MIT"
-app_logo_url = '/assets/pni_customization/images/logo.jpg'
+app_logo_url = '/assets/pni_customization/images/logo.png'
 
 # Includes in <head>
 # ------------------
@@ -53,8 +53,8 @@ fixtures = [
 ]
 
 website_context = {
-	"favicon": 	"/assets/pni_customization/images/logo.jpg",
-	"splash_image": "/assets/pni_customization/images/logo.jpg"
+	"favicon": 	"/assets/pni_customization/images/logo.png",
+	"splash_image": "/assets/pni_customization/images/logo.png"
 }
 
 doc_events = {
