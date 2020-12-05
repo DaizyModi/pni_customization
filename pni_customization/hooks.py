@@ -45,7 +45,7 @@ fixtures = [
 					"workstation_head", "workstation_head_name", "main_category", "main_category_code",
 					"sub_category", "sub_category_code","work_station_head","pni_shift","machine_helper",
 					"workstation_pni", "skip_pni_quality_inspection", "same_price_purchase",
-					"stock_short", "skip_short_stock", "short_closed","setup_time","pni_programme_cycle_time"
+					"stock_short", "skip_short_stock", "short_closed","setup_time","pni_programme_cycle_time", "skip_restriction"
 				)
 			]
 		]
@@ -109,6 +109,15 @@ doc_events = {
 	},
 	"Shift Request": {
 		"validate": "pni_customization.utility.shift_request_utility.validate_shift_request"
+	},
+	"Job Applicant": {
+		"validate": "pni_customization.utility.job_applicant_utility.job_applicant_validate"
+	},
+	"Job Offer": {
+		"validate": "pni_customization.utility.job_offer_utility.job_offer_validate"
+	},
+	"Employee": {
+		"validate": "pni_customization.utility.employee_utility.employee_validate"
 	}
 }
 # include js, css files in header of desk.html
