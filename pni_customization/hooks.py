@@ -45,7 +45,7 @@ fixtures = [
 					"workstation_head", "workstation_head_name", "main_category", "main_category_code",
 					"sub_category", "sub_category_code","work_station_head","pni_shift","machine_helper",
 					"workstation_pni", "skip_pni_quality_inspection", "same_price_purchase",
-					"stock_short", "skip_short_stock", "short_closed","setup_time","pni_programme_cycle_time", "skip_restriction"
+					"stock_short", "skip_short_stock", "short_closed","setup_time","pni_programme_cycle_time", "skip_restriction", "employee_onboarding"
 				)
 			]
 		]
@@ -115,6 +115,9 @@ doc_events = {
 	},
 	"Job Offer": {
 		"validate": "pni_customization.utility.job_offer_utility.job_offer_validate"
+	},
+	"Employee Onboarding": {
+		"validate": "pni_customization.utility.employee_onboarding_utility.employee_onboarding_validate"
 	},
 	"Employee": {
 		"validate": "pni_customization.utility.employee_utility.employee_validate"
