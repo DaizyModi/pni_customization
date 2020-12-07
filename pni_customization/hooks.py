@@ -155,7 +155,8 @@ doctype_js = {
 	"Delivery Note": "public/js/delivery_note.js",
 	"Opportunity": "public/js/opportunity.js",
 	"Stock Entry" : "public/js/stock_entry.js",
-	"Item": "public/js/item.js"
+	"Item": "public/js/item.js",
+	"Job Offer": "public/js/job_offer.js"
 }
 
 # Home Pages
