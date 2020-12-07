@@ -454,7 +454,10 @@ def update_work_order_state():
 
 @frappe.whitelist()
 def validate_stock_entry_item(doc, method):
-	print("Hello World")
+	if doc.purpose == "Send to Warehouse" and (doc.pni_reference_type not in ["Customer", "Supplier"]):
+		frappe.throw("For Purpose Send to Warehouse PNI Reference Type must be Customer/Supplier")
+	if doc.purpose == "Send to Warehouse" and not doc.pni_reference_type :
+		frappe.throw("For Purpose Send to Warehouse PNI Reference is Mandatory")
 	if doc.scrap_entry and not doc.pni_shift:
 		frappe.throw("Shift is Mandatory for Scrap Entry")
 	if doc.scrap_entry and not doc.pni_reference:

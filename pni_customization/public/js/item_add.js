@@ -41,6 +41,41 @@ frappe.ui.form.on('Sales Invoice', {
 frappe.ui.form.on('Purchase Order', {
 	refresh: function(frm) {
 		cur_frm.cscript.add_item_dialog("Purchase Order Item", "items")	
+	},
+	setup:function (frm) {
+		frm.set_query("repair_job_work_transfer_entry", function () {
+		    return {
+			    filters: {
+					purpose: "Send to Warehouse",
+					docstatus: 1
+			    }
+			}
+		});
+	},
+	repair_job_work_transfer_entry: function(frm) {
+		if(frm.doc.repair_job_work_transfer_entry){
+			frappe.call({
+				method:"pni_customization.utility.purchase_order_utility.get_stock_entry_data",
+				args: {
+					stock_entry:frm.doc.repair_job_work_transfer_entry
+				}, 
+				callback: function(r) { 
+					console.log(r.message);
+					r.message.forEach(function(element) {
+						var c = frm.add_child("stock_entry_data");
+						c.s_warehouse = element.s_warehouse;
+						c.t_warehouse = element.t_warehouse;
+						c.item_code = element.item_code;
+						c.item_group = element.item_group;
+						c.qty = element.qty;
+					});
+					refresh_field("stock_entry_data");
+				}
+			})
+		} else {
+			frm.doc.stock_entry_data = ""
+			refresh_field("stock_entry_data");
+		}
 	}
 });
 
