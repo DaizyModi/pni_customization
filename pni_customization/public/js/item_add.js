@@ -61,6 +61,7 @@ frappe.ui.form.on('Purchase Order', {
 				}, 
 				callback: function(r) { 
 					console.log(r.message);
+					frm.doc.stock_entry_data = ""
 					r.message.forEach(function(element) {
 						var c = frm.add_child("stock_entry_data");
 						c.s_warehouse = element.s_warehouse;
