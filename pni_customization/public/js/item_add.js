@@ -47,6 +47,7 @@ frappe.ui.form.on('Purchase Order', {
 		    return {
 			    filters: {
 					purpose: "Send to Warehouse",
+					pni_reference: frm.doc.supplier,
 					docstatus: 1
 			    }
 			}
