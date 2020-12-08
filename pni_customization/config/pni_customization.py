@@ -246,6 +246,13 @@ def get_data():
 					"description": _("Sales Person Account Receivable"),
 					"is_query_report": True,
 					"reference_doctype": "Sales Invoice",
+				},
+				{
+					"type": "report",
+					"name": "Sales Person Sales Analytics",
+					"description": _("Sales Person Sales Analytics"),
+					"is_query_report": True,
+					"reference_doctype": "Sales Order",
 				}
 			]
 		},
