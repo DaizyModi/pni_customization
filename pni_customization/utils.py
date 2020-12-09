@@ -1,6 +1,7 @@
 import frappe, json
 from frappe.model.mapper import get_mapped_doc
 from frappe import _
+from frappe.utils import flt
 from pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order import update_delivery_pni_sales_order
 from pni_customization.pni_customization.doctype.pni_quality_inspection.pni_quality_inspection import update_work_order
 
@@ -653,7 +654,14 @@ def manage_se_cancel(se, co):
 def validate_po(doc, method):
 	item_array_mr,item_array_po = {},{}
 	doc.same_price_purchase = True
+	total_qty, received_qty = 0.0, 0.0
 	for item in doc.items:
+		is_stock_item = frappe.get_cached_value('Item', item.item_code, 'is_stock_item')
+		if not is_stock_item:
+			item.received_qty = item.qty
+		received_qty += item.received_qty
+		total_qty += item.qty
+
 		if round(item.last_purchase_rate,4) < round(item.rate,4):
 			doc.same_price_purchase = False
 		if item.material_request:
@@ -667,7 +675,10 @@ def validate_po(doc, method):
 							mr_item.item_code,
 							mr_item.qty
 						))
-
+	if total_qty:
+		doc.db_set("per_received", flt(received_qty/total_qty) * 100, update_modified=False)
+	else:
+		doc.db_set("per_received", 0, update_modified=False)
 @frappe.whitelist()
 def manage_se_changes(doc, method):
 	submit_repack_entry(doc, method)
