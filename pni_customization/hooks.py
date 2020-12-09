@@ -91,6 +91,7 @@ doc_events = {
 	},
 	"Sales Order": {
 		"validate": "pni_customization.utils.validate_so",
+		"before_submit": "pni_customization.utility.sales_order_utility.sales_order_before_submit"
 	},
 	"Opportunity": {
 		"validate": "pni_customization.utils.validate_opportunity"
