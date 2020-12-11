@@ -30,5 +30,12 @@ frappe.ui.form.on('Stock Entry', {
 		debugger;
 		erpnext.utils.get_address_display(frm, 'pni_address', 'pni_address_display', false);
 		debugger;
+	},
+	pni_reference: function(frm) {
+		if(frm.doc.pni_reference_type == "Supplier" || frm.doc.pni_reference_type == "Customer") {
+			frappe.db.get_value(frm.doc.pni_reference_type,frm.doc.pni_reference,frm.doc.pni_reference_type == "Supplier"? "supplier_name":"customer_name", (data) => {
+				cur_frm.set_value("reference_name", frm.doc.pni_reference_type == "Supplier"? data.supplier_name:data.customer_name) 
+			})
+		}
 	}
 })
