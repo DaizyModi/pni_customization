@@ -663,7 +663,7 @@ def validate_po(doc, method):
 		received_qty += item.received_qty
 		total_qty += item.qty
 		if item.material_request:
-			check_mr_qty(item.material_request, item.item_code, item.qty)
+			check_mr_qty(doc, item.material_request, item.item_code, item.qty)
 		if round(item.last_purchase_rate,4) < round(item.rate,4):
 			doc.same_price_purchase = False
 		if item.material_request:
@@ -682,7 +682,7 @@ def validate_po(doc, method):
 	else:
 		doc.db_set("per_received", 0, update_modified=False)
 
-def check_mr_qty(mr,item_code, qty):
+def check_mr_qty(po, mr, item_code, qty):
 	pos = frappe.get_all(
 		"Purchase Order Item",
 		filters	= {
@@ -690,11 +690,13 @@ def check_mr_qty(mr,item_code, qty):
 			"docstatus": ('!=', '2'),
 			"material_request": mr
 		},
-		fields= ['qty']
+		fields= ['qty','parent']
 	)
 	total_qty = qty
 	if pos:
 		for item in pos:
+			if item['parent'] == po.name:
+				continue
 			total_qty += item['qty']
 	mr_obj = frappe.get_doc("Material Request", mr)
 	mr_qty = 0
