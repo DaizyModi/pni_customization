@@ -655,13 +655,15 @@ def validate_po(doc, method):
 	item_array_mr,item_array_po = {},{}
 	doc.same_price_purchase = True
 	total_qty, received_qty = 0.0, 0.0
+	
 	for item in doc.items:
 		is_stock_item = frappe.get_cached_value('Item', item.item_code, 'is_stock_item')
 		if not is_stock_item:
 			item.received_qty = item.qty
 		received_qty += item.received_qty
 		total_qty += item.qty
-
+		if item.material_request:
+			check_mr_qty(item.material_request, item.item_code, item.qty)
 		if round(item.last_purchase_rate,4) < round(item.rate,4):
 			doc.same_price_purchase = False
 		if item.material_request:
@@ -679,6 +681,31 @@ def validate_po(doc, method):
 		doc.db_set("per_received", flt(received_qty/total_qty) * 100, update_modified=False)
 	else:
 		doc.db_set("per_received", 0, update_modified=False)
+
+def check_mr_qty(mr,item_code, qty):
+	pos = frappe.get_all(
+		"Purchase Order Item",
+		filters	= {
+			"item_code": item_code,
+			"docstatus": ('!=', '2'),
+			"material_request": mr
+		},
+		fields= ['qty']
+	)
+	total_qty = qty
+	if pos:
+		for item in pos:
+			total_qty += item['qty']
+	mr_obj = frappe.get_doc("Material Request", mr)
+	mr_qty = 0
+	for item in mr_obj.items:
+		if item.item_code == item_code:
+			mr_qty += item.qty
+	if total_qty > mr_qty:
+		frappe.throw("""Purchase Order Total Qty {0} for Item {1} is greater then Material Request {2}
+			Qty {3}
+		""".format(total_qty, item_code, mr, mr_qty ))
+
 @frappe.whitelist()
 def manage_se_changes(doc, method):
 	submit_repack_entry(doc, method)
