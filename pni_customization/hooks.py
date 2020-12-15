@@ -119,9 +119,9 @@ doc_events = {
 	"Job Offer": {
 		"validate": "pni_customization.utility.job_offer_utility.job_offer_validate"
 	},
-	"Employee Onboarding": {
-		"validate": "pni_customization.utility.employee_onboarding_utility.employee_onboarding_validate"
-	},
+	# "Employee Onboarding": {
+	# 	"validate": "pni_customization.utility.employee_onboarding_utility.employee_onboarding_validate"
+	# },
 	"Employee": {
 		"validate": "pni_customization.utility.employee_utility.employee_validate"
 	}
