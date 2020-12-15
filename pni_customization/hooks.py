@@ -47,7 +47,7 @@ fixtures = [
 					"workstation_pni", "skip_pni_quality_inspection", "same_price_purchase",
 					"stock_short", "skip_short_stock", "short_closed","setup_time","pni_programme_cycle_time", "skip_restriction", "employee_onboarding",
 					"repair_job_work_transfer_entry","stock_entry_data","pnicbc2",
-					"pni_address","pni_address_display","reference_name"
+					"pni_address","pni_address_display","reference_name","job_application"
 				)
 			]
 		]
