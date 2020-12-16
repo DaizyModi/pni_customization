@@ -70,6 +70,13 @@ frappe.ui.form.on('Delivery Note', {
 			})
 		}
 	},
+	is_foc(frm) {
+		if(frm.doc.is_foc){
+			frm.set_value("naming_series","FOC-DN-.YYYY.-");
+		}else{
+			frm.set_value("naming_series","MAT-DN-.YYYY.-")
+		}
+	},
 	payment_terms_template: function(frm) {
 		debugger;
 		const doc = frm.doc;
@@ -92,3 +99,22 @@ frappe.ui.form.on('Delivery Note', {
 		}
 	}
 });
+frappe.ui.form.on('Delivery Note',  {
+    validate: function(frm) {
+        $.each(frm.doc.sales_team,  function(i,  d) {
+            frm.set_value("sales_person_name",d.sales_person);
+        });
+            cur_frm.refresh();
+    } 
+});
+frappe.ui.form.on('Delivery Note', {
+ setup:function (frm) {
+		frm.set_query("tax_category", function () {
+		    return {
+			    filters: {
+			        title: ['in', ['Out State','In State','OUT OF INDIA',]],
+			    }
+			}
+		});
+	}
+})
