@@ -262,6 +262,11 @@ def validate_delivery_item(doc, method):
 			frappe.throw("Duplicate Carton Entry {0}".format(row.pni_carton))
 		else:
 			data.append(row.pni_carton)
+	for item in doc.items:
+		if item.is_paper_plate or item.paper_cup:
+			if not(item.base_uom_rate > 0):
+				frappe.throw("Paper Cup and Plate Rate can't be zero for "+ item.item_code)
+			item.rate = float(item.base_uom_rate) * float(item.conversion_factor)
 @frappe.whitelist()
 def submit_delivery_item(doc, method):
 	items_calc = {}
