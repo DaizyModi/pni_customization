@@ -37,7 +37,10 @@ def validate_reel_qty(doc):
 					frappe.throw("Total Reel Qty {1} for item  {0} is less then {2} ".format(data,reel_weight, items_calc.get(_data).get(data)))
 				if int(reel_weight) > (int(items_calc.get(_data).get(data))+1):
 					frappe.throw("Total Reel Qty {1} for item  {0} is more then {2} ".format(data,reel_weight, items_calc.get(_data).get(data)))
-
+	frappe.errprint("items_calc")
+	frappe.errprint(items_calc)
+	frappe.errprint("item_reel_calc")
+	frappe.errprint(item_reel_calc)
 def validate_so(doc, method):
 	outstanding_amt = 0
 	for row in doc.customer_outstanding:
