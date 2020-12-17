@@ -40,7 +40,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Gate Entry Type",
-   "options": "\nMaterial Receipt\nDocument Receive\nMaterial Issue",
+   "options": "Material Receipt\nMaterial Issue\nDocument Receive",
    "reqd": 1
   },
   {
@@ -149,7 +149,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-12-17 12:02:18.784190",
+ "modified": "2020-12-17 12:04:48.408274",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Entry",

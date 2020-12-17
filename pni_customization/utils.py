@@ -14,22 +14,29 @@ def validate_item_price(doc, method):
 		if value and float(value) > 0:
 			doc.price_list_rate = value
 def validate_reel_qty(doc):
+	items_calc = {}
 	for item in doc.items:
 		if item.is_reel_item:
 			if not doc.reel_table_purchase:
 				frappe.throw("Reel Entry needed for Item "+item.item_code)
 			if not item.reel_brand:
 				frappe.throw("Reel Brand is Mandatory for Item " + item.item_code)
-			reel_weight = 0
-			for reel in doc.reel_table_purchase:
-				if (reel.item == item.item_code and 
-					item.reel_brand == reel.brand):
-					reel_weight += reel.weight
-			reel_weight -= doc.tear_weight
-			if (int(reel_weight)+1) < int(item.qty) :
-				frappe.throw("Total Reel Qty {1} for item  {0} is less then {2} ".format(item.item_code,reel_weight, item.qty))
-			if int(reel_weight) > (int(item.qty)+1):
-				frappe.throw("Total Reel Qty {1} for item  {0} is more then {2} ".format(item.item_code,reel_weight, item.qty))
+			weight = items_calc.setdefault(item.item_code,{}).setdefault(item.reel_brand,0)
+			items_calc[item.item_code][item.reel_brand] = weight + float(item.qty)
+	item_reel_calc = {}
+	for reel in doc.reel_table_purchase:
+		weight = item_reel_calc.setdefault(reel.item,{}).setdefault(reel.brand,0)
+		item_reel_calc[reel.item][reel.brand] = weight + reel.weight
+	
+	for _data in items_calc:
+		for data in items_calc.get(_data):
+			if item_reel_calc.get(_data).get(data) and items_calc.get(_data).get(data):
+				reel_weight = item_reel_calc.get(_data).get(data)
+				reel_weight -= doc.tear_weight
+				if (int(reel_weight)+1) < int(items_calc.get(_data).get(data)) :
+					frappe.throw("Total Reel Qty {1} for item  {0} is less then {2} ".format(data,reel_weight, items_calc.get(_data).get(data)))
+				if int(reel_weight) > (int(items_calc.get(_data).get(data))+1):
+					frappe.throw("Total Reel Qty {1} for item  {0} is more then {2} ".format(data,reel_weight, items_calc.get(_data).get(data)))
 
 def validate_so(doc, method):
 	outstanding_amt = 0
