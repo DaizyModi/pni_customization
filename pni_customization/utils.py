@@ -111,7 +111,11 @@ def get_permission_query_conditions_for_lead(user):
 		return None
 	elif "Sales User" in frappe.get_roles(user):
 		if is_sales_person_group():
-			return None
+			return """
+				(tabLead.owner like '%{user}%' ) 
+				or 
+				(tabLead._assign like '%{user}%')
+			""".format(user=is_sales_person_group())
 		return """
 		(tabLead.owner = '{user}' ) 
 		or 
@@ -123,7 +127,11 @@ def get_permission_query_conditions_for_opportunity(user):
 		return None
 	elif "Sales User" in frappe.get_roles(user):
 		if is_sales_person_group():
-			return None
+			return """
+				(tabOpportunity.owner like '%{user}%' ) 
+				or 
+				(tabOpportunity._assign like '%{user}%')
+			""".format(user=is_sales_person_group())
 		return """
 		(tabOpportunity.owner = '{user}' ) 
 		or 
@@ -135,7 +143,10 @@ def is_sales_person_group():
 		return False
 	is_group = frappe.get_value("Sales Person",{"pni_user":frappe.session.user},"is_group")
 	if is_group:
-		return True
+		data = frappe.get_all("Sales Person",{"parent_sales_person":"Ravi Singh Rawat"},["pni_user"])
+		datas = ",".join([item['pni_user'] for item in data])
+		datas += ","+str(frappe.session.user)
+		return datas
 	else:
 		return False
 @frappe.whitelist()
