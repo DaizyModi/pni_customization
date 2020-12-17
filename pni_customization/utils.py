@@ -110,6 +110,8 @@ def get_permission_query_conditions_for_lead(user):
 	elif "Lead Management Role" in frappe.get_roles(user):
 		return None
 	elif "Sales User" in frappe.get_roles(user):
+		if is_sales_person_group():
+			return None
 		return """
 		(tabLead.owner = '{user}' ) 
 		or 
@@ -120,12 +122,22 @@ def get_permission_query_conditions_for_opportunity(user):
 	if "System Manager" in frappe.get_roles(user):
 		return None
 	elif "Sales User" in frappe.get_roles(user):
+		if is_sales_person_group():
+			return None
 		return """
 		(tabOpportunity.owner = '{user}' ) 
 		or 
 		(tabOpportunity._assign like '%{user}%')
 		""".format(user=user)
-
+def is_sales_person_group():
+	sales_person = frappe.get_value("Sales Person",{"pni_user":frappe.session.user})
+	if not sales_person:
+		return False
+	is_group = frappe.get_value("Sales Person",{"pni_user":frappe.session.user},"is_group")
+	if is_group:
+		return True
+	else:
+		return False
 @frappe.whitelist()
 def get_packing(packing,doctype):
 	packing_doc = frappe.get_doc(doctype,packing)
