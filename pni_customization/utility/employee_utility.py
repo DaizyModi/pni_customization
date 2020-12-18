@@ -2,13 +2,19 @@ import frappe
 
 def employee_validate(doc,method):
 	valid,msg = True,"Logs:"
+	if doc.workflow_state == "Management Approved":
+		if doc.status != "Left":
+			doc.status = "Active"
+	else:
+		if doc.status != "Left":
+			doc.status = "Temporary Leave"
 	if not doc.skip_restriction and not doc.job_applicant:
 		valid = False
 		msg += "JOB Applicant is Mandatory, "
 	
-	if not doc.skip_restriction and not doc.employee_onboarding:
+	if not doc.skip_restriction and not doc.employee_onboarding_process:
 		valid = False
-		msg += "Employee OnBoarding is Mandatory, "
+		msg += "Employee OnBoarding Process is Mandatory, "
 	
 	if not is_leave_allocatted(doc) and not doc.skip_restriction:
 		if doc.workflow_state == "Pending For Approval":
