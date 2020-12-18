@@ -1,15 +1,49 @@
 import frappe
+from frappe.utils import cstr, flt
+
+@frappe.whitelist()
+def update_bom_with_new_bom(bom):
+	update_list_new_bom(bom)
+	return "Hello WOrld"
+
+def update_list_new_bom(bom):
+	master_bom =  frappe.get_doc("BOM", bom)
+	for item in master_bom.items:
+		if item.bom_no:
+			update_list_new_bom(item.bom_no)
+			continue
+		if is_item_has_bom(item.item_code):
+			bom_to = is_item_has_bom(item.item_code)
+			unit_cost = get_new_bom_unit_cost(bom_to)
+			frappe.db.sql("""update `tabBOM Item` set bom_no=%s,
+			rate=%s, amount=stock_qty*%s where name = %s and docstatus < 2 and parenttype='BOM'""",
+			(bom_to, unit_cost, unit_cost, item.name))
+
+def get_new_bom_unit_cost(bom):
+	new_bom_unitcost = frappe.db.sql("""SELECT `total_cost`/`quantity`
+		FROM `tabBOM` WHERE name = %s""", bom)
+
+	return flt(new_bom_unitcost[0][0]) if new_bom_unitcost else 0
+def is_item_has_bom(item):
+	bom = frappe.get_all('BOM', 
+		filters={
+			'item': item, 
+			'docstatus': True, 
+			'is_active': True, 
+			'is_default': True
+		}, 
+		fields=['name']
+	)
+	if bom and bom[0]:
+		return bom[0].name
+	else:
+		return None
 
 @frappe.whitelist()
 def update_bom_default_active(bom):
 	list_for_bom = {}	
 	update_list_bom(bom, list_for_bom)
 	return list_for_bom
-	# for _bom in list_for_bom:
-	# 	frappe.msgprint(" Bom will Replace {0} with {1} ".format(_bom, list_for_bom[_bom]))
-	# 	continue
-	# 	enque_bom_update(_bom,list_for_bom[_bom])
-	# return "Success"
 
 def update_list_bom(bom, list_for_bom):
 	master_bom =  frappe.get_doc("BOM", bom)

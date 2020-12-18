@@ -157,6 +157,19 @@ frappe.ui.form.on('BOM', {
 					}
 				}
 			})
+		})
+		cur_frm.add_custom_button(__("Update BOM with New BOM"), function() {
+			frappe.call({
+				method: "pni_customization.utility.bom_utility.update_bom_with_new_bom",
+				args: { 
+					bom: frm.doc.name
+				},
+				callback: (response) => {
+					if(response.message){
+						frappe.msgprint(response.message)
+					}
+				}
+			})
 		})	
 	}
 });
