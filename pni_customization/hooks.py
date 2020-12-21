@@ -48,7 +48,7 @@ fixtures = [
 					"stock_short", "skip_short_stock", "short_closed","setup_time","pni_programme_cycle_time", "skip_restriction", "employee_onboarding",
 					"repair_job_work_transfer_entry","stock_entry_data","pnicbc2",
 					"pni_address","pni_address_display","reference_name","job_application",
-					"employee_onboarding_process"
+					"employee_onboarding_process","skip_workflow_validation"
 				)
 			]
 		]

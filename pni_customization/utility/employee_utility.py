@@ -2,11 +2,11 @@ import frappe
 
 def employee_validate(doc,method):
 	valid,msg = True,"Logs:"
-	if doc.workflow_state == "Management Approved":
+	if doc.workflow_state == "Management Approved" and not doc.skip_workflow_validation:
 		if doc.status != "Left":
 			doc.status = "Active"
 	else:
-		if doc.status != "Left":
+		if doc.status != "Left" and not doc.skip_workflow_validation:
 			doc.status = "Temporary Leave"
 	if not doc.skip_restriction and not doc.job_applicant:
 		valid = False
