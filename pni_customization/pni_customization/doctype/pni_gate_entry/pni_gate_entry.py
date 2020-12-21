@@ -13,6 +13,8 @@ class PNIGateEntry(Document):
 			self.entry_status = "Pending For Delivery"
 			if not self.employee:
 				frappe.throw("Employee is Mandatory")
+		elif self.gate_entry_type == "Material Receipt":
+			self.entry_status = "Pending For Delivery"
 		else:
 			self.entry_status = ""
 		if (not self.sender_name1) and (self.gate_entry_type != "Visitor") :

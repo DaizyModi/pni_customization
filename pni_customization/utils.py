@@ -297,8 +297,19 @@ def validate_delivery_item(doc, method):
 			if not(item.base_uom_rate > 0):
 				frappe.throw("Paper Cup and Plate Rate can't be zero for "+ item.item_code)
 			item.rate = float(item.base_uom_rate) * float(item.conversion_factor)
+def update_pni_gate_entry(doc):
+	if doc.pni_gate_entry:
+		ge = frappe.get_doc("PNI Gate Entry", doc.pni_gate_entry)
+		if ge.docstatus != 1:
+			frappe.throw("Gate Entry Not SUbmited Yet")
+		if ge.entry_status == "Delivered":
+			frappe.throw("This Gate Entry Already Delivered")
+		ge.entry_status = "Delivered"
+		ge.save(ignore_permissions=True)
+
 @frappe.whitelist()
 def submit_delivery_item(doc, method):
+	update_pni_gate_entry(doc)
 	items_calc = {}
 	for row in doc.pni_packing_table:
 		
@@ -745,6 +756,7 @@ def check_mr_qty(po, mr, item_code, qty):
 
 @frappe.whitelist()
 def manage_se_changes(doc, method):
+	update_pni_gate_entry(doc)
 	submit_repack_entry(doc, method)
 	if doc.pni_reference and doc.pni_reference_type == "PNI Packing":
 		co = frappe.get_doc("PNI Packing", doc.pni_reference)
