@@ -164,7 +164,7 @@ frappe.ui.form.on('BOM', {
 								});
 								debugger;
 								bom.push(old_bom)
-								await sleep(300);
+								sleep(300);
 								console.log("Afrter Sleep")
 							}
 						}
