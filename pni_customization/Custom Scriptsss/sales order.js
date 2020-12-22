@@ -106,6 +106,19 @@ frappe.ui.form.on('Sales Order', {
 			navigator.geolocation.getCurrentPosition(showPosition);
 			
 		}
+		if(frm.doc.delivery_type == "By Transport"){
+			frm.set_df_property('transporter_name', 'reqd', 1)
+		}else{
+			frm.set_df_property('transporter_name', 'reqd', 0)
+		}
+		
+	},
+	delivery_type(frm) { 
+		if(frm.doc.delivery_type == "By Transport"){
+			frm.set_df_property('transporter_name', 'reqd', 1)
+		}else{
+			frm.set_df_property('transporter_name', 'reqd', 0)
+		}
 	},
 	refresh(frm){
 
