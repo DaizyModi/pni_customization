@@ -97,6 +97,9 @@ frappe.ui.form.on('BOM', {
 	refresh: function(frm) {
 		cur_frm.cscript.add_item_dialog("BOM Item", "items")
 		cur_frm.add_custom_button(__("Update BOM with Default Active"), function() {
+			function sleep(ms) {
+				return new Promise(resolve => setTimeout(resolve, ms));
+			 }
 			frappe.call({
 				method: "pni_customization.utility.bom_utility.update_bom_default_active",
 				args: { 
@@ -159,9 +162,9 @@ frappe.ui.form.on('BOM', {
 										}
 									}
 								});
-								
+								debugger;
 								bom.push(old_bom)
-								sleep(300);
+								await sleep(300);
 								console.log("Afrter Sleep")
 							}
 						}
