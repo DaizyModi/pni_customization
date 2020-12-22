@@ -147,6 +147,7 @@ frappe.ui.form.on('BOM', {
 								// });
 								
 								// d.show();
+								console.log("Bom "+old_bom + " replacement intiated with bom "+response.message[old_bom])
 								frappe.msgprint("Bom "+old_bom + " replacement intiated with bom "+response.message[old_bom])
 								frappe.call({
 									method: "erpnext.manufacturing.doctype.bom_update_tool.bom_update_tool.enqueue_replace_bom",
@@ -161,9 +162,10 @@ frappe.ui.form.on('BOM', {
 								
 								bom.push(old_bom)
 								sleep(300);
+								console.log("Afrter Sleep")
 							}
 						}
-						
+						console.log("Bom Enque for Replace")
 						frappe.msgprint("Bom Enque for Replace")
 					}
 				}
