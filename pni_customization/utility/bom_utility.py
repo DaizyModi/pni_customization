@@ -43,8 +43,17 @@ def is_item_has_bom(item):
 def update_bom_default_active(bom):
 	list_for_bom = {}	
 	update_list_bom(bom, list_for_bom)
+	frappe.enqueue("pni_customization.utility.bom_utility.enqueue_bom_processing", _args=list_for_bom, timeout=90000)
 	return list_for_bom
 
+def enqueue_bom_processing(_args):
+	frappe.db.auto_commit_on_many_writes = 1
+	for args in _args:
+		doc = frappe.get_doc("BOM Update Tool")
+		doc.current_bom = args
+		doc.new_bom = _args[args]
+		doc.replace_bom()
+	frappe.db.auto_commit_on_many_writes = 0
 def update_list_bom(bom, list_for_bom):
 	master_bom =  frappe.get_doc("BOM", bom)
 	for item in master_bom.items:
