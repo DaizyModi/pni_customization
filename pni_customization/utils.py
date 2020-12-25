@@ -110,10 +110,10 @@ def get_permission_query_conditions_for_lead(user):
 	elif "Lead Management Role" in frappe.get_roles(user):
 		return None
 	elif "Sales User" in frappe.get_roles(user):
-		if is_sales_person_group():
-			return """
-				(tabLead.owner in ({user}) ) 
-			""".format(user=is_sales_person_group())
+		# if is_sales_person_group():
+		# 	return """
+		# 		(tabLead.owner in ({user}) ) 
+		# 	""".format(user=is_sales_person_group())
 		return """
 		(tabLead.owner = '{user}' ) 
 		or 
@@ -124,10 +124,10 @@ def get_permission_query_conditions_for_opportunity(user):
 	if "System Manager" in frappe.get_roles(user):
 		return None
 	elif "Sales User" in frappe.get_roles(user):
-		if is_sales_person_group():
-			return """
-				(tabOpportunity.owner in ({user}) ) 
-			""".format(user=is_sales_person_group())
+		# if is_sales_person_group():
+		# 	return """
+		# 		(tabOpportunity.owner in ({user}) ) 
+		# 	""".format(user=is_sales_person_group())
 		return """
 		(tabOpportunity.owner = '{user}' ) 
 		or 
