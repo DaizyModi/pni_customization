@@ -708,7 +708,8 @@ def validate_po(doc, method):
 	
 	for item in doc.items:
 		is_stock_item = frappe.get_cached_value('Item', item.item_code, 'is_stock_item')
-		if not is_stock_item:
+		is_fixed_asset = frappe.get_cached_value('Item', item.item_code, 'is_fixed_asset')
+		if not is_stock_item and not is_fixed_asset:
 			item.received_qty = item.qty
 		received_qty += item.received_qty
 		total_qty += item.qty
