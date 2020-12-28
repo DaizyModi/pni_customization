@@ -78,6 +78,7 @@ def validate_reel(doc, method):
 	doc.total_reel_weight = total_weight
 
 def create_reel(doc, method):
+	update_pni_gate_entry(doc, method)
 	validate_reel_qty(doc)
 	if doc.reel_item:
 		for item in doc.reel_table_purchase:
@@ -313,7 +314,6 @@ def update_pni_gate_entry(doc, method):
 
 @frappe.whitelist()
 def submit_delivery_item(doc, method):
-	update_pni_gate_entry(doc, method)
 	items_calc = {}
 	for row in doc.pni_packing_table:
 		
