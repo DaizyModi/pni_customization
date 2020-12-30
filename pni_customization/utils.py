@@ -444,7 +444,7 @@ def validate_inspection_for_work_order(doc, method):
 			inspect_qty = 0
 			for qi in pni_qi:
 				pni_qi_doc = frappe.get_doc("PNI Quality Inspection", qi.name)
-				inspect_qty += int(pni_qi_doc.accepted_qty)
+				inspect_qty += int(pni_qi_doc.total_qty)
 			if inspect_qty < qty_stock:
 				frappe.throw(" Please do PNI Quality Inspection for {0} Items".format(str( qty_stock- inspect_qty )))
 
