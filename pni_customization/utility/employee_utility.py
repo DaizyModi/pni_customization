@@ -16,7 +16,7 @@ def employee_validate(doc,method):
 		valid = False
 		msg += "Employee OnBoarding Process is Mandatory, "
 	
-	if not is_leave_allocatted(doc) and not doc.skip_restriction:
+	if not is_leave_allocatted(doc) and not doc.skip_restriction and not doc.leave_allocation_not_applicable:
 		if doc.workflow_state == "Pending For Approval":
 			valid = False
 			msg += "Leave Allocation Pending, "
