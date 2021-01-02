@@ -1,23 +1,29 @@
 import frappe
 from frappe.utils import cstr, flt
+from erpnext.manufacturing.doctype.bom.bom import BOM as bm
 
 @frappe.whitelist()
 def update_bom_with_new_bom(bom):
 	update_list_new_bom(bom)
-	return "Hello WOrld"
+	update_exploded_items(bom)
+	return "BOM has been updated with new one."
 
 def update_list_new_bom(bom):
 	master_bom =  frappe.get_doc("BOM", bom)
 	for item in master_bom.items:
+		print(item.item_code)
 		if item.bom_no:
 			update_list_new_bom(item.bom_no)
-			continue
+			# continue
 		if is_item_has_bom(item.item_code):
+			print(item.item_code)
 			bom_to = is_item_has_bom(item.item_code)
 			unit_cost = get_new_bom_unit_cost(bom_to)
+			print(bom_to,unit_cost,item.name)
 			frappe.db.sql("""update `tabBOM Item` set bom_no=%s,
 			rate=%s, amount=stock_qty*%s where name = %s and docstatus < 2 and parenttype='BOM'""",
 			(bom_to, unit_cost, unit_cost, item.name))
+
 
 def get_new_bom_unit_cost(bom):
 	new_bom_unitcost = frappe.db.sql("""SELECT `total_cost`/`quantity`
@@ -38,6 +44,29 @@ def is_item_has_bom(item):
 		return bom[0].name
 	else:
 		return None
+
+# def get_exploded_items(bom):
+# 	exploded_items = frappe.db.get("BOM Explosion Item", filters={
+# 		'parent': bom
+# 		}
+# 	)
+# 	return exploded_items
+
+def update_exploded_items(bom):
+	master_bom =  frappe.get_doc("BOM", bom)
+	for item in master_bom.items:
+		bom_to = is_item_has_bom(item.item_code)
+		print(bom_to)
+		exploded_items = frappe.db.get("BOM Explosion Item", filters={
+			'parent': bom_to
+			}
+		)
+
+		for items in master_bom.exploded_items:
+			print(exploded_items)
+			frappe.db.sql("""update `tabBOM Explosion Item` set item_code=%s,
+				item_name=%s, description=%s, stock_qty=%s, qty_consumed_per_unit=%s, rate=%s, amount=%s where name = %s and docstatus < 2 and parenttype='BOM'""",
+				(exploded_items.item_code, exploded_items.item_name, exploded_items.description, exploded_items.stock_qty , exploded_items.qty_consumed_per_unit, exploded_items.rate, exploded_items.amount, items.name))
 
 @frappe.whitelist()
 def update_bom_default_active(bom):
