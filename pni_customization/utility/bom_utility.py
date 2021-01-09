@@ -57,16 +57,19 @@ def update_exploded_items(bom):
 	for item in master_bom.items:
 		bom_to = is_item_has_bom(item.item_code)
 		print(bom_to)
-		exploded_items = frappe.db.get("BOM Explosion Item", filters={
-			'parent': bom_to
-			}
-		)
+	exploded_items = frappe.db.get("BOM Explosion Item", filters={
+		'parent': bom_to
+		}
+	)
 
-		for items in master_bom.exploded_items:
-			print(exploded_items)
+	for items in master_bom.exploded_items:
+		print(exploded_items)
+		if exploded_items != None:
 			frappe.db.sql("""update `tabBOM Explosion Item` set item_code=%s,
 				item_name=%s, description=%s, stock_qty=%s, qty_consumed_per_unit=%s, rate=%s, amount=%s where name = %s and docstatus < 2 and parenttype='BOM'""",
 				(exploded_items.item_code, exploded_items.item_name, exploded_items.description, exploded_items.stock_qty , exploded_items.qty_consumed_per_unit, exploded_items.rate, exploded_items.amount, items.name))
+		else:
+			return "BOM has no Exploded Items."
 
 @frappe.whitelist()
 def update_bom_default_active(bom):
