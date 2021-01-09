@@ -8,15 +8,15 @@ def employee_validate(doc,method):
 	else:
 		if doc.status != "Left" and not doc.skip_workflow_validation:
 			doc.status = "Temporary Leave"
-	if not doc.skip_restriction and not doc.job_applicant:
+	if not doc.skip_restriction and not doc.job_application:
 		valid = False
-		msg += "JOB Applicant is Mandatory, "
+		msg += "JOB Applicantaion is Mandatory, "
 	
 	if not doc.skip_restriction and not doc.employee_onboarding_process:
 		valid = False
 		msg += "Employee OnBoarding Process is Mandatory, "
 	
-	if not is_leave_allocatted(doc) and not doc.skip_restriction:
+	if not is_leave_allocatted(doc) and not doc.skip_restriction and not doc.leave_allocation_not_applicable:
 		if doc.workflow_state == "Pending For Approval":
 			valid = False
 			msg += "Leave Allocation Pending, "
