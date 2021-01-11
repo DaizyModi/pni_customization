@@ -1,0 +1,19 @@
+{
+ "content": null,
+ "creation": "2021-01-08 19:07:02.495189",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2021-01-08 19:11:02.305220",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "pni-dashboard-v2",
+ "owner": "Administrator",
+ "page_name": "pni-dashboard-v2",
+ "roles": [],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "PNI Dashboard"
+}

@@ -34,7 +34,7 @@ fixtures = [
 					"j_city","j_area","j_brancharea","j_dncmobile","j_dncphone","j_company", "j_pincode",
 					"j_time","j_branchpin", "j_parentid","pni_sales_order_item","item_filter",
 					"add_pni_bag", "weight_filter", "section_pni_settings", "section_pni_packing_table", 
-					"pni_clm_brk","is_paper_cup","base_uom_rate", "pni_item_code",
+					"pni_clm_brk","is_paper_cup", "pni_item_code",
 					"approve_law_rate__","need_approval","tear_weight", "unit_price_pni",
 					"pni_rejected_qty", "pni_rework_qty", "pni_carton_in_section",
 					"pni_carton_in", "pni_packing_carton", "carton_item", "pni_carton_out_data",
@@ -137,7 +137,7 @@ app_include_css = "assets/pni_customization/css/custom.css"
 # web_include_js = "/assets/pni_customization/js/pni_customization.js"
 
 # include js in page
-# page_js = {"page" : "public/js/file.js"}
+page_js = {"dashboard" : "public/js/page_custom.js"}
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
