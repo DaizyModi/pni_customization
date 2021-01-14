@@ -100,6 +100,13 @@ def get_data():
 				},
 				{
 					"type": "report",
+					"name": "Machine Helper Payment",
+					"description": _("Machine Helper Payment"),
+					"is_query_report": True,
+					"reference_doctype": "PNI Packing",
+				},
+				{
+					"type": "report",
 					"name": "Item Price List Report",
 					"description": _("Item Price List Report"),
 					"is_query_report": True,
