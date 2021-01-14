@@ -38,6 +38,8 @@
   "total_net_weight",
   "column_break_11",
   "total_stock",
+  "rate",
+  "total_pay",
   "amended_from",
   "production_details_section",
   "pni_packing",
@@ -289,10 +291,21 @@
    "fieldname": "shift_first_carton",
    "fieldtype": "Check",
    "label": "Shift First Carton"
+  },
+  {
+   "fetch_from": "workstation.pni_rate",
+   "fieldname": "rate",
+   "fieldtype": "Float",
+   "label": "Rate"
+  },
+  {
+   "fieldname": "total_pay",
+   "fieldtype": "Float",
+   "label": "Total Pay"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-10-12 14:25:15.899189",
+ "modified": "2021-01-14 18:08:21.808359",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

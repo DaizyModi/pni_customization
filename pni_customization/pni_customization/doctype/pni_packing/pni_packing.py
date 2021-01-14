@@ -22,6 +22,8 @@ class PNIPacking(Document):
 		self.calculate_total_stock()
 		self.set_machine_helper()
 		self.first_carton()
+
+		self.total_pay = float(self.total_stock) * float(self.rate)
 	
 	def first_carton(self):
 		self.total_shift_stock = float(self.total_stock) + float(self.loose_stock) - float(self.last_shift_loose_stock)

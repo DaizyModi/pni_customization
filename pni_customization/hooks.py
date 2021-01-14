@@ -49,7 +49,7 @@ fixtures = [
 					"repair_job_work_transfer_entry","stock_entry_data","pnicbc2",
 					"pni_address","pni_address_display","reference_name","job_application",
 					"employee_onboarding_process","skip_workflow_validation","pni_gate_entry",
-					"leave_allocation_not_applicable"
+					"leave_allocation_not_applicable", "pni_rate"
 				)
 			]
 		]
