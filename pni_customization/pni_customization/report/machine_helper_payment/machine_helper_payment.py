@@ -64,7 +64,7 @@ def get_data(filters=None):
 			workstation_head,
 			machine_helper,
 			sum(total_shift_stock),
-			sum(total_pay)
+			sum(total_shift_stock * rate)
 		from
 			`tabPNI Packing`
 		where

@@ -39,7 +39,6 @@
   "column_break_11",
   "total_stock",
   "rate",
-  "total_pay",
   "amended_from",
   "production_details_section",
   "pni_packing",
@@ -297,15 +296,10 @@
    "fieldname": "rate",
    "fieldtype": "Float",
    "label": "Rate"
-  },
-  {
-   "fieldname": "total_pay",
-   "fieldtype": "Float",
-   "label": "Total Pay"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-14 18:08:21.808359",
+ "modified": "2021-01-14 19:02:17.619672",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
