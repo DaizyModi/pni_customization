@@ -63,7 +63,7 @@ def get_data(filters=None):
 		select 
 			workstation_head,
 			machine_helper,
-			sum(total_stock),
+			sum(total_shift_stock),
 			sum(total_pay)
 		from
 			`tabPNI Packing`
