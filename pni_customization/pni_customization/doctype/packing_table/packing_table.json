@@ -4,27 +4,35 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "person_type",
   "employee",
   "emaployee_name",
+  "item",
   "packing_category",
+  "packing_rate",
   "bag_size",
-  "bag"
+  "bag",
+  "paying_amount"
  ],
  "fields": [
   {
+   "columns": 1,
    "fieldname": "employee",
-   "fieldtype": "Link",
+   "fieldtype": "Dynamic Link",
    "in_list_view": 1,
    "label": "Employee",
-   "options": "Employee"
+   "options": "person_type",
+   "reqd": 1
   },
   {
+   "columns": 1,
    "fieldname": "bag",
    "fieldtype": "Int",
    "in_list_view": 1,
    "label": "Nos"
   },
   {
+   "columns": 2,
    "fetch_from": "employee.employee_name",
    "fieldname": "emaployee_name",
    "fieldtype": "Data",
@@ -33,21 +41,54 @@
    "read_only": 1
   },
   {
+   "columns": 2,
    "fieldname": "bag_size",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Packing Size"
   },
   {
+   "columns": 1,
    "fieldname": "packing_category",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Packing Category",
    "options": "Packing Category"
+  },
+  {
+   "fetch_from": "packing_category.packing_rate",
+   "fieldname": "packing_rate",
+   "fieldtype": "Float",
+   "label": "Packing Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "paying_amount",
+   "fieldtype": "Float",
+   "label": "Paying Amount",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "default": "Worker",
+   "fieldname": "person_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Person Type",
+   "options": "Employee\nWorker"
+  },
+  {
+   "columns": 2,
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
   }
  ],
  "istable": 1,
- "modified": "2020-04-08 21:24:11.228978",
+ "modified": "2021-01-15 16:47:28.545228",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Packing Table",

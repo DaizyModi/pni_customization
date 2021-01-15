@@ -9,6 +9,7 @@
   "naming_series",
   "status",
   "company",
+  "skip_table_consumption",
   "column_break_4",
   "date",
   "time",
@@ -106,12 +107,12 @@
    "label": "Packing Note"
   },
   {
+   "depends_on": "eval: !doc.skip_table_consumption",
    "fieldname": "table_details_section",
    "fieldtype": "Section Break",
    "label": "Table Details"
   },
   {
-   "fetch_from": "punch_table.item",
    "fieldname": "item",
    "fieldtype": "Link",
    "label": "Item",
@@ -262,10 +263,16 @@
    "fieldtype": "Table",
    "label": "Half Punch Table",
    "options": "Half Punch Table"
+  },
+  {
+   "default": "0",
+   "fieldname": "skip_table_consumption",
+   "fieldtype": "Check",
+   "label": "Skip Table Consumption"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-11-23 17:54:02.265173",
+ "modified": "2021-01-15 16:49:46.809791",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Packing",

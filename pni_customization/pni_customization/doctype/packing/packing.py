@@ -36,6 +36,7 @@ class Packing(Document):
 			if data.bag_size and data.bag:
 				bag += int(data.bag)
 				total_weight += float(data.bag_size) * float(data.bag)
+			data.paying_amount = float(data.packing_rate) * float(data.bag)
 		self.total_bag = bag
 		self.total_weight = total_weight
 
@@ -99,7 +100,7 @@ class Packing(Document):
 		for item in self.packing_table:
 			if not item.employee:
 				frappe.throw("Employee is Compulsory")
-		if not self.table_in:
+		if not self.table_in and not self.skip_table_consumption:
 			frappe.throw("Punch Table is Compulsory")
 		for table in self.pni_punch_table:
 			punch_table = frappe.get_doc("Punch Table",table.punch_table)
@@ -195,18 +196,19 @@ class Packing(Document):
 		qty_of_total_production = float(qty_of_total_production) + self.total_weight
 
 		#add Stock Entry Items for produced goods and scrap
-		se = self.set_se_items(
-			se, 
-			self.item, 
-			None, 
-			se.to_warehouse, 
-			True, 
-			qty_of_total_production, 
-			total_sale_value, 
-			production_cost, 
-			table_out = True,
-			qty = self.total_weight
-		)
+		for raw in self.packing_table:
+			se = self.set_se_items(
+				se, 
+				raw.item, 
+				None, 
+				se.to_warehouse, 
+				True, 
+				qty_of_total_production, 
+				total_sale_value, 
+				production_cost, 
+				table_out = True,
+				qty = float(self.bag_size * self.bag)
+			)
 
 		for data in self.half_punch_table:
 			se = self.set_se_items(
