@@ -116,7 +116,7 @@ class Packing(Document):
 						"doctype": "PNI Bag",
 						"status": "In Stock",
 						"posting_date": self.date,
-						"item": self.item,
+						"item": row.item,
 						"punching_die": self.punching_die,
 						"packing_category": row.packing_category,
 						"supplier_reel_id": self.supplier_reel_id,
@@ -207,7 +207,7 @@ class Packing(Document):
 				total_sale_value, 
 				production_cost, 
 				table_out = True,
-				qty = float(self.bag_size * self.bag)
+				qty = float(raw.bag_size * raw.bag)
 			)
 
 		for data in self.half_punch_table:
