@@ -72,3 +72,9 @@ def get_data(filters=None):
 		group by 
 			machine_helper;
     """.format(conditions))
+
+"""
+SET SQL_SAFE_UPDATES = 0;
+update `tabPNI Packing` as packing, `tabWorkstation` as workstation set packing.rate = workstation.pni_rate where packing.workstation = workstation.name and packing.name <> "" and workstation.name <> "";
+SET SQL_SAFE_UPDATES = 1;
+"""
