@@ -150,7 +150,8 @@ class Packing(Document):
 			bag_doc = frappe.get_doc("PNI Bag",bag.name)
 			bag_doc.status = "Cancel"
 			bag_doc.save()
-			bag_doc.cancel()	
+			bag_doc.cancel()
+			bag_doc.delete()	
 			self.cancel_reel_tracking(bag_doc.name)
 		
 		for data in self.half_punch_table:
