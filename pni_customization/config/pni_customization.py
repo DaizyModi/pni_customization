@@ -43,6 +43,11 @@ def get_data():
 				},
 				{
 					"type": "doctype",
+					"name": "Workstation Price Update Tool",
+					"description": _("Workstation Price Update Tool"),
+				},
+				{
+					"type": "doctype",
 					"name": "Brand Pricing Update Tool",
 					"description": _("Brand Pricing Update Tool"),
 				},
