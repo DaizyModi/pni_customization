@@ -7,7 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "category_name",
-  "packing_rate"
+  "packing_rate",
+  "special_packing_rate"
  ],
  "fields": [
   {
@@ -22,9 +23,14 @@
    "fieldname": "packing_rate",
    "fieldtype": "Float",
    "label": "Packing Rate"
+  },
+  {
+   "fieldname": "special_packing_rate",
+   "fieldtype": "Float",
+   "label": "Special Packing Rate"
   }
  ],
- "modified": "2021-01-15 15:59:14.681646",
+ "modified": "2021-01-15 19:15:36.621283",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Packing Category",

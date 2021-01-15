@@ -36,7 +36,14 @@ class Packing(Document):
 			if data.bag_size and data.bag:
 				bag += int(data.bag)
 				total_weight += float(data.bag_size) * float(data.bag)
-			data.paying_amount = float(data.packing_rate) * float(data.bag)
+			if data.employee == "WRK-000002":
+				data.packing_rate = frappe.get_value("Packing Category", data.packing_category, "special_packing_rate")
+			if data.packing_category == "Loose":
+				data.paying_amount = float(data.packing_rate) * float(data.bag_size)
+				if data.paying_amount > 23:
+					data.paying_amount = 23
+			else:
+				data.paying_amount = float(data.packing_rate) * float(data.bag)
 		self.total_bag = bag
 		self.total_weight = total_weight
 
