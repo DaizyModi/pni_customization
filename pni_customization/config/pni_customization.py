@@ -119,6 +119,13 @@ def get_data():
 				},
 				{
 					"type": "report",
+					"name": "Blank Production Report",
+					"description": _("Blank Production Report"),
+					"is_query_report": True,
+					"reference_doctype": "PNI Packing",
+				},
+				{
+					"type": "report",
 					"name": "Item Price List Report",
 					"description": _("Item Price List Report"),
 					"is_query_report": True,
