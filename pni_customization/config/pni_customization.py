@@ -112,6 +112,13 @@ def get_data():
 				},
 				{
 					"type": "report",
+					"name": "Packing Payment Reort",
+					"description": _("Packing Payment Report"),
+					"is_query_report": True,
+					"reference_doctype": "PNI Packing",
+				},
+				{
+					"type": "report",
 					"name": "Item Price List Report",
 					"description": _("Item Price List Report"),
 					"is_query_report": True,
@@ -207,6 +214,11 @@ def get_data():
 					"type": "doctype",
 					"name": "Punching",
 					"description": _("Punching Master"),
+				},
+				{
+					"type": "doctype",
+					"name": "Packing",
+					"description": _("Packing"),
 				},
 				{
 					"type": "doctype",

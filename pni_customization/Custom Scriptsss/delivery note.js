@@ -48,7 +48,7 @@ frappe.ui.form.on('Delivery Note', {
 			}
 		})
 		if(frm.doc.is_return && frm.doc.__islocal){
-			frm.set_value("naming_series","MAT-CRN-.YYYY.-");
+			frm.set_value("naming_series","MAT-CRN-.2020.-");
 		}
 		const doc = frm.doc;
 		debugger;
@@ -69,12 +69,27 @@ frappe.ui.form.on('Delivery Note', {
 				}
 			})
 		}
+		if( (cur_frm.doc.naming_series == "FOC-DN-.2020-" || cur_frm.doc.naming_series == "FOC-DN-.YYYY.-") && cur_frm.doc.status!="Closed"){
+			status = "Closed"
+			frappe.ui.form.is_saving = true;
+			frappe.call({
+				method:"erpnext.stock.doctype.delivery_note.delivery_note.update_delivery_note_status",
+				args: {docname: frm.doc.name, status: status},
+				callback: function(r){
+					if(!r.exc)
+						frm.reload_doc();
+				},
+				always: function(){
+					frappe.ui.form.is_saving = false;
+				}
+			})
+		}
 	},
 	is_foc(frm) {
 		if(frm.doc.is_foc){
-			frm.set_value("naming_series","FOC-DN-.YYYY.-");
+			frm.set_value("naming_series","FOC-DN-.2020-");
 		}else{
-			frm.set_value("naming_series","MAT-DN-.YYYY.-")
+			frm.set_value("naming_series","MAT-DN-.2020-")
 		}
 	},
 	payment_terms_template: function(frm) {
