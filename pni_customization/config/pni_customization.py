@@ -112,7 +112,7 @@ def get_data():
 				},
 				{
 					"type": "report",
-					"name": "Packing Payment Reort",
+					"name": "Packing Payment Report",
 					"description": _("Packing Payment Report"),
 					"is_query_report": True,
 					"reference_doctype": "PNI Packing",
