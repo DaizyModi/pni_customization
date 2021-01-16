@@ -6,7 +6,9 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "category_name"
+  "category_name",
+  "packing_rate",
+  "special_packing_rate"
  ],
  "fields": [
   {
@@ -16,9 +18,19 @@
    "label": "Category Name",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "packing_rate",
+   "fieldtype": "Float",
+   "label": "Packing Rate"
+  },
+  {
+   "fieldname": "special_packing_rate",
+   "fieldtype": "Float",
+   "label": "Special Packing Rate"
   }
  ],
- "modified": "2020-04-08 21:24:11.786440",
+ "modified": "2021-01-15 19:15:36.621283",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Packing Category",

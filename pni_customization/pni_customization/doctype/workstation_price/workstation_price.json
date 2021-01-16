@@ -1,0 +1,36 @@
+{
+ "creation": "2021-01-15 11:54:34.601583",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "workstation",
+  "pni_rate"
+ ],
+ "fields": [
+  {
+   "fieldname": "workstation",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Workstation",
+   "options": "Workstation"
+  },
+  {
+   "fieldname": "pni_rate",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Employee PayI Rate"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-01-15 12:51:52.525851",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Workstation Price",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

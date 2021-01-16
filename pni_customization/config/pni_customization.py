@@ -43,6 +43,11 @@ def get_data():
 				},
 				{
 					"type": "doctype",
+					"name": "Workstation Price Update Tool",
+					"description": _("Workstation Price Update Tool"),
+				},
+				{
+					"type": "doctype",
 					"name": "Brand Pricing Update Tool",
 					"description": _("Brand Pricing Update Tool"),
 				},
@@ -95,6 +100,20 @@ def get_data():
 					"type": "report",
 					"name": "Workstation Scrap",
 					"description": _("Workstation Scrap"),
+					"is_query_report": True,
+					"reference_doctype": "PNI Packing",
+				},
+				{
+					"type": "report",
+					"name": "Machine Helper Payment",
+					"description": _("Machine Helper Payment"),
+					"is_query_report": True,
+					"reference_doctype": "PNI Packing",
+				},
+				{
+					"type": "report",
+					"name": "Packing Payment Reort",
+					"description": _("Packing Payment Report"),
 					"is_query_report": True,
 					"reference_doctype": "PNI Packing",
 				},
@@ -195,6 +214,11 @@ def get_data():
 					"type": "doctype",
 					"name": "Punching",
 					"description": _("Punching Master"),
+				},
+				{
+					"type": "doctype",
+					"name": "Packing",
+					"description": _("Packing"),
 				},
 				{
 					"type": "doctype",

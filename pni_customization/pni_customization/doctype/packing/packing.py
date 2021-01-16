@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import get_datetime, time_diff_in_hours
+from frappe.utils import get_datetime, time_diff_in_hours, flt
 
 class Packing(Document):
 	def validate(self):
@@ -36,6 +36,14 @@ class Packing(Document):
 			if data.bag_size and data.bag:
 				bag += int(data.bag)
 				total_weight += float(data.bag_size) * float(data.bag)
+			if data.employee == "WRK-000002":
+				data.packing_rate = frappe.get_value("Packing Category", data.packing_category, "special_packing_rate")
+			if data.packing_category == "Loose":
+				data.paying_amount = float(data.packing_rate) * float(data.bag_size)
+				if data.paying_amount > 23:
+					data.paying_amount = 23
+			else:
+				data.paying_amount = float(data.packing_rate) * float(data.bag)
 		self.total_bag = bag
 		self.total_weight = total_weight
 
@@ -92,14 +100,38 @@ class Packing(Document):
 			"process_reference": self.name
 		})
 		doc.insert(ignore_permissions=True)
+	
+	def get_valuation_rate(self, item):
+		""" Get weighted average of valuation rate from all warehouses """
 
+		total_qty, total_value, valuation_rate = 0.0, 0.0, 0.0
+		for d in frappe.db.sql("""select actual_qty, stock_value from `tabBin`
+			where item_code=%s""", item, as_dict=1):
+				total_qty += flt(d.actual_qty)
+				total_value += flt(d.stock_value)
+
+		if total_qty:
+			valuation_rate =  total_value / total_qty
+
+		if valuation_rate <= 0:
+			last_valuation_rate = frappe.db.sql("""select valuation_rate
+				from `tabStock Ledger Entry`
+				where item_code = %s and valuation_rate > 0
+				order by posting_date desc, posting_time desc, creation desc limit 1""", item)
+
+			valuation_rate = flt(last_valuation_rate[0][0]) if last_valuation_rate else 0
+
+		if not valuation_rate:
+			valuation_rate = frappe.db.get_value("Item", item, "valuation_rate")
+
+		return flt(valuation_rate)
 	def on_submit(self):
 		# if (not self.end_dt) or (not self.end_dt):
 		# 	frappe.throw("Please Select Operation Start and End Time")
 		for item in self.packing_table:
 			if not item.employee:
 				frappe.throw("Employee is Compulsory")
-		if not self.table_in:
+		if not self.table_in and not self.skip_table_consumption:
 			frappe.throw("Punch Table is Compulsory")
 		for table in self.pni_punch_table:
 			punch_table = frappe.get_doc("Punch Table",table.punch_table)
@@ -115,7 +147,7 @@ class Packing(Document):
 						"doctype": "PNI Bag",
 						"status": "In Stock",
 						"posting_date": self.date,
-						"item": self.item,
+						"item": row.item,
 						"punching_die": self.punching_die,
 						"packing_category": row.packing_category,
 						"supplier_reel_id": self.supplier_reel_id,
@@ -149,7 +181,8 @@ class Packing(Document):
 			bag_doc = frappe.get_doc("PNI Bag",bag.name)
 			bag_doc.status = "Cancel"
 			bag_doc.save()
-			bag_doc.cancel()	
+			bag_doc.cancel()
+			bag_doc.delete()	
 			self.cancel_reel_tracking(bag_doc.name)
 		
 		for data in self.half_punch_table:
@@ -195,18 +228,19 @@ class Packing(Document):
 		qty_of_total_production = float(qty_of_total_production) + self.total_weight
 
 		#add Stock Entry Items for produced goods and scrap
-		se = self.set_se_items(
-			se, 
-			self.item, 
-			None, 
-			se.to_warehouse, 
-			True, 
-			qty_of_total_production, 
-			total_sale_value, 
-			production_cost, 
-			table_out = True,
-			qty = self.total_weight
-		)
+		for raw in self.packing_table:
+			se = self.set_se_items(
+				se, 
+				raw.item, 
+				None, 
+				se.to_warehouse, 
+				True, 
+				qty_of_total_production, 
+				total_sale_value, 
+				production_cost, 
+				table_out = True,
+				qty = float(raw.bag_size * raw.bag)
+			)
 
 		for data in self.half_punch_table:
 			se = self.set_se_items(
