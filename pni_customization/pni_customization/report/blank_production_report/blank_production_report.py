@@ -31,7 +31,7 @@ def get_columns():
 		{
             "fieldname": "packing_category",
             "label": _("Packing Category"),
-            "fieldtype": "Float",
+            "fieldtype": "Data",
             "width": 150,
 			"precision":4
         },
