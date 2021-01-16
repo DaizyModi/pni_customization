@@ -138,3 +138,9 @@ def include_item_in_manufacturing(bom):
 	for item in bom.items:
 		frappe.db.set_value("BOM Item", item.name, "include_item_in_manufacturing", True)
 	return "Success"
+
+@frappe.whitelist()
+def get_items(name):
+	items = frappe.get_all('Items', filters={'parent':name}, fields=['item_code','item_name'])
+	print(items)
+	return items
