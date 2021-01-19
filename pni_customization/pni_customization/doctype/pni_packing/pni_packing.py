@@ -135,8 +135,9 @@ class PNIPacking(Document):
 		frappe.db.set(self, 'status', 'Cancelled')
 
 		for data in self.carton_data:
-			doc = frappe.get_doc("PNI Carton",data.carton_id)
-			if doc:
+			crt = frappe.db.get_value("PNI Carton", data.carton_id, "name")		
+			if crt:
+				doc = frappe.get_doc("PNI Carton",data.carton_id)
 				doc.cancel()
 				doc.delete()
 		if self.pni_packing:
