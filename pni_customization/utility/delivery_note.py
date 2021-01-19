@@ -101,4 +101,8 @@ def validate(doc, method):
 				be added for customer {0} total anual invoice {1} 
 				is more then 50,00,000 INR
 			""".format(doc.customer,info[0]['billing_this_year']))
-
+	for raw in doc.items:
+		if raw.against_sales_order:
+			rate_in_so =  frappe.db.get_value("Sales Order Item",{ "parent":raw.against_sales_order, "item_code": raw.item_code },"rate")
+			if flt(rate_in_so) != flt(raw.rate):
+				frappe.throw(" Sales Order Rate for {0} {1} is different from delivery note rate {2} ".format(raw.item_code, rate_in_so, raw.rate))
