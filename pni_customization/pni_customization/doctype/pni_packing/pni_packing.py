@@ -24,12 +24,38 @@ class PNIPacking(Document):
 		self.first_carton()
 	
 	def first_carton(self):
+		if not self.total_stock:
+			self.total_stock = 0
+		if not self.loose_stock:
+			self.loose_stock = 0
+		if not self.last_shift_loose_stock:
+			self.last_shift_loose_stock = 0
 		self.total_shift_stock = float(self.total_stock) + float(self.loose_stock) - float(self.last_shift_loose_stock)
 		if self.pni_packing == self.name:
 			frappe.throw("Can't be "+ self.pni_packing)
-		# if self.shift_first_carton:
-		# 	self.pni_packing = self.get_last_carton()
-	
+		if self.shift_first_carton:
+			if not self.pni_packing:
+				self.pni_packing = self.create_packing()
+		if self.pni_packing:
+			packing =  frappe.get_doc("PNI Packing",self.pni_packing)
+			packing.workstation = self.workstation
+			packing.item = self.item
+			packing.to_warehouse = self.to_warehouse
+			packing.packing_unit = self.packing_unit
+			packing.conversation_factor = self.conversation_factor
+			packing.save()
+
+	def create_packing(self):
+		packing = frappe.get_doc({
+			"doctype": "PNI Packing",
+			"workstation": self.workstation,
+			"item": self.item,
+			"to_warehouse": self.to_warehouse,
+			"packing_unit": self.packing_unit,
+			"conversation_factor": self.conversation_factor
+		})
+		packing.insert()
+		return packing.name
 	# def get_last_carton(self):
 	# 	'''Returns last carton if exists'''
 	# 	last_carton = frappe.get_all('PNI Packing', 'name',{"workstation": self.workstation},order_by='creation desc', limit=2)

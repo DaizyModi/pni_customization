@@ -41,6 +41,7 @@
   "rate",
   "amended_from",
   "production_details_section",
+  "loose_stock_employee",
   "pni_packing",
   "last_shift_loose_stock",
   "column_break_35",
@@ -63,7 +64,7 @@
   },
   {
    "fieldname": "total_stock",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Total Stock",
    "read_only": 1
   },
@@ -271,7 +272,8 @@
    "fieldname": "pni_packing",
    "fieldtype": "Link",
    "label": "PNI Packing",
-   "options": "PNI Packing"
+   "options": "PNI Packing",
+   "read_only": 1
   },
   {
    "fieldname": "last_shift_loose_stock",
@@ -296,10 +298,16 @@
    "fieldname": "rate",
    "fieldtype": "Float",
    "label": "Rate"
+  },
+  {
+   "fieldname": "loose_stock_employee",
+   "fieldtype": "Link",
+   "label": "Loose Stock Employee",
+   "options": "Employee"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-14 19:02:17.619672",
+ "modified": "2021-01-19 11:39:56.204599",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
