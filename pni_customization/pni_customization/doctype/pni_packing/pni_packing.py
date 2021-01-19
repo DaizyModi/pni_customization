@@ -71,12 +71,15 @@ class PNIPacking(Document):
 		packing.total_shift_stock = float(packing.total_stock) + float(packing.loose_stock) - float(packing.last_shift_loose_stock)
 		packing.save()
 	def set_machine_helper(self):
-		helper = ""
+		helper_id = helper = ""
 		if self.shift == "Day":
 			helper = frappe.get_value("Workstation", self.workstation, "workstation_helper_name")
+			helper_id = frappe.get_value("Workstation", self.workstation, "workstation_helper")
 		else:
 			helper = frappe.get_value("Workstation", self.workstation, "workstation_helper_name_night_shift")
+			helper_id = frappe.get_value("Workstation", self.workstation, "workstation_helper_night_shift")
 		self.machine_helper = helper
+		self.machine_helper_id = helper_id
 
 	def update_employee(self):
 		for row in self.employee:
