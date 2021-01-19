@@ -171,6 +171,28 @@ frappe.ui.form.on('BOM', {
 				}
 			})
 		})	
+	},
+	bom_item_group: function(frm){
+		console.log("Hello")
+		frappe.call({
+			method: 'pni_customization.utility.bom_utility.get_items',
+			args: {
+				name: frm.doc.bom_item_group,
+				bom: frm.doc.name
+			},
+			callback: function(r){
+				var len = r.message.length;
+				console.log(r.message)
+				frm.clear_table("items");
+				for(var i=0; i<len;i++){
+					var row = frappe.model.add_child(frm.doc,'BOM' , 'items');
+					console.log(r.message[i].item_code)
+					row.item_code = r.message[i].item_code;
+					row.item_name = r.message[i].item_name;
+				}
+				frm.refresh_field('items');
+			}
+		})
 	}
 });
 
