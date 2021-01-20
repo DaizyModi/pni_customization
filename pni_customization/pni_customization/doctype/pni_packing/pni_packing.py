@@ -74,6 +74,7 @@ class PNIPacking(Document):
 		packing.loose_stock = float(self.last_shift_loose_stock)
 		packing.total_shift_stock = float(packing.total_stock) + float(packing.loose_stock) - float(packing.last_shift_loose_stock)
 		packing.save()
+		packing.submit()
 	def update_can_packing(self):
 		packing =  frappe.get_doc("PNI Packing", self.pni_packing)
 		packing.loose_stock = 0
