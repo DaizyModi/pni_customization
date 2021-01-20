@@ -20,7 +20,8 @@ class PNIPacking(Document):
 		# self.update_packing()
 
 		self.calculate_total_stock()
-		self.set_machine_helper()
+		if not self.loose_entry:
+			self.set_machine_helper()
 		self.first_carton()
 	
 	def first_carton(self):
@@ -30,12 +31,16 @@ class PNIPacking(Document):
 			self.loose_stock = 0
 		if not self.last_shift_loose_stock:
 			self.last_shift_loose_stock = 0
+		
 		self.total_shift_stock = float(self.total_stock) + float(self.loose_stock) - float(self.last_shift_loose_stock)
+		
 		if self.pni_packing == self.name:
 			frappe.throw("Can't be "+ self.pni_packing)
+		
 		if self.shift_first_carton:
 			if not self.pni_packing:
 				self.pni_packing = self.create_packing()
+		
 		if self.pni_packing:
 			packing =  frappe.get_doc("PNI Packing",self.pni_packing)
 			packing.workstation = self.workstation
@@ -43,6 +48,8 @@ class PNIPacking(Document):
 			packing.to_warehouse = self.to_warehouse
 			packing.packing_unit = self.packing_unit
 			packing.conversation_factor = self.conversation_factor
+			packing.machine_helper = frappe.get_value("Employee", self.loose_stock_employee, "employee_name")
+			packing.machine_helper_id = self.loose_stock_employee
 			packing.save()
 
 	def create_packing(self):
@@ -50,6 +57,7 @@ class PNIPacking(Document):
 			"doctype": "PNI Packing",
 			"workstation": self.workstation,
 			"item": self.item,
+			"loose_entry": True,
 			"to_warehouse": self.to_warehouse,
 			"packing_unit": self.packing_unit,
 			"conversation_factor": self.conversation_factor

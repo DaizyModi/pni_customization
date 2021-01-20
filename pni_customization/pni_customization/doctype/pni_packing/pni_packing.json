@@ -10,6 +10,7 @@
   "item",
   "status",
   "shift_first_carton",
+  "loose_entry",
   "company",
   "is_paper_plate",
   "shift",
@@ -304,10 +305,17 @@
    "fieldtype": "Link",
    "label": "Loose Stock Employee",
    "options": "Employee"
+  },
+  {
+   "default": "0",
+   "fieldname": "loose_entry",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Loose Entry"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-19 11:39:56.204599",
+ "modified": "2021-01-20 11:15:58.616655",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
