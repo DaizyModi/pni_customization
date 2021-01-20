@@ -44,6 +44,9 @@ class Packing(Document):
 					data.paying_amount = 23
 			else:
 				data.paying_amount = float(data.packing_rate) * float(data.bag)
+			
+			if data.person_type == "Employee":
+				data.paying_amount = 0
 		self.total_bag = bag
 		self.total_weight = total_weight
 

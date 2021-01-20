@@ -46,6 +46,7 @@ frappe.ui.form.on('Packing', {
 					
 					data.message.pni_employee_table.forEach(function(data) {
 						var c = frm.add_child("packing_table");
+						c.person_type = data.person_type;
 						c.employee = data.employee;
 						c.emaployee_name = data.emaployee_name;
 					})
