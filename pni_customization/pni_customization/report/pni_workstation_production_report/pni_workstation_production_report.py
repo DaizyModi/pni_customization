@@ -25,6 +25,13 @@ def get_columns():
             "fieldtype": "Data",
         },
 		{
+            "fieldname": "machine_helper_id",
+            "label": _("Machine Helper ID"),
+            "fieldtype": "Link",
+			"options": "Employee",
+            "width": 150
+        },
+		{
             "fieldname": "machine_helper",
             "label": _("Machine Helper"),
             "fieldtype": "Data",
@@ -89,6 +96,7 @@ def get_data(filters=None):
 		select 
 			table1.parent_item, 
 			table1.workstation_head, 
+			table1.machine_helper_id, 
 			table1.machine_helper, 
 			table1.workstation,
 			table1.total_production,
@@ -99,6 +107,7 @@ def get_data(filters=None):
 				select 
 						item.variant_of as parent_item,
 						packing.workstation_head as workstation_head, 
+						packing.machine_helper_id as machine_helper_id, 
 						packing.machine_helper as machine_helper, 
 						packing.workstation as workstation, 
 						sum(packing.total_shift_stock) as total_production 

@@ -19,6 +19,13 @@ def get_columns():
             "fieldtype": "Data",
             "width": 150
         },
+		{
+            "fieldname": "machine_helper_id",
+            "label": _("Machine Helper ID"),
+            "fieldtype": "Link",
+			"options": "Employee",
+            "width": 150
+        },
         {
             "fieldname": "machine_helper",
             "label": _("Machine Helper"),
@@ -62,6 +69,7 @@ def get_data(filters=None):
 	return frappe.db.sql("""
 		select 
 			workstation_head,
+			machine_helper_id,
 			machine_helper,
 			sum(total_shift_stock),
 			sum(total_shift_stock * rate)
