@@ -92,7 +92,7 @@ def get_data(filters=None):
 		where
 			packing.docstatus = 1 and packing.name = packing_table.parent {0}
 		group by 
-			packing_table.bag_size, packing_table.employee, packing_table.item;
+			packing_table.packing_category, packing_table.bag_size, packing_table.employee, packing_table.item;
     """.format(conditions))
 
 """
