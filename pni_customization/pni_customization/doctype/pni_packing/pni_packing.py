@@ -154,7 +154,7 @@ class PNIPacking(Document):
 	def on_submit(self):
 		if self.pni_packing:
 			self.update_packing()
-		if not self.employee:
+		if not self.employee and not self.loose_entry:
 			frappe.throw("Employee Detail Can't be blank")
 		for data in self.carton_data:
 			if not data.weight:
