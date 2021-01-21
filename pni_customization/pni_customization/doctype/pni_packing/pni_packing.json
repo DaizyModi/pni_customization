@@ -132,6 +132,7 @@
    "options": "Employee Team Table"
   },
   {
+   "allow_on_submit": 1,
    "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
@@ -321,7 +322,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-21 16:22:52.839203",
+ "modified": "2021-01-21 19:08:26.169816",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",
