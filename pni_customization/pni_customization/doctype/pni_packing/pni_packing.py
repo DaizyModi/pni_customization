@@ -177,11 +177,7 @@ class PNIPacking(Document):
 			frappe.throw("Cannot cancel because submitted Stock Entry \
 			{0} exists".format(stock_entry[0][0]))
 		frappe.db.set(self, 'status', 'Cancelled')
-		if (self.shift_first_carton or self.helper_change) and self.pni_packing:
-			pni_packing = frappe.get_doc("PNI Packing", self.pni_packing)
-			if pni_packing.docstatus == 1:
-				pni_packing.cancel()
-			pni_packing.delete()
+		
 		for data in self.carton_data:
 			crt = frappe.db.get_value("PNI Carton", data.carton_id, "name")		
 			if crt:
@@ -190,6 +186,13 @@ class PNIPacking(Document):
 				doc.delete()
 		if self.pni_packing:
 			self.update_can_packing()
+		
+		if (self.shift_first_carton or self.helper_change) and self.pni_packing:
+			pni_packing = frappe.get_doc("PNI Packing", self.pni_packing)
+			if pni_packing.loose_entry:
+				if pni_packing.docstatus == 1:
+					pni_packing.cancel()
+				pni_packing.delete()
 	
 	def get_employee_list(self):
 		if self.select_employee_group:
