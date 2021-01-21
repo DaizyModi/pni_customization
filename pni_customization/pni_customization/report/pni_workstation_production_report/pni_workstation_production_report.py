@@ -27,8 +27,7 @@ def get_columns():
 		{
             "fieldname": "machine_helper_id",
             "label": _("Machine Helper ID"),
-            "fieldtype": "Link",
-			"options": "Employee",
+            "fieldtype": "Data",
             "width": 150
         },
 		{
