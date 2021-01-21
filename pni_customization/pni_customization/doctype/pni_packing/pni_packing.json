@@ -10,6 +10,7 @@
   "item",
   "status",
   "shift_first_carton",
+  "helper_change",
   "loose_entry",
   "company",
   "is_paper_plate",
@@ -311,10 +312,16 @@
    "fieldtype": "Check",
    "hidden": 1,
    "label": "Loose Entry"
+  },
+  {
+   "default": "0",
+   "fieldname": "helper_change",
+   "fieldtype": "Check",
+   "label": "Helper Change"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-20 17:10:23.803556",
+ "modified": "2021-01-21 15:00:46.526646",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

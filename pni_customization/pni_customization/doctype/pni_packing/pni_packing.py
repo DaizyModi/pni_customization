@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 from frappe.utils import get_datetime, time_diff_in_hours
-
+from frappe.utils import add_days, today
 
 class PNIPacking(Document):
 	def validate(self):
@@ -37,7 +37,7 @@ class PNIPacking(Document):
 		if self.pni_packing == self.name:
 			frappe.throw("Can't be "+ self.pni_packing)
 		
-		if self.shift_first_carton:
+		if self.shift_first_carton or self.helper_change:
 			if not self.pni_packing:
 				self.pni_packing = self.create_packing()
 		
@@ -45,7 +45,12 @@ class PNIPacking(Document):
 			packing =  frappe.get_doc("PNI Packing",self.pni_packing)
 			packing.workstation = self.workstation
 			packing.item = self.item
-			packing.shift = "Day" if self.shift == "Night" else "Night"
+			if self.helper_change:
+				packing.shift = self.shift
+			else:
+				packing.shift = "Day" if self.shift == "Night" else "Night"
+				if self.shift == "Day":
+					packing.date = add_days(today(), -1)
 			packing.to_warehouse = self.to_warehouse
 			packing.packing_unit = self.packing_unit
 			packing.conversation_factor = self.conversation_factor
@@ -172,7 +177,7 @@ class PNIPacking(Document):
 			frappe.throw("Cannot cancel because submitted Stock Entry \
 			{0} exists".format(stock_entry[0][0]))
 		frappe.db.set(self, 'status', 'Cancelled')
-		if self.shift_first_carton and self.pni_packing:
+		if (self.shift_first_carton or self.helper_change) and self.pni_packing:
 			pni_packing = frappe.get_doc("PNI Packing", self.pni_packing)
 			if pni_packing.docstatus == 1:
 				pni_packing.cancel()
