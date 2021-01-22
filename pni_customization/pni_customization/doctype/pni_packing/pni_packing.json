@@ -44,8 +44,9 @@
   "amended_from",
   "production_details_section",
   "loose_stock_employee",
-  "pni_packing",
   "last_shift_loose_stock",
+  "details_section",
+  "pni_packing",
   "column_break_35",
   "loose_stock",
   "total_shift_stock"
@@ -319,10 +320,15 @@
    "fieldname": "helper_change",
    "fieldtype": "Check",
    "label": "Helper Change"
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-21 19:08:26.169816",
+ "modified": "2021-01-22 12:27:24.859968",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Packing",

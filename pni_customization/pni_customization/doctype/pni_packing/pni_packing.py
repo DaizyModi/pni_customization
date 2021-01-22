@@ -45,12 +45,13 @@ class PNIPacking(Document):
 			packing =  frappe.get_doc("PNI Packing",self.pni_packing)
 			packing.workstation = self.workstation
 			packing.item = self.item
+			packing.date = self.date
 			if self.helper_change:
 				packing.shift = self.shift
 			else:
 				packing.shift = "Day" if self.shift == "Night" else "Night"
 				if self.shift == "Day":
-					packing.date = add_days(today(), -1)
+					packing.date = add_days(self.date, -1)
 			packing.to_warehouse = self.to_warehouse
 			packing.packing_unit = self.packing_unit
 			packing.conversation_factor = self.conversation_factor
