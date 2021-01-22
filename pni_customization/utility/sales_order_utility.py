@@ -12,4 +12,6 @@ def get_credit_details(customer, company):
 	outstanding = get_customer_outstanding(customer, company)
 	credit_limit = get_credit_limit(customer, company)
 	bal = credit_limit - outstanding
+	if bal< 0:
+		bal = 0
 	return {"outstanding":outstanding, "credit_limit":credit_limit, "bal": bal}
