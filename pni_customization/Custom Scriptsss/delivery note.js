@@ -44,7 +44,7 @@ frappe.ui.form.on('Delivery Note', {
 	refresh(frm){
 		frm.doc.items.forEach(function(element) {
 			if(element.price_list_rate>element.rate && element.price_list_rate > 0 && !element.approve_law_rate__){
-				frappe.msgprint("[Warning] Item "+element.item_code +"'s rate is lower then Item Price List");
+				//frappe.msgprint("[Warning] Item "+element.item_code +"'s rate is lower then Item Price List");
 			}
 		})
 		if(frm.doc.is_return && frm.doc.__islocal){
@@ -69,7 +69,7 @@ frappe.ui.form.on('Delivery Note', {
 				}
 			})
 		}
-		if( (cur_frm.doc.naming_series == "FOC-DN-.2020-" || cur_frm.doc.naming_series == "FOC-DN-.YYYY.-") && cur_frm.doc.status!="Closed"){
+		if( (cur_frm.doc.naming_series == "FOC-DN-.2020-" || cur_frm.doc.naming_series == "FOC-DN-.YYYY.-") && cur_frm.doc.status!="Closed" && !cur_frm.doc.__islocal && !cur_frm.doc.disable_auto_close){
 			status = "Closed"
 			frappe.ui.form.is_saving = true;
 			frappe.call({

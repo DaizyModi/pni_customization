@@ -62,6 +62,9 @@ website_context = {
 }
 
 doc_events = {
+	"BOM": {
+		"validate": "pni_customization.utility.bom_utility.validate_bom"
+    },
  	"Stock Entry": {
         # "on_submit": "pni_customization.utils.validate_inspection_for_work_order",
 		"validate": "pni_customization.utils.validate_stock_entry_item",

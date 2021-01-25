@@ -1,5 +1,18 @@
 frappe.ui.form.on('Purchase Order', {
 	refresh: function(frm) {
+
+		if( cur_frm.doc.workflow_state == "Short Closed" && cur_frm.doc.status!="Closed" && !cur_frm.doc.__islocal && !cur_frm.doc.disable_auto_close){
+			status = "Closed"
+			frappe.call({
+				method: "erpnext.buying.doctype.purchase_order.purchase_order.update_status",
+				args: {status: status, name: cur_frm.doc.name},
+				callback: function(r) {
+					cur_frm.set_value("status", status);
+					cur_frm.reload_doc();
+				}
+			})
+		}
+
 		if (frm.doc.workflow_state && cur_frm.doc.workflow_state == 'Rejected'){
 			var prompt_already_shown = true;
 			var comments = cur_frm.timeline.get_comments();
@@ -253,5 +266,27 @@ frappe.ui.form.on("Purchase Order Item",{
 				}
 			});
 		}
+	}
+});
+frappe.ui.form.on('Purchase Order', {
+ setup:function (frm) {
+		frm.set_query("tax_category", function () {
+		    return {
+			    filters: {
+			        title: ['in', ['Out State','In State','OUT OF INDIA',]],
+			    }
+			}
+		});
+	}
+})
+frappe.ui.form.on('Purchase Order Item', {
+	setup: function(frm) {
+		frm.set_query("item_code", function() {
+			return {
+				filters: [
+					["Item","workflow_state", "in", ["Checked","Approved","Old Item"]]
+				]
+			}
+		});
 	}
 });

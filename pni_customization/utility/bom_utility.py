@@ -8,6 +8,13 @@ def update_bom_with_new_bom(bom):
 	update_exploded_items(bom)
 	return "BOM has been updated with new one."
 
+def validate_bom(bom, method):
+	bom_list = []
+	for raw in bom.items:
+		if raw.item_code in bom_list:
+			frappe.throw("{0} Item listed multiple time ".format(raw.item_code))
+		else:
+			bom_list.append(raw.item_code)
 def update_list_new_bom(bom):
 	master_bom =  frappe.get_doc("BOM", bom)
 	for item in master_bom.items:
