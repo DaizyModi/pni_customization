@@ -17,5 +17,19 @@ frappe.ui.form.on('BOM', {
 				}
 			})
 		})
+		frm.add_custom_button(__('Update Item Name'), function(){
+		    frappe.call({
+				method: "pni_customization.utility.bom_utility.update_item_name",
+				args: {
+					bom: frm.doc.name
+				},
+				callback: function(r) {
+					if(r.message && !r.exc) {
+						frappe.msgprint("BOM Item Name Updated.")
+						frm.reload_doc()
+					}
+				}
+			})
+		})
 	}
 })

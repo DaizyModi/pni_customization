@@ -8,6 +8,20 @@ def update_bom_with_new_bom(bom):
 	update_exploded_items(bom)
 	return "BOM has been updated with new one."
 
+@frappe.whitelist()
+def update_item_name(bom):
+	bom_doc = frappe.get_doc("BOM", bom)
+	frappe.db.set_value("BOM", bom, "item_name", frappe.get_value("Item", bom_doc.item, "item_name"))
+	frappe.db.set_value("BOM", bom, "description", frappe.get_value("Item", bom_doc.item, "description"))
+	for raw in bom_doc.items:
+		frappe.db.set_value("BOM Item", raw.name, "item_name", frappe.get_value("Item", raw.item_code, "item_name"))
+		frappe.db.set_value("BOM Item", raw.name, "description", frappe.get_value("Item", raw.item_code, "description"))
+	for raw in bom_doc.exploded_items:
+		frappe.db.set_value("BOM Explosion Item", raw.name, "item_name", frappe.get_value("Item", raw.item_code, "item_name"))
+		frappe.db.set_value("BOM Explosion Item", raw.name, "description", frappe.get_value("Item", raw.item_code, "description"))
+	frappe.db.commit()
+	return "Done"
+
 def validate_bom(bom, method):
 	bom_list = []
 	for raw in bom.items:
