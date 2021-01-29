@@ -4,6 +4,7 @@ from frappe import _
 from frappe.utils import flt
 from pni_customization.pni_customization.doctype.pni_sales_order.pni_sales_order import update_delivery_pni_sales_order
 from pni_customization.pni_customization.doctype.pni_quality_inspection.pni_quality_inspection import update_work_order
+from pni_customization.utility.purchase_order_utility import validate_purchase_order
 
 def validate_item_price(doc, method):
 	if doc.brand and doc.selling and not doc.customer:
@@ -702,6 +703,7 @@ def manage_se_cancel(se, co):
 	co.save()
 
 def validate_po(doc, method):
+	validate_purchase_order(doc)
 	item_array_mr,item_array_po = {},{}
 	doc.same_price_purchase = True
 	total_qty, received_qty = 0.0, 0.0

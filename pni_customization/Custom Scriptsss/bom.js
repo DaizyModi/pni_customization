@@ -33,3 +33,14 @@ frappe.ui.form.on('BOM', {
 		})
 	}
 })
+frappe.ui.form.on("BOM", {
+	setup: function(frm) {
+		frm.set_query("item", function() {
+			return {
+				filters: [
+					["Item","workflow_state", "in", ["Checked","Approved","Old Item"]]
+				]
+			}
+		});
+	}
+});
