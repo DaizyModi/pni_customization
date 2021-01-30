@@ -17,11 +17,15 @@ def validate_purchase_order(po):
 
 def update_item():
 	pos = frappe.get_all("Purchase Order",{"docstatus": [ "in", ["1","0"]]})
+	frappe.db.commit()
 	for po in pos:
 		po_doc = frappe.get_doc("Purchase Order",po.name)
+		frappe.db.commit()
 		for item in po_doc.items:
 			item_po_details = frappe.get_value("Item Supplier",{"parent": item.item_code,"supplier":po_doc.supplier},"name")
+			frappe.db.commit()
 			if not item_po_details:
 				item_doc = frappe.get_doc("Item",item.item_code)
 				item_doc.append("supplier_items",{"supplier":po_doc.supplier})
 				item_doc.save()
+				frappe.db.commit()
