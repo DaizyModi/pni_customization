@@ -14,3 +14,14 @@ def validate_purchase_order(po):
 				sup = frappe.get_doc("Item Supplier", {"parent": raw.item_code,"supplier":po.supplier})
 			except:
 				frappe.throw("Item {0} is not configured with {1} supplier".format(raw.item_code,po.supplier))
+
+def update_item():
+	pos = frappe.get_all("Purchase Order",{"docstatus": [ "in", ["1","0"]]})
+	for po in pos:
+		po_doc = frappe.get_doc("Purchase Order",po.name)
+		for item in po_doc.items:
+			item_po_details = frappe.get_value("Item Supplier",{"parent": item.item_code,"supplier":po_doc.supplier},"name")
+			if not item_po_details:
+				item_doc = frappe.get_doc("Item",item.item_code)
+				item_doc.append("supplier_items",{"supplier":po_doc.supplier})
+				item_doc.save()
