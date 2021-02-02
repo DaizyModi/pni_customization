@@ -88,6 +88,8 @@ def get_dashboard_info(party_type, party, loyalty_program=None):
 	return company_wise_info
 
 def validate(doc, method):
+	if not (doc.rounded_total > 0) and not doc.foc_reason:
+		frappe.throw("FOC Reason is mandatory.")
 	info = get_dashboard_info("Customer", doc.customer)
 	if len(info) and info[0]['billing_this_year'] and info[0]['billing_this_year'] > 5000000:
 		
