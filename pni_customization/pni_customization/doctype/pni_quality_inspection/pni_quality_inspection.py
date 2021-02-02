@@ -25,6 +25,7 @@ class PNIQualityInspection(Document):
 		self.total_qty = float(self.accepted_qty) + float(self.rejected_qty) + float(self.rework_qty)
 
 def update_work_order(work_order):
+	return
 	pni_qis =  frappe.get_all("PNI Quality Inspection",filters={"docstatus":1, "reference_type":"Work Order", "reference_name": work_order})
 	rejected_qty = 0
 	pni_rework_qty = 0
@@ -36,6 +37,7 @@ def update_work_order(work_order):
 	frappe.db.commit()
 
 def update_job_card(job_card):
+	return
 	pni_qis =  frappe.get_all("PNI Quality Inspection",filters={"docstatus":1, "reference_type":"Job Card", "reference_name": job_card})
 	rejected_qty = 0
 	pni_rework_qty = 0
