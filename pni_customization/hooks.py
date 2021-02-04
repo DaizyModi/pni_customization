@@ -50,7 +50,7 @@ fixtures = [
 					"pni_address","pni_address_display","reference_name","job_application",
 					"employee_onboarding_process","skip_workflow_validation","pni_gate_entry",
 					"leave_allocation_not_applicable", "pni_rate", "skip_supplier_item_validation",
-					"pni_setup_rejection_qty"
+					"pni_setup_rejection_qty","extra_charges"
 				)
 			]
 		]

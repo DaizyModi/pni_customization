@@ -12,7 +12,14 @@ frappe.ui.form.on('Purchase Order', {
 				}
 			})
 		}
-
+		cur_frm.doc.taxes.forEach(function(data){
+			var restricted_value = ["Cartage - PNI","Courier Charges - PNI","Freight and Forwarding Charges - PNI","Insurance Charges - PNI","Packing Charges - PNI"]
+			if(restricted_value.includes(data.account_head)){
+				if(data.tax_amount > 0){
+					frappe.msgprint("Account Head "+data.account_head+" exist with non zero value.")
+				}
+			}
+		})
 		if (frm.doc.workflow_state && cur_frm.doc.workflow_state == 'Rejected'){
 			var prompt_already_shown = true;
 			var comments = cur_frm.timeline.get_comments();
