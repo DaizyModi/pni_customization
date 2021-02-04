@@ -14,6 +14,11 @@ def validate_purchase_order(po):
 				sup = frappe.get_doc("Item Supplier", {"parent": raw.item_code,"supplier":po.supplier})
 			except:
 				frappe.throw("Item {0} is not configured with {1} supplier".format(raw.item_code,po.supplier))
+	restricted_value = ["Cartage - PNI","Courier Charges - PNI","Freight and Forwarding Charges - PNI","Insurance Charges - PNI","Packing Charges - PNI"]
+	for raw in po.taxes:
+		if raw.account_head in restricted_value and raw.tax_amount > 0:
+			po.extra_charges = True
+
 
 def update_item():
 	pos = frappe.get_all("Purchase Order",{"docstatus": [ "in", ["1","0"]]})
