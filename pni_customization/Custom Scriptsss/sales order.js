@@ -43,6 +43,7 @@ frappe.ui.form.on("Sales Order Item",{
 				}
 			});
 		}
+		
 		if(d2.price_list_rate>0){
 			d2.base_uom_rate = parseFloat(d2.price_list_rate / d2.conversion_factor	);
 			frm.refresh_field("items");
@@ -92,6 +93,23 @@ frappe.ui.form.on('Sales Order', {
 	        frm.set_df_property('image','reqd', 0);
 		}
 		
+	},
+	customer(frm) {
+		frappe.call({
+			method: "pni_customization.utility.sales_order_utility.get_credit_details ",
+			args: {
+				company: frm.doc.company,
+				customer: frm.doc.customer,
+			},
+			callback: function(r) {
+				if(r.message) {
+					debugger;
+					cur_frm.set_value("credit_limit",r.message.credit_limit);
+					cur_frm.set_value("credit_balance",r.message.bal);
+					// cur_frm.refresh();
+				}
+			}
+		});
 	}
 });
 
@@ -111,14 +129,21 @@ frappe.ui.form.on('Sales Order', {
 		}else{
 			frm.set_df_property('transporter_name', 'reqd', 0)
 		}
-		
+	},
+	is_foc(frm) {
+		if(frm.doc.is_foc){
+			frm.set_value("naming_series","SAL-FOC-.2020-");
+		}else{
+			frm.set_value("naming_series","SAL-ORD-.2020-")
+		}
 	},
 	delivery_type(frm) { 
 		if(frm.doc.delivery_type == "By Transport"){
 			frm.set_df_property('transporter_name', 'reqd', 1)
 		}else{
 			frm.set_df_property('transporter_name', 'reqd', 0)
-		}
+		}	
+	
 	},
 	refresh(frm){
 
