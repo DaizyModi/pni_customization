@@ -1,0 +1,26 @@
+{% set domains = frappe.get_doc("Domain Settings").active_domains %}
+{% set links = {
+	'Manufacturing': '/manufacturing',
+	'Services': '/services',
+	'Retail': '/retail',
+	'Distribution': '/distribution',
+	'Non Profit': '/non-profit',
+	'Education': '/education',
+	'Healthcare': '/healthcare',
+	'Agriculture': '/agriculture',
+	'Hospitality': ''
+} %}
+
+{% set link = '' %}
+{% if domains %}
+    {% set label = domains[0].domain %}
+	{% set link = links[label] %}
+{% endif %}
+
+{% if label == "Services" %}
+	{% set label = "Service" %}
+{% endif %}
+
+
+
+<a href="https://khatavahi.in/" target="_blank" class="text-muted">Powered by Khatavahi BI Solutions LLP - {{ '' if domains else 'Open Source' }} ERP Software {{ ('for ' + label + ' Companies') if domains else '' }}</a>
