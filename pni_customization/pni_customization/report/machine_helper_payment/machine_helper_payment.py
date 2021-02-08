@@ -128,7 +128,7 @@ def get_data(filters=None):
 
     if filters.date_wise:
         columns = """workstation_head,
-        date
+        date,
         machine_helper_id,
         machine_helper,
         sum(total_shift_stock),
