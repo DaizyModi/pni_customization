@@ -13,5 +13,8 @@ frappe.query_reports["Machine Helper Payment"] = {
 		{
 			"fieldname": "workstation_head", "fieldtype": "Data", "label": __("Workstation Head")
 		},
+		{
+			"fieldname": "date_wise", "fieldtype": "Check", "label": __("Date Wise")
+		},
 	]
 };
