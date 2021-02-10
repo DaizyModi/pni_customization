@@ -43,12 +43,12 @@ class Packing(Document):
                     "Packing Category", data.packing_category, "special_packing_rate")
             if data.packing_category == "Loose":
                 data.paying_amount = float(
-                    data.packing_rate) * float(data.bag_size)
+                    data.packing_rate) * float(data.bag_size) * float(data.bag)
                 # if data.paying_amount > 23:
                 #     data.paying_amount = 23
             else:
                 data.paying_amount = float(
-                    data.packing_rate) * float(data.bag_size)
+                    data.packing_rate) * float(data.bag_size) * float(data.bag)
 
             if data.person_type == "Employee":
                 data.paying_amount = 0
