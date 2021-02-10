@@ -59,6 +59,13 @@ def get_columns():
             "precision": 4
         },
         {
+            "fieldname": "weight",
+            "label": _("Weight"),
+            "fieldtype": "Float",
+            "width": 150,
+            "precision": 4
+        },
+        {
             "fieldname": "paying_amount",
             "label": _("Billing"),
             "fieldtype": "Float",
@@ -94,6 +101,7 @@ def get_data(filters=None):
 			packing_table.item,
 			packing_table.packing_category,
 			sum(packing_table.bag),
+			sum(packing_table.bag * packing_table.bag_size) as weight,
 			sum(packing_table.paying_amount)
 		from
 			`tabPacking Table` as packing_table, `tabPacking` as packing
