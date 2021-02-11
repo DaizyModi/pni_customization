@@ -5,14 +5,16 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
+
 def execute(filters=None):
     columns, data = [], []
     data = get_data(filters)
     columns = get_columns()
     return columns, data
 
+
 def get_columns():
-    return  [
+    return [
         {
             "fieldname": "item",
             "label": _("Item"),
@@ -20,14 +22,14 @@ def get_columns():
             "options": "Item",
             "width": 150
         },
-		{
+        {
             "fieldname": "brand",
             "label": _("Brand"),
             "fieldtype": "Link",
             "options": "Brand",
             "width": 150
         },
-		{
+        {
             "fieldname": "status",
             "label": _("Status"),
             "fieldtype": "Data",
@@ -52,33 +54,34 @@ def get_columns():
             "label": _("Gross Weight"),
             "fieldtype": "Float",
         },
-		{
+        {
             "fieldname": "actual_stock",
             "label": _("Actual Stock"),
             "fieldtype": "Float",
-			"width": 100
+            "width": 100
         }
     ]
 
+
 def get_data(filters=None):
-	conditions = ""
+    conditions = ""
 
-	if filters.status:
-		conditions += " and crt.status = '{0}' ".format(filters.status)
+    if filters.status:
+        conditions += " and crt.status = '{0}' ".format(filters.status)
 
-	if filters.item:
-		conditions += " and crt.item = '{0}' ".format(filters.item)
-	
-	if filters.brand:
-		conditions += " and item.brand = '{0}' ".format(filters.brand)
+    if filters.item:
+        conditions += " and crt.item = '{0}' ".format(filters.item)
 
-	if filters.from_date:
-		conditions += " and crt.creation >= '{0}' ".format(filters.from_date)
-	
-	if filters.to_date:
-		conditions += " and crt.creation <='{0}' ".format(filters.to_date)
+    if filters.brand:
+        conditions += " and item.brand = '{0}' ".format(filters.brand)
 
-	return frappe.db.sql("""
+    if filters.from_date:
+        conditions += " and crt.creation >= '{0}' ".format(filters.from_date)
+
+    if filters.to_date:
+        conditions += " and crt.creation <='{0}' ".format(filters.to_date)
+
+    return frappe.db.sql("""
 		select 
 			crt.item, crt.brand, crt.status, crt.nos, crt.total, crt.net_weight,
 			crt.gross_weight, sum(bin.actual_qty)

@@ -9,81 +9,150 @@ from frappe import _
 def execute(filters=None):
     columns, data = [], []
     data = get_data(filters)
-    columns = get_columns()
+    columns = get_columns(filters)
     return columns, data
 
 
-def get_columns():
-    return [
-        {
-            "fieldname": "person_type",
-            "label": _("Person Type"),
-            "fieldtype": "Data",
-            "width": 150
-        },
-        {
-            "fieldname": "employee",
-            "label": _("Employee|Worker"),
-            "fieldtype": "Dynamic Link",
-            "options": "person_type",
-            "width": 150
-        },
-        {
-            "fieldname": "emaployee_name",
-            "label": _("Emp|Worker Name"),
-            "fieldtype": "Data",
-            "width": 150,
-            "precision": 4
-        },
-        {
-            "fieldname": "item",
-            "label": _("Item"),
-            "fieldtype": "Link",
-            "options": "Item",
-            "width": 150,
-            "precision": 4
-        },
-        {
-            "fieldname": "packing_category",
-            "label": _("Packing Category"),
-            "fieldtype": "Link",
-            "options": "Packing Category",
-            "width": 150,
-            "precision": 4
-        },
-        {
-            "fieldname": "bag",
-            "label": _("Packing Nos"),
-            "fieldtype": "Float",
-            "width": 150,
-            "precision": 4
-        },
-        {
-            "fieldname": "weight",
-            "label": _("Weight"),
-            "fieldtype": "Float",
-            "width": 150,
-            "precision": 4
-        },
-        {
-            "fieldname": "paying_amount",
-            "label": _("Billing"),
-            "fieldtype": "Float",
-            "width": 150,
-            "precision": 4
-        },
-        {
-            "fieldname": "dumy",
-            "label": _("Empty"),
-            "fieldtype": "Data",
-            "width": 150,
-            "precision": 4
-        }
-    ]
+def get_columns(filters):
+    if filters.date_wise:
+        return [
+            {
+                "fieldname": "person_type",
+                "label": _("Person Type"),
+                "fieldtype": "Data",
+                "width": 150
+            },
+            {
+                "fieldname": "employee",
+                "label": _("Employee|Worker"),
+                "fieldtype": "Dynamic Link",
+                "options": "person_type",
+                "width": 150
+            },
+            {
+                "fieldname": "emaployee_name",
+                "label": _("Emp|Worker Name"),
+                "fieldtype": "Data",
+                "width": 150,
+                "precision": 4
+            },
+            {
+                "fieldname": "item",
+                "label": _("Item"),
+                "fieldtype": "Link",
+                "options": "Item",
+                "width": 150,
+                "precision": 4
+            },
+            {
+                "fieldname": "packing_category",
+                "label": _("Packing Category"),
+                "fieldtype": "Link",
+                "options": "Packing Category",
+                "width": 150,
+                "precision": 4
+            },
+            {
+                "fieldname": "bag",
+                "label": _("Packing Nos"),
+                "fieldtype": "Float",
+                "width": 150,
+                "precision": 4
+            },
+            {
+                "fieldname": "weight",
+                "label": _("Weight"),
+                "fieldtype": "Float",
+                "width": 150,
+                "precision": 4
+            },
+            {
+                "fieldname": "paying_amount",
+                "label": _("Billing"),
+                "fieldtype": "Float",
+                "width": 150,
+                "precision": 4
+            },
+            {
+                "fieldname": "dumy",
+                "label": _("Empty"),
+                "fieldtype": "Data",
+                "width": 150,
+                "precision": 4
+            }
+        ]
+    else:
+        return [
+            {
+                "fieldname": "person_type",
+                "label": _("Person Type"),
+                "fieldtype": "Data",
+                "width": 150
+            },
+            {
+                "fieldname": "employee",
+                "label": _("Employee|Worker"),
+                "fieldtype": "Dynamic Link",
+                "options": "person_type",
+                "width": 150
+            },
+            {
+                "fieldname": "emaployee_name",
+                "label": _("Emp|Worker Name"),
+                "fieldtype": "Data",
+                "width": 150,
+                "precision": 4
+            },
+            {
+                "fieldname": "item",
+                "label": _("Item"),
+                "fieldtype": "Link",
+                "options": "Item",
+                "width": 150,
+                "precision": 4
+            },
+            {
+                "fieldname": "packing_category",
+                "label": _("Packing Category"),
+                "fieldtype": "Link",
+                "options": "Packing Category",
+                "width": 150,
+                "precision": 4
+            },
+            {
+                "fieldname": "bag",
+                "label": _("Packing Nos"),
+                "fieldtype": "Float",
+                "width": 150,
+                "precision": 4
+            },
+            {
+                "fieldname": "weight",
+                "label": _("Weight"),
+                "fieldtype": "Float",
+                "width": 150,
+                "precision": 4
+            },
+            {
+                "fieldname": "paying_amount",
+                "label": _("Billing"),
+                "fieldtype": "Float",
+                "width": 150,
+                "precision": 4
+            },
+            {
+                "fieldname": "dumy",
+                "label": _("Empty"),
+                "fieldtype": "Data",
+                "width": 150,
+                "precision": 4
+            }
+        ]
 
 
 def get_data(filters=None):
     conditions = ""
+    group_by = ""
     if filters.from_date:
         conditions += " and packing.date >= '{0}' ".format(filters.from_date)
 

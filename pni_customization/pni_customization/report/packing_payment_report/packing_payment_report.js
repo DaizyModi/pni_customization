@@ -10,5 +10,8 @@ frappe.query_reports["Packing Payment Report"] = {
 		{
 			"fieldname": "to_date", "fieldtype": "Date", "label": __("To Date")
 		},
+		{
+			"fieldname": "date_wise", "fieldtype": "Check", "label": __("Date Wise")
+		},
 	]
 };

@@ -5,15 +5,17 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 
+
 def execute(filters=None):
     columns, data = [], []
     data = get_data(filters)
     columns = get_columns()
     return columns, data
 
+
 def get_columns():
-    return  [
-		{
+    return [
+        {
             "fieldname": "workstation_head",
             "label": _("Workstation Head"),
             "fieldtype": "Data",
@@ -25,41 +27,43 @@ def get_columns():
             "fieldtype": "Data",
             "width": 150
         },
-		{
+        {
             "fieldname": "shift",
             "label": _("Shift"),
             "fieldtype": "Data",
             "width": 150,
-			"precision":4
+            "precision": 4
         },
-		{
+        {
             "fieldname": "total_stock",
             "label": _("Total Stock"),
             "fieldtype": "Float",
             "width": 150,
-			"precision":4
+            "precision": 4
         },
-		{
+        {
             "fieldname": "dumy",
             "label": _("Empty"),
             "fieldtype": "Data",
             "width": 150,
-			"precision":4
+            "precision": 4
         }
     ]
 
+
 def get_data(filters=None):
-	conditions = ""
-	if filters.from_date:
-		conditions += " and date >= '{0}' ".format(filters.from_date)
-	
-	if filters.to_date:
-		conditions += " and date <='{0}' ".format(filters.to_date)
-	
-	if filters.workstation_head:
-		conditions += " and workstation_head like '%{0}%' ".format(filters.workstation_head)
-	
-	return frappe.db.sql("""
+    conditions = ""
+    if filters.from_date:
+        conditions += " and date >= '{0}' ".format(filters.from_date)
+
+    if filters.to_date:
+        conditions += " and date <='{0}' ".format(filters.to_date)
+
+    if filters.workstation_head:
+        conditions += " and workstation_head like '%{0}%' ".format(
+            filters.workstation_head)
+
+    return frappe.db.sql("""
 		select 
 			workstation_head,
 			machine_helper,

@@ -1,13 +1,18 @@
 frappe.ui.form.on('Purchase Order', {
 	validate: function (frm) {
+		var extra = false;
 		cur_frm.doc.taxes.forEach(function (data) {
 			var restricted_value = ["Cartage - PNI", "Courier Charges - PNI", "Freight and Forwarding Charges - PNI", "Insurance Charges - PNI", "Packing Charges - PNI"]
 			if (restricted_value.includes(data.account_head)) {
 				if (data.tax_amount > 0) {
 					cur_frm.set_value("extra_charges", true);
+					extra = true;
 				}
 			}
 		})
+		if (!extra) {
+			cur_frm.set_value("extra_charges", false);
+		}
 
 	},
 	refresh: function (frm) {
