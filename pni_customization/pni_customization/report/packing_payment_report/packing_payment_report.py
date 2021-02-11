@@ -23,6 +23,12 @@ def get_columns(filters):
                 "width": 150
             },
             {
+                "fieldname": "date",
+                "label": _("Date"),
+                "fieldtype": "Date",
+                "width": 150
+            },
+            {
                 "fieldname": "employee",
                 "label": _("Employee|Worker"),
                 "fieldtype": "Dynamic Link",
