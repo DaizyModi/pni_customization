@@ -7,6 +7,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import get_datetime, time_diff_in_hours, flt
+import math
 
 
 class Packing(Document):
@@ -41,14 +42,8 @@ class Packing(Document):
             if data.employee == "WRK-000002":
                 data.packing_rate = frappe.get_value(
                     "Packing Category", data.packing_category, "special_packing_rate")
-            if data.packing_category == "Loose":
-                data.paying_amount = float(
-                    data.packing_rate) * float(data.bag_size) * float(data.bag)
-                # if data.paying_amount > 23:
-                #     data.paying_amount = 23
-            else:
-                data.paying_amount = float(
-                    data.packing_rate) * float(data.bag_size) * float(data.bag)
+            data.paying_amount = math.floor(float(data.bag_size) * 2)/2 * float(
+                data.packing_rate) * float(data.bag)
 
             if data.person_type == "Employee":
                 data.paying_amount = 0
