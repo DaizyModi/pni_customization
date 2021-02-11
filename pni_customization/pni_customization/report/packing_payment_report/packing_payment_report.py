@@ -152,6 +152,16 @@ def get_columns(filters):
 
 def get_data(filters=None):
     conditions = ""
+    columns = """
+        packing_table.person_type,
+        packing_table.employee,
+        packing_table.emaployee_name,
+        packing_table.item,
+        packing_table.packing_category,
+        sum(packing_table.bag),
+        sum(packing_table.bag * packing_table.bag_size) as weight,
+        sum(packing_table.paying_amount)
+    """
     group_by = ""
     if filters.from_date:
         conditions += " and packing.date >= '{0}' ".format(filters.from_date)
@@ -159,26 +169,30 @@ def get_data(filters=None):
     if filters.to_date:
         conditions += " and packing.date <='{0}' ".format(filters.to_date)
 
-    # if filters.workstation_head:
-    # 	conditions += " and workstation_head like '%{0}%' ".format(filters.workstation_head)
+    if filters.date_wise:
+        columns = """
+            packing_table.person_type,
+            packing.date,
+            packing_table.employee,
+            packing_table.emaployee_name,
+            packing_table.item,
+            packing_table.packing_category,
+            sum(packing_table.bag),
+            sum(packing_table.bag * packing_table.bag_size) as weight,
+            sum(packing_table.paying_amount)
+        """
+        group_by = " ,packing.date"
 
     return frappe.db.sql("""
 		select 
-			packing_table.person_type,
-			packing_table.employee,
-			packing_table.emaployee_name,
-			packing_table.item,
-			packing_table.packing_category,
-			sum(packing_table.bag),
-			sum(packing_table.bag * packing_table.bag_size) as weight,
-			sum(packing_table.paying_amount)
+			{2}
 		from
 			`tabPacking Table` as packing_table, `tabPacking` as packing
 		where
 			packing.docstatus = 1 and packing.name = packing_table.parent {0}
 		group by 
-			packing_table.employee,packing_table.packing_category,packing_table.item;
-    """.format(conditions))
+			packing_table.employee,packing_table.packing_category,packing_table.item {1};
+    """.format(conditions, group_by, columns))
 
 
 """
