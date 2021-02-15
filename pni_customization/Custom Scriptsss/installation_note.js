@@ -10,7 +10,7 @@ frappe.ui.form.on('Installation Note', {
             },
             callback: function (r) {
                 if (r.message) {
-                    cur_frm.doc.installation_note_item_details = {}
+                    // cur_frm.doc.installation_note_item_details = []
                     r.message.forEach(function (element) {
                         var c = frm.add_child("installation_note_item_details");
                         c.particular = element.particular;

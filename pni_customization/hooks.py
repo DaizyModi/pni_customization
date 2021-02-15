@@ -53,6 +53,9 @@ doc_events = {
         "on_submit": "pni_customization.utils.manage_se_changes",
         "on_cancel": "pni_customization.utils.manage_se_changes"
     },
+    "Material Request": {
+        "validate": "pni_customization.utils.materuak_request.validate",
+    },
     "Item": {
         "on_update": "pni_customization.utils.update_item",
         "autoname": "pni_customization.utility.item_utility.autoname"
