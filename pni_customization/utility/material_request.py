@@ -12,4 +12,4 @@ def check_item_workflow_state(item):
     if state not in ["Checked", "Approved", "Old Item"]:
         return False
     else:
-        True
+        return True
