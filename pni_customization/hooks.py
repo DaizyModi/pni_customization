@@ -54,7 +54,7 @@ doc_events = {
         "on_cancel": "pni_customization.utils.manage_se_changes"
     },
     "Material Request": {
-        "validate": "pni_customization.utils.material_request.validate",
+        "validate": "pni_customization.utility.material_request.validate",
     },
     "Item": {
         "on_update": "pni_customization.utils.update_item",
