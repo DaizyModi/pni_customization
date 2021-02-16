@@ -22,12 +22,40 @@ frappe.ui.form.on('Customer Complaint Form', {
             var row = locals[cdt][cdn];
             if (row.sales_invoice) {
                 return {
-                    // query: 'frappe.contacts.doctype.address.address.address_query',
+                    query: 'pni_customization.utility.customer_complaint_form_utility.get_items',
                     filters: {
-                        sales_invoice: row.sales_invoice
+                        'sales_invoice': row.sales_invoice,
+                        'item_code': ['in', item_code]
                     }
-                };
+                };      
+            }
+        });
+        frm.set_query('serial_no', "table_38", function () {
+            debugger;
+            var list_of_serial = new Array();
+            for (var i=0; i<frm.doc.installed_items.length; i++){
+                list_of_serial.push(frm.doc.installed_items[i].serial_no)
+            }  
+            return {
+                filters: [
+                    ['serial_no', 'in', list_of_serial]
+                ]
             }
         })
     }
 })
+// frappe.ui.form.on('Complaint Items', {
+//     sales_invoice: function (doc, cdt, cdn) {
+//         // debugger;
+//         var me = this;
+//         var d2 = locals[cdt][cdn];
+//         debugger;
+//         me.frm.set_query("item_code", "paper_details", function (doc, cdt, cdn) {
+//             return {
+//                 filters: {
+//                     sales_invoice: d2.sales_invoice
+//                 }
+//             }
+//         });
+//     }
+// })
