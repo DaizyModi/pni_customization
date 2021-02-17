@@ -24,8 +24,7 @@ frappe.ui.form.on('Customer Complaint Form', {
                 return {
                     query: 'pni_customization.utility.customer_complaint_form_utility.get_items',
                     filters: {
-                        'sales_invoice': row.sales_invoice,
-                        'item_code': ['in', item_code]
+                        'sales_invoice': row.sales_invoice
                     }
                 };      
             }
