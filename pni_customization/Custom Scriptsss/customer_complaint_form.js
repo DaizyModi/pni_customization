@@ -23,9 +23,7 @@ frappe.ui.form.on('Customer Complaint Form', {
             if (row.sales_invoice) {
                 return {
                     query: 'pni_customization.utility.customer_complaint_form_utility.get_items',
-                    filters: {
-                        'sales_invoice': row.sales_invoice
-                    }
+                    filters: { "sales_invoice": row.sales_invoice }
                 };
             }
         });
@@ -43,7 +41,14 @@ frappe.ui.form.on('Customer Complaint Form', {
         })
     }
 })
-// frappe.ui.form.on('Complaint Items', {
+
+// let get_invoice_items = function (frm) {
+//     let list_items = new Array();
+//     frappe.call({
+//         'method': frappe.client
+//     })
+// }
+// // frappe.ui.form.on('Complaint Items', {
 //     sales_invoice: function (doc, cdt, cdn) {
 //         // debugger;
 //         var me = this;
