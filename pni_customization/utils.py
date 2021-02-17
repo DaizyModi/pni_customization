@@ -843,6 +843,22 @@ def validate_po(doc, method):
     else:
         doc.db_set("per_received", 0, update_modified=False)
 
+    # Validation for field phone, email and party_gstin in supplier
+    if doc.supplier:
+        supplier = frappe.get_doc('Supplier', doc.supplier)
+        contact = frappe.db.sql(""" select email_id, phone, gstin from `tabAddress`
+			where name in
+			(select parent from `tabDynamic Link` where link_doctype = 'Supplier' and link_name = %s
+			and parenttype = 'Address')""", doc.supplier, as_dict=1)
+        print(contact[0])
+        if contact:
+            if not contact[0].email_id:
+                frappe.throw("Supplier Email Id is not available")
+            if not contact[0].phone:
+                frappe.throw("Supplier phone number is not available")
+            if not contact[0].gstin:
+                frappe.throw("Supplier must have GSTIN number")
+
 
 def check_mr_qty(po, mr, item_code, qty):
     pos = frappe.get_all(
