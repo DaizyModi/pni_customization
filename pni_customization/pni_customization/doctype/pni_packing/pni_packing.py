@@ -8,6 +8,7 @@ from frappe.model.document import Document
 from frappe.utils import get_datetime, time_diff_in_hours
 from frappe.utils import add_days, today
 
+
 class PNIPacking(Document):
 	def validate(self):
 		if not self.packing_unit or not self.conversation_factor:
@@ -23,7 +24,7 @@ class PNIPacking(Document):
 		if not self.loose_entry:
 			self.set_machine_helper()
 		self.first_carton()
-	
+
 	def first_carton(self):
 		if not self.total_stock:
 			self.total_stock = 0
@@ -31,33 +32,35 @@ class PNIPacking(Document):
 			self.loose_stock = 0
 		if not self.last_shift_loose_stock:
 			self.last_shift_loose_stock = 0
-		
-		self.total_shift_stock = float(self.total_stock) + float(self.loose_stock) - float(self.last_shift_loose_stock)
-		
+
+		self.total_shift_stock = float(
+		    self.total_stock) + float(self.loose_stock) - float(self.last_shift_loose_stock)
+
 		if self.pni_packing == self.name:
-			frappe.throw("Can't be "+ self.pni_packing)
-		
+			frappe.throw("Can't be " + self.pni_packing)
+
 		if self.shift_first_carton or self.helper_change:
 			if not self.pni_packing:
 				self.pni_packing = self.create_packing()
-		
+
 		if self.pni_packing:
-			packing =  frappe.get_doc("PNI Packing",self.pni_packing)
-			packing.workstation = self.workstation
-			packing.item = self.item
-			packing.date = self.date
-			if self.helper_change:
-				packing.shift = self.shift
-			else:
-				packing.shift = "Day" if self.shift == "Night" else "Night"
-				if self.shift == "Day":
-					packing.date = add_days(self.date, -1)
-			packing.to_warehouse = self.to_warehouse
-			packing.packing_unit = self.packing_unit
-			packing.conversation_factor = self.conversation_factor
-			packing.machine_helper = frappe.get_value("Employee", self.loose_stock_employee, "employee_name")
-			packing.machine_helper_id = self.loose_stock_employee
-			packing.save()
+            packing = frappe.get_doc("PNI Packing", self.pni_packing)
+            packing.workstation = self.workstation
+            packing.item = self.item
+            packing.date = self.date
+            packing.status = "Completed"
+            if self.helper_change:
+                packing.shift = self.shift
+            else:
+                packing.shift = "Day" if self.shift == "Night" else "Night"
+                if self.shift == "Day":
+                    packing.date = add_days(self.date, -1)
+            packing.to_warehouse = self.to_warehouse
+            packing.packing_unit = self.packing_unit
+            packing.conversation_factor = self.conversation_factor
+            packing.machine_helper = frappe.get_value("Employee", self.loose_stock_employee, "employee_name")
+            packing.machine_helper_id = self.loose_stock_employee
+            packing.save()
 
 	def create_packing(self):
 		packing = frappe.get_doc({
@@ -233,18 +236,18 @@ class PNIPacking(Document):
 		return stock_entry.as_dict()
 
 	def set_se_items_finish(self, se):
-		#set from and to warehouse
+		# set from and to warehouse
 
 		se.to_warehouse = self.to_warehouse
 		se.from_warehouse = self.source_warehouse
 
-		#TODO allow multiple raw material transfer
+		# TODO allow multiple raw material transfer
 		raw_material_cost = 0
 		operating_cost = 0
 		
-		#TODO calc raw_material_cost
+		# TODO calc raw_material_cost
 
-		#no timesheet entries, calculate operating cost based on workstation hourly rate and process start, end
+		# no timesheet entries, calculate operating cost based on workstation hourly rate and process start, end
 		hourly_rate = None
 		# hourly_rate = frappe.db.get_value("Workstation", self.workstation, "hour_rate")
 		if hourly_rate:
@@ -256,13 +259,13 @@ class PNIPacking(Document):
 			operating_cost = hours * float(hourly_rate)
 		production_cost = raw_material_cost + operating_cost
 
-		#calc total_qty and total_sale_value
+		# calc total_qty and total_sale_value
 		qty_of_total_production = 0
 		total_sale_value = 0
 		
 		qty_of_total_production = float(qty_of_total_production) + float(self.total_stock)
 		
-		#add carton to stock entry
+		# add carton to stock entry
 		cartons = {}
 		for row in self.carton_data:
 			if row.carton_item:
@@ -271,7 +274,7 @@ class PNIPacking(Document):
 		for data in cartons:
 			se = self.set_se_items(se, data, None, se.from_warehouse, True, qty_of_total_production, total_sale_value, production_cost, raw_material = cartons[data])
 
-		#add paper cup item to stockentry
+		# add paper cup item to stockentry
 		se = self.set_se_items(se, self.item, se.to_warehouse, None, True, qty_of_total_production, total_sale_value, production_cost)
 		return se
 	
