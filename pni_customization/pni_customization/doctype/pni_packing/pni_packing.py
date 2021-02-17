@@ -43,25 +43,25 @@ class PNIPacking(Document):
             if not self.pni_packing:
                 self.pni_packing = self.create_packing()
 
-    if self.pni_packing:
-        packing = frappe.get_doc("PNI Packing", self.pni_packing)
-        packing.workstation = self.workstation
-        packing.item = self.item
-        packing.date = self.date
-        packing.status = "Completed"
-        if self.helper_change:
-            packing.shift = self.shift
-        else:
-            packing.shift = "Day" if self.shift == "Night" else "Night"
-            if self.shift == "Day":
-                packing.date = add_days(self.date, -1)
-        packing.to_warehouse = self.to_warehouse
-        packing.packing_unit = self.packing_unit
-        packing.conversation_factor = self.conversation_factor
-        packing.machine_helper = frappe.get_value(
-            "Employee", self.loose_stock_employee, "employee_name")
-        packing.machine_helper_id = self.loose_stock_employee
-        packing.save()
+        if self.pni_packing:
+            packing = frappe.get_doc("PNI Packing", self.pni_packing)
+            packing.workstation = self.workstation
+            packing.item = self.item
+            packing.date = self.date
+            packing.status = "Completed"
+            if self.helper_change:
+                packing.shift = self.shift
+            else:
+                packing.shift = "Day" if self.shift == "Night" else "Night"
+                if self.shift == "Day":
+                    packing.date = add_days(self.date, -1)
+            packing.to_warehouse = self.to_warehouse
+            packing.packing_unit = self.packing_unit
+            packing.conversation_factor = self.conversation_factor
+            packing.machine_helper = frappe.get_value(
+                "Employee", self.loose_stock_employee, "employee_name")
+            packing.machine_helper_id = self.loose_stock_employee
+            packing.save()
 
     def create_packing(self):
         packing = frappe.get_doc({
