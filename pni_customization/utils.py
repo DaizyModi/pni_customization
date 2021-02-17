@@ -850,7 +850,7 @@ def validate_po(doc, method):
 			where name in
 			(select parent from `tabDynamic Link` where link_doctype = 'Supplier' and link_name = %s
 			and parenttype = 'Address')""", doc.supplier, as_dict=1)
-        print(contact[0])
+        # print(contact[0])
         if contact:
             if not contact[0].email_id:
                 frappe.throw("Supplier Email Id is not available")

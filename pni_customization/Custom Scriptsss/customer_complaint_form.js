@@ -26,15 +26,15 @@ frappe.ui.form.on('Customer Complaint Form', {
                     filters: {
                         'sales_invoice': row.sales_invoice
                     }
-                };      
+                };
             }
         });
         frm.set_query('serial_no', "table_38", function () {
             debugger;
             var list_of_serial = new Array();
-            for (var i=0; i<frm.doc.installed_items.length; i++){
+            for (var i = 0; i < frm.doc.installed_items.length; i++) {
                 list_of_serial.push(frm.doc.installed_items[i].serial_no)
-            }  
+            }
             return {
                 filters: [
                     ['serial_no', 'in', list_of_serial]
