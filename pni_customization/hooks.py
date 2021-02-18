@@ -114,6 +114,9 @@ doc_events = {
     # },
     "Employee": {
         "validate": "pni_customization.utility.employee_utility.employee_validate"
+    },
+    "Employee Onboarding Process": {
+        "validate": "pni_customization.utility.emp_onb_prcs_utility.emp_onboarding_validate"
     }
 }
 # include js, css files in header of desk.html
