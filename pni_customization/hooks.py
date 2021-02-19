@@ -216,6 +216,9 @@ permission_query_conditions = {
 #	}
 # }
 
+# setup wizard
+treeviews = ['Purchase Executive']
+
 # Scheduled Tasks
 # ---------------
 scheduler_events = {
