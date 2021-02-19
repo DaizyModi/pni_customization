@@ -9,6 +9,7 @@ frappe.ui.form.on('Purchase Executive', {
         }
     }
 });
+
 cur_frm.cscript.refresh = function (doc, cdt, cdn) {
     cur_frm.cscript.set_root_readonly(doc);
 }

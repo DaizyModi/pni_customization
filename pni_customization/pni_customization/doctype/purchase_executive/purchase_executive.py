@@ -7,6 +7,9 @@ import frappe
 from frappe.utils import flt
 from frappe.utils.nestedset import NestedSet, get_root_of
 from erpnext import get_default_currency
+from six import iteritems
+from frappe.utils import (cint, cstr, flt, formatdate,
+                          get_timestamp, getdate, now_datetime, random_string, strip)
 
 
 class PurchaseExecutive(NestedSet):
@@ -71,3 +74,25 @@ class PurchaseExecutive(NestedSet):
 
 def on_doctype_update():
     frappe.db.add_index("Purchase Executive", ['lft', 'rgt'])
+
+
+def get_timeline_data(doctype, name):
+    out = {}
+    po = dict(frappe.db.sql(''' 
+        select transaction_date, count(*)
+            from 
+            `tabPurchase Order` where purchase_executive = %s and transaction_date > date_sub(curdate(), interval 1 year) group by transaction_date
+    ''', name))
+
+    for date, count in iteritems(po):
+        timestamp = get_timestamp(date)
+        out.update({timestamp: count})
+    return out
+
+
+@frappe.whitelist()
+def get_amount(name):
+    amount = frappe.db.get_value('Purchase Order', {
+        'purchase_executive': name}, 'grand_total')
+    return amount
+    # load_dashboard_info(name)
