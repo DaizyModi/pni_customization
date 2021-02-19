@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+# Copyright (c) 2021, Jigar Tarpara and contributors
+# For license information, please see license.txt
+
+from __future__ import unicode_literals
+import frappe
+from frappe.utils.nestedset import NestedSet, get_root_of
+from erpnext import get_default_currency
+
+
+class PurchaseExecutive(NestedSet):
+    nsm_parent_field = 'parent_purchase_executive'
+
+    def validate(self):
+        if not self.parent_purchase_executive:
+            self.nsm_parent_field = get_root_of('Purchase Executive')
+        self.validate_employee_id()
+
+    def onload(self):
+        self.load_dashboard_info()
+
+    def load_dashboard_info(self):
+        company_default_currency = get_default_currency()
+
+    # Validation for only single root node
+
+    def on_update(self):
+        super(PurchaseExecutive, self).on_update()
+        self.validate_one_root()
+
+    def get_email_id(self):
+        if self.employee:
+            user = frappe.db.get_value('Employee', self.employee, 'user_id')
+            if not user:
+                frappe.throw(
+                    "User Id not set for Employee {0}". format(self.employee))
+            else:
+                return frappe.db.get_value("User", user, "email") or user
+
+    def validate_employee_id(self):
+        if self.employee:
+            purchase_executive = frappe.db.get_value(
+                "Purchase Executive", {'employee': self.employee})
+
+            if purchase_executive and purchase_executive != self.name:
+                frappe.throw("Another Purchase Executive {0} already exists with same Employee ID.".format(
+                    purchase_executive))
+
+
+def on_doctype_update():
+    frappe.db.add_index("Purchase Executive", ['lft', 'rgt'])
