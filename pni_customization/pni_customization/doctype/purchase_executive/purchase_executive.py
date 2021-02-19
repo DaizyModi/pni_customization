@@ -4,6 +4,7 @@
 
 from __future__ import unicode_literals
 import frappe
+from frappe.utils import flt
 from frappe.utils.nestedset import NestedSet, get_root_of
 from erpnext import get_default_currency
 
@@ -13,8 +14,13 @@ class PurchaseExecutive(NestedSet):
 
     def validate(self):
         if not self.parent_purchase_executive:
-            self.nsm_parent_field = get_root_of('Purchase Executive')
-        self.validate_employee_id()
+            if self.lft:
+                self.nsm_parent_field = get_root_of('Purchase Executive')
+        if self.employee:
+            self.validate_employee_id()
+
+    def update_nsm_model(self):
+        frappe.utils.nestedset.update_nsm(self)
 
     def onload(self):
         self.load_dashboard_info()
@@ -32,8 +38,8 @@ class PurchaseExecutive(NestedSet):
         print(allocated_amount[0][0])
 
         info = {}
-        info['allocated_amount'] = float(
-            allocated_amount[0][0]) if allocated_amount else float(0)
+        info['allocated_amount'] = flt(
+            allocated_amount[0][0]) if allocated_amount else 0
         info['currency'] = company_default_currency
 
         self.set_onload('dashboard_info', info)
