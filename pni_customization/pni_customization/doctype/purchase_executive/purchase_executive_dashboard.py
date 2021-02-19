@@ -11,7 +11,7 @@ def get_data():
             {
                 'label': _('Purchase'),
                 'items': ['Purchase Order', 'Purchase Invoice', 'Purchase Receipt']
-            },
+            }
         ]
 
     }
