@@ -1,0 +1,173 @@
+{
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "field:purchase_executive_name",
+ "creation": "2021-02-19 10:57:34.244756",
+ "description": "All Purchase Transactions can be tagged against multiple **Purchase Executive** so that you can set and monitor targets.",
+ "doctype": "DocType",
+ "document_type": "Setup",
+ "engine": "InnoDB",
+ "field_order": [
+  "name_and_employee_id",
+  "purchase_executive_name",
+  "parent_purchase_executive",
+  "is_group",
+  "enabled",
+  "cb0",
+  "employee",
+  "user_id",
+  "department",
+  "lft",
+  "rgt",
+  "old_parent"
+ ],
+ "fields": [
+  {
+   "fieldname": "name_and_employee_id",
+   "fieldtype": "Section Break",
+   "label": "Name and Employee ID",
+   "options": "icon-user"
+  },
+  {
+   "fieldname": "purchase_executive_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Purchase Executive Name",
+   "oldfieldname": "sales_person_name",
+   "oldfieldtype": "Data",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "description": "Select company name first.",
+   "fieldname": "parent_purchase_executive",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "in_list_view": 1,
+   "label": "Parent Purchase Executive",
+   "oldfieldname": "parent_sales_person",
+   "oldfieldtype": "Link",
+   "options": "Purchase Executive"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Group",
+   "oldfieldname": "is_group",
+   "oldfieldtype": "Select",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "cb0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "lft",
+   "no_copy": 1,
+   "oldfieldname": "lft",
+   "oldfieldtype": "Int",
+   "print_hide": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "rgt",
+   "no_copy": 1,
+   "oldfieldname": "rgt",
+   "oldfieldtype": "Int",
+   "print_hide": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "old_parent",
+   "no_copy": 1,
+   "oldfieldname": "old_parent",
+   "oldfieldtype": "Data",
+   "print_hide": 1
+  },
+  {
+   "fetch_from": "employee.user_id",
+   "fetch_if_empty": 1,
+   "fieldname": "user_id",
+   "fieldtype": "Link",
+   "label": "User ID",
+   "options": "User",
+   "read_only": 1
+  }
+ ],
+ "icon": "icon-user",
+ "is_tree": 1,
+ "modified": "2021-02-19 11:01:37.481090",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Purchase Executive",
+ "nsm_parent_field": "parent_purchase_executive",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Purchase Manager"
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Purchase User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Purchase Master Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "parent_purchase_executive",
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "ASC"
+}
