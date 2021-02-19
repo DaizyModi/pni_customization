@@ -1,3 +1,4 @@
+frappe.provide("frappe.treeview_settings");
 frappe.treeview_settings['Purchase Executive'] = {
     fields: [
         {
