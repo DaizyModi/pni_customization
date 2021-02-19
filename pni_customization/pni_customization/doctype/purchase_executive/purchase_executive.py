@@ -21,6 +21,22 @@ class PurchaseExecutive(NestedSet):
 
     def load_dashboard_info(self):
         company_default_currency = get_default_currency()
+        allocated_amount = frappe.db.sql(""" 
+            select sum(grand_total) 
+            from
+                `tabPurchase Order`
+            where
+                docstatus=1 and purchase_executive = %s
+        """, (self.name))
+
+        print(allocated_amount[0][0])
+
+        info = {}
+        info['allocated_amount'] = float(
+            allocated_amount[0][0]) if allocated_amount else float(0)
+        info['currency'] = company_default_currency
+
+        self.set_onload('dashboard_info', info)
 
     # Validation for only single root node
 
