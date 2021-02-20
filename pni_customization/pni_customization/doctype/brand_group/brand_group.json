@@ -9,10 +9,7 @@
   "brand_group_table",
   "query",
   "role",
-  "multiplier",
-  "email_notifications_section",
-  "print_format",
-  "email_notification"
+  "multiplier"
  ],
  "fields": [
   {
@@ -44,28 +41,9 @@
    "fieldname": "multiplier",
    "fieldtype": "Int",
    "label": "Multiplier"
-  },
-  {
-   "fieldname": "email_notifications_section",
-   "fieldtype": "Section Break",
-   "label": "Email Notifications"
-  },
-  {
-   "fieldname": "email_notification",
-   "fieldtype": "Table",
-   "options": "Email Notification"
-  },
-  {
-   "default": "Brand Group Update ",
-   "fieldname": "print_format",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Print Format",
-   "options": "Print Format",
-   "read_only": 1
   }
  ],
- "modified": "2021-02-20 12:47:35.636054",
+ "modified": "2021-02-20 14:47:40.601646",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Brand Group",
