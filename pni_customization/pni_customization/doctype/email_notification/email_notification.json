@@ -1,0 +1,30 @@
+{
+ "autoname": "field:email_id",
+ "creation": "2021-02-20 11:23:55.073785",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "email_id"
+ ],
+ "fields": [
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Email ID",
+   "unique": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-02-20 11:24:01.846610",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Email Notification",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
