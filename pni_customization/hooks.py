@@ -143,6 +143,7 @@ doctype_js = {
     "Sales Invoice": "public/js/item_add.js",
     "Purchase Order": "public/js/item_add.js",
     "Purchase Invoice": "public/js/item_add.js",
+    "Purchase Receipt": "public/js/item_add.js",
     "Quotation": "public/js/item_add.js",
     "Work Order": "public/js/item_add.js",
     "BOM": "public/js/item_add.js",

@@ -21,6 +21,7 @@ frappe.treeview_settings['Purchase Executive'] = {
             description: __("Further Executives can be only created under 'Group' type nodes")
         }
     ],
+    ignore_fields: ['parent_purchase_executive'],
     onrender: function (node) {
         if (!node.is_root) {
             debugger;
@@ -31,21 +32,14 @@ frappe.treeview_settings['Purchase Executive'] = {
                 },
                 callback: function (r) {
                     if (r.message) {
-                        console.log(r.message)
                         if (node.data && r.message !== undefined) {
                             $('<span class="balance-area pull-right text-muted small">'
                                 + format_currency(Math.abs(r.message), node.data.company_currency)
                                 + '</span>').insertBefore(node.$ul);
                         }
                     }
-                    else {
-                        $('<span class="balance-area pull-right text-muted small">'
-                            + format_currency(Math.abs(0), node.data.company_currency)
-                            + '</span>').insertBefore(node.$ul);
-                    }
                 }
             })
-
         }
     }
 }
