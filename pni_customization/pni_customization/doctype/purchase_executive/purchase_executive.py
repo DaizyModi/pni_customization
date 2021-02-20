@@ -38,8 +38,6 @@ class PurchaseExecutive(NestedSet):
                 docstatus=1 and purchase_executive = %s
         """, (self.name))
 
-        print(allocated_amount[0][0])
-
         info = {}
         info['allocated_amount'] = flt(
             allocated_amount[0][0]) if allocated_amount else 0
@@ -92,7 +90,12 @@ def get_timeline_data(doctype, name):
 
 @frappe.whitelist()
 def get_amount(name):
-    amount = frappe.db.get_value('Purchase Order', {
-        'purchase_executive': name}, 'grand_total')
+    amount = frappe.db.sql(""" 
+            select sum(po.grand_total) 
+            from
+                `tabPurchase Order` as po INNER JOIN  `tabPurchase Executive` as pe 
+                ON po.purchase_executive = pe.name
+            where
+                po.docstatus=1 and po.purchase_executive = %s and pe.lft <> 1
+        """, (name))
     return amount
-    # load_dashboard_info(name)

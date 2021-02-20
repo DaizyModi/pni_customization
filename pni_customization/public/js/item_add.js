@@ -52,6 +52,14 @@ frappe.ui.form.on('Purchase Order', {
                 }
             }
         });
+        frm.set_query("purchase_executive", function () {
+            debugger;
+            return {
+                filters: {
+                    'lft': ['!=', '1']
+                }
+            }
+        });
     },
     repair_job_work_transfer_entry: function (frm) {
         if (frm.doc.repair_job_work_transfer_entry) {
@@ -84,8 +92,31 @@ frappe.ui.form.on('Purchase Order', {
 frappe.ui.form.on('Purchase Invoice', {
     refresh: function (frm) {
         cur_frm.cscript.add_item_dialog("Purchase Invoice Item", "items")
+    },
+    setup: function (frm) {
+        frm.set_query("purchase_executive", function () {
+            debugger;
+            return {
+                filters: {
+                    'lft': ['!=', '1']
+                }
+            }
+        });
     }
 });
+
+frappe.ui.form.on('Purchase Receipt', {
+    setup: function (frm) {
+        frm.set_query("purchase_executive", function () {
+            debugger;
+            return {
+                filters: {
+                    'lft': ['!=', '1']
+                }
+            }
+        });
+    }
+})
 
 frappe.ui.form.on('Work Order', {
     refresh: function (frm) {
