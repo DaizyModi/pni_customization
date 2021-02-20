@@ -25,14 +25,17 @@ frappe.treeview_settings['Purchase Executive'] = {
     onrender: function (node) {
         if (!node.is_root) {
             debugger;
+            console.log(node);
             frappe.call({
                 'method': 'pni_customization.pni_customization.doctype.purchase_executive.purchase_executive.get_amount',
                 'args': {
-                    'name': node.data.value
+                    'name': node.data.value,
+                    'doc': node.data.expandable
                 },
                 callback: function (r) {
                     if (r.message) {
                         if (node.data && r.message !== undefined) {
+                            console.log(r.message)
                             $('<span class="balance-area pull-right text-muted small">'
                                 + format_currency(Math.abs(r.message), node.data.company_currency)
                                 + '</span>').insertBefore(node.$ul);
