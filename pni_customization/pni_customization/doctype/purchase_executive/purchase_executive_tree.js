@@ -33,9 +33,17 @@ frappe.treeview_settings['Purchase Executive'] = {
                 callback: function (r) {
                     if (r.message) {
                         if (node.data && r.message !== undefined) {
-                            $('<span class="balance-area pull-right text-muted small">'
-                                + format_currency(Math.abs(r.message), node.data.company_currency)
-                                + '</span>').insertBefore(node.$ul);
+                            console.log(r.message)
+                            if (node.data.expandable == 1) {
+                                $('<span class="balance-area pull-right text-muted small">'
+                                    + format_currency(Math.abs(r.message[0]), node.data.company_currency)
+                                    + '</span>').insertBefore(node.$ul);
+                            }
+                            else {
+                                $('<span class="balance-area pull-right text-muted small">'
+                                    + format_currency(Math.abs(r.message[1]), node.data.company_currency)
+                                    + '</span>').insertBefore(node.$ul);
+                            }
                         }
                     }
                 }

@@ -30,18 +30,14 @@ class PurchaseExecutive(NestedSet):
 
     def load_dashboard_info(self):
         company_default_currency = get_default_currency()
-        allocated_amount = frappe.db.sql(""" 
-            select sum(grand_total) 
-            from
-                `tabPurchase Order`
-            where
-                docstatus=1 and purchase_executive = %s
-        """, (self.name))
 
         info = {}
-        info['allocated_amount'] = flt(
-            allocated_amount[0][0]) if allocated_amount else 0
-        info['currency'] = company_default_currency
+        if self.is_group:
+            info['allocated_amount'] = get_amount(self.name)[0]
+            info['currency'] = company_default_currency
+        else:
+            info['allocated_amount'] = get_amount(self.name)[1]
+            info['currency'] = company_default_currency
 
         self.set_onload('dashboard_info', info)
 
@@ -76,9 +72,9 @@ def on_doctype_update():
 
 def get_timeline_data(doctype, name):
     out = {}
-    po = dict(frappe.db.sql(''' 
+    po = dict(frappe.db.sql('''
         select transaction_date, count(*)
-            from 
+            from
             `tabPurchase Order` where purchase_executive = %s and transaction_date > date_sub(curdate(), interval 1 year) group by transaction_date
     ''', name))
 
@@ -88,14 +84,34 @@ def get_timeline_data(doctype, name):
     return out
 
 
-@frappe.whitelist()
+@ frappe.whitelist()
 def get_amount(name):
-    amount = frappe.db.sql(""" 
-            select sum(po.grand_total) 
+    total_child_amount = 0
+    allocated_amount = frappe.db.sql("""
+            select sum(grand_total)
             from
-                `tabPurchase Order` as po INNER JOIN  `tabPurchase Executive` as pe 
-                ON po.purchase_executive = pe.name
+                `tabPurchase Order`
             where
-                po.docstatus=1 and po.purchase_executive = %s and pe.lft <> 1
+                docstatus=1 and purchase_executive = %s
         """, (name))
-    return amount
+
+    child_node = frappe.db.get_all(
+        'Purchase Executive', {'parent_purchase_executive': name})
+
+    if child_node:
+        amount = 0
+        for data in child_node:
+            child_amount = frappe.db.sql("""
+                    select sum(grand_total)
+                    from
+                        `tabPurchase Order`
+                    where
+                        docstatus=1 and purchase_executive = %s
+                """, (data.name))
+            amount += flt(child_amount[0][0])
+        total_child_amount = (
+            flt(allocated_amount[0][0]) + flt(amount)) if child_amount else 0
+    else:
+        total_child_amount = flt(allocated_amount[0][0])
+
+    return total_child_amount, allocated_amount

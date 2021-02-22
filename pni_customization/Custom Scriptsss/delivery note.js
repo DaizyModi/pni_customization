@@ -41,7 +41,7 @@ frappe.ui.form.on("Delivery Note Item", {
 });
 
 frappe.ui.form.on('Delivery Note', {
-    refresh(frm) {
+    refresh: function (frm) {
         frm.doc.items.forEach(function (element) {
             if (element.price_list_rate > element.rate && element.price_list_rate > 0 && !element.approve_law_rate__) {
                 //frappe.msgprint("[Warning] Item "+element.item_code +"'s rate is lower then Item Price List");
@@ -49,6 +49,9 @@ frappe.ui.form.on('Delivery Note', {
         })
         if (frm.doc.is_return && frm.doc.__islocal) {
             frm.set_value("naming_series", "MAT-CRN-.2020.-");
+        }
+        if (!cur_frm.doc.__islocal && frm.doc.name) {
+            frm.set_df_property('is_foc', 'read_only', 1)
         }
         const doc = frm.doc;
         debugger;
@@ -125,9 +128,7 @@ frappe.ui.form.on('Delivery Note', {
                 wip = true;
             }
         });
-        if (wip) {
-            cur_frm.set_value("wip", wip);
-        }
+        cur_frm.set_value("wip", wip);
         cur_frm.refresh();
     }
 });
@@ -141,6 +142,9 @@ frappe.ui.form.on('Delivery Note', {
                 }
             }
         });
+        if (!cur_frm.doc.__islocal && frm.doc.name) {
+            frm.set_df_property('is_foc', 'read_only', 1)
+        }
 
     }
 })
