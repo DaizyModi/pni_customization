@@ -142,6 +142,22 @@ def get_permission_query_conditions_for_lead(user):
 		""".format(user=user)
 
 
+def get_permission_query_conditions_for_purchase_order(user):
+    if "System Manager" in frappe.get_roles(user):
+        return None
+    elif "Purchase Executive" in frappe.get_roles(user):
+        allow = []
+        allow = get_allow_pe(user)
+        return """
+		`tabPurchase Order`.purchasse_executive in '{user}' 
+		""".format(allow=allow)
+
+
+def get_allow_pe(user):
+    # return list of allo pe
+    return []
+
+
 def get_permission_query_conditions_for_opportunity(user):
     if "System Manager" in frappe.get_roles(user):
         return None
