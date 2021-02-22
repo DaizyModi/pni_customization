@@ -4,6 +4,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "item_code",
   "item",
   "qty",
   "uom"
@@ -13,7 +14,7 @@
    "fieldname": "item",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Item"
+   "label": "Item Data"
   },
   {
    "fieldname": "qty",
@@ -23,15 +24,24 @@
   },
   {
    "default": "Carton",
+   "fetch_from": "item.stock_uom",
+   "fetch_if_empty": 1,
    "fieldname": "uom",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "UOM",
    "options": "UOM"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Code",
+   "options": "Item"
   }
  ],
  "istable": 1,
- "modified": "2020-04-08 21:23:38.954385",
+ "modified": "2021-02-22 11:07:46.616409",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Entry Item",
