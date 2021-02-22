@@ -27,7 +27,10 @@ class PNIGateEntry(Document):
 
 @frappe.whitelist()
 def get_po_items(po):
-    po_doc = frappe.get_doc('Purchase Order', po)
+    try:
+        po_doc = frappe.get_doc('Purchase Order', po)
+    except:
+        return ''
     po_items = []
     for item in po_doc.get('items'):
         po_items.append({
