@@ -17,6 +17,7 @@
   "is_local_slip",
   "local_slip",
   "item_details_section",
+  "purchase_order",
   "items",
   "visiter_detail_section",
   "visitor_name",
@@ -146,10 +147,15 @@
    "label": "Entry Status",
    "options": "Pending For Delivery\nDelivered",
    "read_only": 1
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Data",
+   "label": "Purchase Order"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-12-21 11:46:26.073655",
+ "modified": "2021-02-22 11:37:56.923135",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Entry",
