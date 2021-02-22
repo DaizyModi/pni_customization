@@ -15,16 +15,23 @@ frappe.ui.form.on('PNI Gate Entry', {
                 po: cur_frm.doc.purchase_order
             },
             callback: function (r) {
-                console.log(r.message)
-                frm.clear_table('items');
-                r.message.forEach(i => {
-                    let row = frm.add_child('items');
-                    row.item_code = i.item_code;
-                    row.item_name = i.item_name;
-                    row.qty = i.item_qty;
-                    row.uom = i.item_uom;
-                });
-                refresh_field('items');
+                if (r.message) {
+                    console.log(r.message)
+                    frm.clear_table('items');
+                    r.message.forEach(i => {
+                        let row = frm.add_child('items');
+                        row.item_code = i.item_code;
+                        row.item_name = i.item_name;
+                        row.qty = i.item_qty;
+                        row.uom = i.item_uom;
+                    });
+                    refresh_field('items');
+                }
+                else {
+                    debugger;
+                    cur_frm.set_value('purchase_order', '');
+                    refresh_field('purchase_order');
+                }
             }
         })
     }
