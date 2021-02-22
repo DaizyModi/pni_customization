@@ -5,6 +5,7 @@
  "engine": "InnoDB",
  "field_order": [
   "item_code",
+  "item_name",
   "item",
   "qty",
   "uom"
@@ -34,14 +35,20 @@
   },
   {
    "fieldname": "item_code",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Item Code",
-   "options": "Item"
+   "read_only": 1
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2021-02-22 11:07:46.616409",
+ "modified": "2021-02-22 13:46:44.430840",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Entry Item",

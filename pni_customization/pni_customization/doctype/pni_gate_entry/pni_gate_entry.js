@@ -20,7 +20,7 @@ frappe.ui.form.on('PNI Gate Entry', {
                 r.message.forEach(i => {
                     let row = frm.add_child('items');
                     row.item_code = i.item_code;
-                    row.item = i.item_name;
+                    row.item_name = i.item_name;
                     row.qty = i.item_qty;
                     row.uom = i.item_uom;
                 });
