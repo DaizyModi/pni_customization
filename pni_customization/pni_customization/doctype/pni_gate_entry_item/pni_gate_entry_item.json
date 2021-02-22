@@ -18,12 +18,14 @@
    "label": "Item Data"
   },
   {
+   "columns": 1,
    "fieldname": "qty",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Qty"
   },
   {
+   "columns": 1,
    "default": "Carton",
    "fetch_from": "item.stock_uom",
    "fetch_if_empty": 1,
@@ -43,12 +45,13 @@
   {
    "fieldname": "item_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Item Name",
    "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2021-02-22 13:46:44.430840",
+ "modified": "2021-02-22 15:01:38.596827",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Entry Item",
