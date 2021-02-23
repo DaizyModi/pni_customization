@@ -203,6 +203,10 @@ doctype_js = {
 permission_query_conditions = {
     "Lead": "pni_customization.utils.get_permission_query_conditions_for_lead",
     "Opportunity": "pni_customization.utils.get_permission_query_conditions_for_opportunity",
+    "Purchase Order": "pni_customization.utils.get_permission_query_conditions_for_purchase_order",
+    "Purchase Inovice": "pni_customization.utils.get_permission_query_conditions_for_purchase_invoice",
+    "Purchase Receipt": "pni_customization.utils.get_permission_query_conditions_for_purchase_Receipt",
+    "Item": "pni_customization.utils.get_permission_query_conditions_for_item",
 }
 
 # Document Events

@@ -136,8 +136,8 @@ def get_permission_query_conditions_for_lead(user):
         # 		(tabLead.owner in ({user}) )
         # 	""".format(user=is_sales_person_group())
         return """
-		(tabLead.owner = '{user}' ) 
-		or 
+		(tabLead.owner = '{user}' )
+		or
 		(tabLead._assign like '%{user}%')
 		""".format(user=user)
 
@@ -148,14 +148,99 @@ def get_permission_query_conditions_for_purchase_order(user):
     elif "Purchase Executive" in frappe.get_roles(user):
         allow = []
         allow = get_allow_pe(user)
-        return """
-		`tabPurchase Order`.purchasse_executive in '{user}' 
-		""".format(allow=allow)
+        user_list = ""
+        for data in allow:
+            user_list += "'"+str(data)+"',"
+        user_list = user_list.strip(",")
+        user_list = "(" + user_list + ")"
+        if allow:
+            return """
+            `tabPurchase Order`.purchase_executive in {allow}
+            """.format(allow=user_list)
+    else:
+        return None
+    return "false"
+
+
+def get_permission_query_conditions_for_purchase_invoice(user):
+    if "System Manager" in frappe.get_roles(user):
+        return None
+    elif "Purchase Executive" in frappe.get_roles(user):
+        allow = []
+        allow = get_allow_pe(user)
+        user_list = ""
+        for data in allow:
+            user_list += "'"+str(data)+"',"
+        user_list = user_list.strip(",")
+        user_list = "(" + user_list + ")"
+        if allow:
+            return """
+            `tabPurchase Invoice`.purchase_executive in {allow}
+            """.format(allow=user_list)
+    else:
+        return None
+    return "false"
+
+
+def get_permission_query_conditions_for_purchase_receipt(user):
+    if "System Manager" in frappe.get_roles(user):
+        return None
+    elif "Purchase Executive" in frappe.get_roles(user):
+        allow = []
+        allow = get_allow_pe(user)
+        user_list = ""
+        for data in allow:
+            user_list += "'"+str(data)+"',"
+        user_list = user_list.strip(",")
+        user_list = "(" + user_list + ")"
+        if allow:
+            return """
+            `tabPurchase Receipt`.purchase_executive in {allow}
+            """.format(allow=user_list)
+    else:
+        return None
+    return "false"
+
+
+def get_permission_query_conditions_for_item(user):
+    if "System Manager" in frappe.get_roles(user):
+        return None
+    elif "Purchase Executive" in frappe.get_roles(user):
+        allow = []
+        allow = get_allow_pe(user)
+        user_list = ""
+        for data in allow:
+            user_list += "'"+str(data)+"',"
+        user_list = user_list.strip(",")
+        user_list = "(" + user_list + ")"
+        if allow:
+            return """
+            `tabItem`.purchase_executive in {allow}
+            """.format(allow=user_list)
+    else:
+        return None
+    return "false"
 
 
 def get_allow_pe(user):
     # return list of allo pe
-    return []
+    user_list = []
+    pe = frappe.get_value('Purchase Executive', {
+        'user_id': user}, ["name", "is_group"])
+    if pe:
+        user_list.append(pe[0])
+        if pe[1]:
+            get_child(user_list, pe[0])
+    return user_list
+
+
+def get_child(user_list, pe):
+    pes = frappe.get_all('Purchase Executive', {
+        'parent_purchase_executive': pe}, ["name", "is_group"])
+    for pe in pes:
+        user_list.append(pe['name'])
+        if pe['is_group']:
+            get_child(user_list, pe['name'])
 
 
 def get_permission_query_conditions_for_opportunity(user):
@@ -167,8 +252,8 @@ def get_permission_query_conditions_for_opportunity(user):
         # 		(tabOpportunity.owner in ({user}) )
         # 	""".format(user=is_sales_person_group())
         return """
-		(tabOpportunity.owner = '{user}' ) 
-		or 
+		(tabOpportunity.owner = '{user}' )
+		or
 		(tabOpportunity._assign like '%{user}%')
 		""".format(user=user)
 
