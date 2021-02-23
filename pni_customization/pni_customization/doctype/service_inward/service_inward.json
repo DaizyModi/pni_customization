@@ -1,0 +1,105 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2021-02-23 15:35:54.091293",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "user",
+  "customer_name",
+  "company_email",
+  "non_company_email",
+  "column_break_6",
+  "date",
+  "status",
+  "section_break_7",
+  "non_company_material"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "SR-INWRD-.#####"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "User ",
+   "options": "User"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer Name",
+   "options": "Customer"
+  },
+  {
+   "default": "0",
+   "fieldname": "company_email",
+   "fieldtype": "Check",
+   "label": "Company Email"
+  },
+  {
+   "default": "0",
+   "fieldname": "non_company_email",
+   "fieldtype": "Check",
+   "label": "Non Company Email"
+  },
+  {
+   "depends_on": "non_company_email",
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "non_company_material",
+   "fieldtype": "Table",
+   "label": "Non Company Material",
+   "options": "Company Material Detail"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Pending\nComplete"
+  }
+ ],
+ "modified": "2021-02-23 16:05:13.963039",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Service Inward",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

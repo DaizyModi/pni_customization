@@ -10,17 +10,34 @@
   "naming_series",
   "created_by",
   "entry_status",
+  "gate_entry_type",
   "column_break_4",
   "date",
+  "attach_document",
+  "attached_file",
   "section_break_7",
-  "gate_entry_type",
   "supplier_name",
   "purchase_order",
-  "section_break_5",
-  "receiver",
-  "column_break_12",
-  "receiver_name",
+  "material_detail",
   "received_through_details_section",
+  "received_for",
+  "receiver_name",
+  "document_received",
+  "service_inward_detail_section",
+  "inward_no",
+  "inward_data",
+  "sales_retun_section",
+  "sales_return_no",
+  "sales_return_details",
+  "returnable_gate_pass_details_section",
+  "pni_gate_exit_id",
+  "returnable_gate_pass",
+  "local_slip_details_section",
+  "local_slip",
+  "local_slip_detail",
+  "visitor_details_section",
+  "in_time",
+  "visitor_detail",
   "amended_from"
  ],
  "fields": [
@@ -31,6 +48,7 @@
    "options": "GATE-ENTRY-.####"
   },
   {
+   "default": "frappe.session.user",
    "fieldname": "created_by",
    "fieldtype": "Link",
    "label": "Created by",
@@ -56,6 +74,7 @@
    "read_only": 1
   },
   {
+   "depends_on": "eval:doc.gate_entry_type == 'Material Received With PO'",
    "fieldname": "section_break_7",
    "fieldtype": "Section Break"
   },
@@ -85,20 +104,13 @@
   },
   {
    "depends_on": "eval:doc.gate_entry_type=='Material Received With PO'",
-   "fetch_from": "purchase_order.supplier_name",
    "fieldname": "supplier_name",
    "fieldtype": "Link",
    "label": "Supplier Name",
    "options": "Supplier"
   },
   {
-   "fieldname": "receiver",
-   "fieldtype": "Link",
-   "label": "Receiver ",
-   "options": "Employee"
-  },
-  {
-   "fetch_from": "receiver.employee_name",
+   "fetch_from": "received_for.employee_name",
    "fieldname": "receiver_name",
    "fieldtype": "Data",
    "label": "Receiver Name",
@@ -106,21 +118,131 @@
   },
   {
    "depends_on": "eval:doc.gate_entry_type=='Courier & Document Received'",
-   "fieldname": "section_break_5",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_12",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "received_through_details_section",
    "fieldtype": "Section Break",
-   "label": "Received Through Details"
+   "label": "received_through_details_section"
+  },
+  {
+   "fieldname": "attach_document",
+   "fieldtype": "Attach Image",
+   "label": "Attach Document"
+  },
+  {
+   "fieldname": "attached_file",
+   "fieldtype": "Image",
+   "label": "Attached File"
+  },
+  {
+   "fieldname": "material_detail",
+   "fieldtype": "Table",
+   "label": "Material Detail",
+   "options": "Material Items"
+  },
+  {
+   "fieldname": "received_for",
+   "fieldtype": "Link",
+   "label": "Received For ",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "document_received",
+   "fieldtype": "Table",
+   "label": "Document Received",
+   "options": "Document Received Details"
+  },
+  {
+   "depends_on": "eval:doc.gate_entry_type==\"Service Inward\"",
+   "fieldname": "service_inward_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Service Inward Detail"
+  },
+  {
+   "fieldname": "inward_no",
+   "fieldtype": "Link",
+   "label": "Inward No",
+   "options": "Service Inward"
+  },
+  {
+   "fieldname": "inward_data",
+   "fieldtype": "Table",
+   "label": "Inward Data",
+   "options": "Inward Items"
+  },
+  {
+   "depends_on": "eval:doc.gate_entry_type == \"Sales Return\"",
+   "fieldname": "sales_retun_section",
+   "fieldtype": "Section Break",
+   "label": "Sales Retun"
+  },
+  {
+   "fieldname": "sales_return_no",
+   "fieldtype": "Link",
+   "label": "Sales Return No",
+   "options": "Sales Return"
+  },
+  {
+   "fieldname": "sales_return_details",
+   "fieldtype": "Table",
+   "label": "Sales Return Details",
+   "options": "Sales Return Items"
+  },
+  {
+   "depends_on": "eval:doc.gate_entry_type == \"Returnable Gate Pass\"",
+   "fieldname": "returnable_gate_pass_details_section",
+   "fieldtype": "Section Break",
+   "label": "Returnable Gate Pass Details"
+  },
+  {
+   "fieldname": "pni_gate_exit_id",
+   "fieldtype": "Link",
+   "label": "PNI Gate Exit ID",
+   "options": "PNI Gate Exit"
+  },
+  {
+   "fieldname": "returnable_gate_pass",
+   "fieldtype": "Table",
+   "label": "Returnable Gate Pass",
+   "options": "Returnable Gate Pass"
+  },
+  {
+   "depends_on": "eval:doc.gate_entry_type == \"Local Slip\"",
+   "fieldname": "local_slip_details_section",
+   "fieldtype": "Section Break",
+   "label": "Local Slip Details"
+  },
+  {
+   "fieldname": "local_slip",
+   "fieldtype": "Link",
+   "label": "Local Slip",
+   "options": "Local Slip"
+  },
+  {
+   "fieldname": "local_slip_detail",
+   "fieldtype": "Table",
+   "label": "Local Slip Detail",
+   "options": "Local Slip Detail"
+  },
+  {
+   "depends_on": "eval:doc.gate_entry_type == \"Visitor\"",
+   "fieldname": "visitor_details_section",
+   "fieldtype": "Section Break",
+   "label": "Visitor Details"
+  },
+  {
+   "fieldname": "in_time",
+   "fieldtype": "Time",
+   "label": "In Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "visitor_detail",
+   "fieldtype": "Table",
+   "label": "Visitor Detail",
+   "options": "Visitor details"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-02-23 12:57:31.140231",
+ "modified": "2021-02-23 17:08:11.541368",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Entries",
