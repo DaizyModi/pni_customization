@@ -1,0 +1,53 @@
+{
+ "creation": "2021-02-23 14:35:07.805950",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "visitor_name",
+  "visit_with_employee",
+  "employee_name",
+  "details"
+ ],
+ "fields": [
+  {
+   "fieldname": "visitor_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Visitor Name"
+  },
+  {
+   "fieldname": "visit_with_employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Visit with Employee",
+   "options": "Employee"
+  },
+  {
+   "default": "NOW",
+   "fieldname": "details",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Details",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "visit_with_employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-02-23 17:05:46.103549",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Visitor details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
