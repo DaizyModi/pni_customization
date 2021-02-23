@@ -205,7 +205,7 @@ permission_query_conditions = {
     "Opportunity": "pni_customization.utils.get_permission_query_conditions_for_opportunity",
     "Purchase Order": "pni_customization.utils.get_permission_query_conditions_for_purchase_order",
     "Purchase Inovice": "pni_customization.utils.get_permission_query_conditions_for_purchase_invoice",
-    "Purchase Receipt": "pni_customization.utils.get_permission_query_conditions_for_purchase_Receipt",
+    "Purchase Receipt": "pni_customization.utils.get_permission_query_conditions_for_purchase_receipt",
     "Item": "pni_customization.utils.get_permission_query_conditions_for_item",
 }
 

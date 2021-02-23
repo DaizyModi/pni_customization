@@ -81,6 +81,24 @@ def get_timeline_data(doctype, name):
     for date, count in iteritems(po):
         timestamp = get_timestamp(date)
         out.update({timestamp: count})
+
+    # child_node = frappe.db.get_all(
+    #     'Purchase Executive', {'parent_purchase_executive': name})
+
+    # if child_node:
+    #     total_po = 0
+    #     for data in child_node:
+    #         child_po = dict(frappe.db.sql('''
+    #             select transaction_date, count(*)
+    #                 from
+    #                 `tabPurchase Order` where purchase_executive = %s and transaction_date > date_sub(curdate(), interval 1 year) group by transaction_date
+    #         ''', data.name))
+    #         print(child_po)
+    #         for date, count in
+    #         for date, count in iteritems(child_po):
+    #             timestamp = get_timestamp(date)
+    #             out.update({timestamp: count})
+
     return out
 
 

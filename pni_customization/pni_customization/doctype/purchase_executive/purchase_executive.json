@@ -47,7 +47,8 @@
    "label": "Parent Purchase Executive",
    "oldfieldname": "parent_sales_person",
    "oldfieldtype": "Link",
-   "options": "Purchase Executive"
+   "options": "Purchase Executive",
+   "reqd": 1
   },
   {
    "default": "0",
@@ -127,7 +128,7 @@
  ],
  "icon": "icon-user",
  "is_tree": 1,
- "modified": "2021-02-19 15:13:26.101552",
+ "modified": "2021-02-22 16:06:03.468203",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Purchase Executive",
