@@ -1,0 +1,147 @@
+{
+ "allow_import": 1,
+ "autoname": "naming_series:",
+ "creation": "2021-02-23 11:18:12.083042",
+ "doctype": "DocType",
+ "document_type": "System",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "created_by",
+  "entry_status",
+  "column_break_4",
+  "date",
+  "section_break_7",
+  "gate_entry_type",
+  "supplier_name",
+  "purchase_order",
+  "section_break_5",
+  "receiver",
+  "column_break_12",
+  "receiver_name",
+  "received_through_details_section",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "GATE-ENTRY-.####"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created by",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "entry_status",
+   "fieldtype": "Select",
+   "label": "Entry Status",
+   "options": "Pending For Delivery\nDelivered",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Now",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date & Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "PNI Gate Entries",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "gate_entry_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Gate Entry Type",
+   "options": "Material Received With PO\nCourier & Document Received\nService Inward\nSales Return\nReturnable Gate Pass\nLocal Slip\nVisitor",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.gate_entry_type=='Material Received With PO'",
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "label": "Purchase Order",
+   "options": "Purchase Order"
+  },
+  {
+   "depends_on": "eval:doc.gate_entry_type=='Material Received With PO'",
+   "fetch_from": "purchase_order.supplier_name",
+   "fieldname": "supplier_name",
+   "fieldtype": "Link",
+   "label": "Supplier Name",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "receiver",
+   "fieldtype": "Link",
+   "label": "Receiver ",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "receiver.employee_name",
+   "fieldname": "receiver_name",
+   "fieldtype": "Data",
+   "label": "Receiver Name",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.gate_entry_type=='Courier & Document Received'",
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "received_through_details_section",
+   "fieldtype": "Section Break",
+   "label": "Received Through Details"
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2021-02-23 12:57:31.140231",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "PNI Gate Entries",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
