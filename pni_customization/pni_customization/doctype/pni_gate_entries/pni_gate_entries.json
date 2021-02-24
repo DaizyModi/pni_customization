@@ -130,7 +130,8 @@
   {
    "fieldname": "attached_file",
    "fieldtype": "Image",
-   "label": "Attached File"
+   "label": "Attached File",
+   "options": "attach_document"
   },
   {
    "fieldname": "material_detail",
@@ -242,7 +243,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2021-02-23 17:08:11.541368",
+ "modified": "2021-02-24 10:18:42.560510",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PNI Gate Entries",

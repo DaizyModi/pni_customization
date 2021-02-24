@@ -2,9 +2,11 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('PNI Gate Entries', {
-    // refresh: function(frm) {
-
-    // }
+    refresh: function (frm) {
+        if (!frm.doc.created_by) {
+            frm.set_value('created_by', frappe.session.user);
+        }
+    },
     setup: function (frm) {
         frm.set_query('purchase_order', function () {
             return {
