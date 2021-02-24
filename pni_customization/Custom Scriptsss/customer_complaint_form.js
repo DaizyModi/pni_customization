@@ -1,3 +1,8 @@
+frappe.ui.form.on('Complaint Items', {
+    sales_invoice: function name(frm) {
+        get_invoice_items(frm, cdt, cdn);
+    },
+})
 frappe.ui.form.on('Customer Complaint Form', {
     refresh(frm) {
         // your code here
@@ -20,11 +25,20 @@ frappe.ui.form.on('Customer Complaint Form', {
         frm.set_query("item_code", "paper_details", function (doc, cdt, cdn) {
             debugger;
             var row = locals[cdt][cdn];
+            var data_temp = cur_frm.doc.paper_details.filter(obj => {
+                return obj.name === cdn
+            })
+            var items;
             if (row.sales_invoice) {
+                get_invoice_items(frm, cdt, cdn);
+                console.log(data_temp[0]);
+                console.log(row.item_array);
+                debugger;
                 return {
-                    query: 'pni_customization.utility.customer_complaint_form_utility.get_items',
-                    filters: { "sales_invoice": row.sales_invoice }
-                };
+                    filters: [
+                        ['item_code', 'in', data_temp[0].item_array]
+                    ]
+                }
             }
         });
         frm.set_query('serial_no', "table_38", function () {
@@ -42,24 +56,22 @@ frappe.ui.form.on('Customer Complaint Form', {
     }
 })
 
-// let get_invoice_items = function (frm) {
-//     let list_items = new Array();
-//     frappe.call({
-//         'method': frappe.client
-//     })
-// }
-// // frappe.ui.form.on('Complaint Items', {
-//     sales_invoice: function (doc, cdt, cdn) {
-//         // debugger;
-//         var me = this;
-//         var d2 = locals[cdt][cdn];
-//         debugger;
-//         me.frm.set_query("item_code", "paper_details", function (doc, cdt, cdn) {
-//             return {
-//                 filters: {
-//                     sales_invoice: d2.sales_invoice
-//                 }
-//             }
-//         });
-//     }
-// })
+let get_invoice_items = function (frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    var items = new Array();
+    frappe.call({
+        method: 'pni_customization.utility.customer_complaint_form_utility.get_invoice_items',
+        args: {
+            sales_invoice: d.sales_invoice
+        },
+        callback: function (r) {
+
+            for (var i = 0; i < r.message.length; i++) {
+                items.push(r.message[i].item_code);
+            }
+
+            console.log(items);
+            d.item_array = items;
+        }
+    })
+}
