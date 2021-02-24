@@ -29,16 +29,19 @@
   },
   {
    "columns": 1,
+   "default": "25",
    "fieldname": "packet_qty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Packet Qty"
+   "label": "Packet Qty",
+   "read_only": 1
   },
   {
    "fieldname": "packet_price",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Packet Price"
+   "label": "Packet Price",
+   "read_only": 1
   },
   {
    "columns": 1,
@@ -51,11 +54,12 @@
    "fieldname": "box_price",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Box Price"
+   "label": "Box Price",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2021-02-23 14:34:50.581834",
+ "modified": "2021-02-24 17:46:12.221877",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "PPL Star Shape",
