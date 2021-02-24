@@ -46,3 +46,12 @@ def get_items(doctype=None, txt=None, searchfield=None, start=None, page_len=Non
         "start": start,
         "page_len": page_len
     }, as_dict=as_dict)
+
+
+@frappe.whitelist()
+def get_invoice_items(sales_invoice):
+    doc = frappe.get_doc("Sales Invoice", sales_invoice)
+    items = []
+    for item in doc.get('items'):
+        items.append(item)
+    return items
