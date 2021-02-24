@@ -1,0 +1,148 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2021-02-23 14:25:58.024212",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "paper_cup",
+  "paper_plate_bowl",
+  "section_break_4",
+  "paper_cup_t",
+  "section_break_6",
+  "round_plate_t",
+  "section_break_8",
+  "flower_plate_t",
+  "section_break_10",
+  "heart_shape_plate_t",
+  "section_break_12",
+  "square_plate_t",
+  "section_break_14",
+  "square_bowl_t",
+  "section_break_16",
+  "star_shape_t"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "MG-PPL-"
+  },
+  {
+   "default": "0",
+   "fieldname": "paper_cup",
+   "fieldtype": "Check",
+   "label": "Paper Cup"
+  },
+  {
+   "default": "0",
+   "fieldname": "paper_plate_bowl",
+   "fieldtype": "Check",
+   "label": "Paper Plate & Bowl"
+  },
+  {
+   "depends_on": "paper_cup",
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "paper_cup_t",
+   "fieldtype": "Table",
+   "label": "Paper Cup",
+   "options": "PPL Paper Cup"
+  },
+  {
+   "depends_on": "paper_plate_bowl",
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "round_plate_t",
+   "fieldtype": "Table",
+   "label": "Round Plate",
+   "options": "PPL Round Plate"
+  },
+  {
+   "depends_on": "paper_plate_bowl",
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "flower_plate_t",
+   "fieldtype": "Table",
+   "label": "Flower Plate",
+   "options": "PPL Flower Plate"
+  },
+  {
+   "depends_on": "paper_plate_bowl",
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "heart_shape_plate_t",
+   "fieldtype": "Table",
+   "label": "Heart Shape Plate",
+   "options": "PPL Heart Shape Plate"
+  },
+  {
+   "depends_on": "paper_plate_bowl",
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "square_plate_t",
+   "fieldtype": "Table",
+   "label": "Square Plate",
+   "options": "PPL Square Plate"
+  },
+  {
+   "depends_on": "paper_plate_bowl",
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "square_bowl_t",
+   "fieldtype": "Table",
+   "label": "Square Bowl",
+   "options": "PPL Square Bowl"
+  },
+  {
+   "depends_on": "paper_plate_bowl",
+   "fieldname": "section_break_16",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "star_shape_t",
+   "fieldtype": "Table",
+   "label": "Star Shape",
+   "options": "PPL Star Shape"
+  }
+ ],
+ "modified": "2021-02-23 14:30:50.253231",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Printable Price List",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
