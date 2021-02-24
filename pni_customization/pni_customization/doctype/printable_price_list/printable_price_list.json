@@ -35,12 +35,14 @@
    "default": "0",
    "fieldname": "paper_cup",
    "fieldtype": "Check",
+   "in_list_view": 1,
    "label": "Paper Cup"
   },
   {
    "default": "0",
    "fieldname": "paper_plate_bowl",
    "fieldtype": "Check",
+   "in_list_view": 1,
    "label": "Paper Plate & Bowl"
   },
   {
@@ -121,7 +123,7 @@
    "options": "PPL Star Shape"
   }
  ],
- "modified": "2021-02-23 14:30:50.253231",
+ "modified": "2021-02-24 12:39:57.302653",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Printable Price List",
