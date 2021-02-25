@@ -58,7 +58,7 @@ frappe.ui.form.on('Customer Complaint Form', {
 
 let get_invoice_items = function (frm, cdt, cdn) {
     var d = locals[cdt][cdn];
-    var items = new Array();
+    var items = "";
     frappe.call({
         method: 'pni_customization.utility.customer_complaint_form_utility.get_invoice_items',
         args: {
@@ -67,7 +67,7 @@ let get_invoice_items = function (frm, cdt, cdn) {
         callback: function (r) {
 
             for (var i = 0; i < r.message.length; i++) {
-                items.push(r.message[i].item_code);
+                items += r.message[i].item_code + ",";
             }
 
             console.log(items);
