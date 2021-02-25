@@ -20,7 +20,7 @@ frappe.ui.form.on("Shift Request", {
         frm.set_query("shift_type", function (frm) {
             return {
                 filters: [
-                    ['shift_type', 'in', cur_frm.doc.shift_array]
+                    ['name', 'in', cur_frm.doc.shift_array]
                 ]
             }
         })
