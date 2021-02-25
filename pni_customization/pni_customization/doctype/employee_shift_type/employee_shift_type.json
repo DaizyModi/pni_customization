@@ -1,0 +1,29 @@
+{
+ "creation": "2021-02-25 11:25:31.130362",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "shift_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "shift_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Shift Type",
+   "options": "Shift Type"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-02-25 11:27:15.997243",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Employee Shift Type",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

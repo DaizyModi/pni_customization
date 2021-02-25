@@ -7,6 +7,13 @@ frappe.ui.form.on('Employee', {
                 }
             }
         });
+        frm.set_query("leave_policy", function () {
+            return {
+                filters: {
+                    "status": "Enable"
+                }
+            }
+        });
         frm.set_query("salary_structure_assignment", function () {
             return {
                 filters: {
@@ -34,11 +41,12 @@ frappe.ui.form.on('Employee', {
     },
     status(frm) {
         if (frm.doc.status == "Active") {
-            frm.set_df_property('duty_hour', 'reqd', 1)
+            frm.set_df_property('duty_hour', 'reqd', 1),
+                frm.set_df_property('prefered_contact_email', 'reqd', 1)
         } else {
-            frm.set_df_property('duty_hour', 'reqd', 0)
+            frm.set_df_property('duty_hour', 'reqd', 0),
+                frm.set_df_property('prefered_contact_email', 'reqd', 0)
         }
-
     },
     has_pf(frm) {
         if (frm.doc.has_pf) {
@@ -48,6 +56,15 @@ frappe.ui.form.on('Employee', {
         }
 
     },
+    is_changeable_shift: function (frm) {
+        if (frm.doc.is_changeable_shift) {
+            frm.set_df_property('employee_shift_type', 'reqd', 1);
+        }
+        else {
+            frm.set_df_property('employee_shift_type', 'reqd', 0);
+        }
+    }
+
 })
 frappe.ui.form.on('Employee', {
     setup: function (frm) {
