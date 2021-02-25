@@ -1,10 +1,10 @@
 import frappe
-from frappe.utils import time_diff_in_hours
+from frappe.utils import time_diff_in_hours, get_datetime
 from datetime import datetime
 
 
 def shift_type_validate(doc, method):
-    if doc.end_time > doc.start_time:
+    if get_datetime(doc.end_time) > get_datetime(doc.start_time):
         time_diff = time_diff_in_hours(doc.end_time, doc.start_time)
         doc.total_hours = time_diff
     else:
