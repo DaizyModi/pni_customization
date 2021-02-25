@@ -1,4 +1,4 @@
-frappe.ui.form.on("Shift Request", {
+frappe.ui.form.on("Shift Assignment", {
     employee: function (frm) {
         var shift_array = "";
         frappe.call({

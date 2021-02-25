@@ -10,6 +10,7 @@
   "from_date",
   "to_date",
   "section_break_7",
+  "emp_array",
   "shift_employee_table"
  ],
  "fields": [
@@ -56,10 +57,16 @@
   {
    "fieldname": "section_break_7",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "emp_array",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Emp Array"
   }
  ],
  "issingle": 1,
- "modified": "2020-12-01 12:21:25.933775",
+ "modified": "2021-02-25 15:08:18.215444",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Update Shift Request",
