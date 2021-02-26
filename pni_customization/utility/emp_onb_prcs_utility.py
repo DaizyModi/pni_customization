@@ -8,4 +8,4 @@ def emp_onboarding_validate(doc, method):
         doc.card_number = emp_no[2].zfill(8)
         emp = frappe.get_doc("Employee", doc.employee)
         emp.card_no = doc.card_number
-        emp.save()
+        emp.save(ignore_permissions=True)
