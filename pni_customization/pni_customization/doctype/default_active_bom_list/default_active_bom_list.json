@@ -1,0 +1,39 @@
+{
+ "creation": "2021-02-26 17:28:39.798931",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "old_bom",
+  "new_bom"
+ ],
+ "fields": [
+  {
+   "fieldname": "old_bom",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Old BOM",
+   "options": "BOM",
+   "read_only": 1
+  },
+  {
+   "fieldname": "new_bom",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "New BOM",
+   "options": "BOM",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-02-27 13:39:37.707820",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Default Active BOM List",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
