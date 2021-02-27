@@ -24,7 +24,7 @@ class UpdateBOMTool(Document):
         if self.default_active_bom_list:
             for row in self.get('default_active_bom_list'):
                 if row.old_bom:
-                    self.get_default_active_bom(row.old_bom)
+                    self.get_default_active_bom(row)
                 else:
                     return None
         else:
@@ -51,8 +51,8 @@ class UpdateBOMTool(Document):
             frappe.db.commit()
         self.set("default_active_bom_list", [])
 
-    def get_default_active_bom(self, old_bom):
-        bom_obj = frappe.get_doc("BOM", old_bom)
+    def get_default_active_bom(self, row):
+        bom_obj = frappe.get_doc("BOM", row.old_bom)
         if bom_obj:
             new_bom_obj = frappe.get_all("BOM", filters={
                 'item': bom_obj.item,
@@ -61,8 +61,7 @@ class UpdateBOMTool(Document):
                 'is_default': True
             }, fields=['name'])
             if new_bom_obj:
-                for row in self.default_active_bom_list:
-                    row.new_bom = new_bom_obj[0].name
+                row.new_bom = new_bom_obj[0].name
                 self.save()
                 frappe.db.commit()
             else:
