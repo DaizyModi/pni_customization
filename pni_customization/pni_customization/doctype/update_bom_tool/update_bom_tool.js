@@ -10,7 +10,9 @@ frappe.ui.form.on('Update BOM Tool', {
             "method": "get_bom",
             doc: cur_frm.doc,
             callback: function (r) {
-                console.log(r.message);
+                if (r.message) {
+                    frappe.msgprint("Old BOMs added to the list");
+                }
                 frm.reload_doc()
             }
         })
@@ -20,7 +22,9 @@ frappe.ui.form.on('Update BOM Tool', {
             "method": "get_new_bom",
             doc: cur_frm.doc,
             callback: function (r) {
-                console.log(r.message);
+                if (r.message) {
+                    frappe.msgprint("Enque New BOMs");
+                }
                 frm.reload_doc()
             }
         })
@@ -30,7 +34,9 @@ frappe.ui.form.on('Update BOM Tool', {
             "method": "replace_bom",
             doc: cur_frm.doc,
             callback: function (r) {
-                console.log(r.message);
+                if (r.message) {
+                    frappe.msgprint("Old BOMs have been replaced with new BOMs Successfully.");
+                }
                 frm.reload_doc()
             }
         })

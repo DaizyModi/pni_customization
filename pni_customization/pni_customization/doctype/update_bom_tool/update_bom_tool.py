@@ -17,6 +17,8 @@ class UpdateBOMTool(Document):
                     self.check_bom_is_active_default(bom)
                 else:
                     return None
+            self.save()
+            frappe.db.commit()
         else:
             return None
 
@@ -27,6 +29,8 @@ class UpdateBOMTool(Document):
                     self.get_default_active_bom(row)
                 else:
                     return None
+            self.save()
+            frappe.db.commit()
         else:
             frappe.throw("No Old BOM found in List")
 
@@ -47,23 +51,18 @@ class UpdateBOMTool(Document):
         else:
             row = self.append('default_active_bom_list', {})
             row.old_bom = bom_obj.name
-            self.save()
-            frappe.db.commit()
-        self.set("default_active_bom_list", [])
 
     def get_default_active_bom(self, row):
         bom_obj = frappe.get_doc("BOM", row.old_bom)
         if bom_obj:
             new_bom_obj = frappe.get_all("BOM", filters={
                 'item': bom_obj.item,
-                'docstatus': True,
+                'docstatus': 1,
                 'is_active': True,
                 'is_default': True
             }, fields=['name'])
             if new_bom_obj:
                 row.new_bom = new_bom_obj[0].name
-                self.save()
-                frappe.db.commit()
             else:
                 return None
         else:
