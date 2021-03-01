@@ -1,6 +1,6 @@
 {
  "autoname": "naming_series:",
- "creation": "2021-03-01 16:36:11.242283",
+ "creation": "2021-03-01 19:07:06.464878",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -22,6 +22,31 @@
   "amended_from"
  ],
  "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "CP-.#####"
+  },
+  {
+   "fetch_from": "advance_payment_request.person_type",
+   "fetch_if_empty": 1,
+   "fieldname": "person_type",
+   "fieldtype": "Select",
+   "label": "Person Type",
+   "options": "Employee\nWorker",
+   "set_only_once": 1
+  },
+  {
+   "fetch_from": "advance_payment_request.person_name",
+   "fetch_if_empty": 1,
+   "fieldname": "person_name",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Person Name",
+   "options": "person_type",
+   "set_only_once": 1
+  },
   {
    "fieldname": "month",
    "fieldtype": "Select",
@@ -48,6 +73,15 @@
    "set_only_once": 1
   },
   {
+   "fetch_from": "advance_payment_request.payment_required_by",
+   "fetch_if_empty": 1,
+   "fieldname": "payment_required_by",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Payment Required By",
+   "set_only_once": 1
+  },
+  {
    "default": "0",
    "fieldname": "is_advance_payment",
    "fieldtype": "Check",
@@ -60,34 +94,6 @@
    "fieldtype": "Link",
    "label": "Advance Payment Request",
    "options": "Advance Contract Payment Request",
-   "set_only_once": 1
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Contract Payment Request",
-   "print_hide": 1,
-   "read_only": 1
-  },
-  {
-   "fetch_from": "advance_payment_request.person_type",
-   "fetch_if_empty": 1,
-   "fieldname": "person_type",
-   "fieldtype": "Select",
-   "label": "Person Type",
-   "options": "Employee\nWorker",
-   "set_only_once": 1
-  },
-  {
-   "fetch_from": "advance_payment_request.person_name",
-   "fetch_if_empty": 1,
-   "fieldname": "person_name",
-   "fieldtype": "Dynamic Link",
-   "in_list_view": 1,
-   "label": "Person Name",
-   "options": "person_type",
    "set_only_once": 1
   },
   {
@@ -111,26 +117,20 @@
    "label": "Paid Amount"
   },
   {
-   "fetch_from": "advance_payment_request.payment_required_by",
-   "fetch_if_empty": 1,
-   "fieldname": "payment_required_by",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Payment Required By",
-   "set_only_once": 1
-  },
-  {
-   "fieldname": "naming_series",
-   "fieldtype": "Select",
-   "label": "Naming Series",
-   "options": "CPR-.#####"
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Contract Payment",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2021-03-01 18:32:04.391826",
+ "modified": "2021-03-01 19:07:06.464878",
  "modified_by": "Administrator",
  "module": "PNI Customization",
- "name": "Contract Payment Request",
+ "name": "Contract Payment",
  "owner": "Administrator",
  "permissions": [
   {

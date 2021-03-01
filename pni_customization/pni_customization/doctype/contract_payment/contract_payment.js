@@ -1,7 +1,7 @@
 // Copyright (c) 2021, Jigar Tarpara and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Contract Payment Request', {
+frappe.ui.form.on('Contract Payment', {
     // refresh: function (frm) {
     // },
     setup: function (frm) {
