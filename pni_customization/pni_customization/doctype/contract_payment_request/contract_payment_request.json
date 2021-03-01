@@ -1,0 +1,153 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2021-03-01 16:36:11.242283",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "person_type",
+  "person_name",
+  "month",
+  "year",
+  "column_break_3",
+  "posting_date",
+  "payment_required_by",
+  "is_advance_payment",
+  "advance_payment_request",
+  "section_break_9",
+  "outstanding_amount",
+  "column_break_12",
+  "paid_amount",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "month",
+   "fieldtype": "Select",
+   "label": "Month",
+   "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Select",
+   "label": "Year",
+   "options": "2021\n2022\n2023\n2024\n2025\n2026\n2027\n2028\n2029\n2030",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "set_only_once": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_advance_payment",
+   "fieldtype": "Check",
+   "label": "Is Advance Payment",
+   "set_only_once": 1
+  },
+  {
+   "depends_on": "is_advance_payment",
+   "fieldname": "advance_payment_request",
+   "fieldtype": "Link",
+   "label": "Advance Payment Request",
+   "options": "Advance Contract Payment Request",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Contract Payment Request",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "advance_payment_request.person_type",
+   "fetch_if_empty": 1,
+   "fieldname": "person_type",
+   "fieldtype": "Select",
+   "label": "Person Type",
+   "options": "Employee\nWorker",
+   "set_only_once": 1
+  },
+  {
+   "fetch_from": "advance_payment_request.person_name",
+   "fetch_if_empty": 1,
+   "fieldname": "person_name",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Person Name",
+   "options": "person_type",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "outstanding_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Outstanding Amount"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "paid_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Paid Amount"
+  },
+  {
+   "fetch_from": "advance_payment_request.payment_required_by",
+   "fetch_if_empty": 1,
+   "fieldname": "payment_required_by",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Payment Required By",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "CPR-.#####"
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2021-03-01 18:32:04.391826",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Contract Payment Request",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
