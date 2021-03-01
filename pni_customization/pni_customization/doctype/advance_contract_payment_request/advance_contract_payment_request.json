@@ -1,0 +1,86 @@
+{
+ "autoname": "format:ACPR-{person_name}-{#####}",
+ "creation": "2021-03-01 15:57:38.248200",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "person_type",
+  "person_name",
+  "requested_amount",
+  "column_break_4",
+  "posting_date",
+  "payment_required_by",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payment_required_by",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Payment Required By"
+  },
+  {
+   "fieldname": "person_type",
+   "fieldtype": "Select",
+   "label": "Person Type",
+   "options": "Employee\nWorker"
+  },
+  {
+   "fieldname": "person_name",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "person_type"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Advance Contract Payment Request",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_amount",
+   "fieldtype": "Currency",
+   "label": "Requested Amount"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2021-03-01 16:01:34.841647",
+ "modified_by": "Administrator",
+ "module": "PNI Customization",
+ "name": "Advance Contract Payment Request",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
