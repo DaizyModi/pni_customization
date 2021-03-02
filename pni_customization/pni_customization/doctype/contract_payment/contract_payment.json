@@ -12,9 +12,12 @@
   "year",
   "column_break_3",
   "posting_date",
-  "payment_required_by",
+  "from_date",
+  "to_date",
   "is_advance_payment",
   "advance_payment_request",
+  "payment_required_by",
+  "requested_amount",
   "section_break_9",
   "outstanding_amount",
   "column_break_12",
@@ -35,9 +38,11 @@
    "fieldtype": "Select",
    "label": "Person Type",
    "options": "Employee\nWorker",
+   "reqd": 1,
    "set_only_once": 1
   },
   {
+   "depends_on": "person_type",
    "fetch_from": "advance_payment_request.person_name",
    "fetch_if_empty": 1,
    "fieldname": "person_name",
@@ -45,6 +50,7 @@
    "in_list_view": 1,
    "label": "Person Name",
    "options": "person_type",
+   "reqd": 1,
    "set_only_once": 1
   },
   {
@@ -52,6 +58,7 @@
    "fieldtype": "Select",
    "label": "Month",
    "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
+   "reqd": 1,
    "set_only_once": 1
   },
   {
@@ -59,6 +66,7 @@
    "fieldtype": "Select",
    "label": "Year",
    "options": "2021\n2022\n2023\n2024\n2025\n2026\n2027\n2028\n2029\n2030",
+   "reqd": 1,
    "set_only_once": 1
   },
   {
@@ -73,12 +81,14 @@
    "set_only_once": 1
   },
   {
+   "depends_on": "is_advance_payment",
    "fetch_from": "advance_payment_request.payment_required_by",
    "fetch_if_empty": 1,
    "fieldname": "payment_required_by",
    "fieldtype": "Date",
    "in_list_view": 1,
    "label": "Payment Required By",
+   "read_only": 1,
    "set_only_once": 1
   },
   {
@@ -104,7 +114,8 @@
    "fieldname": "outstanding_amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Outstanding Amount"
+   "label": "Outstanding Amount",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_12",
@@ -124,10 +135,33 @@
    "options": "Contract Payment",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "From Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "To Date",
+   "read_only": 1
+  },
+  {
+   "depends_on": "is_advance_payment",
+   "fetch_from": "advance_payment_request.requested_amount",
+   "fetch_if_empty": 1,
+   "fieldname": "requested_amount",
+   "fieldtype": "Currency",
+   "label": "Requested Amount",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2021-03-01 19:07:06.464878",
+ "modified": "2021-03-02 13:45:00.294523",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Contract Payment",
@@ -146,7 +180,6 @@
    "write": 1
   }
  ],
- "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "track_changes": 1
