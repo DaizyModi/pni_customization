@@ -19,7 +19,8 @@ frappe.ui.form.on('Contract Payment', {
             if (frm.doc.is_advance_payment) {
                 return {
                     filters: {
-                        'docstatus': 1
+                        'docstatus': 1,
+                        'person_name': frm.doc.person_name
                     }
                 }
             }
