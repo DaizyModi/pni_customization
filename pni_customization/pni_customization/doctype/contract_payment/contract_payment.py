@@ -40,7 +40,6 @@ class ContractPayment(Document):
                 """.format(emp=self.person_name, start_date=self.from_date, end_date=self.to_date))
 
             if self.person_type == "Worker":
-                month = self.month
                 total_amount = frappe.db.sql("""
                         select sum(pt.paying_amount)
                             from
@@ -55,13 +54,35 @@ class ContractPayment(Document):
                                 pt.employee,pt.item;
                     """.format(emp=self.person_name, start_date=self.from_date, end_date=self.to_date))
 
+            if self.person_type == "Employee":
+                total_amount = frappe.db.sql("""
+                    select sum(total_shift_stock * rate)
+                        from
+                            `tabPNI Packing` 
+                        where 
+                            docstatus = 1
+                            and machine_helper_id = '{emp}'
+                            and date >= '{start_date}'
+                            and date <= '{end_date}'
+                        group by
+                            machine_helper_id, date
+                """.format(emp=self.person_name, start_date=self.from_date, end_date=self.to_date))
+                print(total_amount)
+
+            if total_amount:
                 if total_amount and not outstanding:
                     self.outstanding_amount = total_amount[0][0]
                 elif total_amount and outstanding:
-                    self.outstanding_amount = total_amount[0][0] - \
-                        outstanding[0][0]
+                    if total_amount[0][0] == outstanding[0][0]:
+                        frappe.throw(
+                            "All dues paid against {0}".format(self.person_name))
+                    else:
+                        self.outstanding_amount = total_amount[0][0] - \
+                            outstanding[0][0]
                 else:
                     return 0
+            else:
+                frappe.throw("No dues found")
 
     def on_submit(self):
         if self.payment_required_by:
@@ -82,6 +103,12 @@ class ContractPayment(Document):
                 if self.paid_amount > self.calculate_paid_amount():
                     frappe.throw("Paid amount can't be more than {0}".format(
                         self.calculate_paid_amount()))
+
+        else:
+            if self.paid_amount > 0:
+                if self.paid_amount > self.outstanding_amount:
+                    frappe.throw(
+                        "Paid amount can't more than outstanding amount")
 
     def calculate_paid_amount(self):
         per_day_amount = (self.outstanding_amount / 30) * 20
