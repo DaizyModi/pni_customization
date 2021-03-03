@@ -300,6 +300,16 @@ def get_data():
             "items": [
                 {
                     "type": "doctype",
+                            "name": "Advance Contract Payment Request",
+                                    "description": _("Advance Contract Payment Request"),
+                },
+                {
+                    "type": "doctype",
+                            "name": "Contract Payment",
+                                    "description": _("Contract Payment"),
+                },
+                {
+                    "type": "doctype",
                             "name": "PNI Gate Entry",
                                     "description": _("Initial Order From Customer"),
                 },
