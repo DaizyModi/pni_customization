@@ -18,8 +18,8 @@ class AdvanceContractPaymentRequest(Document):
         return paid_amount
 
     def get_billing_amount_for_date(self):
-        first_day = str(frappe.utils.data.get_first_day(
-            self.payment_required_by))
+        first_day = frappe.utils.data.get_first_day(
+            self.payment_required_by)
         middle_date_obj = datetime.date(first_day.year, first_day.month, 20)
         last_day = str(middle_date_obj)
         if self.person_type == "Worker":
@@ -35,7 +35,7 @@ class AdvanceContractPaymentRequest(Document):
                             and packing.date <= '{end_date}'
                         group by
                             pt.employee;
-                """.format(emp=self.person_name, start_date=first_day, end_date=last_day))
+                """.format(emp=self.person_name, start_date=str(first_day), end_date=last_day))
 
         if self.person_type == "Employee":
             billing_total_amount = frappe.db.sql("""
@@ -49,6 +49,6 @@ class AdvanceContractPaymentRequest(Document):
                             and date <= '{end_date}'
                         group by
                             machine_helper_id;
-                """.format(emp=self.person_name, start_date=first_day, end_date=last_day))
+                """.format(emp=self.person_name, start_date=str(first_day), end_date=last_day))
         billing_total_amount = billing_total_amount[0][0] if billing_total_amount else 0
         return billing_total_amount
