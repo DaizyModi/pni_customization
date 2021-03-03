@@ -26,7 +26,7 @@ class ContractPayment(Document):
             self.to_date = str(last_day)
 
         if self.person_name:
-            outstanding = frappe.db.sql("""
+            paid_amount = frappe.db.sql("""
                     select sum(cpr.paid_amount)
                         from
                             `tabContract Payment` as cpr
@@ -40,7 +40,7 @@ class ContractPayment(Document):
                 """.format(emp=self.person_name, start_date=self.from_date, end_date=self.to_date))
 
             if self.person_type == "Worker":
-                total_amount = frappe.db.sql("""
+                billing_total_amount = frappe.db.sql("""
                         select sum(pt.paying_amount)
                             from
                                 `tabPacking Table` as pt, `tabPacking` as packing
@@ -51,36 +51,32 @@ class ContractPayment(Document):
                                 and packing.date >= '{start_date}'
                                 and packing.date <= '{end_date}'
                             group by
-                                pt.employee,pt.item;
+                                pt.employee;
                     """.format(emp=self.person_name, start_date=self.from_date, end_date=self.to_date))
 
             if self.person_type == "Employee":
-                total_amount = frappe.db.sql("""
+                billing_total_amount = frappe.db.sql("""
                     select sum(total_shift_stock * rate)
                         from
-                            `tabPNI Packing` 
-                        where 
+                            `tabPNI Packing`
+                        where
                             docstatus = 1
                             and machine_helper_id = '{emp}'
                             and date >= '{start_date}'
                             and date <= '{end_date}'
                         group by
-                            machine_helper_id, date
+                            machine_helper_id;
                 """.format(emp=self.person_name, start_date=self.from_date, end_date=self.to_date))
-                print(total_amount)
 
-            if total_amount:
-                if total_amount and not outstanding:
-                    self.outstanding_amount = total_amount[0][0]
-                elif total_amount and outstanding:
-                    if total_amount[0][0] == outstanding[0][0]:
-                        frappe.throw(
-                            "All dues paid against {0}".format(self.person_name))
-                    else:
-                        self.outstanding_amount = total_amount[0][0] - \
-                            outstanding[0][0]
-                else:
-                    return 0
+            if billing_total_amount:
+                paid_amount = paid_amount[0][0] if paid_amount else 0
+                billing_total_amount = billing_total_amount[0][0] if billing_total_amount else 0
+
+                self.outstanding_amount = billing_total_amount - paid_amount
+
+                if self.outstanding_amount <= 0:
+                    frappe.throw(
+                        "All dues paid against {0}".format(self.person_name))
             else:
                 frappe.throw("No dues found")
 
