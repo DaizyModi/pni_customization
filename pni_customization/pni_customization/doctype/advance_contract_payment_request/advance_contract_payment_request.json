@@ -19,26 +19,30 @@
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "label": "Posting Date",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "payment_required_by",
    "fieldtype": "Date",
    "in_list_view": 1,
-   "label": "Payment Required By"
+   "label": "Payment Required By",
+   "reqd": 1
   },
   {
    "fieldname": "person_type",
    "fieldtype": "Select",
    "label": "Person Type",
-   "options": "Employee\nWorker"
+   "options": "Employee\nWorker",
+   "reqd": 1
   },
   {
    "fieldname": "person_name",
    "fieldtype": "Dynamic Link",
    "in_list_view": 1,
    "label": "Employee",
-   "options": "person_type"
+   "options": "person_type",
+   "reqd": 1
   },
   {
    "fieldname": "amended_from",
@@ -52,7 +56,8 @@
   {
    "fieldname": "requested_amount",
    "fieldtype": "Currency",
-   "label": "Requested Amount"
+   "label": "Requested Amount",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_4",
@@ -60,7 +65,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2021-03-01 16:01:34.841647",
+ "modified": "2021-03-03 12:56:45.398510",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Advance Contract Payment Request",

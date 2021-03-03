@@ -19,6 +19,7 @@
   "payment_required_by",
   "requested_amount",
   "section_break_9",
+  "allow_advance",
   "outstanding_amount",
   "column_break_12",
   "paid_amount",
@@ -78,6 +79,7 @@
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "label": "Posting Date",
+   "read_only": 1,
    "set_only_once": 1
   },
   {
@@ -158,10 +160,17 @@
    "fieldtype": "Currency",
    "label": "Requested Amount",
    "read_only": 1
+  },
+  {
+   "depends_on": "is_advance_payment",
+   "fieldname": "allow_advance",
+   "fieldtype": "Float",
+   "label": "Allow Advance",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2021-03-02 13:45:00.294523",
+ "modified": "2021-03-03 15:44:05.258784",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Contract Payment",
