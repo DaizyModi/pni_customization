@@ -11,6 +11,7 @@
   "column_break_4",
   "posting_date",
   "payment_required_by",
+  "allow_advance",
   "amended_from"
  ],
  "fields": [
@@ -62,10 +63,16 @@
   {
    "fieldname": "column_break_4",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "allow_advance",
+   "fieldtype": "Float",
+   "label": "Allow Advance",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2021-03-03 12:56:45.398510",
+ "modified": "2021-03-03 16:09:31.203599",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Advance Contract Payment Request",
