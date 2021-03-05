@@ -247,21 +247,24 @@ def get_permission_query_conditions_for_opportunity(user):
     if "System Manager" in frappe.get_roles(user):
         return None
     elif "Sales User" in frappe.get_roles(user):
-        return None
+        # return None
         print(user)
         allow = []
         allow = get_allow_sales_person(user)
         user_list = ""
+        owner = ""
         for data in allow:
-            user_list += "'"+str(data)+"',"
+            user_list += " or `tabOpportunity`._assign like '%"+str(data)+"%',"
+            owner += "'"+str(data)+"',"
+        owner = owner.strip(",")
+        owner = "(" + owner + ")"
         user_list = user_list.strip(",")
-        user_list = "(" + user_list + ")"
+        # user_list = "(" + user_list + ")"
         if allow:
             return """
-            `tabOpportunity`.owner in {allow} 
-            or
-            `tabOpportunity`._assign in {allow}
-            """.format(allow=user_list)
+            `tabOpportunity`.owner in {owner} 
+            {allow}
+            """.format(allow=user_list, owner=owner)
         else:
             return None
     else:
