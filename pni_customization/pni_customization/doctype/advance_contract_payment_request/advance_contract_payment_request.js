@@ -16,5 +16,19 @@ frappe.ui.form.on('Advance Contract Payment Request', {
                 }
             }
         });
+    },
+    person_name: function (frm) {
+        frappe.call({
+            method: "calculate_allow_amount",
+            doc: frm.doc,
+            callback: function (r) {
+                if (r.message) {
+                    frm.set_value('allow_advance', r.message);
+                }
+                else {
+                    frm.set_value('allow_advance', 0);
+                }
+            }
+        })
     }
 });
