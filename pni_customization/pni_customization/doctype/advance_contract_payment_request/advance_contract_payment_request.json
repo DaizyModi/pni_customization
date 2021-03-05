@@ -11,6 +11,7 @@
   "column_break_4",
   "posting_date",
   "payment_required_by",
+  "skip_validation_allow_advance",
   "allow_advance",
   "amended_from"
  ],
@@ -69,10 +70,17 @@
    "fieldtype": "Float",
    "label": "Allow Advance",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "skip_validation_allow_advance",
+   "fieldtype": "Check",
+   "label": "Skip Validation Allow Advance",
+   "permlevel": 5
   }
  ],
  "is_submittable": 1,
- "modified": "2021-03-03 16:09:31.203599",
+ "modified": "2021-03-05 09:43:46.146298",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Advance Contract Payment Request",

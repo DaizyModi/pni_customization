@@ -10,12 +10,19 @@ import datetime
 
 class AdvanceContractPaymentRequest(Document):
     def validate(self):
-        self.allow_advance = self.calculate_paid_amount()
+        self.allow_advance = self.calculate_allow_amount()
+        self.validate_request_date()
+        self.validate_request_amount()
 
-    def calculate_paid_amount(self):
+    def validate_request_amount(self):
+        if self.requested_amount > self.allow_advance and not self.skip_validation_allow_advance:
+            frappe.throw(
+                "Requested Amount can't be greater then Allow Advance")
+
+    def calculate_allow_amount(self):
         billing_amount = self.get_billing_amount_for_date()
-        paid_amount = billing_amount * 0.6
-        return paid_amount
+        allow_billing_amount = billing_amount * 0.6
+        return allow_billing_amount
 
     def get_billing_amount_for_date(self):
         first_day = frappe.utils.data.get_first_day(
