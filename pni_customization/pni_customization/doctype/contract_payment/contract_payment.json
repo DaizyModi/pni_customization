@@ -58,7 +58,7 @@
    "fieldname": "month",
    "fieldtype": "Select",
    "label": "Month",
-   "options": "January\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
+   "options": "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
    "reqd": 1,
    "set_only_once": 1
   },
@@ -95,6 +95,7 @@
   },
   {
    "default": "0",
+   "depends_on": "eval:doc.month != ''",
    "fieldname": "is_advance_payment",
    "fieldtype": "Check",
    "label": "Is Advance Payment",
@@ -170,7 +171,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2021-03-03 15:44:05.258784",
+ "modified": "2021-03-05 17:33:20.129025",
  "modified_by": "Administrator",
  "module": "PNI Customization",
  "name": "Contract Payment",

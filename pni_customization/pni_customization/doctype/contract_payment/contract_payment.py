@@ -41,6 +41,8 @@ class ContractPayment(Document):
     def get_apr_by_month(self, doc):
         first_day = frappe.utils.data.get_first_day(self.month)
         last_day = frappe.utils.data.get_last_day(self.month)
+        self.from_date = first_day
+        self.to_date = last_day
         return str(first_day), str(last_day)
 
     def get_paid_amount(self):
@@ -121,11 +123,14 @@ class ContractPayment(Document):
         return paid_amount
 
     def get_billing_amount_for_date(self):
+        if not self.month or not self.year:
+            return 0
         first_day = frappe.utils.data.get_first_day(self.month)
         month = datetime.datetime.strptime(self.month, "%B")
         year = datetime.datetime.strptime(self.year, "%Y")
         middle_date_obj = datetime.date(year.year, month.month, 20)
         last_day = str(middle_date_obj)
+
         if self.person_type == "Worker":
             billing_total_amount = frappe.db.sql("""
                 select sum(pt.paying_amount)
