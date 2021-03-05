@@ -254,7 +254,8 @@ def get_permission_query_conditions_for_opportunity(user):
         user_list = ""
         owner = ""
         for data in allow:
-            user_list += " or `tabOpportunity`._assign like '%"+str(data)+"%',"
+            user_list += " or `tabOpportunity`._assign like '%" + \
+                str(data)+"%' "
             owner += "'"+str(data)+"',"
         owner = owner.strip(",")
         owner = "(" + owner + ")"
