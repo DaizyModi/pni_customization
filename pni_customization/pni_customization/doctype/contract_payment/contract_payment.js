@@ -48,6 +48,7 @@ frappe.ui.form.on('Contract Payment', {
                 else {
                     frm.set_value('allow_advance', 0);
                 }
+                frm.refresh_field('allow_advance');
             }
         })
     },
@@ -63,6 +64,7 @@ frappe.ui.form.on('Contract Payment', {
                 else {
                     frm.set_value('allow_advance', 0);
                 }
+                frm.refresh_field('allow_advance');
             }
         })
     },
@@ -78,6 +80,7 @@ frappe.ui.form.on('Contract Payment', {
                 else {
                     frm.set_value('allow_advance', 0);
                 }
+                frm.refresh_field('allow_advance');
             }
         })
     },
@@ -93,6 +96,7 @@ frappe.ui.form.on('Contract Payment', {
                 else {
                     frm.set_value('allow_advance', 0);
                 }
+                frm.refresh_field('allow_advance');
             }
         })
     }
