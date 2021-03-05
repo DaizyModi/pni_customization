@@ -282,19 +282,19 @@ def get_allow_sales_person(user):
     if sales_person:
         user_list.append(sales_person[0])
         if sales_person[1]:
-            get_child(user_list, sales_person[2])
+            get_sales_child(user_list, sales_person[2])
     print(user_list)
     return user_list
 
 
-def get_child(user_list, sales_person):
+def get_sales_child(user_list, sales_person):
     sales_person_parent = frappe.get_all('Sales Person', {
         'parent_sales_person': sales_person}, ["pni_user", "is_group"])
     print(sales_person_parent)
     for sales_person in sales_person_parent:
         user_list.append(sales_person['pni_user'])
         if sales_person['is_group']:
-            get_child(user_list, sales_person['pni_user'])
+            get_sales_child(user_list, sales_person['pni_user'])
 
 
 def is_sales_person_group():
