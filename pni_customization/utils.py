@@ -246,7 +246,7 @@ def get_child(user_list, pe):
 def get_permission_query_conditions_for_opportunity(user):
     if "System Manager" in frappe.get_roles(user):
         return None
-    elif "Sales User" in frappe.get_roles(user):
+    elif "Opportunity Permission" in frappe.get_roles(user):
         # return None
         print(user)
         allow = []
