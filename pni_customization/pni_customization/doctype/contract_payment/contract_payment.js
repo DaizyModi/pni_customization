@@ -37,8 +37,51 @@ frappe.ui.form.on('Contract Payment', {
                 frm.set_value('to_date', r.message[1]);
             }
         })
+        frappe.call({
+            method: "calculate_paid_amount",
+            doc: frm.doc,
+            callback: function (r) {
+                console.log(r.message)
+                if (r.message) {
+                    frm.set_value('allow_advance', r.message);
+                }
+                else {
+                    frm.set_value('allow_advance', 0);
+                }
+            }
+        })
     },
     person_name: function (frm) {
+        frappe.call({
+            method: "calculate_paid_amount",
+            doc: frm.doc,
+            callback: function (r) {
+                console.log(r.message)
+                if (r.message) {
+                    frm.set_value('allow_advance', r.message);
+                }
+                else {
+                    frm.set_value('allow_advance', 0);
+                }
+            }
+        })
+    },
+    year: function (frm) {
+        frappe.call({
+            method: "calculate_paid_amount",
+            doc: frm.doc,
+            callback: function (r) {
+                console.log(r.message)
+                if (r.message) {
+                    frm.set_value('allow_advance', r.message);
+                }
+                else {
+                    frm.set_value('allow_advance', 0);
+                }
+            }
+        })
+    },
+    person_type: function (frm) {
         frappe.call({
             method: "calculate_paid_amount",
             doc: frm.doc,
