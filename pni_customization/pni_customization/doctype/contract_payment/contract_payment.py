@@ -27,7 +27,7 @@ class ContractPayment(Document):
     def validate_advance_payment_request(self):
         if self.advance_payment_request:
             advance_request = frappe.get_all("Contract Payment", filters={
-                'advance_payment_request': self.advance_payment_request, 'name': ["!=", self.name], 'month': self.month, 'year': self.year})
+                'advance_payment_request': self.advance_payment_request, "person_name": self.person_name, 'name': ["!=", self.name], 'month': self.month, 'year': self.year})
             if advance_request:
                 frappe.throw("A request already submitted once")
 
