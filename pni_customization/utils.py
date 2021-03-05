@@ -247,15 +247,49 @@ def get_permission_query_conditions_for_opportunity(user):
     if "System Manager" in frappe.get_roles(user):
         return None
     elif "Sales User" in frappe.get_roles(user):
-        # if is_sales_person_group():
-        # 	return """
-        # 		(tabOpportunity.owner in ({user}) )
-        # 	""".format(user=is_sales_person_group())
-        return """
-		(tabOpportunity.owner = '{user}' )
-		or
-		(tabOpportunity._assign like '%{user}%')
-		""".format(user=user)
+        print(user)
+        allow = []
+        allow = get_allow_sales_person(user)
+        user_list = ""
+        for data in allow:
+            user_list += "'"+str(data)+"',"
+        user_list = user_list.strip(",")
+        user_list = "(" + user_list + ")"
+        if allow:
+            return """
+            `tabOpportunity`.owner in {allow} 
+            or
+            `tabOpportunity`._assign in {allow}
+            """.format(allow=user_list)
+        else:
+            return None
+    else:
+        return None
+    return "false"
+
+
+def get_allow_sales_person(user):
+    # return list of allow sales person
+    user_list = []
+    sales_person = frappe.get_value('Sales Person', {
+        'pni_user': user}, ["pni_user", "is_group", "name"])
+    print(sales_person)
+    if sales_person:
+        user_list.append(sales_person[0])
+        if sales_person[1]:
+            get_child(user_list, sales_person[2])
+    print(user_list)
+    return user_list
+
+
+def get_child(user_list, sales_person):
+    sales_person_parent = frappe.get_all('Sales Person', {
+        'parent_sales_person': sales_person}, ["pni_user", "is_group"])
+    print(sales_person_parent)
+    for sales_person in sales_person_parent:
+        user_list.append(sales_person['pni_user'])
+        if sales_person['is_group']:
+            get_child(user_list, sales_person['pni_user'])
 
 
 def is_sales_person_group():
