@@ -19,7 +19,7 @@ class AdvanceContractPaymentRequest(Document):
             self.payment_required_by)
         last_day = frappe.utils.data.get_last_day(self.payment_required_by)
         acpr = frappe.get_all(
-            "Advance Contract Payment Request", filters={"name": ["!=", self.name], "payment_required_by": [">=", str(first_day)], "payment_required_by": ["<=", str(last_day)]}, fields=["name", "posting_date"])
+            "Advance Contract Payment Request", filters={"name": ["!=", self.name], "payment_required_by": ["between", [str(first_day), str(last_day)]]}, fields=["name", "posting_date"])
         if acpr:
             frappe.throw(
                 "Advance Contract Payment Request Exist for This Month")
