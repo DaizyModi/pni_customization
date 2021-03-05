@@ -22,7 +22,7 @@ class ContractPayment(Document):
             frappe.throw(
                 "All dues paid against {0}".format(self.person_name))
 
-        self.allow_advance = self.calculate_paid_amount()
+        # self.allow_advance = self.calculate_paid_amount()
 
     def validate_advance_payment_request(self):
         if self.advance_payment_request:
@@ -37,6 +37,11 @@ class ContractPayment(Document):
             last_day = frappe.utils.data.get_last_day(self.month)
             self.from_date = str(first_day)
             self.to_date = str(last_day)
+
+    def get_apr_by_month(self, doc):
+        first_day = frappe.utils.data.get_first_day(self.month)
+        last_day = frappe.utils.data.get_last_day(self.month)
+        return str(first_day), str(last_day)
 
     def get_paid_amount(self):
         paid_amount = frappe.db.sql("""

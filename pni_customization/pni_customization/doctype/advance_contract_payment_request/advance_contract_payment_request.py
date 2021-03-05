@@ -10,19 +10,27 @@ import datetime
 
 class AdvanceContractPaymentRequest(Document):
     def validate(self):
-        self.allow_advance = self.calculate_allow_amount()
         self.validate_request_date()
         self.validate_request_amount()
+        self.validate_advance_request_date()
 
     def validate_request_date(self):
         first_day = frappe.utils.data.get_first_day(
             self.payment_required_by)
         last_day = frappe.utils.data.get_last_day(self.payment_required_by)
         acpr = frappe.get_all(
-            "Advance Contract Payment Request", filters={"name": ["!=", self.name], "payment_required_by": ["between", [str(first_day), str(last_day)]]}, fields=["name", "posting_date"])
+            "Advance Contract Payment Request", filters={"name": ["!=", self.name], "person_name": self.person_name, "payment_required_by": ["between", [str(first_day), str(last_day)]]}, fields=["name", "posting_date"])
         if acpr:
             frappe.throw(
                 "Advance Contract Payment Request Exist for This Month")
+
+    def validate_advance_request_date(self):
+        last_day = frappe.utils.data.get_last_day(self.posting_date)
+        middle_date_obj = datetime.date(last_day.year, last_day.month, 21)
+        first_day = str(middle_date_obj)
+        if self.payment_required_by < str(first_day):
+            frappe.throw("Payment Request Date shoule be between {0} and {1} ".format(
+                str(first_day), str(last_day)))
 
     def validate_request_amount(self):
         if self.requested_amount > self.allow_advance and not self.skip_validation_allow_advance:
